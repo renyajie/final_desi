@@ -6,12 +6,18 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ListView;
+
+import Helper.ImageAdapter;
+import test.Images;
 
 /**
  * Created by Thor on 2018/3/3.
  */
 
 public class NewsFragment extends Fragment {
+
+    private ListView listView;
 
     @Nullable
     @Override
@@ -22,6 +28,8 @@ public class NewsFragment extends Fragment {
     }
 
     private void initView(View view) {
-
+        listView = view.findViewById(R.id.list_view);
+        ImageAdapter adapter = new ImageAdapter(getContext(), 0, Images.newSet);
+        listView.setAdapter(adapter);
     }
 }

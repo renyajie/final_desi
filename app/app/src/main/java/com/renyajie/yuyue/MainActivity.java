@@ -11,7 +11,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
+
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+
 
     private Fragment main_fragment, news_fragment, mine_fragment;
     private LinearLayout main_layout, news_layout, mine_layout;
@@ -42,6 +46,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         main_layout.setOnClickListener(this);
         news_layout.setOnClickListener(this);
         mine_layout.setOnClickListener(this);
+
     }
 
     @Override

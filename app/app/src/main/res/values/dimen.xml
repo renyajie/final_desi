@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <dimen name="listview_top_bottom_paddiing">10dp</dimen>
+    <dimen name="listview_left_right_paddiing">10dp</dimen>
+    <dimen name="title_size">20sp</dimen>
+    <dimen name="time_size">16sp</dimen>
+    <dimen name="pic_height">100dp</dimen>
+</resources>

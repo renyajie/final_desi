@@ -6,6 +6,10 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.SimpleAdapter;
+import android.widget.Toast;
 
 import com.youth.banner.Banner;
 import com.youth.banner.BannerConfig;
@@ -13,6 +17,9 @@ import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import Helper.GlideImageLoader;
 
@@ -21,6 +28,10 @@ import Helper.GlideImageLoader;
  */
 
 public class MainFragment extends Fragment {
+
+    private GridView gridView;
+    private List<Map<String, Object>> dataList;
+    private SimpleAdapter adapter;
 
     @Nullable
     @Override
@@ -54,5 +65,33 @@ public class MainFragment extends Fragment {
         banner.setIndicatorGravity(BannerConfig.RIGHT);
         //banner设置方法全部调用完毕时最后调用
         banner.start();
+
+
+        gridView = view.findViewById(R.id.gridview);
+        int[] icons = { R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
+                R.mipmap.ic_launcher };
+        String[] name = { "1", "2", "3", "4", "5",
+                "6", "7", "8", "9", "10" };
+        dataList = new ArrayList<>();
+        for (int i = 0; i < icons.length; i++) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("image", icons[i]);
+            map.put("text", name[i]);
+            dataList.add(map);
+        }
+        String[] from = {"image", "text"};
+        int[] to = {R.id.grid_item_image, R.id.grid_item_text };
+        adapter = new SimpleAdapter(
+                getContext(), dataList, R.layout.fragment_main_gridview_item, from, to);
+        gridView.setAdapter(adapter);
+        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(),
+                        dataList.get(position).get("text").toString(), Toast.LENGTH_SHORT).show();
+            }
+        });
     }
 }
