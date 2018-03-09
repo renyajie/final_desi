@@ -1,37 +1,43 @@
 package com.renyajie.yuyue;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.GridView;
-import android.widget.SimpleAdapter;
-import android.widget.Toast;
-
-import com.youth.banner.Banner;
-import com.youth.banner.BannerConfig;
-import com.youth.banner.Transformer;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
-import Helper.GlideImageLoader;
+import main.ViewHolderType;
+import main.adapter.MainAdapter;
+import main.delegate.GlideImageDelegate;
+import main.delegate.GridButtonDelegate;
+import main.delegate.PossibleLikeDelegate;
+import main.delegate.SuperDelegate;
+import main.helper.SpaceItemDecoration;
+import main.model.GlideImageModel;
+import main.model.GridButtonModel;
+import main.model.PossibleLikeModel;
+import test.MainData;
 
 /**
  * Created by Thor on 2018/3/3.
+ *
+ * 主页，负责主页片段的代码逻辑
  */
 
 public class MainFragment extends Fragment {
 
-    private GridView gridView;
-    private List<Map<String, Object>> dataList;
-    private SimpleAdapter adapter;
+    private List<SuperDelegate> delegates = new ArrayList<>();
+    private RecyclerView recyclerView;
+    private MainAdapter adapter;
+    private LinearLayoutManager layoutManager;
+    private Context context;
 
     @Nullable
     @Override
@@ -42,56 +48,62 @@ public class MainFragment extends Fragment {
     }
 
     private void initView(View view) {
-        ArrayList<Integer> images = new ArrayList<>();
-        images.addAll(Arrays.asList(R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher));
-        //ArrayList<String> titles = new ArrayList<>();
-        //titles.addAll(Arrays.asList("第一张图片", "第二张图片", "第三张图片"));
-        Banner banner = (Banner) view.findViewById(R.id.banner);
-        //设置banner样式
-        banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
-        //设置图片加载器
-        banner.setImageLoader(new GlideImageLoader());
-        //设置图片集合
-        banner.setImages(images);
-        //设置banner动画效果
-        banner.setBannerAnimation(Transformer.Default);
-        //设置标题集合（当banner样式有显示title时）
-        //banner.setBannerTitles(titles);
-        //设置自动轮播，默认为true
-        banner.isAutoPlay(true);
-        //设置轮播时间
-        banner.setDelayTime(3000);
-        //设置指示器位置（当banner模式中有指示器时）
-        banner.setIndicatorGravity(BannerConfig.RIGHT);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
 
+        context = getContext();
 
-        gridView = view.findViewById(R.id.gridview);
-        int[] icons = { R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher, R.mipmap.ic_launcher, R.mipmap.ic_launcher,
-                R.mipmap.ic_launcher };
-        String[] name = { "1", "2", "3", "4", "5",
-                "6", "7", "8", "9", "10" };
-        dataList = new ArrayList<>();
-        for (int i = 0; i < icons.length; i++) {
-            Map<String, Object> map = new HashMap<>();
-            map.put("image", icons[i]);
-            map.put("text", name[i]);
-            dataList.add(map);
-        }
-        String[] from = {"image", "text"};
-        int[] to = {R.id.grid_item_image, R.id.grid_item_text };
-        adapter = new SimpleAdapter(
-                getContext(), dataList, R.layout.fragment_main_gridview_item, from, to);
-        gridView.setAdapter(adapter);
-        gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(),
-                        dataList.get(position).get("text").toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        delegates.clear();
+
+        //向RecyclerView中添加各类Item布局
+        delegates.add(new GlideImageDelegate(context));
+        delegates.add(new GridButtonDelegate(context));
+        delegates.add(new PossibleLikeDelegate(context));
+
+        recyclerView = view.findViewById(R.id.recycler_view_content_container);
+        layoutManager = new LinearLayoutManager(context);
+        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+        recyclerView.setLayoutManager(layoutManager);
+        //设置Item间距
+        recyclerView.addItemDecoration(new SpaceItemDecoration(30));
+        adapter = new MainAdapter(delegates);
+        recyclerView.setAdapter(adapter);
+
+        initGlideImage(MainData.imageModelList);
+        initGridButton(MainData.buttonModelList);
+        initPossibleLike(MainData.possibleLikeModelList);
     }
+
+    //初始化轮播图
+    private void initGlideImage(List<GlideImageModel> glideImageModelList) {
+        int position = getViewHolderPosition(ViewHolderType.GlideImage);
+        if(position == -1) return;
+        ((GlideImageDelegate)delegates.get(position)).setGlideImageModelList(glideImageModelList);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化网格按钮
+    private void initGridButton(List<GridButtonModel> gridButtonModelList) {
+        int position = getViewHolderPosition(ViewHolderType.GridButton);
+        if(position == -1) return;
+        ((GridButtonDelegate)delegates.get(position)).setGridButtonModelList(gridButtonModelList);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化猜你喜欢
+    private void initPossibleLike(List<PossibleLikeModel> possibleLikeModelList) {
+        int position = getViewHolderPosition(ViewHolderType.PossibleLike);
+        if(position == -1) return;
+        ((PossibleLikeDelegate)delegates.get(position)).setPossibleLikeModelList(possibleLikeModelList);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    // 获取指定类型View在列表中的位置
+    private int getViewHolderPosition(ViewHolderType type) {
+        for (int i = 0; i < delegates.size(); i++) {
+            if (delegates.get(i).getViewHolderType() == type) {
+                return i;
+            }
+        }
+        return -1;
+    }
+
 }

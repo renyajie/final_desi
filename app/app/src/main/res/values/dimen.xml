@@ -4,5 +4,7 @@
     <dimen name="listview_left_right_paddiing">10dp</dimen>
     <dimen name="title_size">20sp</dimen>
     <dimen name="time_size">16sp</dimen>
+    <dimen name="desc_size">12sp</dimen>
     <dimen name="pic_height">100dp</dimen>
+    <dimen name="pic_width">120dp</dimen>
 </resources>

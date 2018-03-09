@@ -8,8 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
 
-import Helper.ImageAdapter;
-import test.Images;
+import news.adapter.ImageAdapter;
+import news.test.Images;
 
 /**
  * Created by Thor on 2018/3/3.

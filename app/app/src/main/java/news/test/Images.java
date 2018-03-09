@@ -1,10 +1,9 @@
-package test;
+package news.test;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
-import News.NewsConfig;
+import news.model.NewsConfig;
 
 /**
  * 测试图片加载

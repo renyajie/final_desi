@@ -1,6 +1,4 @@
-package News;
-
-import android.widget.ListView;
+package news.model;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -4,6 +4,10 @@
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
 
-    <color name="white">#F2F2F2</color>
+    <color name="white">#FFFFFF</color>
     <color name="black">#3F3F40</color>
+
+    <color name="app_background">#E3E3E3</color>
+
+    <color name="divider_color">#323232</color>
 </resources>

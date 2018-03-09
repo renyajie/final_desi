@@ -1,31 +1,24 @@
-package Helper;
+package news.adapter;
 
 import android.content.Context;
-import android.graphics.Bitmap;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
-import android.util.LruCache;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.BaseAdapter;
-import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.android.volley.Request;
-import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.android.volley.toolbox.Volley;
-import com.renyajie.yuyue.MainActivity;
 import com.renyajie.yuyue.MyApplication;
 import com.renyajie.yuyue.R;
 
 import java.util.List;
 
-import News.NewsConfig;
+import main.helper.BitmapCache;
+import news.model.NewsConfig;
 
 /**
  * Created by Thor on 2018/3/7.
@@ -41,7 +34,7 @@ public class ImageAdapter extends BaseAdapter {
     ImageLoader imageLoader;
 
     public ImageAdapter(@NonNull Context context, int resource, List<NewsConfig> data) {
-        imageLoader = new ImageLoader(MyApplication.getHttpQueue(), new BitmapCache());
+        imageLoader = new ImageLoader(MyApplication.getHttpQueue(), MyApplication.getBitmapCache());
         this.data = data;
         this.context = context;
     }
@@ -191,33 +184,6 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         return convertView;
-    }
-
-    public class BitmapCache implements ImageLoader.ImageCache {
-
-        private LruCache<String, Bitmap> mCache;
-
-        public BitmapCache() {
-            //获取应用程序的最大可用内存
-            int maxMemory = (int) Runtime.getRuntime().maxMemory();
-            int cacheSize = maxMemory / 8;
-            mCache = new LruCache<String, Bitmap>(cacheSize) {
-                @Override
-                protected int sizeOf(String key, Bitmap value) {
-                    return value.getRowBytes() * value.getHeight();
-                }
-            };
-        }
-
-        @Override
-        public Bitmap getBitmap(String url) {
-            return mCache.get(url);
-        }
-
-        @Override
-        public void putBitmap(String url, Bitmap bitmap) {
-            mCache.put(url, bitmap);
-        }
     }
 
     public static class ViewHolderForLess {
