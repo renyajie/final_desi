@@ -1,4 +1,4 @@
-package main.helper;
+package utils;
 
 import android.graphics.Bitmap;
 import android.util.LruCache;
@@ -7,6 +7,8 @@ import com.android.volley.toolbox.ImageLoader;
 
 /**
  * Created by Thor on 2018/3/9.
+ *
+ * 图片缓存
  */
 
 public class BitmapCache implements ImageLoader.ImageCache {

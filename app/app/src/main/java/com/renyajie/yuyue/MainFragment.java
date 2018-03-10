@@ -13,12 +13,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.ViewHolderType;
-import main.adapter.MainAdapter;
+import utils.ViewHolderType;
+import utils.MainAdapter;
 import main.delegate.GlideImageDelegate;
 import main.delegate.GridButtonDelegate;
 import main.delegate.PossibleLikeDelegate;
-import main.delegate.SuperDelegate;
+import utils.SuperDelegate;
 import main.helper.SpaceItemDecoration;
 import main.model.GlideImageModel;
 import main.model.GridButtonModel;

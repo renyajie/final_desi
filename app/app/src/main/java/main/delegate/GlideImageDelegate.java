@@ -16,9 +16,10 @@ import com.youth.banner.Transformer;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.ViewHolderType;
+import utils.ViewHolderType;
 import main.helper.GlideImageLoader;
 import main.model.GlideImageModel;
+import utils.SuperDelegate;
 
 /**
  * Created by Thor on 2018/3/8.
@@ -27,12 +28,10 @@ import main.model.GlideImageModel;
  */
 public class GlideImageDelegate extends SuperDelegate {
 
-    private Context context;
     private LayoutInflater layoutInflater;
     private List<GlideImageModel> glideImageModelList;
 
     public GlideImageDelegate(Context context) {
-        this.context = context;
         layoutInflater = LayoutInflater.from(context);
     }
 

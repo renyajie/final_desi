@@ -1,7 +1,6 @@
 package main.adapter;
 
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,7 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.renyajie.yuyue.MyApplication;
+import utils.MyApplication;
 import com.renyajie.yuyue.R;
 
 import java.util.List;
@@ -36,7 +35,7 @@ public class PossibleLikeAdapter extends BaseAdapter implements AdapterView.OnIt
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
-        imageLoader = new ImageLoader(MyApplication.getHttpQueue(), MyApplication.getBitmapCache());
+        imageLoader = MyApplication.getImageLoader();
     }
 
     @Override

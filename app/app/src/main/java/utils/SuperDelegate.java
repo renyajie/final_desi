@@ -1,10 +1,8 @@
-package main.delegate;
+package utils;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
-
-import main.ViewHolderType;
 
 /**
  * Created by Thor on 2018/3/8.

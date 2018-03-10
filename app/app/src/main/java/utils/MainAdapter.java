@@ -1,14 +1,12 @@
-package main.adapter;
+package utils;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.ViewGroup;
 
 import java.util.List;
 
-import main.AdapterViewHolderManager;
-import main.ViewHolderType;
-import main.delegate.SuperDelegate;
-import main.model.GlideImageModel;
+import utils.AdapterViewHolderManager;
+import utils.SuperDelegate;
 
 /**
  * Created by Thor on 2018/3/8.

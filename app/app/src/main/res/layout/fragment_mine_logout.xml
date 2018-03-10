@@ -2,13 +2,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/app_background"
     android:orientation="vertical">
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recycler_view_content_container"
+    <Button
+        android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="#f5f5f5"/>
-
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:text="退出登录"/>
 </LinearLayout>

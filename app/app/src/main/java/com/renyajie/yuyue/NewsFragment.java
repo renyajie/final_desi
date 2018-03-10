@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 
 import news.adapter.ImageAdapter;
-import news.test.Images;
+import test.NewsData;
 
 /**
  * Created by Thor on 2018/3/3.
@@ -29,7 +29,8 @@ public class NewsFragment extends Fragment {
 
     private void initView(View view) {
         listView = view.findViewById(R.id.list_view);
-        ImageAdapter adapter = new ImageAdapter(getContext(), 0, Images.newSet);
+        ImageAdapter adapter = new ImageAdapter(getContext(), 0, NewsData.newSet);
         listView.setAdapter(adapter);
+        listView.setOnItemClickListener(adapter);
     }
 }

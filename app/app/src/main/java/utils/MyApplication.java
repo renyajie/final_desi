@@ -1,11 +1,12 @@
-package com.renyajie.yuyue;
+package utils;
 
 import android.app.Application;
 
 import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
-import main.helper.BitmapCache;
+import utils.BitmapCache;
 
 /**
  * Created by Thor on 2018/3/7.
@@ -16,12 +17,14 @@ import main.helper.BitmapCache;
 public class MyApplication extends Application {
     public static RequestQueue queue;
     public static BitmapCache bitmapCache;
+    public static ImageLoader imageLoader;
 
     @Override
     public void onCreate() {
         super.onCreate();
         queue = Volley.newRequestQueue(getApplicationContext());
         bitmapCache = new BitmapCache();
+        imageLoader = new ImageLoader(queue, bitmapCache);
     }
 
     public static RequestQueue getHttpQueue() {
@@ -30,5 +33,9 @@ public class MyApplication extends Application {
 
     public static BitmapCache getBitmapCache() {
         return bitmapCache;
+    }
+
+    public static ImageLoader getImageLoader() {
+        return imageLoader;
     }
 }

@@ -7,4 +7,7 @@
     <dimen name="desc_size">12sp</dimen>
     <dimen name="pic_height">100dp</dimen>
     <dimen name="pic_width">120dp</dimen>
+
+    <dimen name="nick_name">20sp</dimen>
+    <dimen name="phone">20sp</dimen>
 </resources>

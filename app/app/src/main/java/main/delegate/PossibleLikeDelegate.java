@@ -13,9 +13,10 @@ import com.renyajie.yuyue.R;
 
 import java.util.List;
 
-import main.ViewHolderType;
+import utils.ViewHolderType;
 import main.adapter.PossibleLikeAdapter;
 import main.model.PossibleLikeModel;
+import utils.SuperDelegate;
 
 /**
  * Created by Thor on 2018/3/8.

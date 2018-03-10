@@ -1,4 +1,4 @@
-package news.test;
+package test;
 
 import java.util.Arrays;
 import java.util.List;
@@ -6,11 +6,12 @@ import java.util.List;
 import news.model.NewsConfig;
 
 /**
- * 测试图片加载
  * Created by Thor on 2018/3/7.
+ *
+ * News页面的测试数据
  */
 
-public class Images {
+public class NewsData {
 
     public final static String[] imageUrls = new String[]{
             "http://www.renyajie.com/images/docker.jpg",

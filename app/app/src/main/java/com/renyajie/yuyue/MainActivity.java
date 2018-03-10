@@ -13,6 +13,10 @@ import android.widget.TextView;
 
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.Volley;
+import com.renyajie.yuyue.MainFragment;
+import com.renyajie.yuyue.MineFragment;
+import com.renyajie.yuyue.NewsFragment;
+import com.renyajie.yuyue.R;
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener{
 

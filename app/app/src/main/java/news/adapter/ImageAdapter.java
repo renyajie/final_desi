@@ -7,24 +7,25 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
-import com.renyajie.yuyue.MyApplication;
+import utils.MyApplication;
 import com.renyajie.yuyue.R;
 
 import java.util.List;
 
-import main.helper.BitmapCache;
 import news.model.NewsConfig;
 
 /**
  * Created by Thor on 2018/3/7.
  */
 
-public class ImageAdapter extends BaseAdapter {
+public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
 
     public static final int MANY_PIC_LAYOUT = 0;
     public static final int LESS_PIC_LAYOUT = 1;
@@ -184,6 +185,11 @@ public class ImageAdapter extends BaseAdapter {
         }
 
         return convertView;
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Toast.makeText(context, data.get(position).title, Toast.LENGTH_SHORT).show();
     }
 
     public static class ViewHolderForLess {

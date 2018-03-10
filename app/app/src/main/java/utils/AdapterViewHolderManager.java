@@ -1,4 +1,4 @@
-package main;
+package utils;
 
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -7,8 +7,7 @@ import android.view.ViewGroup;
 
 import java.util.List;
 
-import main.delegate.SuperDelegate;
-import main.model.GlideImageModel;
+import utils.SuperDelegate;
 
 /**
  * Created by Thor on 2018/3/8.

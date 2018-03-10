@@ -19,9 +19,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import main.ViewHolderType;
-import main.model.GlideImageModel;
+import utils.ViewHolderType;
 import main.model.GridButtonModel;
+import utils.SuperDelegate;
 
 /**
  * Created by Thor on 2018/3/8.
