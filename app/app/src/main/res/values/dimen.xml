@@ -2,12 +2,32 @@
 <resources>
     <dimen name="listview_top_bottom_paddiing">10dp</dimen>
     <dimen name="listview_left_right_paddiing">10dp</dimen>
+
     <dimen name="title_size">20sp</dimen>
     <dimen name="time_size">16sp</dimen>
     <dimen name="desc_size">12sp</dimen>
+
     <dimen name="pic_height">100dp</dimen>
     <dimen name="pic_width">120dp</dimen>
 
-    <dimen name="nick_name">20sp</dimen>
-    <dimen name="phone">20sp</dimen>
+    <dimen name="main_button_size">30dp</dimen>
+    <dimen name="main_button_text_size">12sp</dimen>
+
+    <dimen name="icon_bottom_size">24dp</dimen>
+    <dimen name="icon_bottom_text_size">12sp</dimen>
+
+    <dimen name="user_icon_size">60dp</dimen>
+    <dimen name="user_icon_margin_left_right">12dp</dimen>
+
+    <dimen name="item_text_size_big">18sp</dimen>
+    <dimen name="item_text_size_normal">16sp</dimen>
+    <dimen name="item_text_size_small">12sp</dimen>
+
+    <dimen name="mine_icon_size">24dp</dimen>
+    <dimen name="mine_icon_padding_start">24dp</dimen>
+    <dimen name="mine_icon_text_distance">24dp</dimen>
+    <dimen name="mine_divider_padding_left_right">24dp</dimen>
+
+    <dimen name="mine_basic_divider_margin_top_bottom">16dp</dimen>
+    <dimen name="mine_basic_line_width">3px</dimen>
 </resources>

@@ -20,6 +20,15 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name="main.activity.people_class_order.PeopleClassOrderActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name="main.activity.individual_class_order.IndividualClassOrderActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name="main.activity.people_order_confirm.PeopleOrderConfirmActivity"
+            android:parentActivityName="main.activity.people_class_order.PeopleClassOrderActivity"/>
     </application>
 
 </manifest>

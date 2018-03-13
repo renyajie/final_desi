@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import utils.RequestType;
 import utils.ViewHolderType;
 import utils.MainAdapter;
 import main.delegate.GlideImageDelegate;

@@ -1,22 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/my_toolBar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:elevation="4dp"
+            app:titleTextColor="@android:color/white" />
+
         <FrameLayout
             android:id="@+id/container"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:background="@color/black"/>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
+            android:paddingBottom="4dp"
+            android:paddingTop="6dp"
             android:orientation="horizontal">
             <LinearLayout
                 android:id="@+id/main_layout"
@@ -27,15 +44,16 @@
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/main_logo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="@dimen/icon_bottom_size"
+                    android:layout_height="@dimen/icon_bottom_size"
+                    android:src="@mipmap/icon_main_on" />
                 <TextView
                     android:id="@+id/main_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="主页" />
+                    android:text="主页"
+                    android:textSize="@dimen/icon_bottom_text_size"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/news_layout"
@@ -46,15 +64,16 @@
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/news_logo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="@dimen/icon_bottom_size"
+                    android:layout_height="@dimen/icon_bottom_size"
+                    android:src="@mipmap/icon_news_off"/>
                 <TextView
                     android:id="@+id/news_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="资讯" />
+                    android:text="资讯"
+                    android:textSize="@dimen/icon_bottom_text_size"/>
             </LinearLayout>
             <LinearLayout
                 android:id="@+id/mine_layout"
@@ -65,15 +84,16 @@
                 android:orientation="vertical">
                 <ImageView
                     android:id="@+id/mine_logo"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_launcher"/>
+                    android:layout_width="@dimen/icon_bottom_size"
+                    android:layout_height="@dimen/icon_bottom_size"
+                    android:src="@mipmap/icon_mine_off"/>
                 <TextView
                     android:id="@+id/mine_text"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center_horizontal"
-                    android:text="我" />
+                    android:text="我"
+                    android:textSize="@dimen/icon_bottom_text_size"/>
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

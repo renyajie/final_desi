@@ -70,7 +70,7 @@ public class LogoutDelegate extends SuperDelegate {
 
     public static class LogoutViewHolder extends RecyclerView.ViewHolder {
 
-        Button logout;
+        TextView logout;
 
         public LogoutViewHolder(View itemView) {
             super(itemView);

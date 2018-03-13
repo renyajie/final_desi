@@ -7,10 +7,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.GridView;
 import android.widget.SimpleAdapter;
-import android.widget.Toast;
 
 import com.renyajie.yuyue.R;
 
@@ -19,6 +17,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import main.helper.MyItemClickListener;
 import utils.ViewHolderType;
 import main.model.GridButtonModel;
 import utils.SuperDelegate;
@@ -80,6 +79,7 @@ public class GridButtonDelegate extends SuperDelegate {
             Map<String, Object> map = new HashMap<>();
             map.put("image", model.picResourceId);
             map.put("text", model.title);
+            map.put("RequestType", model.requestType);
             buttonData.add(map);
         }
         String[] from = {"image", "text"};
@@ -88,13 +88,7 @@ public class GridButtonDelegate extends SuperDelegate {
                 context, buttonData, R.layout.fragment_main_grid_button_item, from, to);
         ((GridButtonViewHolder)viewHolder).gridView.setAdapter(buttonAdapter);
         ((GridButtonViewHolder)viewHolder).gridView
-                .setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(context,
-                        buttonData.get(position).get("text").toString(), Toast.LENGTH_SHORT).show();
-            }
-        });
+                .setOnItemClickListener(new MyItemClickListener(context, gridButtonModelList));
     }
 
 

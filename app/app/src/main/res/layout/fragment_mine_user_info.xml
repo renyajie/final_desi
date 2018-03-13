@@ -11,9 +11,10 @@
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/icon"
-        android:layout_width="0dp"
-        android:layout_height="@dimen/pic_height"
-        android:layout_weight="1"/>
+        android:layout_width="@dimen/user_icon_size"
+        android:layout_height="@dimen/user_icon_size"
+        android:layout_marginStart="@dimen/user_icon_margin_left_right"
+        android:layout_marginEnd="@dimen/user_icon_margin_left_right"/>
 
     <LinearLayout
         android:layout_width="0dp"
@@ -25,14 +26,15 @@
             android:id="@+id/nickname"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/nick_name"
-            android:text="冰糖"/>
+            android:textSize="@dimen/item_text_size_normal"
+            android:text="冰糖"
+            android:textColor="@color/pure_black"/>
         <TextView
             android:id="@+id/phone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
-            android:textSize="@dimen/phone"
+            android:textSize="@dimen/item_text_size_small"
             android:text="17826856214"/>
     </LinearLayout>
 </LinearLayout>

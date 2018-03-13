@@ -1,13 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
-    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorPrimary">#26A69A</color>
+    <color name="colorPrimaryDark">#16B6AB</color>
     <color name="colorAccent">#FF4081</color>
 
     <color name="white">#FFFFFF</color>
     <color name="black">#3F3F40</color>
+    <color name="gray">#DCDCDC</color>
+    <color name="yellow">#FFFF00</color>
+    <color name="gold">#FFD700</color>
+    <color name="pure_black">#000000</color>
 
     <color name="app_background">#E3E3E3</color>
 
     <color name="divider_color">#323232</color>
+
+    <color name="icon_bottom_text_off">#BFBFBF</color>
+    <color name="icon_bottom_text_on">#26A69A</color>
+
+    <color name="mine_divider">#D2D2D2</color>
+
+    <color name="logout">#B22222</color>
 </resources>

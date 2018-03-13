@@ -13,7 +13,6 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
-import main.delegate.GlideImageDelegate;
 import utils.MyApplication;
 import utils.ViewHolderType;
 import mine.model.UserInfoModel;

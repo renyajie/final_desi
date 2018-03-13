@@ -1,26 +1,19 @@
 package com.renyajie.yuyue;
 
-import android.graphics.Color;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.android.volley.RequestQueue;
-import com.android.volley.toolbox.Volley;
-import com.renyajie.yuyue.MainFragment;
-import com.renyajie.yuyue.MineFragment;
-import com.renyajie.yuyue.NewsFragment;
-import com.renyajie.yuyue.R;
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
-
-
+    private Toolbar toolbar;
     private Fragment main_fragment, news_fragment, mine_fragment;
     private LinearLayout main_layout, news_layout, mine_layout;
     private ImageView main_logo, news_logo, mine_logo;
@@ -29,12 +22,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_all);
         initView();
         setSelect(0);
     }
 
     private void initView() {
+        toolbar = findViewById(R.id.my_toolBar);
+        setSupportActionBar(toolbar);
+
         main_layout = findViewById(R.id.main_layout);
         news_layout = findViewById(R.id.news_layout);
         mine_layout = findViewById(R.id.mine_layout);
@@ -111,8 +107,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         showFragment(main_fragment);
                     }
                 }
-                main_logo.setImageResource(R.mipmap.ic_launcher_round);
-                main_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                main_logo.setImageResource(R.mipmap.icon_main_on);
+                main_text.setTextColor(getResources().getColor(R.color.icon_bottom_text_on));
                 break;
             case 1:
                 if (news_fragment == null) {
@@ -124,8 +120,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         showFragment(news_fragment);
                     }
                 }
-                news_logo.setImageResource(R.mipmap.ic_launcher_round);
-                news_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                news_logo.setImageResource(R.mipmap.icon_news_on);
+                news_text.setTextColor(getResources().getColor(R.color.icon_bottom_text_on));
                 break;
             case 2:
                 if (mine_fragment == null) {
@@ -137,20 +133,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                         showFragment(mine_fragment);
                     }
                 }
-                mine_logo.setImageResource(R.mipmap.ic_launcher_round);
-                mine_text.setTextColor(getResources().getColor(R.color.colorAccent));
+                mine_logo.setImageResource(R.mipmap.icon_mine_on);
+                mine_text.setTextColor(getResources().getColor(R.color.icon_bottom_text_on));
                 break;
         }
     }
 
     private void resetImgs() {
-        main_logo.setImageResource(R.mipmap.ic_launcher);
-        news_logo.setImageResource(R.mipmap.ic_launcher);
-        mine_logo.setImageResource(R.mipmap.ic_launcher);
+        main_logo.setImageResource(R.mipmap.icon_main_off);
+        news_logo.setImageResource(R.mipmap.icon_news_off);
+        mine_logo.setImageResource(R.mipmap.icon_mine_off);
 
-        main_text.setTextColor(getResources().getColor(R.color.black));
-        news_text.setTextColor(getResources().getColor(R.color.black));
-        mine_text.setTextColor(getResources().getColor(R.color.black));
+        main_text.setTextColor(getResources().getColor(R.color.icon_bottom_text_off));
+        news_text.setTextColor(getResources().getColor(R.color.icon_bottom_text_off));
+        mine_text.setTextColor(getResources().getColor(R.color.icon_bottom_text_off));
 
         /*
         main_layout.setBackground(getResources().getDrawable(R.color.black));

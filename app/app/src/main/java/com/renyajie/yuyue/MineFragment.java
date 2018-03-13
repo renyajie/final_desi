@@ -13,13 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import main.delegate.GlideImageDelegate;
-import main.delegate.GridButtonDelegate;
-import main.delegate.PossibleLikeDelegate;
 import main.helper.SpaceItemDecoration;
-import main.model.GlideImageModel;
-import main.model.GridButtonModel;
-import main.model.PossibleLikeModel;
 import mine.delegate.BasicRecordDelegate;
 import mine.delegate.LogoutDelegate;
 import mine.delegate.MoreFunctionDelegate;
@@ -70,7 +64,7 @@ public class MineFragment extends Fragment {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         recyclerView.setLayoutManager(layoutManager);
         //设置Item间距
-        recyclerView.addItemDecoration(new SpaceItemDecoration(30));
+        recyclerView.addItemDecoration(new SpaceItemDecoration(60));
         adapter = new MainAdapter(delegates);
         recyclerView.setAdapter(adapter);
 

@@ -2,77 +2,110 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:orientation="vertical"
-    android:background="@color/white">
+    android:background="@color/white"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/experiment_lesson_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:drawablePadding="@dimen/mine_icon_text_distance"
+        android:drawableStart="@mipmap/mine_tiyanke"
+        android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:text="体验课记录"
-        android:textSize="@dimen/title_size"/>
+        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/mine_icon_padding_start"
+        android:paddingTop="10dp"
+        android:text="@string/mine_experience"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/item_text_size_normal" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/black"/>
+        android:layout_marginLeft="@dimen/mine_divider_padding_left_right"
+        android:layout_marginRight="@dimen/mine_divider_padding_left_right"
+        android:background="@color/mine_divider" />
 
     <TextView
         android:id="@+id/member_card"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:drawablePadding="@dimen/mine_icon_text_distance"
+        android:drawableStart="@mipmap/mine_card"
+        android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:text="我的会员卡"
-        android:textSize="@dimen/title_size"/>
+        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/mine_icon_padding_start"
+        android:paddingTop="10dp"
+        android:text="@string/mine_card"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/item_text_size_normal" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/black"/>
+        android:layout_marginLeft="@dimen/mine_divider_padding_left_right"
+        android:layout_marginRight="@dimen/mine_divider_padding_left_right"
+        android:background="@color/mine_divider" />
 
     <TextView
         android:id="@+id/card_order"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:drawablePadding="@dimen/mine_icon_text_distance"
+        android:drawableStart="@mipmap/mine_card_order"
+        android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:text="购卡订单"
-        android:textSize="@dimen/title_size"/>
+        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/mine_icon_padding_start"
+        android:paddingTop="10dp"
+        android:text="@string/mine_card_order"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/item_text_size_normal" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/black"/>
+        android:layout_marginLeft="@dimen/mine_divider_padding_left_right"
+        android:layout_marginRight="@dimen/mine_divider_padding_left_right"
+        android:background="@color/mine_divider"/>
 
     <TextView
         android:id="@+id/lesson_absent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:drawablePadding="@dimen/mine_icon_text_distance"
+        android:drawableStart="@mipmap/mine_leave"
+        android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:text="我的请假"
-        android:textSize="@dimen/title_size"/>
+        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/mine_icon_padding_start"
+        android:paddingTop="10dp"
+        android:text="@string/mine_leave"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/item_text_size_normal" />
 
     <View
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:background="@color/black"/>
+        android:layout_marginLeft="@dimen/mine_divider_padding_left_right"
+        android:layout_marginRight="@dimen/mine_divider_padding_left_right"
+        android:background="@color/mine_divider" />
 
     <TextView
         android:id="@+id/history_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:paddingLeft="20dp"
-        android:paddingTop="10dp"
+        android:drawablePadding="@dimen/mine_icon_text_distance"
+        android:drawableStart="@mipmap/mine_history"
+        android:gravity="center_vertical"
         android:paddingBottom="10dp"
-        android:text="历史记录"
-        android:textSize="@dimen/title_size"/>
+        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/mine_icon_padding_start"
+        android:paddingTop="10dp"
+        android:text="@string/mine_history"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/item_text_size_normal" />
 
 </LinearLayout>
