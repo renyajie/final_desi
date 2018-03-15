@@ -62,6 +62,7 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
         Log.d("PlaceAndDateDelegate", "onBindViewHolder");
 
         // 防止刷新UI
+
         if(!uiFlag) {
             return;
         }

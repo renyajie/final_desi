@@ -1,4 +1,4 @@
-package main.activity.people_order_confirm;
+package main.activity.individual_order_confirm;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -8,19 +8,21 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.widget.Toast;
+import android.util.Log;
 
 import com.renyajie.yuyue.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.activity.people_class_order.delegate.PlaceAndDateDelegate;
+import main.activity.individual_order_confirm.delegate.IndividualOrderDetailDelegate;
+import main.activity.individual_order_confirm.model.IndividualOrderDetailModel;
 import main.activity.people_order_confirm.delegate.PeopleOrderDetailDelegate;
 import main.activity.people_order_confirm.delegate.PeopleOrderPayDelegate;
 import main.activity.people_order_confirm.model.PeopleOrderDetailModel;
 import main.activity.people_order_confirm.model.PeopleOrderPayModel;
 import main.helper.SpaceItemDecoration;
+import test.IndividualOrderConfirmData;
 import test.PeopleOrderConfirmData;
 import utils.AppConstant;
 import utils.MainAdapter;
@@ -28,12 +30,12 @@ import utils.SuperDelegate;
 import utils.ViewHolderType;
 
 /**
- * Created by Thor on 2018/3/13.
+ * Created by Thor on 2018/3/15.
  *
- * 订单预约界面
+ * 私教预约的订单确认页面
  */
 
-public class PeopleOrderConfirmActivity extends AppCompatActivity {
+public class IndividualOrderConfirmActivity extends AppCompatActivity {
 
     //标题栏名称
     private static final String PageName = "课程预约";
@@ -50,11 +52,12 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_people_order_confirm);
+        setContentView(R.layout.activity_main_individual_order_confirm);
         initView();
     }
 
     private void initView() {
+
         //接收Intent参数
         receiveIntentData();
 
@@ -68,8 +71,8 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         context = this;
         delegates.clear();
 
-        //向RecyclerView中添加各类Item布局
-        delegates.add(new PeopleOrderDetailDelegate(this));
+        //TODO 向RecyclerView中添加各类Item布局
+        delegates.add(new IndividualOrderDetailDelegate(this));
         delegates.add(new PeopleOrderPayDelegate(this));
 
         recyclerView = findViewById(R.id.recycler_view_content_container);
@@ -81,15 +84,17 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         adapter = new MainAdapter(delegates);
         recyclerView.setAdapter(adapter);
 
-        initOrderDetail(PeopleOrderConfirmData.peopleOrderDetailModel);
+        //TODO 初始化参数
+        initOrderDetail(IndividualOrderConfirmData.individualOrderDetailModel);
         initOrderPay(PeopleOrderConfirmData.peopleOrderPayModel);
     }
 
     //初始化课程详情部分
-    private void initOrderDetail(PeopleOrderDetailModel model) {
-        int position = getViewHolderPosition(ViewHolderType.PeopleOrderDetail);
+    private void initOrderDetail(IndividualOrderDetailModel model) {
+        int position = getViewHolderPosition(ViewHolderType.IndividualOrderDetail);
         if(position == -1) return;
-        ((PeopleOrderDetailDelegate)delegates.get(position)).setPeopleOrderDetailModel(model);
+        ((IndividualOrderDetailDelegate)delegates.get(position))
+                .setIndividualOrderDetailModel(model);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
@@ -98,7 +103,7 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         int position = getViewHolderPosition(ViewHolderType.PeopleOrderPay);
         if(position == -1) return;
         ((PeopleOrderPayDelegate)delegates.get(position)).setPeopleOrderPayModel(model);
-        ((PeopleOrderPayDelegate)delegates.get(position)).setWhereStart(AppConstant.START_FROM_PEOPLE_ORDER);
+        ((PeopleOrderPayDelegate)delegates.get(position)).setWhereStart(AppConstant.START_FROM_INDIVIDUAL_ORDER);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
@@ -108,8 +113,7 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         this.placeId = bundle.getInt("placeId", 0);
         this.classId = bundle.getInt("classId", 0);
         //TODO REMOVE, 初始化订单详情模型数据
-        Toast.makeText(this,
-                "场地编号是" + placeId + ", 课程编号是" + classId, Toast.LENGTH_SHORT).show();
+        Log.d("msg", "场地编号是" + placeId + ", 课程编号是" + classId);
     }
 
     // 获取指定类型View在列表中的位置

@@ -29,6 +29,16 @@
         <activity
             android:name="main.activity.people_order_confirm.PeopleOrderConfirmActivity"
             android:parentActivityName="main.activity.people_class_order.PeopleClassOrderActivity"/>
+        <activity
+            android:name="main.activity.individual_order_confirm.IndividualOrderConfirmActivity"
+            android:parentActivityName="main.activity.individual_class_order.IndividualClassOrderActivity"/>
+        <activity
+            android:name="main.activity.order_success.OrderSuccessActivity"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity
+            android:name="mine.activity.order_class.OrderClassListActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

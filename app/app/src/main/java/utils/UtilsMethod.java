@@ -32,4 +32,24 @@ public class UtilsMethod {
         }
         return dateString;
     }
+
+    //在theNextNDay的基础上加上“今天明天和后天”
+    public static String theNextNDayWithText(int nextAmount) {
+        String result = null;
+        switch (nextAmount) {
+            case 0:
+                result = "今天" + theNextNDay(0);
+                break;
+            case 1:
+                result = "明天" + theNextNDay(0);
+                break;
+            case 2:
+                result = "后天" + theNextNDay(0);
+                break;
+            default:
+                result = theNextNDay(nextAmount);
+                break;
+        }
+        return result;
+    }
 }

@@ -1,9 +1,11 @@
 package mine.helper;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import mine.activity.order_class.OrderClassListActivity;
 import utils.RequestType;
 
 /**
@@ -26,7 +28,9 @@ public class MyClickListener implements View.OnClickListener {
     public void onClick(View v) {
         switch (this.requestType) {
             case Mine_OrderLessonTime:
-                Toast.makeText(context, "点击了约课", Toast.LENGTH_SHORT).show();
+                Intent intentForOrderLessonTime =
+                        new Intent(context, OrderClassListActivity.class);
+                context.startActivity(intentForOrderLessonTime);
                 break;
             case Mine_LearnTime:
                 Toast.makeText(context, "点击了上课记录", Toast.LENGTH_SHORT).show();

@@ -14,6 +14,12 @@ public enum ViewHolderType {
     //PeopleClassOrderActivity中的View类型
     ClassAndDate, PeopleClassBrief,
 
-    //PeopleClassOrderActivity中的View类型
-    PeopleClassOrderConfirm;
+    //PeopleOrderConfirmActivity中的View类型
+    PeopleOrderDetail, PeopleOrderPay,
+
+    //IndividualOrderActivity中的View类型
+    IndividualClassBrief,
+
+    //IndividualOrderConfirmActivity中的View类型
+    IndividualOrderDetail;
 }

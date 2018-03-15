@@ -7,18 +7,18 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.renyajie.yuyue.R;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import main.activity.people_class_order.helper.MyRadioButtonListener;
-import main.activity.people_class_order.helper.MySpinnerSelectListener;
 import main.activity.people_class_order.model.PlaceModel;
 import utils.SuperDelegate;
 import utils.UtilsMethod;
@@ -30,16 +30,25 @@ import utils.ViewHolderType;
  * 团课预约中选择场馆和日期的部分
  */
 
-public class PlaceAndDateDelegate extends SuperDelegate {
+public class PlaceAndDateDelegate extends SuperDelegate
+        implements AdapterView.OnItemSelectedListener, RadioGroup.OnCheckedChangeListener{
 
     private Context context;
     private LayoutInflater layoutInflater;
     private List<PlaceModel> placeModelList;
     private ArrayAdapter<String> arrayAdapter;
+    private PlaceAndDateDelegateViewHolder placeViewHolder;
+    private ChangePlaceOrDate changePlaceOrDate;
+
+    public interface ChangePlaceOrDate {
+        void changePlace(int placeId);
+        void changeDate(int amount);
+    }
 
     public PlaceAndDateDelegate(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
+        changePlaceOrDate = (ChangePlaceOrDate) context;
     }
 
     public void setPlaceModelList(List<PlaceModel> placeModelList) {
@@ -76,6 +85,7 @@ public class PlaceAndDateDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
+        placeViewHolder = (PlaceAndDateDelegateViewHolder)viewHolder;
 
         //设置场馆下拉列表
         List<String> classNameList = new ArrayList<>();
@@ -85,20 +95,44 @@ public class PlaceAndDateDelegate extends SuperDelegate {
         arrayAdapter = new ArrayAdapter<>(
                 context, android.R.layout.simple_spinner_item, classNameList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        ((PlaceAndDateDelegateViewHolder)viewHolder).classList.setAdapter(arrayAdapter);
-        ((PlaceAndDateDelegateViewHolder)viewHolder).classList.setOnItemSelectedListener(
-                new MySpinnerSelectListener(context, placeModelList));
+        placeViewHolder.classList.setAdapter(arrayAdapter);
+        placeViewHolder.classList.setOnItemSelectedListener(this);
 
-        //设置日期
-        ((PlaceAndDateDelegateViewHolder)viewHolder).radioGroup.setOnCheckedChangeListener(
-                new MyRadioButtonListener(context));
-        ((PlaceAndDateDelegateViewHolder)viewHolder).today
-                .setText(UtilsMethod.theNextNDay(0));
-        ((PlaceAndDateDelegateViewHolder)viewHolder).tomorrow
-                .setText(UtilsMethod.theNextNDay(1));
-        ((PlaceAndDateDelegateViewHolder)viewHolder).theDayAfterTomorrow
-                .setText(UtilsMethod.theNextNDay(2));
+        //设置日期，默认选中今天
+        placeViewHolder.radioGroup.setOnCheckedChangeListener(this);
+        placeViewHolder.today.setText(UtilsMethod.theNextNDayWithText(0));
+        placeViewHolder.tomorrow.setText(UtilsMethod.theNextNDayWithText(1));
+        placeViewHolder.theDayAfterTomorrow.setText(UtilsMethod.theNextNDayWithText(2));
     }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        PlaceModel model = placeModelList.get(position);
+        changePlaceOrDate.changePlace(model.placeId);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onCheckedChanged(RadioGroup group, int checkedId) {
+        switch (checkedId) {
+            case R.id.today:
+                changePlaceOrDate.changeDate(0);
+                break;
+            case R.id.tomorrow:
+                changePlaceOrDate.changeDate(1);
+                break;
+            case R.id.the_day_after_tomorrow:
+                changePlaceOrDate.changeDate(2);
+                break;
+            default:
+                break;
+        }
+    }
+
 
     public static class PlaceAndDateDelegateViewHolder extends RecyclerView.ViewHolder {
 
@@ -116,3 +150,4 @@ public class PlaceAndDateDelegate extends SuperDelegate {
         }
     }
 }
+

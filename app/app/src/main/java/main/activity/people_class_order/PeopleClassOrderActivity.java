@@ -8,6 +8,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.widget.Toast;
 
 import com.renyajie.yuyue.R;
 
@@ -30,7 +32,8 @@ import utils.ViewHolderType;
  * Main页面中的团课预约子页面，负责团课预约的所有逻辑
  */
 
-public class PeopleClassOrderActivity extends AppCompatActivity {
+public class PeopleClassOrderActivity
+        extends AppCompatActivity implements PlaceAndDateDelegate.ChangePlaceOrDate {
 
     private static final String PageName = "团课预约";
     private Toolbar toolbar;
@@ -72,7 +75,7 @@ public class PeopleClassOrderActivity extends AppCompatActivity {
 
         //初始化组件数据
         initClass(PeopleClassOrderData.placeModelList);
-        initPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList);
+        //initPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList);
     }
 
     //初始化课程名称信息
@@ -92,6 +95,14 @@ public class PeopleClassOrderActivity extends AppCompatActivity {
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
+    //刷新PeopleClassBrief模块
+    private void refreshPeopleClassBrief(List<PeopleClassBriefModel> peopleClassBriefModelList) {
+        int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
+        ((PeopleClassBriefDelegate) delegates.get(position))
+                .setPeopleClassBriefModelList(peopleClassBriefModelList);
+        adapter.updatePositionDelegate(position);
+    }
+
     // 获取指定类型View在列表中的位置
     private int getViewHolderPosition(ViewHolderType type) {
         for (int i = 0; i < delegates.size(); i++) {
@@ -100,5 +111,19 @@ public class PeopleClassOrderActivity extends AppCompatActivity {
             }
         }
         return -1;
+    }
+
+    //用户修改场馆时回调
+    @Override
+    public void changePlace(int placeId) {
+        Log.v("msg", "改变场馆");
+        refreshPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList.subList(0, 3));
+    }
+
+    //用户修改日期时回调
+    @Override
+    public void changeDate(int amount) {
+        Log.v("msg","改变日期");
+        refreshPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList.subList(0, 1));
     }
 }

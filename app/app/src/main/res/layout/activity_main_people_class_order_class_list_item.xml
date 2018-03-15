@@ -125,6 +125,8 @@
         android:background="@drawable/radiobutton_background_checked"
         android:text="预约"
         android:textSize="@dimen/item_text_size_small"
-        android:textColor="@color/white"/>
+        android:textColor="@color/white"
+        android:focusable="false"
+        android:clickable="true"/>
 
 </RelativeLayout>

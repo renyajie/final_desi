@@ -3,6 +3,7 @@ package main.activity.people_class_order.adapter;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import java.util.List;
 
 import main.activity.people_order_confirm.PeopleOrderConfirmActivity;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
+import utils.AppConstant;
 
 /**
  * Created by Thor on 2018/3/12.
@@ -25,7 +27,8 @@ import main.activity.people_class_order.model.PeopleClassBriefModel;
  * 团课预约界面的课程列表的适配器
  */
 
-public class PeopleClassBriefAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
+public class PeopleClassBriefAdapter extends BaseAdapter
+        implements AdapterView.OnItemClickListener{
 
     private Context context;
     private LayoutInflater layoutInflater;
@@ -58,9 +61,10 @@ public class PeopleClassBriefAdapter extends BaseAdapter implements AdapterView.
         ViewHolder viewHolder;
 
         if (convertView == null) {
+
             viewHolder = new ViewHolder();
             convertView = layoutInflater.inflate(
-                    R.layout.activity_main_people_class_order_class_list_item, parent, false);
+                    R.layout.activity_main_people_class_order_class_list_item, null);
 
             viewHolder.startTime = convertView.findViewById(R.id.start_time);
             viewHolder.className = convertView.findViewById(R.id.class_name);
@@ -76,16 +80,18 @@ public class PeopleClassBriefAdapter extends BaseAdapter implements AdapterView.
             viewHolder.className.setText(model.className);
             viewHolder.teacherName.setText(model.teacherName);
             viewHolder.classroom.setText(model.classroom);
+
             // 未约满时还需显示余量有多少，这里需要将status，涉及到Text和Button的转换
-            if(model.status != 2) {
-                viewHolder.allowanceHelp.setVisibility(View.GONE);
-                viewHolder.allowance.setVisibility(View.GONE);
-                viewHolder.statusButton.setVisibility(View.GONE);
+            if(model.status != AppConstant.PEOPLE_ORDER_CAN_ORDER) {
+                viewHolder.allowanceHelp.setVisibility(View.INVISIBLE);
+                viewHolder.allowance.setVisibility(View.INVISIBLE);
+                viewHolder.statusButton.setVisibility(View.INVISIBLE);
                 viewHolder.statusText.setText(convertStatusToString(model.status));
             } else {
                 viewHolder.allowance.setText(String.valueOf(model.allowance));
-                viewHolder.statusText.setVisibility(View.GONE);
+                viewHolder.statusText.setVisibility(View.INVISIBLE);
             }
+
             viewHolder.difficulty.setRating(Float.valueOf(model.difficulty));
             convertView.setTag(viewHolder);
         } else {
@@ -94,16 +100,18 @@ public class PeopleClassBriefAdapter extends BaseAdapter implements AdapterView.
             viewHolder.className.setText(model.className);
             viewHolder.teacherName.setText(model.teacherName);
             viewHolder.classroom.setText(model.classroom);
+
             // 未约满时还需显示余量有多少，这里需要将status，涉及到Text和Button的转换
-            if(model.status != 2) {
-                viewHolder.allowanceHelp.setVisibility(View.GONE);
-                viewHolder.allowance.setVisibility(View.GONE);
-                viewHolder.statusButton.setVisibility(View.GONE);
+            if(model.status != AppConstant.PEOPLE_ORDER_CAN_ORDER) {
+                viewHolder.allowanceHelp.setVisibility(View.INVISIBLE);
+                viewHolder.allowance.setVisibility(View.INVISIBLE);
+                viewHolder.statusButton.setVisibility(View.INVISIBLE);
                 viewHolder.statusText.setText(convertStatusToString(model.status));
             } else {
                 viewHolder.allowance.setText(String.valueOf(model.allowance));
-                viewHolder.statusText.setVisibility(View.GONE);
+                viewHolder.statusText.setVisibility(View.INVISIBLE);
             }
+
             viewHolder.difficulty.setRating(Float.valueOf(model.difficulty));
         }
 
@@ -127,7 +135,7 @@ public class PeopleClassBriefAdapter extends BaseAdapter implements AdapterView.
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         PeopleClassBriefModel model = data.get(position);
-
+        Log.v("msg", "课程名:" + model.className);
         Intent intent = new Intent(context, PeopleOrderConfirmActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("placeId", model.placeId);
