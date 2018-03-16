@@ -15,7 +15,8 @@ public class AppConstant {
     public static final Integer PEOPLE_ORDER_CAN_ORDER = 2;
     public static final Integer PEOPLE_ORDER_FULL = 3;
 
-    //表示从团课或是思科预约成功，用于继续预约返回对应的预约界面
-    public static final Integer START_FROM_PEOPLE_ORDER = 1;
-    public static final Integer START_FROM_INDIVIDUAL_ORDER = 2;
+    //团课，私教或是体验课程
+    public static final Integer PEOPLE_ORDER = 1;
+    public static final Integer INDIVIDUAL_ORDER = 2;
+    public static final Integer EXPERIENCE_ORDER = 3;
 }

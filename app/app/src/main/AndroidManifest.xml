@@ -35,10 +35,17 @@
         <activity
             android:name="main.activity.order_success.OrderSuccessActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity
+            android:name="main.activity.experience_class_order.ExperienceClassOrderActivity"
+            android:parentActivityName=".MainActivity"/>
 
         <activity
             android:name="mine.activity.order_class.OrderClassListActivity"
             android:parentActivityName=".MainActivity"/>
+
+        <activity
+            android:name="mine.activity.order_class.OrderDetailActivity"
+            android:parentActivityName="mine.activity.order_class.OrderClassListActivity"/>
     </application>
 
 </manifest>

@@ -1,6 +1,7 @@
 package mine.activity.order_class.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,6 +15,7 @@ import com.renyajie.yuyue.R;
 
 import java.util.List;
 
+import mine.activity.order_class.OrderDetailActivity;
 import mine.activity.order_class.model.OrderClassBriefModel;
 
 /**
@@ -33,6 +35,11 @@ public class OrderClassListAdapter extends BaseAdapter implements AdapterView.On
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.data = orderClassBriefModelList;
+    }
+
+    public void setData(List<OrderClassBriefModel> data) {
+        this.data = data;
+        notifyDataSetChanged();
     }
 
     @Override
@@ -84,7 +91,9 @@ public class OrderClassListAdapter extends BaseAdapter implements AdapterView.On
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         OrderClassBriefModel model = data.get(position);
-        Log.d("msg", model.placeName);
+        Intent intent = new Intent(context, OrderDetailActivity.class);
+        intent.putExtra("viewType", model.classType);
+        context.startActivity(intent);
     }
 
     class ViewHolder {

@@ -10,6 +10,7 @@ import com.renyajie.yuyue.MainFragment;
 
 import java.util.List;
 
+import main.activity.experience_class_order.ExperienceClassOrderActivity;
 import main.activity.individual_class_order.IndividualClassOrderActivity;
 import main.activity.people_class_order.PeopleClassOrderActivity;
 import main.model.GridButtonModel;
@@ -48,7 +49,8 @@ public class MyItemClickListener implements AdapterView.OnItemClickListener {
                 Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();
                 break;
             case Main_ExperienceClassOrder:
-                Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();
+                Intent intentForExperienceOrder = new Intent(context, ExperienceClassOrderActivity.class);
+                context.startActivity(intentForExperienceOrder);
                 break;
             case Main_Photo:
                 Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();

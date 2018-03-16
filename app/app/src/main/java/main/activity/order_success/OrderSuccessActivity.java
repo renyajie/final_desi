@@ -59,7 +59,7 @@ public class OrderSuccessActivity extends AppCompatActivity implements View.OnCl
     //接收Intent启动参数
     private void receiveIntentData() {
         this.whereToBack = getIntent().getIntExtra("start_from",
-                AppConstant.START_FROM_PEOPLE_ORDER);
+                AppConstant.PEOPLE_ORDER);
     }
 
     @Override
@@ -70,7 +70,7 @@ public class OrderSuccessActivity extends AppCompatActivity implements View.OnCl
                 startActivity(intentForCheck);
                 break;
             case R.id.continue_order:
-                if (whereToBack == AppConstant.START_FROM_PEOPLE_ORDER) {
+                if (whereToBack == AppConstant.PEOPLE_ORDER) {
                     Intent intent = new Intent(this, PeopleClassOrderActivity.class);
                     startActivity(intent);
                 } else {

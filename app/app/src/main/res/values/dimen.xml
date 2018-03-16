@@ -30,4 +30,7 @@
 
     <dimen name="mine_basic_divider_margin_top_bottom">16dp</dimen>
     <dimen name="mine_basic_line_width">3px</dimen>
+
+    <dimen name="item_margin_big">10dp</dimen>
+    <dimen name="item_margin_normal">6dp</dimen>
 </resources>

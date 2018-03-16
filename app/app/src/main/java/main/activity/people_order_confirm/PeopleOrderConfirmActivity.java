@@ -98,7 +98,7 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         int position = getViewHolderPosition(ViewHolderType.PeopleOrderPay);
         if(position == -1) return;
         ((PeopleOrderPayDelegate)delegates.get(position)).setPeopleOrderPayModel(model);
-        ((PeopleOrderPayDelegate)delegates.get(position)).setWhereStart(AppConstant.START_FROM_PEOPLE_ORDER);
+        ((PeopleOrderPayDelegate)delegates.get(position)).setWhereStart(AppConstant.PEOPLE_ORDER);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 

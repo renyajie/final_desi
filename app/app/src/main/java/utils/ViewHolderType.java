@@ -21,5 +21,8 @@ public enum ViewHolderType {
     IndividualClassBrief,
 
     //IndividualOrderConfirmActivity中的View类型
-    IndividualOrderDetail;
+    IndividualOrderDetail,
+
+    //OrderDetailActivity中的view类型
+    OrderLesson, OrderPlace, OrderDetail, OrderLessonRule;
 }

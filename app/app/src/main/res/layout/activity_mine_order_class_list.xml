@@ -3,6 +3,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tool="http://schemas.android.com/tools"
     android:orientation="vertical"
     android:background="@color/white">
 
@@ -13,6 +14,57 @@
         android:background="@color/colorPrimary"
         android:elevation="4dp"
         app:titleTextColor="@android:color/white" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/all_lesson"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="全部订单"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/people_lesson"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="团课"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal" />
+
+        <RadioButton
+            android:id="@+id/individual_lesson"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="私教"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal" />
+    </RadioGroup>
 
     <ListView
         android:id="@+id/list_view"
