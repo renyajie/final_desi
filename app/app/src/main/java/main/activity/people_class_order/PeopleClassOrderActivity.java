@@ -21,6 +21,7 @@ import main.activity.people_class_order.delegate.PlaceAndDateDelegate;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import main.activity.people_class_order.model.PlaceModel;
 import main.helper.SpaceItemDecoration;
+import mine.activity.order_class.delegate.OrderLessonRuleDelegate;
 import test.PeopleClassOrderData;
 import utils.MainAdapter;
 import utils.SuperDelegate;
@@ -63,6 +64,7 @@ public class PeopleClassOrderActivity
         //向RecyclerView中添加各类Item布局
         delegates.add(new PlaceAndDateDelegate(this));
         delegates.add(new PeopleClassBriefDelegate(this));
+        delegates.add(new OrderLessonRuleDelegate(this));
 
         recyclerView = findViewById(R.id.recycler_view_content_container);
         layoutManager = new LinearLayoutManager(context);

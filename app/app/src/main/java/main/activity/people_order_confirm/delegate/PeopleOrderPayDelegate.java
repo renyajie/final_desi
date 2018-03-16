@@ -114,7 +114,7 @@ public class PeopleOrderPayDelegate extends SuperDelegate
         payViewHolder.expend.setText(String.valueOf(model.expend));
 
         //设置点击服务条款弹出对话框
-        payViewHolder.expend.setOnClickListener(this);
+        payViewHolder.protocol.setOnClickListener(this);
 
         //设置预约按钮的监听器
         payViewHolder.confirmButton.setOnClickListener(this);
@@ -186,7 +186,7 @@ public class PeopleOrderPayDelegate extends SuperDelegate
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        //...To-do
+                        payViewHolder.readCheck.setChecked(true);
                     }
                 });
         normalDialog.setNegativeButton("关闭",
