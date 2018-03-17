@@ -95,6 +95,8 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
         if(position == -1) return;
         ((IndividualClassBriefDelegate)delegates.get(position))
                 .setIndividualClassBriefModelList(individualClassBriefModelList);
+        ((IndividualClassBriefDelegate)delegates.get(position))
+                .setShowRecommendTitle(false);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 

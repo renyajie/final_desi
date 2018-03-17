@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.renyajie.yuyue.R;
 
@@ -30,14 +31,20 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
     private LayoutInflater layoutInflater;
     private List<PeopleClassBriefModel> peopleClassBriefModelList;
     private PeopleClassBriefAdapter adapter;
+    private boolean showRecommendTitle;
 
     public PeopleClassBriefDelegate(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
+        showRecommendTitle = false;
     }
 
     public void setPeopleClassBriefModelList(List<PeopleClassBriefModel> peopleClassBriefModelList) {
         this.peopleClassBriefModelList = peopleClassBriefModelList;
+    }
+
+    public void setShowRecommendTitle(boolean showRecommendTitle) {
+        this.showRecommendTitle = showRecommendTitle;
     }
 
     @Override
@@ -72,15 +79,23 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
         adapter = new PeopleClassBriefAdapter(context, peopleClassBriefModelList);
         ((PeopleClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((PeopleClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
+
+        if (showRecommendTitle) {
+            ((PeopleClassBriefViewHolder)viewHolder).title.setText("-团课推荐-");
+        }else {
+            ((PeopleClassBriefViewHolder)viewHolder).title.setVisibility(View.GONE);
+        }
     }
 
     public static class PeopleClassBriefViewHolder extends RecyclerView.ViewHolder {
 
+        TextView title;
         ListView listView;
 
         public PeopleClassBriefViewHolder(View itemView) {
             super(itemView);
             listView = itemView.findViewById(R.id.list_view);
+            title = itemView.findViewById(R.id.title);
         }
     }
 }

@@ -94,6 +94,8 @@ public class PeopleClassOrderActivity
         if(position == -1) return;
         ((PeopleClassBriefDelegate)delegates.get(position))
                 .setPeopleClassBriefModelList(peopleClassBriefModelList);
+        ((PeopleClassBriefDelegate)delegates.get(position))
+                .setShowRecommendTitle(false);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
@@ -102,6 +104,8 @@ public class PeopleClassOrderActivity
         int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
         ((PeopleClassBriefDelegate) delegates.get(position))
                 .setPeopleClassBriefModelList(peopleClassBriefModelList);
+        ((PeopleClassBriefDelegate)delegates.get(position))
+                .setShowRecommendTitle(false);
         adapter.updatePositionDelegate(position);
     }
 

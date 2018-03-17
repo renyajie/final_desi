@@ -13,7 +13,12 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
-import utils.RequestType;
+import main.activity.individual_class_order.delegate.IndividualClassBriefDelegate;
+import main.activity.individual_class_order.model.IndividualClassBriefModel;
+import main.activity.people_class_order.delegate.PeopleClassBriefDelegate;
+import main.activity.people_class_order.model.PeopleClassBriefModel;
+import test.IndividualClassOrderData;
+import test.PeopleClassOrderData;
 import utils.ViewHolderType;
 import utils.MainAdapter;
 import main.delegate.GlideImageDelegate;
@@ -57,7 +62,10 @@ public class MainFragment extends Fragment {
         //向RecyclerView中添加各类Item布局
         delegates.add(new GlideImageDelegate(context));
         delegates.add(new GridButtonDelegate(context));
-        delegates.add(new PossibleLikeDelegate(context));
+        //移出猜你喜欢，加入团课预约和私教预约的推荐
+        //delegates.add(new PossibleLikeDelegate(context));
+        delegates.add(new PeopleClassBriefDelegate(context));
+        delegates.add(new IndividualClassBriefDelegate(context));
 
         recyclerView = view.findViewById(R.id.recycler_view_content_container);
         layoutManager = new LinearLayoutManager(context);
@@ -70,7 +78,10 @@ public class MainFragment extends Fragment {
 
         initGlideImage(MainData.imageModelList);
         initGridButton(MainData.buttonModelList);
-        initPossibleLike(MainData.possibleLikeModelList);
+        //todo 移除猜你喜欢的推荐，初始化团课推荐和私教推荐
+        //initPossibleLike(MainData.possibleLikeModelList);
+        initPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList);
+        initIndividualClassBrief(IndividualClassOrderData.individualClassBriefModelList);
     }
 
     //初始化轮播图
@@ -94,6 +105,28 @@ public class MainFragment extends Fragment {
         int position = getViewHolderPosition(ViewHolderType.PossibleLike);
         if(position == -1) return;
         ((PossibleLikeDelegate)delegates.get(position)).setPossibleLikeModelList(possibleLikeModelList);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化团课预约的课程信息
+    private void initPeopleClassBrief(List<PeopleClassBriefModel> peopleClassBriefModelList) {
+        int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
+        if(position == -1) return;
+        ((PeopleClassBriefDelegate)delegates.get(position))
+                .setPeopleClassBriefModelList(peopleClassBriefModelList);
+        ((PeopleClassBriefDelegate)delegates.get(position))
+                .setShowRecommendTitle(true);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化私教课程详细信息
+    private void initIndividualClassBrief(List<IndividualClassBriefModel> individualClassBriefModelList) {
+        int position = getViewHolderPosition(ViewHolderType.IndividualClassBrief);
+        if(position == -1) return;
+        ((IndividualClassBriefDelegate)delegates.get(position))
+                .setIndividualClassBriefModelList(individualClassBriefModelList);
+        ((IndividualClassBriefDelegate)delegates.get(position))
+                .setShowRecommendTitle(true);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 

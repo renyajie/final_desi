@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.renyajie.yuyue.R;
 
@@ -28,14 +29,20 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
     private LayoutInflater layoutInflater;
     private List<IndividualClassBriefModel> individualClassBriefModelList;
     private IndividualClassBriefAdapter adapter;
+    private boolean showRecommendTitle;
 
     public IndividualClassBriefDelegate(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
+        showRecommendTitle = false;
     }
 
     public void setIndividualClassBriefModelList(List<IndividualClassBriefModel> individualClassBriefModelList) {
         this.individualClassBriefModelList = individualClassBriefModelList;
+    }
+
+    public void setShowRecommendTitle(boolean showRecommendTitle) {
+        this.showRecommendTitle = showRecommendTitle;
     }
 
     @Override
@@ -71,15 +78,23 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
         adapter = new IndividualClassBriefAdapter(context, individualClassBriefModelList);
         ((IndividualClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((IndividualClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
+
+        if (showRecommendTitle) {
+            ((IndividualClassBriefViewHolder)viewHolder).title.setText("-私教推荐-");
+        }else {
+            ((IndividualClassBriefViewHolder)viewHolder).title.setVisibility(View.GONE);
+        }
     }
 
     public static class IndividualClassBriefViewHolder extends RecyclerView.ViewHolder {
 
         ListView listView;
+        TextView title;
 
         public IndividualClassBriefViewHolder(View itemView) {
             super(itemView);
             listView = itemView.findViewById(R.id.list_view);
+            title = itemView.findViewById(R.id.title);
         }
     }
 }
