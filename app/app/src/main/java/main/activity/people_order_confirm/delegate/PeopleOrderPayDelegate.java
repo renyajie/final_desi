@@ -180,8 +180,7 @@ public class PeopleOrderPayDelegate extends SuperDelegate
                 new AlertDialog.Builder(context);
         normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle("会员服务条款");
-        //TODO 加入会员服务条款
-        normalDialog.setMessage("xxxxx");
+        normalDialog.setMessage(context.getResources().getString(R.string.protocol));
         normalDialog.setPositiveButton("同意",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -211,7 +210,6 @@ public class PeopleOrderPayDelegate extends SuperDelegate
                 new AlertDialog.Builder(context);
         normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle("注意");
-        //TODO 加入会员服务条款
         normalDialog.setMessage("您需要先同意会员条款才能预约");
         normalDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {

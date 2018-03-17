@@ -71,7 +71,7 @@ public class IndividualOrderConfirmActivity extends AppCompatActivity {
         context = this;
         delegates.clear();
 
-        //TODO 向RecyclerView中添加各类Item布局
+        //向RecyclerView中添加各类Item布局
         delegates.add(new IndividualOrderDetailDelegate(this));
         delegates.add(new PeopleOrderPayDelegate(this));
 

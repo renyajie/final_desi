@@ -14,6 +14,7 @@ import main.activity.experience_class_order.ExperienceClassOrderActivity;
 import main.activity.individual_class_order.IndividualClassOrderActivity;
 import main.activity.people_class_order.PeopleClassOrderActivity;
 import main.model.GridButtonModel;
+import mine.activity.order_class.OrderClassListActivity;
 import utils.RequestType;
 
 /**
@@ -59,7 +60,8 @@ public class MyItemClickListener implements AdapterView.OnItemClickListener {
                 Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();
                 break;
             case Main_Leave:
-                Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();
+                Intent intentForLeave = new Intent(context, OrderClassListActivity.class);
+                context.startActivity(intentForLeave);
                 break;
             case Main_Classroom:
                 Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();

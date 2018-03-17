@@ -92,7 +92,6 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
         ((PeopleClassOrderDetailViewHolder)viewHolder).time.setText(model.classTime);
         ((PeopleClassOrderDetailViewHolder)viewHolder).difficulty.setRating(Float.valueOf(model.difficulty));
 
-        //TODO 设置一个对话框，显示课程简介
         ((PeopleClassOrderDetailViewHolder)viewHolder).introduction.setOnClickListener(
                 new View.OnClickListener() {
                     @Override

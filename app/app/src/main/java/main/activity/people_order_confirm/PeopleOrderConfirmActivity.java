@@ -8,6 +8,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.renyajie.yuyue.R;
@@ -108,8 +109,7 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         this.placeId = bundle.getInt("placeId", 0);
         this.classId = bundle.getInt("classId", 0);
         //TODO REMOVE, 初始化订单详情模型数据
-        Toast.makeText(this,
-                "场地编号是" + placeId + ", 课程编号是" + classId, Toast.LENGTH_SHORT).show();
+        Log.d("msg", "场地编号是" + placeId + ", 课程编号是" + classId);
     }
 
     // 获取指定类型View在列表中的位置

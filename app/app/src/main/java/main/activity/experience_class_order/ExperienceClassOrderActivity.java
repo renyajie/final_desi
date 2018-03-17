@@ -74,7 +74,7 @@ public class ExperienceClassOrderActivity extends AppCompatActivity
         confirmButton = findViewById(R.id.confirm_button);
 
 
-        //TODO 完成组件的初始化工作
+        // 完成组件的初始化工作
         //初始化课程下拉列表
         classNameList = new ArrayList<>();
         for(ClassModel model: ExperienceClassData.classModelList) {
@@ -147,8 +147,7 @@ public class ExperienceClassOrderActivity extends AppCompatActivity
                 new AlertDialog.Builder(this);
         normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle("会员服务条款");
-        //TODO 加入会员服务条款
-        normalDialog.setMessage("xxxxx");
+        normalDialog.setMessage(getResources().getString(R.string.protocol));
         normalDialog.setPositiveButton("同意",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -178,7 +177,6 @@ public class ExperienceClassOrderActivity extends AppCompatActivity
                 new AlertDialog.Builder(this);
         normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle("注意");
-        //TODO 加入会员服务条款
         normalDialog.setMessage("您需要先同意会员条款才能预约");
         normalDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
