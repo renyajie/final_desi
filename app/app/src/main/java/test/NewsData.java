@@ -23,81 +23,50 @@ public class NewsData {
     };
 
     public final static List<NewsConfig> newSet = Arrays.asList(
-            new NewsConfig("一起来吃芒果", "03-07", Arrays.asList("养生"),
+            new NewsConfig(1, "一起来吃芒果", "03-07",
+                    "印度瑜伽馆",
+                    Arrays.asList("养生"),
                     Arrays.asList(
                             "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
                             "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
                             "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
                             "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
                     , null),
-            new NewsConfig("跑步", "03-07", Arrays.asList("养生"),
+            new NewsConfig(2, "跑步", "03-07",
+                    "中国瑜伽馆",
+                    Arrays.asList("养生"),
                     Arrays.asList(
                             "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg")
                     , null),
-            new NewsConfig("一起来吃苹果", "03-07", Arrays.asList("养生"),
+            new NewsConfig(3, "一起来吃苹果", "03-07",
+                    "泰国瑜伽馆",
+                    Arrays.asList("养生"),
                     Arrays.asList(
                             "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
                             "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
                             "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
                             "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
                     , null),
-            new NewsConfig("打羽毛球", "03-07", Arrays.asList("养生"),
+            new NewsConfig(4, "打羽毛球", "03-07",
+                    "韩国瑜伽馆",
+                    Arrays.asList("养生"),
                     Arrays.asList(
                             "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg")
                     , null),
-            new NewsConfig("一起来吃芒果", "03-07", Arrays.asList("养生"),
+            new NewsConfig(5, "一起来吃芒果", "03-07",
+                    "俄罗斯瑜伽馆",
+                    Arrays.asList("养生"),
                     Arrays.asList(
                             "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
                             "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
                             "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
                             "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
                     , null),
-            new NewsConfig("踢足球", "03-07", Arrays.asList("养生"),
+            new NewsConfig(6, "踢足球", "03-07",
+                    "日本瑜伽馆",
+                    Arrays.asList("养生"),
                     Arrays.asList(
                             "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg")
-                    , null),
-            new NewsConfig("一起来吃苹果", "03-07", Arrays.asList("养生"),
-                    Arrays.asList(
-                            "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
-                            "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
-                            "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
-                            "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
-                    , null),
-            new NewsConfig("篮球", "03-07", Arrays.asList("养生"),
-                    Arrays.asList(
-                            "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg")
-                    , null),
-            new NewsConfig("一起来吃芒果", "03-07", Arrays.asList("养生"),
-                    Arrays.asList(
-                            "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
-                            "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
-                            "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
-                            "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
-                            , null),
-            new NewsConfig("一起来吃苹果", "03-07", Arrays.asList("养生"),
-                    Arrays.asList(
-                            "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
-                            "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
-                            "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
-                            "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
-                            , null),
-            new NewsConfig("乒乓球", "03-07", Arrays.asList("锻炼"),
-                    Arrays.asList(
-                            "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg")
-                    , null),
-            new NewsConfig("一起来吃芒果", "03-07", Arrays.asList("养生"),
-                    Arrays.asList(
-                            "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
-                            "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
-                            "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
-                            "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
-                    , null),
-            new NewsConfig("一起来吃苹果", "03-07", Arrays.asList("养生"),
-                    Arrays.asList(
-                            "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg",
-                            "http://img.zcool.cn/community/0142135541fe180000019ae9b8cf86.jpg@1280w_1l_2o_100sh.png",
-                            "http://img07.tooopen.com/images/20170316/tooopen_sy_201956178977.jpg",
-                            "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg")
                     , null)
     );
 }

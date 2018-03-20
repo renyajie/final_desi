@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE generatorConfiguration
+  PUBLIC "-//mybatis.org//DTD MyBatis Generator Configuration 1.0//EN"
+  "http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
+<generatorConfiguration>
+
+	<context id="DB2Tables" targetRuntime="MyBatis3">
+		<commentGenerator>
+			<property name="suppressAllComments" value="true" />
+		</commentGenerator>
+		<!-- 配置数据库连接 -->
+		<jdbcConnection driverClass="com.mysql.jdbc.Driver"
+			connectionURL="jdbc:mysql://localhost:3306/yuyue" userId="root"
+			password="1234">
+		</jdbcConnection>
+
+		<javaTypeResolver>
+			<property name="forceBigDecimals" value="false" />
+		</javaTypeResolver>
+
+		<!-- javaBean -->
+		<javaModelGenerator targetPackage="com.ryj.yuyue.bean"
+			targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+			<property name="trimStrings" value="true" />
+		</javaModelGenerator>
+
+		<!-- sql mapper -->
+		<sqlMapGenerator targetPackage="mapper" 
+			targetProject=".\src\main\resources">
+			<property name="enableSubPackages" value="true" />
+		</sqlMapGenerator>
+		
+		<!-- dao -->
+		<javaClientGenerator type="XMLMAPPER"
+			targetPackage="com.ryj.yuyue.dao" targetProject=".\src\main\java">
+			<property name="enableSubPackages" value="true" />
+		</javaClientGenerator>
+
+		<!-- table generate strategy -->
+		<table tableName="user" domainObjectName="User"></table>
+		<table tableName="manager" domainObjectName="Manager"></table>
+		<table tableName="sys_manager" domainObjectName="SystemManager"></table>
+		<table tableName="place" domainObjectName="Place"></table>
+		<table tableName="class_kind" domainObjectName="ClassKind"></table>
+		<table tableName="teacher" domainObjectName="Teacher"></table>
+		<table tableName="class_info" domainObjectName="ClassInfo"></table>
+		<table tableName="class_order" domainObjectName="ClassOrder"></table>
+		<table tableName="card_kind" domainObjectName="ClassKind"></table>
+		<table tableName="card_info" domainObjectName="CardInfo"></table>
+		<table tableName="card_order" domainObjectName="CardOrder"></table>
+		<table tableName="news" domainObjectName="News"></table>
+	</context>
+</generatorConfiguration>

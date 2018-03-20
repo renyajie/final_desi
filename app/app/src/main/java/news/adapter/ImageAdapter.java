@@ -1,6 +1,7 @@
 package news.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.util.Log;
@@ -14,6 +15,8 @@ import android.widget.Toast;
 
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
+
+import news.NewsDetailActivity;
 import utils.MyApplication;
 import com.renyajie.yuyue.R;
 
@@ -23,6 +26,8 @@ import news.model.NewsConfig;
 
 /**
  * Created by Thor on 2018/3/7.
+ *
+ * 新闻资讯的适配器
  */
 
 public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
@@ -104,13 +109,7 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
                     viewHolderForLess.image = convertView.findViewById(R.id.image);
                     viewHolderForLess.title = convertView.findViewById(R.id.title);
                     viewHolderForLess.date = convertView.findViewById(R.id.date);
-
-                    viewHolderForLess.image.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForLess.image.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForLess.image.setImageUrl(item.url.get(0), imageLoader);
-
-                    viewHolderForLess.title.setText(item.title);
-                    viewHolderForLess.date.setText(item.date);
+                    viewHolderForLess.publisher = convertView.findViewById(R.id.publisher);
 
                     convertView.setTag(viewHolderForLess);
                     break;
@@ -126,21 +125,7 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
                     viewHolderForMany.pic_three = convertView.findViewById(R.id.pic_three);
                     viewHolderForMany.title = convertView.findViewById(R.id.title);
                     viewHolderForMany.date = convertView.findViewById(R.id.date);
-
-                    viewHolderForMany.pic_one.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_one.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_one.setImageUrl(item.url.get(0), imageLoader);
-
-                    viewHolderForMany.pic_two.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_two.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_two.setImageUrl(item.url.get(1), imageLoader);
-
-                    viewHolderForMany.pic_three.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_three.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_three.setImageUrl(item.url.get(2), imageLoader);
-
-                    viewHolderForMany.title.setText(item.title);
-                    viewHolderForMany.date.setText(item.date);
+                    viewHolderForMany.publisher = convertView.findViewById(R.id.publisher);
 
                     convertView.setTag(viewHolderForMany);
                     break;
@@ -150,38 +135,45 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
         } else {
             switch (type) {
                 case LESS_PIC_LAYOUT:
-                    Log.d("not null view", "less pic layout");
                     viewHolderForLess = (ViewHolderForLess) convertView.getTag();
-
-                    viewHolderForLess.image.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForLess.image.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForLess.image.setImageUrl(item.url.get(0), imageLoader);
-
-                    viewHolderForLess.title.setText(item.title);
-                    viewHolderForLess.date.setText(item.date);
                     break;
                 case MANY_PIC_LAYOUT:
-                    Log.d("not null view", "many pic layout");
                     viewHolderForMany = (ViewHolderForMany) convertView.getTag();
-
-                    viewHolderForMany.pic_one.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_one.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_one.setImageUrl(item.url.get(0), imageLoader);
-
-                    viewHolderForMany.pic_two.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_two.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_two.setImageUrl(item.url.get(1), imageLoader);
-
-                    viewHolderForMany.pic_three.setDefaultImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_three.setErrorImageResId(R.mipmap.ic_launcher);
-                    viewHolderForMany.pic_three.setImageUrl(item.url.get(2), imageLoader);
-
-                    viewHolderForMany.title.setText(item.title);
-                    viewHolderForMany.date.setText(item.date);
                     break;
                 default:
                     break;
             }
+        }
+
+        switch (type) {
+            case LESS_PIC_LAYOUT:
+                viewHolderForLess.image.setDefaultImageResId(R.mipmap.ic_launcher);
+                viewHolderForLess.image.setErrorImageResId(R.mipmap.ic_launcher);
+                viewHolderForLess.image.setImageUrl(item.url.get(0), imageLoader);
+
+                viewHolderForLess.title.setText(item.title);
+                viewHolderForLess.date.setText(item.date);
+                viewHolderForLess.publisher.setText(item.publisher);
+                break;
+            case MANY_PIC_LAYOUT:
+                viewHolderForMany.pic_one.setDefaultImageResId(R.mipmap.ic_launcher);
+                viewHolderForMany.pic_one.setErrorImageResId(R.mipmap.ic_launcher);
+                viewHolderForMany.pic_one.setImageUrl(item.url.get(0), imageLoader);
+
+                viewHolderForMany.pic_two.setDefaultImageResId(R.mipmap.ic_launcher);
+                viewHolderForMany.pic_two.setErrorImageResId(R.mipmap.ic_launcher);
+                viewHolderForMany.pic_two.setImageUrl(item.url.get(1), imageLoader);
+
+                viewHolderForMany.pic_three.setDefaultImageResId(R.mipmap.ic_launcher);
+                viewHolderForMany.pic_three.setErrorImageResId(R.mipmap.ic_launcher);
+                viewHolderForMany.pic_three.setImageUrl(item.url.get(2), imageLoader);
+
+                viewHolderForMany.title.setText(item.title);
+                viewHolderForMany.date.setText(item.date);
+                viewHolderForMany.publisher.setText(item.publisher);
+                break;
+            default:
+                break;
         }
 
         return convertView;
@@ -189,13 +181,17 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        Toast.makeText(context, data.get(position).title, Toast.LENGTH_SHORT).show();
+        //点击项启动新闻详情页，并传递新闻参数
+        Intent intent = new Intent(context, NewsDetailActivity.class);
+        intent.putExtra("id", data.get(position).newsId);
+        context.startActivity(intent);
     }
 
     public static class ViewHolderForLess {
         public NetworkImageView image;
         public TextView title;
         public TextView date;
+        public TextView publisher;
     }
 
     public static class ViewHolderForMany {
@@ -204,5 +200,6 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
         public NetworkImageView pic_three;
         public TextView title;
         public TextView date;
+        public TextView publisher;
     }
 }
