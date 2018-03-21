@@ -1,9 +1,13 @@
 package com.ryj.yuyue.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ryj.yuyue.bean.SystemManager;
+import com.ryj.yuyue.bean.SystemManagerExample;
+import com.ryj.yuyue.bean.SystemManagerExample.Criteria;
 import com.ryj.yuyue.dao.SystemManagerMapper;
 
 /**
@@ -23,5 +27,39 @@ public class SystemManagerService {
 	 */
 	public void insertASystemManager(SystemManager sysManager) {
 		sysManagerMapper.insertSelective(sysManager);
+	}
+	
+	/**
+	 * 检查账号和密码是否正确
+	 * @param sysManager
+	 * @return 登录失败null，登陆成功返回sysManager信息
+	 */
+	public SystemManager checkLogin(SystemManager sysManager) {
+		SystemManagerExample example = new SystemManagerExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andPhoneEqualTo(sysManager.getAccount());
+		criteria.andPasswdEqualTo(sysManager.getPasswd());
+		List<SystemManager> result = sysManagerMapper.selectByExample(example);
+		
+		if(result.size() == 0) {
+			return null;
+		}
+		return result.get(0);
+	}
+	
+	/**
+	 * 系统管理员注册
+	 * @param sysManager
+	 *
+	public void register(SystemManager sysManager) {
+		sysManagerMapper.insertSelective(sysManager);
+	}*/
+	
+	/**
+	 * 系统管理员更新信息
+	 * @param sysManager
+	 */
+	public void update(SystemManager sysManager) {
+		sysManagerMapper.updateByPrimaryKeySelective(sysManager);
 	}
 }

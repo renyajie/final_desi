@@ -18,6 +18,7 @@ public class ConstantLiteral {
 	//身份认证常量
 	public static final String LOGIN_FAILURE = "账号或密码错误";
 	public static final String NULL_INFO = "账号或密码错误";
+	public static final Integer LOGIN_FAIL = -1;
 	
 	//文件传输常量
 	public static final String FILE_LAB_IMAGE = "E:\\UploadFiles\\image";

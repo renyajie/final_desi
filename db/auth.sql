@@ -1,3 +1,5 @@
+-- 和用户，管理员，系统管理员有关的SQL
+
 select * from sys_manager;
 
 -- 重置自动增长的值
