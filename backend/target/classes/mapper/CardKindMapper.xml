@@ -1,13 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ryj.yuyue.dao.ClassKindMapper">
-  <resultMap id="BaseResultMap" type="com.ryj.yuyue.bean.ClassKind">
+<mapper namespace="com.ryj.yuyue.dao.CardKindMapper">
+  <resultMap id="BaseResultMap" type="com.ryj.yuyue.bean.CardKind">
     <id column="id" jdbcType="INTEGER" property="id" />
     <result column="p_id" jdbcType="INTEGER" property="pId" />
-    <result column="property" jdbcType="VARCHAR" property="property" />
-    <result column="cla_k_name" jdbcType="VARCHAR" property="claKName" />
-    <result column="difficulty" jdbcType="INTEGER" property="difficulty" />
-    <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="card_k_name" jdbcType="VARCHAR" property="cardKName" />
+    <result column="capacity" jdbcType="INTEGER" property="capacity" />
+    <result column="expend" jdbcType="INTEGER" property="expend" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +67,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, p_id, property, cla_k_name, difficulty, intro
+    id, p_id, card_k_name, capacity, expend
   </sql>
-  <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ClassKindExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.ryj.yuyue.bean.CardKindExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from class_kind
+    from card_kind
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,29 +86,27 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from class_kind
+    from card_kind
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from class_kind
+    delete from card_kind
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ryj.yuyue.bean.ClassKindExample">
-    delete from class_kind
+  <delete id="deleteByExample" parameterType="com.ryj.yuyue.bean.CardKindExample">
+    delete from card_kind
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ryj.yuyue.bean.ClassKind">
-    insert into class_kind (id, p_id, property, 
-      cla_k_name, difficulty, intro
-      )
-    values (#{id,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{property,jdbcType=VARCHAR}, 
-      #{claKName,jdbcType=VARCHAR}, #{difficulty,jdbcType=INTEGER}, #{intro,jdbcType=VARCHAR}
-      )
+  <insert id="insert" parameterType="com.ryj.yuyue.bean.CardKind">
+    insert into card_kind (id, p_id, card_k_name, 
+      capacity, expend)
+    values (#{id,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{cardKName,jdbcType=VARCHAR}, 
+      #{capacity,jdbcType=INTEGER}, #{expend,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.ClassKind">
-    insert into class_kind
+  <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.CardKind">
+    insert into card_kind
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
@@ -117,17 +114,14 @@
       <if test="pId != null">
         p_id,
       </if>
-      <if test="property != null">
-        property,
+      <if test="cardKName != null">
+        card_k_name,
       </if>
-      <if test="claKName != null">
-        cla_k_name,
+      <if test="capacity != null">
+        capacity,
       </if>
-      <if test="difficulty != null">
-        difficulty,
-      </if>
-      <if test="intro != null">
-        intro,
+      <if test="expend != null">
+        expend,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -137,28 +131,25 @@
       <if test="pId != null">
         #{pId,jdbcType=INTEGER},
       </if>
-      <if test="property != null">
-        #{property,jdbcType=VARCHAR},
+      <if test="cardKName != null">
+        #{cardKName,jdbcType=VARCHAR},
       </if>
-      <if test="claKName != null">
-        #{claKName,jdbcType=VARCHAR},
+      <if test="capacity != null">
+        #{capacity,jdbcType=INTEGER},
       </if>
-      <if test="difficulty != null">
-        #{difficulty,jdbcType=INTEGER},
-      </if>
-      <if test="intro != null">
-        #{intro,jdbcType=VARCHAR},
+      <if test="expend != null">
+        #{expend,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ryj.yuyue.bean.ClassKindExample" resultType="java.lang.Long">
-    select count(*) from class_kind
+  <select id="countByExample" parameterType="com.ryj.yuyue.bean.CardKindExample" resultType="java.lang.Long">
+    select count(*) from card_kind
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update class_kind
+    update card_kind
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
@@ -166,17 +157,14 @@
       <if test="record.pId != null">
         p_id = #{record.pId,jdbcType=INTEGER},
       </if>
-      <if test="record.property != null">
-        property = #{record.property,jdbcType=VARCHAR},
+      <if test="record.cardKName != null">
+        card_k_name = #{record.cardKName,jdbcType=VARCHAR},
       </if>
-      <if test="record.claKName != null">
-        cla_k_name = #{record.claKName,jdbcType=VARCHAR},
+      <if test="record.capacity != null">
+        capacity = #{record.capacity,jdbcType=INTEGER},
       </if>
-      <if test="record.difficulty != null">
-        difficulty = #{record.difficulty,jdbcType=INTEGER},
-      </if>
-      <if test="record.intro != null">
-        intro = #{record.intro,jdbcType=VARCHAR},
+      <if test="record.expend != null">
+        expend = #{record.expend,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,45 +172,40 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update class_kind
+    update card_kind
     set id = #{record.id,jdbcType=INTEGER},
       p_id = #{record.pId,jdbcType=INTEGER},
-      property = #{record.property,jdbcType=VARCHAR},
-      cla_k_name = #{record.claKName,jdbcType=VARCHAR},
-      difficulty = #{record.difficulty,jdbcType=INTEGER},
-      intro = #{record.intro,jdbcType=VARCHAR}
+      card_k_name = #{record.cardKName,jdbcType=VARCHAR},
+      capacity = #{record.capacity,jdbcType=INTEGER},
+      expend = #{record.expend,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ryj.yuyue.bean.ClassKind">
-    update class_kind
+  <update id="updateByPrimaryKeySelective" parameterType="com.ryj.yuyue.bean.CardKind">
+    update card_kind
     <set>
       <if test="pId != null">
         p_id = #{pId,jdbcType=INTEGER},
       </if>
-      <if test="property != null">
-        property = #{property,jdbcType=VARCHAR},
+      <if test="cardKName != null">
+        card_k_name = #{cardKName,jdbcType=VARCHAR},
       </if>
-      <if test="claKName != null">
-        cla_k_name = #{claKName,jdbcType=VARCHAR},
+      <if test="capacity != null">
+        capacity = #{capacity,jdbcType=INTEGER},
       </if>
-      <if test="difficulty != null">
-        difficulty = #{difficulty,jdbcType=INTEGER},
-      </if>
-      <if test="intro != null">
-        intro = #{intro,jdbcType=VARCHAR},
+      <if test="expend != null">
+        expend = #{expend,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ryj.yuyue.bean.ClassKind">
-    update class_kind
+  <update id="updateByPrimaryKey" parameterType="com.ryj.yuyue.bean.CardKind">
+    update card_kind
     set p_id = #{pId,jdbcType=INTEGER},
-      property = #{property,jdbcType=VARCHAR},
-      cla_k_name = #{claKName,jdbcType=VARCHAR},
-      difficulty = #{difficulty,jdbcType=INTEGER},
-      intro = #{intro,jdbcType=VARCHAR}
+      card_k_name = #{cardKName,jdbcType=VARCHAR},
+      capacity = #{capacity,jdbcType=INTEGER},
+      expend = #{expend,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

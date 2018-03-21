@@ -1,3 +1,19 @@
-<p>
-  test works!
-</p>
+<!-- 添加系统管理员 -->
+<h2>添加系统管理员</h2>
+<h3>{{ sysManager.sName | uppercase }} Details</h3>
+
+<div><span>account: </span>{{sysManager.account}}</div>
+<div><span>password: </span>{{sysManager.passwd}}</div>
+<br>
+
+<div>
+  <label>account:
+    <input [(ngModel)]="sysManager.account" placeholder="account">
+  </label>
+  <br>
+  <label>password:
+    <input [(ngModel)]="sysManager.passwd" placeholder="password">
+  </label>
+</div>
+
+<button type="button" (click)="addSystemManager()">提交</button>

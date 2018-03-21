@@ -44,7 +44,7 @@ describe sys_manager;
 create table place (
 	id int not null primary key,
     phone varchar(30) not null,
-    s_name varchar(30) not null,
+    p_name varchar(30) not null,
     address varchar(60) not null
 );
 

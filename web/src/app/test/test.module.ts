@@ -5,6 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { TestRoutingModule } from './test-routing.module';
 
 import { TestComponent } from './test.component';
+import { TestService } from './test.service';
 
 @NgModule({
   imports: [
@@ -14,6 +15,9 @@ import { TestComponent } from './test.component';
   ],
   declarations: [
     TestComponent
+  ],
+  providers: [
+    TestService
   ]
 })
 export class TestModule { }

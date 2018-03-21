@@ -46,7 +46,7 @@
 		<table tableName="teacher" domainObjectName="Teacher"></table>
 		<table tableName="class_info" domainObjectName="ClassInfo"></table>
 		<table tableName="class_order" domainObjectName="ClassOrder"></table>
-		<table tableName="card_kind" domainObjectName="ClassKind"></table>
+		<table tableName="card_kind" domainObjectName="CardKind"></table>
 		<table tableName="card_info" domainObjectName="CardInfo"></table>
 		<table tableName="card_order" domainObjectName="CardOrder"></table>
 		<table tableName="news" domainObjectName="News"></table>

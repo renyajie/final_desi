@@ -5,11 +5,13 @@ public class ClassKind {
 
     private Integer pId;
 
-    private String cardKName;
+    private String property;
 
-    private Integer capacity;
+    private String claKName;
 
-    private Integer expend;
+    private Integer difficulty;
+
+    private String intro;
 
     public Integer getId() {
         return id;
@@ -27,27 +29,35 @@ public class ClassKind {
         this.pId = pId;
     }
 
-    public String getCardKName() {
-        return cardKName;
+    public String getProperty() {
+        return property;
     }
 
-    public void setCardKName(String cardKName) {
-        this.cardKName = cardKName == null ? null : cardKName.trim();
+    public void setProperty(String property) {
+        this.property = property == null ? null : property.trim();
     }
 
-    public Integer getCapacity() {
-        return capacity;
+    public String getClaKName() {
+        return claKName;
     }
 
-    public void setCapacity(Integer capacity) {
-        this.capacity = capacity;
+    public void setClaKName(String claKName) {
+        this.claKName = claKName == null ? null : claKName.trim();
     }
 
-    public Integer getExpend() {
-        return expend;
+    public Integer getDifficulty() {
+        return difficulty;
     }
 
-    public void setExpend(Integer expend) {
-        this.expend = expend;
+    public void setDifficulty(Integer difficulty) {
+        this.difficulty = difficulty;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro == null ? null : intro.trim();
     }
 }

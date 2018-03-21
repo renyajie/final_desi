@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ryj.yuyue.bean.SystemManager;
@@ -26,12 +27,18 @@ public class AngularController {
 	@Autowired
 	private SystemManagerService systemManagerService;
 	
+	@RequestMapping(value="getSimpleMessage", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getSimpleMessage() {
+		return Messenger.success().add("info", "简单消息");
+	}
+	
 	/**
 	 * 插入一条系统管理员记录
 	 * @param sysManager
 	 * @return
 	 */
-	@RequestMapping("addSysManager")
+	@RequestMapping(value="addSysManager", method=RequestMethod.POST)
 	@ResponseBody
 	public Messenger addASystemManager(@RequestBody SystemManager sysManager) {
 		logger.info("add a system manager, account is {}, password is {}", 
