@@ -2,6 +2,9 @@ package com.ryj.yuyue.dao;
 
 import com.ryj.yuyue.bean.ClassInfo;
 import com.ryj.yuyue.bean.ClassInfoExample;
+import com.ryj.yuyue.bean.ClassInfoResult;
+
+import java.util.Date;
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +30,8 @@ public interface ClassInfoMapper {
     int updateByPrimaryKeySelective(ClassInfo record);
 
     int updateByPrimaryKey(ClassInfo record);
+    
+    List<ClassInfoResult> getClassForUser(
+    		@Param("placeId") Integer placeId, 
+    		@Param("classDay") Date classDay);
 }

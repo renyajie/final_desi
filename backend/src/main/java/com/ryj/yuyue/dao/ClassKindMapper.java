@@ -2,6 +2,8 @@ package com.ryj.yuyue.dao;
 
 import com.ryj.yuyue.bean.ClassKind;
 import com.ryj.yuyue.bean.ClassKindExample;
+import com.ryj.yuyue.bean.ClassKindResult;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,24 @@ public interface ClassKindMapper {
     int updateByPrimaryKeySelective(ClassKind record);
 
     int updateByPrimaryKey(ClassKind record);
+    
+    /**
+     * 管理员获取课程种类信息
+     * @param managerId
+     * @param kName
+     * @param property
+     * @return
+     */
+    List<ClassKindResult> getClassKind(
+    		@Param("managerId") Integer managerId, 
+    		@Param("kName") String kName, 
+    		@Param("property") String property);
+    
+    /**
+	 * 管理员根据课程中种类查看具体的信息
+	 * @param id
+	 * @return
+	 */
+    ClassKindResult getClassKindById(
+    		@Param("id") Integer id);
 }

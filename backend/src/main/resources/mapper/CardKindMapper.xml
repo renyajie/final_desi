@@ -8,6 +8,14 @@
     <result column="capacity" jdbcType="INTEGER" property="capacity" />
     <result column="expend" jdbcType="INTEGER" property="expend" />
   </resultMap>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.CardKindResult">
+    <result column="id" property="id" />
+    <result column="p_id" property="pId" />
+    <result column="p_name" property="pName" />
+    <result column="card_k_name" property="cardKName" />
+    <result column="capacity" property="capacity" />
+    <result column="expend" property="expend" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -69,6 +77,9 @@
   <sql id="Base_Column_List">
     id, p_id, card_k_name, capacity, expend
   </sql>
+  <sql id="Base_Column_List_Result">
+    ck.id, ck.p_id, p.p_name, ck.card_k_name, ck.capacity, ck.expend
+  </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.CardKindExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -88,6 +99,33 @@
     <include refid="Base_Column_List" />
     from card_kind
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- List<CardKindResult> getCardKind(
+    		@Param("pId") Integer pId, 
+    		@Param("cardKName") String cardKName, 
+    		@Param("capacity") Integer capacity, 
+    		@Param("expend") Integer expend); -->
+  <select id="getCardKind" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from card_kind ck, place p
+    <trim prefix="where" prefixOverrides="and">
+      ck.p_id = p.id
+      <if test="pId != null">
+        and ck.p_id = #{pId}
+      </if>
+      <if test="cardKName != null">
+        and ck.card_k_name like '%${cardKName}%'
+      </if>
+      <if test="capacity != null">
+        and ck.capacity = #{capacity}
+      </if>
+      <if test="expend != null">
+        and ck.expend = #{expend}
+      </if>
+    </trim>
+    order by ck.id asc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from card_kind

@@ -127,6 +127,7 @@ create table card_order (
 	id int not null primary key,
     u_id int not null,
     card_k_id int not null,
+    card_id int not null,
     ord_time timestamp not null
 );
 

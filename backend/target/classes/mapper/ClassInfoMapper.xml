@@ -14,6 +14,22 @@
     <result column="order_num" jdbcType="INTEGER" property="orderNum" />
     <result column="expend" jdbcType="INTEGER" property="expend" />
   </resultMap>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.ClassInfoResult">
+    <result column="id" property="id" />
+    <result column="cla_k_id" property="claKId" />
+    <result column="cla_k_name" property="claKName" />
+    <result column="p_id" property="pId" />
+    <result column="p_name" property="pName" />
+    <result column="tea_id" property="teaId" />
+    <result column="tea_name" property="teaName" />
+    <result column="c_day" property="cDay" />
+    <result column="sta_time" property="staTime" />
+    <result column="end_time" property="endTime" />
+    <result column="length" property="length" />
+    <result column="allowance" property="allowance" />
+    <result column="order_num" property="orderNum" />
+    <result column="expend" property="expend" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -76,6 +92,10 @@
     id, cla_k_id, p_id, tea_id, c_day, sta_time, end_time, length, allowance, order_num, 
     expend
   </sql>
+  <sql id="Base_Column_List_Result">
+    ci.id, ci.cla_k_id, ck.cla_k_name, ci.p_id, p.p_name, ci.tea_id, t.tea_name, 
+	ci.c_day, ci.sta_time, ci.end_time, ci.length, ci.allowance, ci.order_num, ci.expend
+  </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ClassInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -95,6 +115,21 @@
     <include refid="Base_Column_List" />
     from class_info
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- List<ClassInfoResult> getClassForUser(
+    		@Param("placeId") Integer placeId, 
+    		@Param("classDay") Date classDay); -->
+  <select id="getClassForUser" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from class_info ci, place p, teacher t, class_kind ck
+    <trim prefix="where" prefixOverrides="and">
+      ci.cla_k_id = ck.id and ci.p_id = p.id and ci.tea_id = t.id 
+	  and ci.p_id = #{placeId}
+      and ci.c_day = #{classDay}
+    </trim>
+    order by ci.sta_time asc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from class_info

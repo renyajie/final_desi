@@ -2,6 +2,8 @@ package com.ryj.yuyue.dao;
 
 import com.ryj.yuyue.bean.Teacher;
 import com.ryj.yuyue.bean.TeacherExample;
+import com.ryj.yuyue.bean.TeacherResult;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,14 @@ public interface TeacherMapper {
     int updateByPrimaryKeySelective(Teacher record);
 
     int updateByPrimaryKey(Teacher record);
+    
+    /**
+	 * 查询教师信息
+	 * @param pId 场馆编号
+	 * @param teacherName 教师名称
+	 * @return
+	 */
+	List<TeacherResult> getTeacher(
+			@Param("pId") Integer pId, 
+			@Param("teacherName") String teacherName);
 }

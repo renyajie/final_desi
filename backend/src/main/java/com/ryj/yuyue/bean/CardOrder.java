@@ -11,6 +11,8 @@ public class CardOrder {
 
     private Date ordTime;
 
+    private Integer cardId;
+
     public Integer getId() {
         return id;
     }
@@ -41,5 +43,13 @@ public class CardOrder {
 
     public void setOrdTime(Date ordTime) {
         this.ordTime = ordTime;
+    }
+
+    public Integer getCardId() {
+        return cardId;
+    }
+
+    public void setCardId(Integer cardId) {
+        this.cardId = cardId;
     }
 }

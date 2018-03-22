@@ -8,6 +8,14 @@
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="intro" jdbcType="VARCHAR" property="intro" />
   </resultMap>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.TeacherResult">
+    <result column="id" property="id" />
+    <result column="p_id" property="pId" />
+    <result column="p_name" property="pName" />
+    <result column="tea_name" property="teaName" />
+    <result column="phone" property="phone" />
+    <result column="intro" property="intro" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -69,6 +77,9 @@
   <sql id="Base_Column_List">
     id, p_id, tea_name, phone, intro
   </sql>
+  <sql id="Base_Column_List_Result">
+    t.id, t.p_id, p.p_name, t.tea_name, t.phone, t.intro
+  </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.TeacherExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -88,6 +99,24 @@
     <include refid="Base_Column_List" />
     from teacher
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- List<TeacherResult> getTeacher(
+			@Param("pId") Integer pId, 
+			@Param("teacherName") String teacherName); -->
+  <select id="getTeacher" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from teacher t, place p
+    <trim prefix="where" prefixOverrides="and">
+      t.p_id = p.id
+      <if test="pId != null">
+        and t.p_id = #{pId}
+      </if>
+      <if test="teacherName != null">
+        and t.tea_name like '%${teacherName}%'
+      </if>
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from teacher

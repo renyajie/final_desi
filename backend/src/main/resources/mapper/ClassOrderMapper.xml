@@ -208,4 +208,57 @@
       ord_time = #{ordTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.ClassOrderResult">
+    <result column="id" property="id" />
+    <result column="p_id" property="pId" />
+    <result column="p_name" property="pName" />
+    <result column="cla_id" property="claId" />
+    <result column="cla_k_name" property="claKName" />
+    <result column="u_id" property="uId" />
+    <result column="u_name" property="uName" />
+    <result column="card_id" property="cardId" />
+    <result column="card_k_name" property="cardKName" />
+    <result column="ord_time" property="ordTime" />
+  </resultMap>
+  <sql id="Base_Column_List_Result">
+    co.id, p.id as p_id, p.p_name, co.cla_id, cla_k.cla_k_name, co.u_id, u.u_name, 
+    co.card_id, card_k.card_k_name, co.ord_time
+  </sql>
+  <!-- List<ClassOrderResult> getClassOrder(
+    		@Param("placeId") Integer placeId,
+    		@Param("classId") Integer classId,
+    		@Param("userId") Integer userId,
+    		@Param("cardId") Integer cardId,
+    		@Param("before") Date before,
+    		@Param("after") Date after); -->
+  <select id="getClassOrder" resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from class_order co, user u, class_info cla_i, card_info card_i, class_kind cla_k, card_kind card_k, place p
+    <trim prefix="where" prefixOverrides="and">
+      co.cla_id = cla_i.id and cla_i.cla_k_id = cla_k.id 
+	  and cla_i.p_id = p.id
+	  and co.u_id = u.id 
+	  and co.card_id = card_i.id and card_i.card_k_id = card_k.id
+      <if test="userId != null">
+        and co.u_id = #{userId}
+      </if>
+      <if test="placeId != null">
+        and p.id = #{placeId}
+      </if>
+      <if test="before != null">
+        and co.ord_time &gt;= #{before}
+      </if>
+      <if test="after != null">
+        and co.ord_time &lt;= #{after}
+      </if>
+      <if test="cardId != null">
+        and card_i.id = #{cardId}
+      </if>
+      <if test="classId != null">
+        and cla_i.id = #{classId}
+      </if>
+    </trim>
+    order by co.ord_time desc
+  </select>
 </mapper>

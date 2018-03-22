@@ -7,6 +7,14 @@
     <result column="u_id" jdbcType="INTEGER" property="uId" />
     <result column="allowance" jdbcType="INTEGER" property="allowance" />
   </resultMap>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.CardInfoResult">
+    <result column="id" property="id" />
+    <result column="card_k_id" property="cardKId" />
+    <result column="card_k_name" property="cardKName" />
+    <result column="u_id" property="uId" />
+    <result column="u_name" property="uName" />
+    <result column="allowance" property="allowance" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -68,6 +76,9 @@
   <sql id="Base_Column_List">
     id, card_k_id, u_id, allowance
   </sql>
+  <sql id="Base_Column_List_Result">
+    ci.id, ci.card_k_id, ck.card_k_name, ci.u_id, u.u_name, ci.allowance
+  </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.CardInfoExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -87,6 +98,23 @@
     <include refid="Base_Column_List" />
     from card_info
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- List<CardInfoResult> getCardInfo(
+			@Param("cardKId") Integer cardKId, 
+			@Param("uId") Integer uId); -->
+  <select id="getCardInfo" resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from card_info ci, card_kind ck, user u
+    <trim prefix="where" prefixOverrides="and">
+      ci.card_k_id = ck.id and ci.u_id = u.id
+      <if test="cardKId != null">
+        and ci.card_k_id = #{cardKId}
+      </if>
+      <if test="uId != null">
+        and ci.u_id = #{uId}
+      </if>
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from card_info

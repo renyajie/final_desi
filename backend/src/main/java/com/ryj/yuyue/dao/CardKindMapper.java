@@ -2,6 +2,8 @@ package com.ryj.yuyue.dao;
 
 import com.ryj.yuyue.bean.CardKind;
 import com.ryj.yuyue.bean.CardKindExample;
+import com.ryj.yuyue.bean.CardKindResult;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,18 @@ public interface CardKindMapper {
     int updateByPrimaryKeySelective(CardKind record);
 
     int updateByPrimaryKey(CardKind record);
+    
+    /**
+     * 查询会员卡种类
+     * @param pId 场馆编号
+     * @param cardKName 卡种名
+     * @param capacity 容量
+     * @param expend 花费
+     * @return
+     */
+    List<CardKindResult> getCardKind(
+    		@Param("pId") Integer pId, 
+    		@Param("cardKName") String cardKName, 
+    		@Param("capacity") Integer capacity, 
+    		@Param("expend") Integer expend);
 }

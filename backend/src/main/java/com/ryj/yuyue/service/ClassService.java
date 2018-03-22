@@ -6,10 +6,9 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.ryj.yuyue.bean.ClassInfo;
-import com.ryj.yuyue.bean.ClassInfoExample;
-import com.ryj.yuyue.bean.ClassInfoExample.Criteria;
+import com.ryj.yuyue.bean.ClassInfoResult;
 import com.ryj.yuyue.bean.ClassKind;
+import com.ryj.yuyue.bean.ClassKindResult;
 import com.ryj.yuyue.dao.ClassInfoMapper;
 import com.ryj.yuyue.dao.ClassKindMapper;
 
@@ -40,12 +39,9 @@ public class ClassService {
 	 * @param classDay 上课日期
 	 * @return
 	 */
-	public List<ClassInfo> getClassForUser(Integer placeId, Date classDay) {
-		ClassInfoExample example = new ClassInfoExample();
-		Criteria criteria = example.createCriteria();
-		criteria.andPIdEqualTo(placeId);
-		criteria.andCDayEqualTo(classDay);
-		return classInfoMapper.selectByExample(example);
+	public List<ClassInfoResult> getClassForUser(
+			Integer placeId, Date classDay) {
+		return classInfoMapper.getClassForUser(placeId, classDay);
 	}
 	
 	/**
@@ -78,7 +74,17 @@ public class ClassService {
 	 * @param kName 课程名
 	 * @param property 团课或私教
 	 */
-	public void getClassKind(Integer managerId, String kName, String property) {
-		
+	public List<ClassKindResult> getClassKind(
+			Integer managerId, String kName, String property) {
+		return classKindMapper.getClassKind(managerId, kName, property);
+	}
+	
+	/**
+	 * 管理员根据课程中种类查看具体的信息
+	 * @param id
+	 * @return
+	 */
+	public ClassKindResult getClassKindById(Integer id) {
+		return classKindMapper.getClassKindById(id);
 	}
 }

@@ -9,6 +9,15 @@
     <result column="difficulty" jdbcType="INTEGER" property="difficulty" />
     <result column="intro" jdbcType="VARCHAR" property="intro" />
   </resultMap>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.ClassKindResult">
+    <result column="id" property="id" />
+    <result column="p_id" property="pId" />
+    <result column="p_name" property="pName" />
+    <result column="property" property="property" />
+    <result column="cla_k_name" property="claKName" />
+    <result column="difficulty" property="difficulty" />
+    <result column="intro" property="intro" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -70,6 +79,9 @@
   <sql id="Base_Column_List">
     id, p_id, property, cla_k_name, difficulty, intro
   </sql>
+  <sql id="Base_Column_List_Result">
+    ck.id, ck.p_id, p.p_name, ck.property, ck.cla_k_name, ck.difficulty, ck.intro
+  </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ClassKindExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -89,6 +101,40 @@
     <include refid="Base_Column_List" />
     from class_kind
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  
+  <!-- List<ClassKindResult> getClassKind(
+    		@Param("managerId") Integer managerId, 
+    		@Param("kName") String kName, 
+    		@Param("property") String property); -->
+  <select id="getClassKind" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from class_kind ck, manager m, place p
+    <trim prefix="where" prefixOverrides="and">
+      ck.p_id = p.id and m.p_id = p.id 
+	  and m.id = #{managerId}
+      <if test="kName != null">
+        and ck.cla_k_name = #{kName}
+      </if>
+      <if test="property != null">
+        and ck.property = #{property}
+      </if>
+    </trim>
+    order by ck.id asc
+  </select>
+  <!-- ClassKindResult getClassKindById(
+    		@Param("id") Integer id); -->
+  <select id="getClassKindById" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from class_kind ck,place p
+    <trim prefix="where" prefixOverrides="and">
+      ck.p_id = p.id
+	  and ck.id = #{id}
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from class_kind

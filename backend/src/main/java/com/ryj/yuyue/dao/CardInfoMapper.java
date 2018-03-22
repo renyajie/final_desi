@@ -2,6 +2,8 @@ package com.ryj.yuyue.dao;
 
 import com.ryj.yuyue.bean.CardInfo;
 import com.ryj.yuyue.bean.CardInfoExample;
+import com.ryj.yuyue.bean.CardInfoResult;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,14 @@ public interface CardInfoMapper {
     int updateByPrimaryKeySelective(CardInfo record);
 
     int updateByPrimaryKey(CardInfo record);
+    
+    /**
+	 * 查询会员卡
+	 * @param cardKId 卡种编号
+	 * @param uId 用户编号
+	 * @return
+	 */
+	List<CardInfoResult> getCardInfo(
+			@Param("cardKId") Integer cardKId, 
+			@Param("uId") Integer uId);
 }

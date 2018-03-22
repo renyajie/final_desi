@@ -344,6 +344,66 @@ public class CardOrderExample {
             addCriterion("ord_time not between", value1, value2, "ordTime");
             return (Criteria) this;
         }
+
+        public Criteria andCardIdIsNull() {
+            addCriterion("card_id is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdIsNotNull() {
+            addCriterion("card_id is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdEqualTo(Integer value) {
+            addCriterion("card_id =", value, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdNotEqualTo(Integer value) {
+            addCriterion("card_id <>", value, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdGreaterThan(Integer value) {
+            addCriterion("card_id >", value, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdGreaterThanOrEqualTo(Integer value) {
+            addCriterion("card_id >=", value, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdLessThan(Integer value) {
+            addCriterion("card_id <", value, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdLessThanOrEqualTo(Integer value) {
+            addCriterion("card_id <=", value, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdIn(List<Integer> values) {
+            addCriterion("card_id in", values, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdNotIn(List<Integer> values) {
+            addCriterion("card_id not in", values, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdBetween(Integer value1, Integer value2) {
+            addCriterion("card_id between", value1, value2, "cardId");
+            return (Criteria) this;
+        }
+
+        public Criteria andCardIdNotBetween(Integer value1, Integer value2) {
+            addCriterion("card_id not between", value1, value2, "cardId");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {
