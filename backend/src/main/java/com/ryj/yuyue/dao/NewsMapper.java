@@ -39,6 +39,7 @@ public interface NewsMapper {
     
     /**
 	 * 查找新闻
+	 * @param newsId 新闻编号
 	 * @param managerId 管理员编号
 	 * @param placeId 场馆编号
 	 * @param title 标题
@@ -47,17 +48,10 @@ public interface NewsMapper {
 	 * @return
 	 */
 	List<NewsResult> getNewsList(
+			@Param("newsId") Integer newsId,
 			@Param("managerId") Integer managerId, 
 			@Param("placeId") Integer placeId,
 			@Param("title") String title,
 			@Param("before") Date before,
 			@Param("after") Date after);
-	
-	/**
-	 * 查找新闻
-	 * @param newsId 新闻编号
-	 * @return
-	 */
-	NewsResult getNewsById(
-			@Param("id") Integer newsId);
 }

@@ -1,7 +1,5 @@
 package database;
 
-import java.util.Date;
-
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -30,12 +28,6 @@ public class NewsTest {
 	@Test
 	public void getNewsListTest() throws Exception {
 		logger.info("getNewsListTest: {}", 
-				newsMapper.getNewsList(1, null, null, new Date(), null));
-	}
-	
-	@Test
-	public void getNewsByIdTest() throws Exception {
-		logger.info("getNewsByIdTest: {}", 
-				newsMapper.getNewsById(1));
+				newsMapper.getNewsList(null, null, null, null, null, null));
 	}
 }

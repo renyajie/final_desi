@@ -30,6 +30,7 @@ public class NewsService {
 	 * @param news
 	 */
 	public void addNews(News news) {
+		news.setPubTime(new Date());
 		newsMapper.insertSelective(news);
 	}
 	
@@ -51,6 +52,7 @@ public class NewsService {
 	
 	/**
 	 * 查找新闻列表
+	 * @param newsId 新闻编号
 	 * @param managerId 管理员编号
 	 * @param placeId 场馆编号
 	 * @param title 标题
@@ -59,21 +61,14 @@ public class NewsService {
 	 * @return
 	 */
 	public List<NewsResult> getNewsList(
+			Integer newsId,
 			Integer managerId, 
 			Integer placeId,
 			String title,
 			Date before,
 			Date after) {
 		return newsMapper.getNewsList(
-				managerId, placeId, title, before, after);
+				newsId, managerId, placeId, title, before, after);
 	}
-	
-	/**
-	 * 查找单个新闻
-	 * @param newsId
-	 * @return
-	 */
-	public NewsResult getNewsById(Integer newsId) {
-		return newsMapper.getNewsById(newsId);
-	}
+
 }

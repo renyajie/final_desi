@@ -2,19 +2,25 @@ package com.ryj.yuyue.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class News {
     private Integer id;
 
+    @NotNull(message="管理人编号不能为空")
     private Integer mId;
 
+    @NotNull(message="场馆编号不能为空")
     private Integer pId;
 
+    @NotNull(message="新闻标题不能为空")
     private String title;
 
     private Integer browTime;
 
     private Date pubTime;
 
+    @NotNull(message="发布内容不能为空")
     private String context;
 
     public Integer getId() {

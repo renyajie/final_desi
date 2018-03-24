@@ -87,7 +87,7 @@
     id, m_id, p_id, title, brow_time, pub_time
   </sql>
   <sql id="Base_Column_List_Result">
-    n.id, n.m_id, m.m_name, n.p_id, p.p_name, n.title, n.brow_time, n.pub_time
+    n.id, n.m_id, m.m_name, n.p_id, p.s_name, n.title, n.brow_time, n.pub_time
   </sql>
   <sql id="Blob_Column_List">
     context
@@ -134,6 +134,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!-- List<NewsResult> getNews(
+  			@Param("newsId") Integer newsId,
 			@Param("managerId") Integer managerId, 
 			@Param("placeId") Integer placeId,
 			@Param("title") String title,
@@ -146,6 +147,9 @@
     from manager m, place p, news n
     <trim prefix="where" prefixOverrides="and">
       n.m_id = m.id and n.p_id = p.id
+      <if test="newsId != null">
+        and n.id = #{newsId}
+      </if>
       <if test="managerId != null">
         and n.m_id = #{managerId}
       </if>
