@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ryj.yuyue.dao.ClassOrderMapper;
-import com.ryj.yuyue.service.ClassService;
 
 /**
  * 课程订单的所有测试
@@ -25,8 +24,6 @@ public class ClassOrderTest {
 	
 	@Autowired
 	private ClassOrderMapper classOrderMapper;
-	@Autowired
-	private ClassService classService;
 	
 	@Test
 	public void getClassOrderTest() throws Exception {

@@ -119,7 +119,7 @@ create table card_info (
     u_id int not null,
     allowance int not null
 );
-
+ 
 describe card_info;
 
 /* 购卡订单表 */
@@ -128,7 +128,8 @@ create table card_order (
     u_id int not null,
     card_k_id int not null,
     card_id int not null,
-    ord_time timestamp not null
+    ord_time timestamp not null,
+    num int not null
 );
 
 describe card_order;

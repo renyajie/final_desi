@@ -101,6 +101,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!-- List<CardKindResult> getCardKind(
+  			@Param("cardKId") Integer cardKId, 
     		@Param("pId") Integer pId, 
     		@Param("cardKName") String cardKName, 
     		@Param("capacity") Integer capacity, 
@@ -112,6 +113,9 @@
     from card_kind ck, place p
     <trim prefix="where" prefixOverrides="and">
       ck.p_id = p.id
+      <if test="cardKId != null">
+        and ck.id = #{cardKId}
+      </if>
       <if test="pId != null">
         and ck.p_id = #{pId}
       </if>

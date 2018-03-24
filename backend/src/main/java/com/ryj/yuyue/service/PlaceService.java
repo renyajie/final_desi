@@ -17,7 +17,7 @@ import com.ryj.yuyue.dao.PlaceMapper;
  *
  */
 @Service
-public class PlaceSerice {
+public class PlaceService {
 
 	@Autowired
 	private PlaceMapper placeMapper;

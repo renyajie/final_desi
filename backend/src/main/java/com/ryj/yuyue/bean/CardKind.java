@@ -1,14 +1,20 @@
 package com.ryj.yuyue.bean;
 
+import javax.validation.constraints.NotNull;
+
 public class CardKind {
     private Integer id;
 
+    @NotNull(message="场馆编号不能为空")
     private Integer pId;
 
+    @NotNull(message="会员卡名称不能为空")
     private String cardKName;
 
+    @NotNull(message="会员卡容量不能为空")
     private Integer capacity;
 
+    @NotNull(message="费用不能为空")
     private Integer expend;
 
     public Integer getId() {

@@ -36,6 +36,8 @@ public class ClassInfoResult {
     private Integer orderNum;
 
     private Integer expend;
+    
+    private String property;
 
 	public ClassInfoResult() {
 		super();
@@ -43,7 +45,7 @@ public class ClassInfoResult {
 
 	public ClassInfoResult(Integer id, Integer claKId, String claKName, Integer pId, String pName, Integer teaId,
 			String teaName, Date cDay, Date staTime, Date endTime, Integer length, Integer allowance, Integer orderNum,
-			Integer expend) {
+			Integer expend, String property) {
 		super();
 		this.id = id;
 		this.claKId = claKId;
@@ -59,6 +61,16 @@ public class ClassInfoResult {
 		this.allowance = allowance;
 		this.orderNum = orderNum;
 		this.expend = expend;
+		this.property = property;
+	}
+
+	
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 	public Integer getId() {
@@ -178,7 +190,7 @@ public class ClassInfoResult {
 		return "ClassInfoResult [id=" + id + ", claKId=" + claKId + ", claKName=" + claKName + ", pId=" + pId
 				+ ", pName=" + pName + ", teaId=" + teaId + ", teaName=" + teaName + ", cDay=" + cDay + ", staTime="
 				+ staTime + ", endTime=" + endTime + ", length=" + length + ", allowance=" + allowance + ", orderNum="
-				+ orderNum + ", expend=" + expend + "]";
+				+ orderNum + ", expend=" + expend + ", property=" + property + "]";
 	}
     
     

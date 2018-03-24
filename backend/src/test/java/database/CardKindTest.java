@@ -1,3 +1,4 @@
+
 package database;
 
 import org.junit.Test;
@@ -29,8 +30,9 @@ public class CardKindTest {
 	public void getCardKindTest() throws Exception {
 		logger.info("getCardKindTest: {}", 
 				cardKindMapper.getCardKind(
-						1,
-						"黄",
+						null,
+						null,
+						null,
 						null,
 						null));
 	}

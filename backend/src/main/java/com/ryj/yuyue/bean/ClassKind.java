@@ -1,16 +1,22 @@
 package com.ryj.yuyue.bean;
 
+import javax.validation.constraints.NotNull;
+
 public class ClassKind {
     private Integer id;
 
+    @NotNull(message="场馆编号不能为空")
     private Integer pId;
 
+    @NotNull(message="课程属性不能为空")
     private String property;
 
+    @NotNull(message="场馆名称不能为空")
     private String claKName;
 
     private Integer difficulty;
 
+    @NotNull(message="课程介绍不能为空")
     private String intro;
 
     public Integer getId() {

@@ -2,16 +2,24 @@ package com.ryj.yuyue.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class ClassOrder {
     private Integer id;
 
+    @NotNull(message="课程编号不能为空")
     private Integer claId;
 
+    @NotNull(message="用户编号不能为空")
     private Integer uId;
 
+    @NotNull(message="会员卡编号不能为空")
     private Integer cardId;
 
     private Date ordTime;
+
+    @NotNull(message="预约人数不能为空")
+    private Integer num;
 
     public Integer getId() {
         return id;
@@ -51,5 +59,13 @@ public class ClassOrder {
 
     public void setOrdTime(Date ordTime) {
         this.ordTime = ordTime;
+    }
+
+    public Integer getNum() {
+        return num;
+    }
+
+    public void setNum(Integer num) {
+        this.num = num;
     }
 }

@@ -1,12 +1,18 @@
 package com.ryj.yuyue.bean;
 
+import javax.validation.constraints.NotNull;
+
 public class Place {
+	
     private Integer id;
 
+    @NotNull(message="场馆联系电话不能为空")
     private String phone;
 
+    @NotNull(message="场馆名称不能为空")
     private String sName;
 
+    @NotNull(message="场馆地址不能为空")
     private String address;
 
     public Integer getId() {

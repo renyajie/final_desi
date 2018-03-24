@@ -48,13 +48,15 @@ public class TeacherService {
 	
 	/**
 	 * 查询教师信息
+	 * @param id 教师编号
 	 * @param pId 场馆编号
 	 * @param teacherName 教师名称
 	 * @return
 	 */
 	public List<TeacherResult> getTeacher(
-			Integer pId, String teacherName) {
-		return teacherMapper.getTeacher(pId, teacherName);
+			Integer id, Integer pId, String teacherName) {
+		
+		return teacherMapper.getTeacher(id, pId, teacherName);
 	}
 
 }

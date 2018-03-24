@@ -7,6 +7,7 @@
     <result column="u_id" jdbcType="INTEGER" property="uId" />
     <result column="card_id" jdbcType="INTEGER" property="cardId" />
     <result column="ord_time" jdbcType="TIMESTAMP" property="ordTime" />
+    <result column="num" jdbcType="INTEGER" property="num" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -67,7 +68,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, cla_id, u_id, card_id, ord_time
+    id, cla_id, u_id, card_id, ord_time, num
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ClassOrderExample" resultMap="BaseResultMap">
     select
@@ -101,9 +102,11 @@
   </delete>
   <insert id="insert" parameterType="com.ryj.yuyue.bean.ClassOrder">
     insert into class_order (id, cla_id, u_id, 
-      card_id, ord_time)
+      card_id, ord_time, num
+      )
     values (#{id,jdbcType=INTEGER}, #{claId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, 
-      #{cardId,jdbcType=INTEGER}, #{ordTime,jdbcType=TIMESTAMP})
+      #{cardId,jdbcType=INTEGER}, #{ordTime,jdbcType=TIMESTAMP}, #{num,jdbcType=INTEGER}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.ClassOrder">
     insert into class_order
@@ -123,6 +126,9 @@
       <if test="ordTime != null">
         ord_time,
       </if>
+      <if test="num != null">
+        num,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -139,6 +145,9 @@
       </if>
       <if test="ordTime != null">
         #{ordTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="num != null">
+        #{num,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
@@ -166,6 +175,9 @@
       <if test="record.ordTime != null">
         ord_time = #{record.ordTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.num != null">
+        num = #{record.num,jdbcType=INTEGER},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -177,7 +189,8 @@
       cla_id = #{record.claId,jdbcType=INTEGER},
       u_id = #{record.uId,jdbcType=INTEGER},
       card_id = #{record.cardId,jdbcType=INTEGER},
-      ord_time = #{record.ordTime,jdbcType=TIMESTAMP}
+      ord_time = #{record.ordTime,jdbcType=TIMESTAMP},
+      num = #{record.num,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -197,6 +210,9 @@
       <if test="ordTime != null">
         ord_time = #{ordTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="num != null">
+        num = #{num,jdbcType=INTEGER},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -205,9 +221,11 @@
     set cla_id = #{claId,jdbcType=INTEGER},
       u_id = #{uId,jdbcType=INTEGER},
       card_id = #{cardId,jdbcType=INTEGER},
-      ord_time = #{ordTime,jdbcType=TIMESTAMP}
+      ord_time = #{ordTime,jdbcType=TIMESTAMP},
+      num = #{num,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
   <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.ClassOrderResult">
     <result column="id" property="id" />
     <result column="p_id" property="pId" />
@@ -219,10 +237,11 @@
     <result column="card_id" property="cardId" />
     <result column="card_k_name" property="cardKName" />
     <result column="ord_time" property="ordTime" />
+    <result column="num" property="num" />
   </resultMap>
   <sql id="Base_Column_List_Result">
     co.id, p.id as p_id, p.p_name, co.cla_id, cla_k.cla_k_name, co.u_id, u.u_name, 
-    co.card_id, card_k.card_k_name, co.ord_time
+    co.card_id, card_k.card_k_name, co.ord_time, co.num
   </sql>
   <!-- List<ClassOrderResult> getClassOrder(
     		@Param("placeId") Integer placeId,

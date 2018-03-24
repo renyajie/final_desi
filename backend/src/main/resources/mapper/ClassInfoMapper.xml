@@ -29,6 +29,7 @@
     <result column="allowance" property="allowance" />
     <result column="order_num" property="orderNum" />
     <result column="expend" property="expend" />
+    <result column="property" property="property" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -94,7 +95,7 @@
   </sql>
   <sql id="Base_Column_List_Result">
     ci.id, ci.cla_k_id, ck.cla_k_name, ci.p_id, p.p_name, ci.tea_id, t.tea_name, 
-	ci.c_day, ci.sta_time, ci.end_time, ci.length, ci.allowance, ci.order_num, ci.expend
+	ci.c_day, ci.sta_time, ci.end_time, ci.length, ci.allowance, ci.order_num, ci.expend, ck.property
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ClassInfoExample" resultMap="BaseResultMap">
     select
@@ -116,18 +117,47 @@
     from class_info
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <!-- List<ClassInfoResult> getClassForUser(
+  <!-- List<ClassInfoResult> getClassInfo(
+    		@Param("classId") Integer classId, 
+    		@Param("classKindId") Integer classKindId, 
     		@Param("placeId") Integer placeId, 
-    		@Param("classDay") Date classDay); -->
-  <select id="getClassForUser" 
+    		@Param("teacherId") Integer teacherId, 
+    		@Param("before") Date before, 
+    		@Param("after") Date after,
+    		@Param("isPub") boolean isPub) -->
+  <select id="getClassInfo" 
   		  resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
     from class_info ci, place p, teacher t, class_kind ck
     <trim prefix="where" prefixOverrides="and">
       ci.cla_k_id = ck.id and ci.p_id = p.id and ci.tea_id = t.id 
-	  and ci.p_id = #{placeId}
-      and ci.c_day = #{classDay}
+	  <if test="classId != null">
+        and ci.id = #{classId}
+      </if>
+      <if test="classKindId != null">
+        and ci.cla_k_id = #{classKindId}
+      </if>
+      <if test="placeId != null">
+        and ci.p_id = #{placeId}
+      </if>
+      <if test="teacherId != null">
+        and ci.tea_id = #{teacherId}
+      </if>
+      <if test="before != null">
+        and ci.c_day &gt;= #{before}
+      </if>
+      <if test="after != null">
+        and ci.c_day &lt;= #{after}
+      </if>
+      <if test="isPub != null">
+      	<if test="isPub == 1">
+      		and ck.property = 's'
+      	</if>
+      	<if test="isPub == 0">
+      		and ck.property = 'g'
+      	</if>
+      </if>
     </trim>
     order by ci.sta_time asc
   </select>

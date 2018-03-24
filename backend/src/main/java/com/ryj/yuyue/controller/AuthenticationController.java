@@ -27,11 +27,16 @@ import com.ryj.yuyue.utils.ConstantLiteral;
 import com.ryj.yuyue.utils.Messenger;
 
 /**
- * 处理所有人员的登录，注册和信息更新
+ * 处理所有人员的登录，注册和信息更新：
+ * 
+ * 1. 用于登录，注册，更新信息
+ * 2. 管理员登录，注册，更新信息
+ * 3. 系统管理员登录，修改信息
  * @author Thor
  *
  */
 @Controller
+@RequestMapping("api/auth")
 public class AuthenticationController {
 
 	private static final Logger logger = 

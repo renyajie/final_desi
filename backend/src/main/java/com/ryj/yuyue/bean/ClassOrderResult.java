@@ -26,13 +26,15 @@ public class ClassOrderResult {
 	private String cardKName;
 
     private Date ordTime;
+    
+    private Integer num;
 
 	public ClassOrderResult() {
 		super();
 	}
 
 	public ClassOrderResult(Integer id, Integer pId, String pName, Integer claId, String claKName, Integer uId,
-			String uName, Integer cardId, String cardKName, Date ordTime) {
+			String uName, Integer cardId, String cardKName, Date ordTime, Integer num) {
 		super();
 		this.id = id;
 		this.pId = pId;
@@ -44,6 +46,7 @@ public class ClassOrderResult {
 		this.cardId = cardId;
 		this.cardKName = cardKName;
 		this.ordTime = ordTime;
+		this.num = num;
 	}
 
 	public Integer getId() {
@@ -60,6 +63,15 @@ public class ClassOrderResult {
 
 	public void setpId(Integer pId) {
 		this.pId = pId;
+	}
+
+	
+	public Integer getNum() {
+		return num;
+	}
+
+	public void setNum(Integer num) {
+		this.num = num;
 	}
 
 	public String getpName() {
@@ -130,7 +142,7 @@ public class ClassOrderResult {
 	public String toString() {
 		return "ClassOrderResult [id=" + id + ", pId=" + pId + ", pName=" + pName + ", claId=" + claId + ", claKName="
 				+ claKName + ", uId=" + uId + ", uName=" + uName + ", cardId=" + cardId + ", cardKName=" + cardKName
-				+ ", ordTime=" + ordTime + "]";
+				+ ", ordTime=" + ordTime  + ", num=" + num + "]";
 	}
     
 }

@@ -1,14 +1,20 @@
 package com.ryj.yuyue.bean;
 
+import javax.validation.constraints.NotNull;
+
 public class Teacher {
     private Integer id;
 
+    @NotNull(message="场馆编号不能为空")
     private Integer pId;
 
+    @NotNull(message="教师姓名不能为空")
     private String teaName;
 
+    @NotNull(message="手机号不能为空")
     private String phone;
 
+    @NotNull(message="教师简介不能为空")
     private String intro;
 
     public Integer getId() {

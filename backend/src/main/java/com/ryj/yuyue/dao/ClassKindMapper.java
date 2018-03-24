@@ -32,21 +32,16 @@ public interface ClassKindMapper {
     
     /**
      * 管理员获取课程种类信息
+     * @param classKId
      * @param managerId
      * @param kName
      * @param property
      * @return
      */
     List<ClassKindResult> getClassKind(
+    		@Param("classKId") Integer classKId,
     		@Param("managerId") Integer managerId, 
     		@Param("kName") String kName, 
     		@Param("property") String property);
     
-    /**
-	 * 管理员根据课程中种类查看具体的信息
-	 * @param id
-	 * @return
-	 */
-    ClassKindResult getClassKindById(
-    		@Param("id") Integer id);
 }

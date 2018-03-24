@@ -104,6 +104,7 @@
   </select>
   
   <!-- List<ClassKindResult> getClassKind(
+  			@Param("classKId") Integer classKId,
     		@Param("managerId") Integer managerId, 
     		@Param("kName") String kName, 
     		@Param("property") String property); -->
@@ -113,28 +114,21 @@
     <include refid="Base_Column_List_Result" />
     from class_kind ck, manager m, place p
     <trim prefix="where" prefixOverrides="and">
-      ck.p_id = p.id and m.p_id = p.id 
-	  and m.id = #{managerId}
+      ck.p_id = p.id and m.p_id = p.id
+	  <if test="classKId != null">
+        and ck.id = #{classKId}
+      </if>
+      <if test="managerId != null">
+        and m.id = #{managerId}
+      </if>
       <if test="kName != null">
-        and ck.cla_k_name = #{kName}
+        and ck.cla_k_name like '%${kName}%'
       </if>
       <if test="property != null">
         and ck.property = #{property}
       </if>
     </trim>
     order by ck.id asc
-  </select>
-  <!-- ClassKindResult getClassKindById(
-    		@Param("id") Integer id); -->
-  <select id="getClassKindById" 
-  		  resultMap="BaseResultMapForResult">
-    select 
-    <include refid="Base_Column_List_Result" />
-    from class_kind ck,place p
-    <trim prefix="where" prefixOverrides="and">
-      ck.p_id = p.id
-	  and ck.id = #{id}
-    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from class_kind

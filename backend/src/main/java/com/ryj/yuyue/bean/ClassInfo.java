@@ -2,19 +2,27 @@ package com.ryj.yuyue.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class ClassInfo {
     private Integer id;
-
+    
+    @NotNull(message="课程种类不能为空")
     private Integer claKId;
 
+    @NotNull(message="场馆编号不能为空")
     private Integer pId;
 
+    @NotNull(message="教师编号不能为空")
     private Integer teaId;
 
+    @NotNull(message="上课时间不能为空")
     private Date cDay;
 
+    @NotNull(message="开始时间不能为空")
     private Date staTime;
 
+    @NotNull(message="结束时间不能为空")
     private Date endTime;
 
     private Integer length;
@@ -23,6 +31,7 @@ public class ClassInfo {
 
     private Integer orderNum;
 
+    @NotNull(message="花费不能为空")
     private Integer expend;
 
     public Integer getId() {

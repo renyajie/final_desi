@@ -9,7 +9,6 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ryj.yuyue.dao.ClassInfoMapper;
-import com.ryj.yuyue.utils.DateMethod;
 
 /**
  * 课程信息的所有测试
@@ -29,8 +28,7 @@ public class ClassInfoTest {
 	@Test
 	public void getClassInfoTest() throws Exception {
 		logger.info("getClassInfoTest: {}", 
-				classInfoMapper.getClassForUser(
-						1, 
-						DateMethod.getDateFromString("2018-3-13")));
+				classInfoMapper.getClassInfo(
+						null, null, null, null, null, null, 1));
 	}
 }

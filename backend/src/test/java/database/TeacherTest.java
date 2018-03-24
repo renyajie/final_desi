@@ -29,7 +29,8 @@ public class TeacherTest {
 	public void getTeacherTest() throws Exception {
 		logger.info("getTeacherTest: {}", 
 				teacherMapper.getTeacher(
-						1,
-						"冰"));
+						null,
+						null,
+						null));
 	}
 }

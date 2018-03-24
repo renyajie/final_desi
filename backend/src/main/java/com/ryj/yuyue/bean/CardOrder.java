@@ -2,11 +2,15 @@ package com.ryj.yuyue.bean;
 
 import java.util.Date;
 
+import javax.validation.constraints.NotNull;
+
 public class CardOrder {
     private Integer id;
 
+    @NotNull(message="用户编号不能为空")
     private Integer uId;
 
+    @NotNull(message="卡种编号不能为空")
     private Integer cardKId;
 
     private Date ordTime;

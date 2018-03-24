@@ -11,11 +11,11 @@ public class News {
 
     private String title;
 
-    private String location;
-
-    private String url;
+    private Integer browTime;
 
     private Date pubTime;
+
+    private String context;
 
     public Integer getId() {
         return id;
@@ -49,20 +49,12 @@ public class News {
         this.title = title == null ? null : title.trim();
     }
 
-    public String getLocation() {
-        return location;
+    public Integer getBrowTime() {
+        return browTime;
     }
 
-    public void setLocation(String location) {
-        this.location = location == null ? null : location.trim();
-    }
-
-    public String getUrl() {
-        return url;
-    }
-
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setBrowTime(Integer browTime) {
+        this.browTime = browTime;
     }
 
     public Date getPubTime() {
@@ -71,5 +63,13 @@ public class News {
 
     public void setPubTime(Date pubTime) {
         this.pubTime = pubTime;
+    }
+
+    public String getContext() {
+        return context;
+    }
+
+    public void setContext(String context) {
+        this.context = context == null ? null : context.trim();
     }
 }

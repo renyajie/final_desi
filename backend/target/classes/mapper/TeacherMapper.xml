@@ -101,6 +101,7 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!-- List<TeacherResult> getTeacher(
+  			@Param("id") Integer id, 
 			@Param("pId") Integer pId, 
 			@Param("teacherName") String teacherName); -->
   <select id="getTeacher" 
@@ -110,6 +111,9 @@
     from teacher t, place p
     <trim prefix="where" prefixOverrides="and">
       t.p_id = p.id
+      <if test="id != null">
+        and t.id = #{id}
+      </if>
       <if test="pId != null">
         and t.p_id = #{pId}
       </if>

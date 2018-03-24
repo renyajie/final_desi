@@ -72,8 +72,8 @@ public class OrderService {
 	}
 	
 	/**
-	 * 取消用户预约记录
-	 * @param id
+	 * 删除用户预约记录
+	 * @param id 订单编号
 	 */
 	public void deleteOrderClassRecord(Integer id) {
 		classOrderMapper.deleteByPrimaryKey(id);

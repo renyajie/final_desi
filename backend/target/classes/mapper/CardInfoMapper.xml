@@ -132,7 +132,9 @@
     values (#{id,jdbcType=INTEGER}, #{cardKId,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, 
       #{allowance,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.CardInfo">
+  <insert id="insertSelective" 
+  	keyProperty="id" useGeneratedKeys="true"
+  	parameterType="com.ryj.yuyue.bean.CardInfo">
     insert into card_info
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

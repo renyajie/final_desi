@@ -41,11 +41,11 @@ public interface ClassOrderMapper {
      * @param after 小于等于此时间
      * @return
 	 */
-    List<ClassOrderResult> getClassOrder(
-    		@Param("placeId") Integer placeId,
-    		@Param("classId") Integer classId,
-    		@Param("userId") Integer userId,
-    		@Param("cardId") Integer cardId,
-    		@Param("before") Date before,
-    		@Param("after") Date after);
+	List<ClassOrderResult> getClassOrder(
+			@Param("placeId") Integer placeId, 
+			@Param("classId") Integer classId, 
+			@Param("userId") Integer userId,
+			@Param("cardId") Integer cardId, 
+			@Param("before") Date before, 
+			@Param("after") Date after);
 }

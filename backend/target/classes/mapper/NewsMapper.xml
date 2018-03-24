@@ -6,9 +6,24 @@
     <result column="m_id" jdbcType="INTEGER" property="mId" />
     <result column="p_id" jdbcType="INTEGER" property="pId" />
     <result column="title" jdbcType="VARCHAR" property="title" />
-    <result column="location" jdbcType="VARCHAR" property="location" />
-    <result column="url" jdbcType="VARCHAR" property="url" />
+    <result column="brow_time" jdbcType="INTEGER" property="browTime" />
     <result column="pub_time" jdbcType="TIMESTAMP" property="pubTime" />
+  </resultMap>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.NewsResult">
+    <result column="id" property="id" />
+    <result column="m_id" property="mId" />
+    <result column="m_name" property="mName" />
+    <result column="p_id" property="pId" />
+    <result column="p_name" property="mName" />
+    <result column="title" property="title" />
+    <result column="brow_time" property="browTime" />
+    <result column="pub_time" property="pubTime" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ryj.yuyue.bean.News">
+    <result column="context" jdbcType="LONGVARCHAR" property="context" />
+  </resultMap>
+  <resultMap extends="BaseResultMapForResult" id="ResultMapResultWithBLOBs" type="com.ryj.yuyue.bean.NewsResult">
+    <result column="context" jdbcType="LONGVARCHAR" property="context" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -69,8 +84,33 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, m_id, p_id, title, location, url, pub_time
+    id, m_id, p_id, title, brow_time, pub_time
   </sql>
+  <sql id="Base_Column_List_Result">
+    n.id, n.m_id, m.m_name, n.p_id, p.p_name, n.title, n.brow_time, n.pub_time
+  </sql>
+  <sql id="Blob_Column_List">
+    context
+  </sql>
+  <sql id="Blob_Column_List_Result">
+    n.context
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.ryj.yuyue.bean.NewsExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from news
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.NewsExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -85,11 +125,57 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from news
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- List<NewsResult> getNews(
+			@Param("managerId") Integer managerId, 
+			@Param("placeId") Integer placeId,
+			@Param("title") String title,
+			@Param("before") Date before,
+			@Param("after") Date after); -->
+  <select id="getNewsList" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from manager m, place p, news n
+    <trim prefix="where" prefixOverrides="and">
+      n.m_id = m.id and n.p_id = p.id
+      <if test="managerId != null">
+        and n.m_id = #{managerId}
+      </if>
+      <if test="placeId != null">
+        and n.p_id = #{placeId}
+      </if>
+      <if test="title != null">
+        and n.title like '%${title}%'
+      </if>
+      <if test="before != null">
+        and n.pub_time &gt;= #{before}
+      </if>
+      <if test="after != null">
+        and n.pub_time &lt;= #{after}
+      </if>
+    </trim>
+    order by n.pub_time desc
+  </select>
+  <!-- NewsResult getNewsById(
+			@Param("id") Integer newsId) -->
+  <select id="getNewsById" 
+  		  resultMap="ResultMapResultWithBLOBs">
+    select 
+    <include refid="Base_Column_List_Result" />
+    ,
+    <include refid="Blob_Column_List_Result" />
+    from manager m, place p, news n
+    <trim prefix="where" prefixOverrides="and">
+      n.m_id = m.id and n.p_id = p.id and n.id = #{id}
+    </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from news
@@ -103,11 +189,11 @@
   </delete>
   <insert id="insert" parameterType="com.ryj.yuyue.bean.News">
     insert into news (id, m_id, p_id, 
-      title, location, url, 
-      pub_time)
+      title, brow_time, pub_time, 
+      context)
     values (#{id,jdbcType=INTEGER}, #{mId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, 
-      #{title,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{url,jdbcType=VARCHAR}, 
-      #{pubTime,jdbcType=TIMESTAMP})
+      #{title,jdbcType=VARCHAR}, #{browTime,jdbcType=INTEGER}, #{pubTime,jdbcType=TIMESTAMP}, 
+      #{context,jdbcType=LONGVARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.News">
     insert into news
@@ -124,14 +210,14 @@
       <if test="title != null">
         title,
       </if>
-      <if test="location != null">
-        location,
-      </if>
-      <if test="url != null">
-        url,
+      <if test="browTime != null">
+        brow_time,
       </if>
       <if test="pubTime != null">
         pub_time,
+      </if>
+      <if test="context != null">
+        context,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -147,14 +233,14 @@
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
       </if>
-      <if test="location != null">
-        #{location,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
+      <if test="browTime != null">
+        #{browTime,jdbcType=INTEGER},
       </if>
       <if test="pubTime != null">
         #{pubTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="context != null">
+        #{context,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -179,16 +265,29 @@
       <if test="record.title != null">
         title = #{record.title,jdbcType=VARCHAR},
       </if>
-      <if test="record.location != null">
-        location = #{record.location,jdbcType=VARCHAR},
-      </if>
-      <if test="record.url != null">
-        url = #{record.url,jdbcType=VARCHAR},
+      <if test="record.browTime != null">
+        brow_time = #{record.browTime,jdbcType=INTEGER},
       </if>
       <if test="record.pubTime != null">
         pub_time = #{record.pubTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="record.context != null">
+        context = #{record.context,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update news
+    set id = #{record.id,jdbcType=INTEGER},
+      m_id = #{record.mId,jdbcType=INTEGER},
+      p_id = #{record.pId,jdbcType=INTEGER},
+      title = #{record.title,jdbcType=VARCHAR},
+      brow_time = #{record.browTime,jdbcType=INTEGER},
+      pub_time = #{record.pubTime,jdbcType=TIMESTAMP},
+      context = #{record.context,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -199,8 +298,7 @@
       m_id = #{record.mId,jdbcType=INTEGER},
       p_id = #{record.pId,jdbcType=INTEGER},
       title = #{record.title,jdbcType=VARCHAR},
-      location = #{record.location,jdbcType=VARCHAR},
-      url = #{record.url,jdbcType=VARCHAR},
+      brow_time = #{record.browTime,jdbcType=INTEGER},
       pub_time = #{record.pubTime,jdbcType=TIMESTAMP}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -218,16 +316,26 @@
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
-      <if test="location != null">
-        location = #{location,jdbcType=VARCHAR},
-      </if>
-      <if test="url != null">
-        url = #{url,jdbcType=VARCHAR},
+      <if test="browTime != null">
+        brow_time = #{browTime,jdbcType=INTEGER},
       </if>
       <if test="pubTime != null">
         pub_time = #{pubTime,jdbcType=TIMESTAMP},
       </if>
+      <if test="context != null">
+        context = #{context,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ryj.yuyue.bean.News">
+    update news
+    set m_id = #{mId,jdbcType=INTEGER},
+      p_id = #{pId,jdbcType=INTEGER},
+      title = #{title,jdbcType=VARCHAR},
+      brow_time = #{browTime,jdbcType=INTEGER},
+      pub_time = #{pubTime,jdbcType=TIMESTAMP},
+      context = #{context,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ryj.yuyue.bean.News">
@@ -235,8 +343,7 @@
     set m_id = #{mId,jdbcType=INTEGER},
       p_id = #{pId,jdbcType=INTEGER},
       title = #{title,jdbcType=VARCHAR},
-      location = #{location,jdbcType=VARCHAR},
-      url = #{url,jdbcType=VARCHAR},
+      brow_time = #{browTime,jdbcType=INTEGER},
       pub_time = #{pubTime,jdbcType=TIMESTAMP}
     where id = #{id,jdbcType=INTEGER}
   </update>

@@ -32,11 +32,13 @@ public interface TeacherMapper {
     
     /**
 	 * 查询教师信息
+	 * @param id 教师编号
 	 * @param pId 场馆编号
 	 * @param teacherName 教师名称
 	 * @return
 	 */
 	List<TeacherResult> getTeacher(
+			@Param("id") Integer id, 
 			@Param("pId") Integer pId, 
 			@Param("teacherName") String teacherName);
 }

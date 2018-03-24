@@ -33,6 +33,6 @@ public class CardOrderTest {
 						1,
 						null,
 						null,
-						DateMethod.getDateFromString("2018-3-2a5")));
+						DateMethod.getDateFromString("2018-3-25")));
 	}
 }
