@@ -15,6 +15,7 @@ import org.springframework.validation.FieldError;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ryj.yuyue.bean.Manager;
@@ -170,8 +171,10 @@ public class AuthenticationController {
 			}
 			return Messenger.fail().add("errorFields", map);
 		}
-		//注册信息
-		managerService.register(manager);
+		//注册信息，判断账号是否重复
+		if(!managerService.register(manager)) {
+			return Messenger.fail().add("other", "账号已被注册");
+		}
 		return Messenger.success();
 	}
 	
@@ -273,5 +276,33 @@ public class AuthenticationController {
 		logger.info("sysManager info update is {}", sysManager);
 		systemManagerService.update(sysManager);
 		return Messenger.success();
+	}
+	
+	/**
+	 * 获取某个系统管理员的信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getSysManagerInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getSysManagerInfo(
+			@RequestParam(value = "id", required = true) Integer id) {
+		
+		return Messenger.success().add("info", 
+				systemManagerService.getSysManagerInfo(id));
+	}
+	
+	/**
+	 * 获取某个管理员的信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getManagerInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getManagerInfo(
+			@RequestParam(value = "id", required = true) Integer id) {
+		
+		return Messenger.success().add("info", 
+				managerService.getManagerInfo(id));
 	}
 }

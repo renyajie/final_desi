@@ -1,1 +1,58 @@
 /* You can add global styles to this file, and also import other style files */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+/* 左中右三种朝向 */
+.go-left {
+    text-align: left;
+}
+.go-center {
+    text-align: center;
+}
+.go-right {
+    text-align: right;
+}
+
+/* 定义了四种颜色 */
+.colorOne {
+    background-color: antiquewhite;
+}
+.colorTwo {
+    background-color: aqua;
+}
+.colorThree {
+    background-color: aquamarine;
+}
+.colorFour {
+    background-color: azure;
+}
+.colorFive {
+    background-color: whitesmoke;
+}
+.white {
+    background-color: white;
+}
+
+/* 主题内容样式 */
+.main-content{
+    height: 100%;
+    padding: 20px 20px;
+}
+
+/* 垂直，水平，完全居中 */
+.center-vertical{
+    position: relative;
+    top:50%;
+}
+.center-horizontal{
+    position: relative;
+    left:50%;
+}
+.center {
+    position: relative;
+    left: 50%;
+    top: 50%;
+}

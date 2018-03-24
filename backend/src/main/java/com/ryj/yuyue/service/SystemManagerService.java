@@ -22,6 +22,15 @@ public class SystemManagerService {
 	private SystemManagerMapper sysManagerMapper;
 	
 	/**
+	 * 获取某个系统管理员的信息
+	 * @param id
+	 * @return
+	 */
+	public SystemManager getSysManagerInfo(Integer id) {
+		return sysManagerMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
 	 * 插入提条系统管理员的记录
 	 * @param sysManager
 	 */
@@ -37,7 +46,7 @@ public class SystemManagerService {
 	public SystemManager checkLogin(SystemManager sysManager) {
 		SystemManagerExample example = new SystemManagerExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andPhoneEqualTo(sysManager.getAccount());
+		criteria.andAccountEqualTo(sysManager.getAccount());
 		criteria.andPasswdEqualTo(sysManager.getPasswd());
 		List<SystemManager> result = sysManagerMapper.selectByExample(example);
 		

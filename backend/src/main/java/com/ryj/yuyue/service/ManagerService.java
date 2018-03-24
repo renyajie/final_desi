@@ -17,6 +17,15 @@ public class ManagerService {
 	private ManagerMapper managerMapper;
 	
 	/**
+	 * 获取某个管理员的信息
+	 * @param id
+	 * @return
+	 */
+	public Manager getManagerInfo(Integer id) {
+		return managerMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
 	 * 检查账号和密码是否正确
 	 * @param manager
 	 * @return 登录失败null，登陆成功返回Manager信息
@@ -24,7 +33,7 @@ public class ManagerService {
 	public Manager checkLogin(Manager manager) {
 		ManagerExample example = new ManagerExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andPhoneEqualTo(manager.getAccount());
+		criteria.andAccountEqualTo(manager.getAccount());
 		criteria.andPasswdEqualTo(manager.getPasswd());
 		List<Manager> result = managerMapper.selectByExample(example);
 		
@@ -38,8 +47,16 @@ public class ManagerService {
 	 * 管理员注册
 	 * @param manager
 	 */
-	public void register(Manager manager) {
+	public boolean register(Manager manager) {
+		ManagerExample example = new ManagerExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andAccountEqualTo(manager.getAccount());
+		int size = managerMapper.selectByExample(example).size();
+		if(size != 0) {
+			return false;
+		}
 		managerMapper.insertSelective(manager);
+		return true;
 	}
 	
 	/**

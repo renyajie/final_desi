@@ -54,4 +54,5 @@ public class UserService {
 	public void update(User user) {
 		userMapper.updateByPrimaryKeySelective(user);
 	}
+	
 }

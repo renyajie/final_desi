@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ryj.yuyue.bean.News;
 import com.ryj.yuyue.service.NewsService;
@@ -44,6 +45,7 @@ public class NewsController {
 	 * @return
 	 */
 	@RequestMapping(value = "getNews", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getNews(
 			@RequestParam(value = "newsId", required = false) Integer newsId,
 			@RequestParam(value = "managerId", required = false) Integer managerId, 
@@ -66,6 +68,7 @@ public class NewsController {
 	 * @return
 	 */
 	@RequestMapping(value = "addNews", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger addNews(
 			@RequestBody @Valid News news, 
 			BindingResult syntaxResult) {
@@ -90,6 +93,7 @@ public class NewsController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteNews", method = RequestMethod.DELETE)
+	@ResponseBody
 	public Messenger deleteNews(
 			@RequestParam(value = "id", required = true) Integer id) {
 		
@@ -104,6 +108,7 @@ public class NewsController {
 	 * @return
 	 */
 	@RequestMapping(value = "updateNews", method = RequestMethod.PUT)
+	@ResponseBody
 	public Messenger updateNews(
 			@RequestBody @Valid News news, 
 			BindingResult syntaxResult) {

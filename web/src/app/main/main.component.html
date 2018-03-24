@@ -1,0 +1,134 @@
+<div class="header">
+  <app-main-header></app-main-header>
+</div>
+<div class="row main">
+  <div class="col-md-2 menu">
+    <div>
+      <!-- 若用户登录身份为管理员，显示管理员的菜单项 -->
+      <ul *ngIf="isSysManager === false">
+        <li>
+          用户管理
+          <dl>
+            <dd>
+              <a routerLink="./lab" routerLinkActive="active">查看实验室</a>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          订单管理
+          <dl>
+            <dd>
+              <a routerLink="./news" routerLinkActive="active">约课订单</a>
+            </dd>
+            <dd>
+              <a routerLink="./news/insert" routerLinkActive="active">购卡订单</a>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          会员卡管理
+          <dl>
+            <dd>
+              <a routerLink="./msg" routerLinkActive="active">查看会员卡种类</a>
+            </dd>
+            <dd>
+              <a routerLink="./msg" routerLinkActive="active">添加会员卡种类</a>
+            </dd>
+            <dd>
+              <a routerLink="./msg/insert" routerLinkActive="active">查看会员卡信息</a>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          课程管理
+          <dl>
+            <dd>
+              <a routerLink="./exp-doc" routerLinkActive="active">查看课程种类</a>
+            </dd>
+            <dd>
+              <a routerLink="./exp-doc" routerLinkActive="active">添加课程种类</a>
+            </dd>
+            <dd>
+              <a routerLink="./exp-doc/insert" routerLinkActive="active">查看课程信息</a>
+            </dd>
+            <dd>
+              <a routerLink="./exp-doc/upload" routerLinkActive="active">添加课程信息</a>
+            </dd>
+          </dl>
+        </li>
+        <li>通知管理
+          <dl>
+            <dd>
+              <a routerLink="./course-doc" routerLinkActive="active">查看系统通知</a>
+            </dd>
+            <dd>
+              <a routerLink="./course-doc" routerLinkActive="active">查看本地通知</a>
+            </dd>
+            <dd>
+              <a routerLink="./course-doc" routerLinkActive="active">添加通知</a>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          数据分析
+          <dl>
+            <dd>
+              <a routerLink="./teacher/info" routerLinkActive="active">统计分析</a>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          个人中心
+          <dl>
+            <dd>
+              <a routerLink="./teacher/info" routerLinkActive="active">个人信息</a>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+      <!-- 若用户登录身份为系统管理员，显示系统管理员的菜单项 -->
+      <ul *ngIf="isSysManager === true">
+        <li>
+          场馆管理
+          <dl>
+            <dd>
+              <a routerLink="./lab" routerLinkActive="active">查看瑜伽馆</a>
+            </dd>
+            <dd>
+              <a routerLink="./lab" routerLinkActive="active">新增瑜伽馆</a>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          消息通知推送
+          <dl>
+            <dd>
+              <a routerLink="./msg" routerLinkActive="active">查看消息</a>
+            </dd>
+            <dd>
+              <a routerLink="./msg" routerLinkActive="active">新增消息</a>
+            </dd>
+          </dl>
+        </li>
+        <li>瑜伽馆管理员
+          <dl>
+            <dd>
+              <a routerLink="./course-doc" routerLinkActive="active">查看人员列表</a>
+            </dd>
+          </dl>
+        </li>
+        <li>
+          个人中心
+          <dl>
+            <dd>
+              <a routerLink="./student/info" routerLinkActive="active">个人信息</a>
+            </dd>
+          </dl>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <div class="col-md-10 col-md-offset-0 content">
+    <router-outlet></router-outlet>
+  </div>
+</div>

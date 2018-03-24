@@ -1,0 +1,48 @@
+<div class="row header">
+  <div class="col-md-12">
+      <h1 class="title">
+          预约管理系统欢迎您
+      </h1>
+  </div>
+</div>
+<div class="row main-body">
+  <div class="col-md-12">
+      <div class="total">
+          <h3>登录</h3>
+          <div class="go-center">
+              TODO: {{diagnostic}}
+          </div>
+          
+          <div class="main-lg">
+              <div class="lg-name">
+                  <label>用户名</label>
+                  <input type="text" [(ngModel)]="account" placeholder="用户名" >
+              </div>
+
+              <div class="lg-pw">
+                  <label>密码</label>
+                  <input type="password" [(ngModel)]="passwd" placeholder="密码">
+              </div>
+          </div>
+
+          <div class="main-rd">
+              <label class="radio-inline">
+                  <input type="radio" name="isSysManager" [checked]="isSysManager === 0" (click)="isSysManager=0"> 场馆管理员</label>
+              <label class="radio-inline">
+                  <input type="radio" name="isSysManager" [checked]="isSysManager === 1" (click)="isSysManager=1"> 系统管理员</label>
+          </div>
+          <div class="main-btn">
+              <button type="button" class="btn btn-info" (click)="login()">登录</button>
+              <button type="button" class="btn btn-info" (click)="register()">注册</button>
+          </div>
+      </div>
+  </div>
+</div>
+
+<div class="row footer colorOne">
+  <div class="col-md-12">
+      <div class="team">
+          任亚捷组
+      </div>
+  </div>
+</div>

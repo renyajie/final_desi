@@ -6,6 +6,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ryj.yuyue.bean.CardKind;
 import com.ryj.yuyue.bean.ClassInfo;
@@ -34,6 +37,9 @@ import com.ryj.yuyue.utils.Messenger;
 @Controller
 @RequestMapping("api/setting")
 public class SettingController {
+	
+	private static final Logger logger = 
+			LoggerFactory.getLogger(SettingController.class);
 
 	@Autowired
 	private ClassService classService;
@@ -51,6 +57,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "addClassInfo", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger addClassInfo(
 			@RequestBody @Valid ClassInfo classInfo, 
 			BindingResult syntaxResult) {
@@ -75,6 +82,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteClassInfo", method = RequestMethod.DELETE)
+	@ResponseBody
 	public Messenger deleteClassInfo(
 			@RequestParam(value = "classId", required = true) Integer classId) {
 		
@@ -89,6 +97,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "updateClassInfo", method = RequestMethod.PUT)
+	@ResponseBody
 	public Messenger updateClassInfo(
 			@RequestBody @Valid ClassInfo classInfo, 
 			BindingResult syntaxResult) {
@@ -114,6 +123,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "addClassKind", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger addClassKind(
 			@RequestBody @Valid ClassKind classKind, 
 			BindingResult syntaxResult) {
@@ -138,6 +148,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteClassKind", method = RequestMethod.DELETE)
+	@ResponseBody
 	public Messenger deleteClassKind(
 			@RequestParam(value = "classKId", required = true) Integer classKId) {
 		
@@ -152,6 +163,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "updateClassKind", method = RequestMethod.PUT)
+	@ResponseBody
 	public Messenger updateClassKind(
 			@RequestBody @Valid ClassKind classKind, 
 			BindingResult syntaxResult) {
@@ -179,6 +191,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "getClassKind", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getClassKind(
 			@RequestParam(value = "classKId", required = false) Integer classKId, 
 			@RequestParam(value = "managerId", required = false) Integer managerId, 
@@ -197,6 +210,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "addCardKind", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger addCardKind(
 			@RequestBody @Valid CardKind cardKind, 
 			BindingResult syntaxResult) {
@@ -221,6 +235,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteCardKind", method = RequestMethod.DELETE)
+	@ResponseBody
 	public Messenger deleteCardKind(
 			@RequestParam(value = "cardKId", required = true) Integer cardKId) {
 		
@@ -235,6 +250,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "updateCardKind", method = RequestMethod.PUT)
+	@ResponseBody
 	public Messenger updateCardKind(
 			@RequestBody @Valid CardKind cardKind, 
 			BindingResult syntaxResult) {
@@ -263,6 +279,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "getCardKind", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getCardKind( 
 			@RequestParam(value = "cardKId", required = false) Integer cardKId, 
 			@RequestParam(value = "pId", required = false) Integer pId, 
@@ -282,6 +299,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "addTeacher", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger addTeacher(
 			@RequestBody @Valid Teacher teacher, 
 			BindingResult syntaxResult) {
@@ -306,6 +324,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "deleteTeacher", method = RequestMethod.DELETE)
+	@ResponseBody
 	public Messenger deleteTeacher(
 			@RequestParam(value = "id", required = true) Integer id) {
 		
@@ -320,6 +339,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "updateTeacher", method = RequestMethod.PUT)
+	@ResponseBody
 	public Messenger updateTeacher(
 			@RequestBody @Valid Teacher teacher, 
 			BindingResult syntaxResult) {
@@ -346,6 +366,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "getTeacher", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getTeacher( 
 			@RequestParam(value = "id", required = false) Integer id, 
 			@RequestParam(value = "pId", required = false) Integer pId, 
@@ -362,6 +383,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "addPlace", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger addPlace(
 			@RequestBody @Valid Place place, 
 			BindingResult syntaxResult) {
@@ -386,6 +408,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "deletePlace", method = RequestMethod.DELETE)
+	@ResponseBody
 	public Messenger deletePlace(
 			@RequestParam(value = "id", required = true) Integer id) {
 		
@@ -400,6 +423,7 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "updatePlace", method = RequestMethod.PUT)
+	@ResponseBody
 	public Messenger updatePlace(
 			@RequestBody @Valid Place place, 
 			BindingResult syntaxResult) {
@@ -425,10 +449,12 @@ public class SettingController {
 	 * @return
 	 */
 	@RequestMapping(value = "getPlace", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getPlace( 
 			@RequestParam(value = "id", required = false) Integer id, 
 			@RequestParam(value = "placeName", required = false) String placeName) {
 
+		logger.info("getPlace");
 		return Messenger.success().add("info", 
 				placeService.getPlace(id, placeName));
 	}

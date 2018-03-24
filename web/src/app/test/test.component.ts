@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SystemManager } from '../poto/SystemManager';
+import { SystemManager } from '../poto/system_manager';
 import { TestService } from './test.service';
 
 @Component({

@@ -6,6 +6,10 @@ import { TestModule } from './test/test.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+import { StartModule } from './start/start.module';
+import { MainModule } from './main/main.module';
+import { PersonInfoService } from './core/person-info.service';
+import { PlaceService } from './core/place.service';
 
 @NgModule({
   declarations: [
@@ -13,11 +17,13 @@ import { AppComponent } from './app.component';
   ],
   imports: [
     BrowserModule,
+    StartModule,
+    MainModule,
     TestModule,
     CoreModule,
     AppRoutingModule
   ],
-  providers: [],
+  providers: [PersonInfoService, PlaceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

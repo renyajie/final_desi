@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ryj.yuyue.bean.CardInfo;
 import com.ryj.yuyue.bean.CardOrder;
@@ -54,6 +55,7 @@ public class OrderController {
 	 * @param isPub 是否公开
 	 */
 	@RequestMapping(value = "getClassInfo", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getClassInfo(
 			@RequestParam(value = "classId", required = false) Integer classId,
 			@RequestParam(value = "classKindId", required = false) Integer classKindId,
@@ -78,6 +80,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "userOrderClass", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger userOrderClass(
 			@RequestParam(value = "expend", required = true) Integer expend,
 			@RequestBody @Valid ClassOrder classOrder, 
@@ -112,6 +115,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "cancelClassOrder", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger cancelClassOrder(
 			@RequestParam(value = "orderId", required = true) Integer orderId) {
 		classService.addClassAllowance(orderId);
@@ -130,6 +134,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "getClassOrder", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getClassOrder(
 			@RequestParam(value = "placeId", required=false) Integer placeId, 
 			@RequestParam(value = "classId", required=false)  Integer classId, 
@@ -156,6 +161,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "getCardOrder", method = RequestMethod.GET)
+	@ResponseBody
 	public Messenger getCardOrder(
 			@RequestParam(value = "placeId", required=false) Integer placeId, 
 			@RequestParam(value = "classId", required=false)  Integer classId, 
@@ -178,6 +184,7 @@ public class OrderController {
 	 * @return
 	 */
 	@RequestMapping(value = "addCardOrder", method = RequestMethod.POST)
+	@ResponseBody
 	public Messenger addCardOrder(
 			@RequestBody @Valid CardOrder cardOrder, 
 			BindingResult syntaxResult) {
