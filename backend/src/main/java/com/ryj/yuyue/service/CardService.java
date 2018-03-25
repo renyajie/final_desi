@@ -88,18 +88,18 @@ public class CardService {
 	/**
      * 管理员或用户查询会员卡种类
      * @param cardKId 会员卡种类编号
-     * @param pId 场馆编号
+     * @param managerId 管理员编号
      * @param cardKName 卡种名
      * @param capacity 容量
      * @param expend 花费
      * @return
      */
 	public List<CardKindResult> getCardKind(
-			Integer cardKId, Integer pId, String cardKName, 
+			Integer cardKId, Integer managerId, String cardKName, 
 			Integer capacity, Integer expend) {
 		
 		return cardKindMapper.getCardKind(
-				cardKId, pId, cardKName, capacity, expend);
+				cardKId, managerId, cardKName, capacity, expend);
 	}
 	
 	/**

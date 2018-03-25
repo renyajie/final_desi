@@ -32,20 +32,24 @@ public interface ClassOrderMapper {
     int updateByPrimaryKey(ClassOrder record);
     
     /**
-	 * 用户或管理员查询订单，可多条件查询
-	 * @param placeId 场馆id
-     * @param classId 课程id
+     * 用户或管理员查询订单，可多条件查询
+     * @param orderId 订单编号
+     * @param placeId 场馆编号
+     * @param classId 课程编号
+     * @param classKId 课程种类
      * @param userId 用户编号
-     * @param cardId 会员卡编号
+     * @param cardId 会员卡
      * @param before 大于等于此时间
-     * @param after 小于等于此时间
+     * @param after 小于等于此事件
      * @return
-	 */
-	List<ClassOrderResult> getClassOrder(
-			@Param("placeId") Integer placeId, 
-			@Param("classId") Integer classId, 
-			@Param("userId") Integer userId,
-			@Param("cardId") Integer cardId, 
-			@Param("before") Date before, 
-			@Param("after") Date after);
+     */
+    List<ClassOrderResult> getClassOrder(
+  			@Param("orderId") Integer orderId,
+    		@Param("placeId") Integer placeId,
+    		@Param("classId") Integer classId,
+    		@Param("classKId") Integer classKId,
+    		@Param("userId") Integer userId,
+    		@Param("cardId") Integer cardId,
+    		@Param("before") Date before,
+    		@Param("after") Date after);
 }

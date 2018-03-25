@@ -15,7 +15,7 @@ select * from card_kind;
 -- 传入参数: u_id 
 -- 传出参数: class_order_result
 
-select co.id, p.id as p_id, p.p_name, co.cla_id, cla_k.cla_k_name, co.u_id, u.u_name, co.card_id, card_k.card_k_name, co.ord_time, co.num
+select co.id, p.id as p_id, p.s_name, co.cla_id, cla_k.cla_k_name, co.u_id, u.u_name, co.card_id, card_k.card_k_name, co.ord_time, co.num
 from class_order co, user u, class_info cla_i, card_info card_i, class_kind cla_k, card_kind card_k, place p
 where 
 co.cla_id = cla_i.id and cla_i.cla_k_id = cla_k.id 

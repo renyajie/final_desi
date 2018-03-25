@@ -240,12 +240,14 @@
     <result column="num" property="num" />
   </resultMap>
   <sql id="Base_Column_List_Result">
-    co.id, p.id as p_id, p.p_name, co.cla_id, cla_k.cla_k_name, co.u_id, u.u_name, 
+    co.id, p.id as p_id, p.s_name, co.cla_id, cla_k.id, cla_k.cla_k_name, co.u_id, u.u_name, 
     co.card_id, card_k.card_k_name, co.ord_time, co.num
   </sql>
   <!-- List<ClassOrderResult> getClassOrder(
+  			@Param("orderId") Integer orderId,
     		@Param("placeId") Integer placeId,
     		@Param("classId") Integer classId,
+    		@Param("classKId") Integer classKId,
     		@Param("userId") Integer userId,
     		@Param("cardId") Integer cardId,
     		@Param("before") Date before,
@@ -274,8 +276,14 @@
       <if test="cardId != null">
         and card_i.id = #{cardId}
       </if>
+      <if test="classKId != null">
+        and cla_k.id = #{classKId}
+      </if>
       <if test="classId != null">
         and cla_i.id = #{classId}
+      </if>
+      <if test="orderId != null">
+        and co.id = #{orderId}
       </if>
     </trim>
     order by co.ord_time desc

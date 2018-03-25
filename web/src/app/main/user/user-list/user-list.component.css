@@ -1,0 +1,54 @@
+input {
+    width: 120px;
+}
+
+.main-table{
+    width: 90%;
+    height: 70%;
+    margin: 40px auto;
+}
+
+td{
+    height: 30px;
+    text-align: center;
+}
+
+.foot-content{
+    height: 15%;
+    margin-left: 30px;
+}
+
+.main-page{
+    position: fixed;
+    right: 100px;
+    bottom: 30px;
+}
+
+.main-btn{
+    margin: 0;
+}
+
+.main-btn button{
+    margin-right: 30px;
+}
+
+/* 不同数据类型的表格列宽 */
+.idColumn{
+    width: 100px;
+}
+
+.phoneColumn {
+    width: 150px;
+}
+
+.passwdColumn {
+    width: 150px;
+}
+
+.nameColumn {
+    width: 150px;
+}
+
+.genderColumn {
+    width: 100px;
+}

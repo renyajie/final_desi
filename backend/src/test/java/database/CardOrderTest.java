@@ -31,6 +31,8 @@ public class CardOrderTest {
 		logger.info("getClassInfoTest: {}", 
 				cardOrderMapper.getCardOrder(
 						1,
+						1,
+						"小",
 						null,
 						null,
 						DateMethod.getDateFromString("2018-3-25")));

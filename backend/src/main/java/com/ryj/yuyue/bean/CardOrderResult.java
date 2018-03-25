@@ -2,6 +2,8 @@ package com.ryj.yuyue.bean;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 
  * 查询购卡订单
@@ -20,6 +22,7 @@ public class CardOrderResult {
     
     private String cardKName;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date ordTime;
 
     private Integer cardId;

@@ -18,8 +18,11 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.CardInfo;
 import com.ryj.yuyue.bean.CardOrder;
+import com.ryj.yuyue.bean.CardOrderResult;
 import com.ryj.yuyue.bean.ClassOrder;
 import com.ryj.yuyue.bean.ClassOrderResult;
 import com.ryj.yuyue.service.CardService;
@@ -133,11 +136,15 @@ public class OrderController {
 	 * @param after
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "getClassOrder", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getClassOrder(
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
+			@RequestParam(value = "orderId", required=false) Integer orderId, 
 			@RequestParam(value = "placeId", required=false) Integer placeId, 
-			@RequestParam(value = "classId", required=false)  Integer classId, 
+			@RequestParam(value = "classId", required=false)  Integer classId,
+			@RequestParam(value = "classKId", required=false)  Integer classKId,
 			@RequestParam(value = "userId", required=false)  Integer userId,
 			@RequestParam(value = "cardId", required=false)  Integer cardId, 
 			@DateTimeFormat(pattern="yyyy-MM-dd")
@@ -145,9 +152,12 @@ public class OrderController {
 			@DateTimeFormat(pattern="yyyy-MM-dd")
 			@RequestParam(value = "after", required=false) Date after) {
 		
+		PageHelper.startPage(pn, 5);
 		List<ClassOrderResult> result = orderService.getClassOrder(
-				placeId, classId, userId, cardId, before, after);
-		return Messenger.success().add("info", result);
+				orderId, placeId, classId, classKId, 
+				userId, cardId, before, after);
+		PageInfo page = new PageInfo(result, 5);
+		return Messenger.success().add("pageInfo", page);
 	}
 	
 	/**
@@ -160,21 +170,25 @@ public class OrderController {
 	 * @param after
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "getCardOrder", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getCardOrder(
-			@RequestParam(value = "placeId", required=false) Integer placeId, 
-			@RequestParam(value = "classId", required=false)  Integer classId, 
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
+			@RequestParam(value = "managerId", required=true)  Integer managerId,
 			@RequestParam(value = "userId", required=false)  Integer userId,
-			@RequestParam(value = "cardId", required=false)  Integer cardId, 
+			@RequestParam(value = "userName", required=false)  String userName,
+			@RequestParam(value = "cardKId", required=false)  Integer cardKId, 
 			@DateTimeFormat(pattern="yyyy-MM-dd")
 			@RequestParam(value = "before", required=false) Date before, 
 			@DateTimeFormat(pattern="yyyy-MM-dd")
 			@RequestParam(value = "after", required=false) Date after) {
 		
-		List<ClassOrderResult> result = orderService.getClassOrder(
-				placeId, classId, userId, cardId, before, after);
-		return Messenger.success().add("info", result);
+		PageHelper.startPage(pn, 5);
+		List<CardOrderResult> result = orderService.getCardOrder(
+				managerId, userId, userName, cardKId, before, after);
+		PageInfo page = new PageInfo(result, 5);
+		return Messenger.success().add("pageInfo", page);
 	}
 	
 	/**

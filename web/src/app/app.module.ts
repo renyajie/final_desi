@@ -6,10 +6,13 @@ import { TestModule } from './test/test.module';
 import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
+
 import { StartModule } from './start/start.module';
 import { MainModule } from './main/main.module';
+
 import { PersonInfoService } from './core/person-info.service';
 import { PlaceService } from './core/place.service';
+import { AuthService } from './core/auth.service';
 
 @NgModule({
   declarations: [
@@ -23,7 +26,7 @@ import { PlaceService } from './core/place.service';
     CoreModule,
     AppRoutingModule
   ],
-  providers: [PersonInfoService, PlaceService],
+  providers: [PersonInfoService, PlaceService, AuthService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

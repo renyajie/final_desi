@@ -3,6 +3,7 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 import { SystemManager } from '../poto/system_manager';
 import { Manager } from '../poto/manager';
+import { User } from '../poto/user';
 
 /**
  * 处理登录，注册，更新
@@ -26,7 +27,7 @@ export class AuthService {
   }
 
   /**
-   * 系统管理员
+   * 系统管理员登录
    * @param sysManager 
    */
   sysManagerLogIn(sysManager: SystemManager) {
@@ -61,6 +62,43 @@ export class AuthService {
   sysManagerUpdate(sysManager: SystemManager) {
     const url = this.url + 'sysManagerUpdate';
     return this.httpClient.put(url, sysManager);
+  }
+
+  /**
+   * 用户更新信息
+   * @param user 
+   */
+  userUpdate(user: User) {
+    const url = this.url + 'userUpdate';
+    return this.httpClient.put(url, user);
+  }
+
+  /**
+   * 查询用户信息
+   * @param pn 第几页
+   * @param id 用户编号
+   * @param phone 手机号
+   * @param uName 姓名
+   */
+  getUser(pn?, id?, phone?, uName?) {
+    const url = this.url + 'getUser';
+    const params = new HttpParams()
+      .set('pn', pn ? pn : '')
+      .set('id', id ? id : '')
+      .set('phone', phone ? phone : '')
+      .set('uName', uName ? uName : '');
+    return this.httpClient.get(url, {params});
+  }
+
+  /**
+   * 获取用户信息
+   * @param id 
+   */
+  getUserInfo(id) {
+    const url = this.url + 'getUserInfo';
+    const params = new HttpParams()
+    .set('id', id);
+    return this.httpClient.get(url, { params });
   }
 
 }

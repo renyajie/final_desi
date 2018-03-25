@@ -55,4 +55,35 @@ public class UserService {
 		userMapper.updateByPrimaryKeySelective(user);
 	}
 	
+	/**
+	 * 获取用户基本信息
+	 * @param id
+	 * @return
+	 */
+	public User getUserInfo(Integer id) {
+		return userMapper.selectByPrimaryKey(id);
+	}
+	
+	/**
+	 * 查询用户信息，根据用户编号，手机，名称模糊查询
+	 * @param id 用户编号
+	 * @param phone 用户手机
+	 * @param uName 用户名称
+	 * @return
+	 */
+	public List<User> getUser(Integer id, String phone, String uName) {
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		if(id != null) {
+			criteria.andIdEqualTo(id);
+		}
+		if(phone != null && phone.length() != 0) {
+			criteria.andPhoneLike("%" + phone + "%");
+		}
+		if(uName != null && uName.length() != 0) {
+			criteria.andUNameLike("%" + uName + "%");
+		}
+		return userMapper.selectByExample(example);
+	}
+	
 }

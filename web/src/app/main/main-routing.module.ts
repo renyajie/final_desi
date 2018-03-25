@@ -2,9 +2,22 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Routes } from '@angular/router';
 import { MainComponent } from './main.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { PageNotFoundComponent } from '../core/page-not-found.component';
 
 const mainRoutes: Routes = [
-  { path: 'main', component: MainComponent }
+  { 
+    path: 'main', 
+    component: MainComponent,
+    children: [
+      { path: 'user', loadChildren: 'app/main/user/user.module#UserModule' },
+      { path: 'order', loadChildren: 'app/main/order/order.module#OrderModule' },
+      { path: 'card', loadChildren: 'app/main/card/card.module#CardModule' },
+      { path: 'welcome', component: WelcomeComponent },
+      { path: '', redirectTo: 'welcome', pathMatch: 'full' },
+      { path: '**', component: PageNotFoundComponent }
+    ] 
+  }
 ];
 
 @NgModule({

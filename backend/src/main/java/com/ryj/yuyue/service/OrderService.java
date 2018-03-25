@@ -51,16 +51,26 @@ public class OrderService {
 	
 	/**
      * 查询购卡订单
+     * @param managerId 管理员编号
      * @param userId 用户编号
      * @param cardKId 卡种编号
+     * @param userName 姓名
      * @param before 大于等于此日期
      * @param after 小于等于此日期
      * @return
      */
+	@SuppressWarnings("deprecation")
 	public List<CardOrderResult> getCardOrder(
-			Integer userId, Integer cardKId, Date before, Date after) {
-		return cardOrderMapper.getCardOrder(
-				userId, cardKId, before, after);
+			Integer managerId, Integer userId, String userName, 
+			Integer cardKId, Date before, Date after) {
+		List<CardOrderResult> result = cardOrderMapper.getCardOrder(
+				managerId, userId, userName, cardKId, before, after);
+		for(CardOrderResult cardOrder: result) {
+    		Date d = cardOrder.getOrdTime();
+    		d.setHours(d.getHours() + 8);
+    		cardOrder.setOrdTime(d);
+    	}
+		return result;
 	}
 	
 	/**
@@ -80,19 +90,31 @@ public class OrderService {
 	}
 	
 	/**
-	 * 用户或管理员查询订单，可多条件查询
-	 * @param placeId 场馆id
-     * @param classId 课程id
+     * 用户或管理员查询订单，可多条件查询
+     * @param orderId 订单编号
+     * @param placeId 场馆编号
+     * @param classId 课程编号
+     * @param classKId 课程种类
      * @param userId 用户编号
-     * @param cardId 会员卡编号
+     * @param cardId 会员卡
      * @param before 大于等于此时间
-     * @param after 小于等于此时间
+     * @param after 小于等于此事件
      * @return
-	 */
+     */
+    @SuppressWarnings("deprecation")
 	public List<ClassOrderResult> getClassOrder(
-    		Integer placeId, Integer classId, Integer userId,
-    		Integer cardId, Date before, Date after) {
-		return classOrderMapper.getClassOrder(
-				placeId, classId, userId, cardId, before, after);
-	}
+  			Integer orderId, Integer placeId, Integer classId,
+    		Integer classKId, Integer userId, Integer cardId,
+    		Date before, Date after) {
+    	
+    	List<ClassOrderResult> result = classOrderMapper.getClassOrder(
+    			orderId, placeId, classId, classKId, 
+    			userId, cardId, before, after);
+    	for(ClassOrderResult classOrder: result) {
+    		Date d = classOrder.getOrdTime();
+    		d.setHours(d.getHours() + 8);
+    		classOrder.setOrdTime(d);
+    	}
+    	return result;
+    }
 }

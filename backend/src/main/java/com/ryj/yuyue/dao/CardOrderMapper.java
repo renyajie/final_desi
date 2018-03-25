@@ -33,14 +33,18 @@ public interface CardOrderMapper {
     
     /**
      * 查询购卡订单
+     * @param managerId 管理员编号
      * @param userId 用户编号
+     * @Param userName 姓名
      * @param cardKId 卡种编号
      * @param before 大于等于此日期
      * @param after 小于等于此日期
      * @return
      */
     List<CardOrderResult> getCardOrder(
+    		@Param("managerId") Integer managerId,
     		@Param("userId") Integer userId, 
+    		@Param("userName") String userName,
     		@Param("cardKId") Integer cardKId, 
     		@Param("before") Date before, 
     		@Param("after") Date after);

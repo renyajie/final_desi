@@ -18,6 +18,8 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.Manager;
 import com.ryj.yuyue.bean.SystemManager;
 import com.ryj.yuyue.bean.User;
@@ -304,5 +306,40 @@ public class AuthenticationController {
 		
 		return Messenger.success().add("info", 
 				managerService.getManagerInfo(id));
+	}
+	
+	/**
+	 * 获取某个用户的信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getUserInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getUserInfo(
+			@RequestParam(value = "id", required = true) Integer id) {
+		
+		return Messenger.success().add("info", 
+				userService.getUserInfo(id));
+	}
+	
+	/**
+	 * 获取用户信息，手机和姓名模糊查询
+	 * @param id 用户编号
+	 * @param phone 手机
+	 * @param uName 姓名
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value="getUser", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getUser(
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
+			@RequestParam(value = "id", required = false) Integer id,
+			@RequestParam(value = "phone", required = false) String phone, 
+			@RequestParam(value = "uName", required = false) String uName) {
+		logger.info("getUser uName is {}", uName);
+		PageHelper.startPage(pn, 5);
+		PageInfo page = new PageInfo(userService.getUser(id, phone, uName), 5);
+		return Messenger.success().add("pageInfo", page);
 	}
 }

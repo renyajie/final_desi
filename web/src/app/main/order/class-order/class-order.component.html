@@ -1,0 +1,120 @@
+<div class="row">
+  <div class="col-md-3">
+    <button type="button" class="btn btn-info btn-sm" (click)="showBeforePicker(null)">{{beforeBtnText}}</button>
+    {{beforeDateText}}
+    <br>
+    <datepicker *ngIf="showBeforeDate" [(ngModel)]="beforeDate" [showWeeks]="true" (onChange)="showBeforePicker($event)" [maxDate]="maxDate"
+      [minDate]="minDate"></datepicker>
+  </div>
+  <div class="col-md-3">
+    <button type="button" class="btn btn-info btn-sm" (click)="showAfterPicker(null)">{{afterBtnText}}</button>
+    {{afterDateText}}
+    <br>
+    <datepicker *ngIf="showAfterDate" [(ngModel)]="afterDate" [showWeeks]="true" (onChange)="showAfterPicker($event)" [maxDate]="maxDate"
+      [minDate]="minDate"></datepicker>
+  </div>
+  <div class="col-md-2">
+    课程种类:
+    <select [(ngModel)]="classKId" id="classKId">
+        <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
+            {{classKind.claKName}}
+        </option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    用户编号：
+    <input [(ngModel)]="userId">
+  </div>
+  <div class="col-md-2">
+    会员卡编号：
+    <input [(ngModel)]="cardId">
+  </div>
+  <div class="col-md-12 one-line-button">
+    <button type="button" class="btn btn-info btn-sm" (click)="clear();getClassOrder();">清空</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getClassOrder(1, classKId, userId, cardId);">搜索</button>
+  </div>
+</div>
+
+<div class="main-table">  
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td class="idColumn">订单编号</td>
+            <td class="idColumn">班级编号</td>
+            <td class="classColumn">课程名称</td>
+            <td class="idColumn">用户编号</td>
+            <td class="nameColumn">用户姓名</td>
+            <td class="idColumn">会员卡编号</td>
+            <td class="timeColumn">下单时间</td>
+            <td class="numberColumn">预定人数</td>           
+        </tr>
+        <tr *ngFor="let classOrder of classOrders$ | async">
+            <td class="idColumn">{{classOrder.id}}</td>
+            <td class="idColumn">{{classOrder.claId}}</td>
+            <td class="classColumn">{{classOrder.claKName}}</td>
+            <td class="idColumn">{{classOrder.uId}}</td>
+            <td class="nameColumn">{{classOrder.uName}}</td>
+            <td class="idColumn">{{classOrder.cardId}}</td>
+            <td class="timeColumn">{{classOrder.ordTime}}</td>
+            <td class="numberColumn">{{classOrder.num}}</td>
+        </tr>
+    </table>
+</div> 
+
+<div class="row foot-content">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="main-page">
+      <nav aria-label="Page navigation">
+        <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getClassOrder(1, classKId, userId, cardId);">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getClassOrder(pageInfo.pageNum - 1, classKId, userId, cardId);">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getClassOrder(item, classKId, userId, cardId);">
+            <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getClassOrder(pageInfo.pageNum + 1, classKId, userId, cardId);">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getClassOrder(pageInfo.pages, classKId, userId, cardId);">
+            <a>
+              末页
+            </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a>
+              末页
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

@@ -29,6 +29,8 @@ public class ClassOrderTest {
 	public void getClassOrderTest() throws Exception {
 		logger.info("getClassOrderTest: {}", 
 				classOrderMapper.getClassOrder(
+						null,
+						null,
 						null, 
 						null, 
 						1, 

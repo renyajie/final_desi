@@ -272,7 +272,7 @@ public class SettingController {
 	/**
 	 * 管理员或用户获取会员卡种类
 	 * @param cardKId
-	 * @param pId
+	 * @param managerId
 	 * @param cardKName
 	 * @param capacity
 	 * @param expend
@@ -282,14 +282,14 @@ public class SettingController {
 	@ResponseBody
 	public Messenger getCardKind( 
 			@RequestParam(value = "cardKId", required = false) Integer cardKId, 
-			@RequestParam(value = "pId", required = false) Integer pId, 
+			@RequestParam(value = "managerId", required = false) Integer managerId, 
 			@RequestParam(value = "cardKName", required = false) String cardKName, 
 			@RequestParam(value = "capacity", required = false) Integer capacity, 
 			@RequestParam(value = "expend", required = false) Integer expend) {
 
 		return Messenger.success().add("info", 
 				cardService.getCardKind(
-						cardKId, pId, cardKName, capacity, expend));
+						cardKId, managerId, cardKName, capacity, expend));
 	}
 
 	/**

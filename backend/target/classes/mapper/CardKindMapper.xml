@@ -11,7 +11,7 @@
   <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.CardKindResult">
     <result column="id" property="id" />
     <result column="p_id" property="pId" />
-    <result column="p_name" property="pName" />
+    <result column="s_name" property="pName" />
     <result column="card_k_name" property="cardKName" />
     <result column="capacity" property="capacity" />
     <result column="expend" property="expend" />
@@ -78,7 +78,7 @@
     id, p_id, card_k_name, capacity, expend
   </sql>
   <sql id="Base_Column_List_Result">
-    ck.id, ck.p_id, p.p_name, ck.card_k_name, ck.capacity, ck.expend
+    ck.id, ck.p_id, p.s_name, ck.card_k_name, ck.capacity, ck.expend
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.CardKindExample" resultMap="BaseResultMap">
     select
@@ -102,7 +102,7 @@
   </select>
   <!-- List<CardKindResult> getCardKind(
   			@Param("cardKId") Integer cardKId, 
-    		@Param("pId") Integer pId, 
+    		@Param("managerId") Integer managerId, 
     		@Param("cardKName") String cardKName, 
     		@Param("capacity") Integer capacity, 
     		@Param("expend") Integer expend); -->
@@ -110,14 +110,14 @@
   		  resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
-    from card_kind ck, place p
+    from card_kind ck, place p, manager m
     <trim prefix="where" prefixOverrides="and">
-      ck.p_id = p.id
+      ck.p_id = p.id and p.id = m.p_id
       <if test="cardKId != null">
         and ck.id = #{cardKId}
       </if>
-      <if test="pId != null">
-        and ck.p_id = #{pId}
+      <if test="managerId != null">
+        and m.id = #{managerId}
       </if>
       <if test="cardKName != null">
         and ck.card_k_name like '%${cardKName}%'

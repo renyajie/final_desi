@@ -102,18 +102,24 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!-- List<CardOrderResult> getCardOrder(
+  			@Param("managerId") Integer managerId,
     		@Param("userId") Integer userId, 
+    		@Param("userName") String userName,
     		@Param("cardKId") Integer cardKId, 
     		@Param("before") Date before, 
     		@Param("after") Date after); -->
   <select id="getCardOrder" resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
-    from card_order co, user u, card_kind ck
+    from card_order co, user u, card_kind ck, manager m
     <trim prefix="where" prefixOverrides="and">
       co.u_id = u.id and co.card_k_id = ck.id
+      and ck.p_id = m.p_id and m.id = #{managerId}
       <if test="userId != null">
         and co.u_id = #{userId}
+      </if>
+      <if test="userName != null">
+        and u.u_name like '%${userName}%'
       </if>
       <if test="cardKId != null">
         and co.card_k_id = #{cardKId}

@@ -33,7 +33,7 @@ public interface CardKindMapper {
     /**
      * 查询会员卡种类
      * @param cardKId 会员卡种类编号
-     * @param pId 场馆编号
+     * @param managerId 管理员编号
      * @param cardKName 卡种名
      * @param capacity 容量
      * @param expend 花费
@@ -41,7 +41,7 @@ public interface CardKindMapper {
      */
     List<CardKindResult> getCardKind(
     		@Param("cardKId") Integer cardKId, 
-    		@Param("pId") Integer pId, 
+    		@Param("managerId") Integer managerId, 
     		@Param("cardKName") String cardKName, 
     		@Param("capacity") Integer capacity, 
     		@Param("expend") Integer expend);
