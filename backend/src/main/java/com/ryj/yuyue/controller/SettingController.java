@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.CardKind;
+import com.ryj.yuyue.bean.CardKindResult;
 import com.ryj.yuyue.bean.ClassInfo;
 import com.ryj.yuyue.bean.ClassKind;
 import com.ryj.yuyue.bean.Place;
@@ -271,25 +274,74 @@ public class SettingController {
 
 	/**
 	 * 管理员或用户获取会员卡种类
+	 * @param pn
 	 * @param cardKId
 	 * @param managerId
 	 * @param cardKName
 	 * @param capacity
 	 * @param expend
+	 * @param isPage
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "getCardKind", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getCardKind( 
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
 			@RequestParam(value = "cardKId", required = false) Integer cardKId, 
 			@RequestParam(value = "managerId", required = false) Integer managerId, 
 			@RequestParam(value = "cardKName", required = false) String cardKName, 
 			@RequestParam(value = "capacity", required = false) Integer capacity, 
-			@RequestParam(value = "expend", required = false) Integer expend) {
-
+			@RequestParam(value = "expend", required = false) Integer expend,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
+		
+		List<CardKindResult> result = cardService.getCardKind(
+				cardKId, managerId, cardKName, capacity, expend);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
 		return Messenger.success().add("info", 
 				cardService.getCardKind(
 						cardKId, managerId, cardKName, capacity, expend));
+	}
+	
+	/**
+	 * 获取某种会员卡的详细信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getCardKindInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getCardKindInfo(
+			@RequestParam(value = "id", required = true) Integer id) {
+		
+		return Messenger.success().add("info", 
+				cardService.getCardKindInfo(id));
+	}
+	
+	/**
+	 * 获取会员卡信息
+	 * @param pn
+	 * @param cardKId
+	 * @param uId
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value="getCardInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getCardInfo(
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
+			@RequestParam(value = "managerId", required = true ) Integer managerId,
+			@RequestParam(value = "cardKId", required = false) Integer cardKId, 
+			@RequestParam(value = "userId", required = false) Integer userId) {
+		
+		PageHelper.startPage(pn, 5);
+		PageInfo page = new PageInfo(this.cardService.getCardInfo(
+				managerId, cardKId, userId), 5);
+		return Messenger.success().add("pageInfo", page);
 	}
 
 	/**

@@ -17,9 +17,12 @@ export class PlaceService {
   /**
    * 获取所有的场地信息
    */
-  getAllPlace() {
+  getAllPlace(id?, placeName?) {
     const url = this.url + 'getPlace';
-    return this.httpClient.get(url);
+    const params = new HttpParams()
+    .set('id', id ? id : '')
+    .set('placeName', placeName ? placeName : '')
+    return this.httpClient.get(url, { params });
   }
 
 }

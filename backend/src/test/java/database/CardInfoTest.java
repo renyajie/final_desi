@@ -30,6 +30,7 @@ public class CardInfoTest {
 		logger.info("getClassInfoTest: {}", 
 				cardInfoMapper.getCardInfo(
 						1,
+						1,
 						null));
 	}
 }

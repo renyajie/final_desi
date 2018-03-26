@@ -58,7 +58,7 @@ public class PlaceService {
 		if(id != null) {
 			criteria.andIdEqualTo(id);
 		}
-		if(placeName != null) {
+		if(placeName != null && placeName.length() != 0) {
 			criteria.andSNameLike(placeName);
 		}
 		return placeMapper.selectByExample(example);

@@ -100,14 +100,19 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!-- List<CardInfoResult> getCardInfo(
+  			@Param("managerId") Integer managerId,
 			@Param("cardKId") Integer cardKId, 
 			@Param("uId") Integer uId); -->
   <select id="getCardInfo" resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
-    from card_info ci, card_kind ck, user u
+    from card_info ci, card_kind ck, user u, manager m
     <trim prefix="where" prefixOverrides="and">
       ci.card_k_id = ck.id and ci.u_id = u.id
+      and ck.p_id = m.p_id
+      <if test="managerId">
+      	and m.id = #{managerId}
+      </if>
       <if test="cardKId != null">
         and ci.card_k_id = #{cardKId}
       </if>

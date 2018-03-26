@@ -76,13 +76,14 @@ public class CardService {
 	
 	/**
 	 * 管理员或用户查询会员卡
+	 * @param managerId 管理员编号
 	 * @param cardKId 卡种编号
 	 * @param uId 用户编号
 	 * @return
 	 */
 	public List<CardInfoResult> getCardInfo(
-			Integer cardKId, Integer uId) {
-		return cardInfoMapper.getCardInfo(cardKId, uId);
+			Integer managerId, Integer cardKId, Integer uId) {
+		return cardInfoMapper.getCardInfo(managerId, cardKId, uId);
 	}
 	
 	/**
@@ -124,5 +125,14 @@ public class CardService {
 	 */
 	public void updateCardKind(CardKind cardKind) {
 		cardKindMapper.updateByPrimaryKeySelective(cardKind);
+	}
+
+	/**
+	 * 获取某种会员卡的详细信息
+	 * @param id
+	 * @return
+	 */
+	public CardKindResult getCardKindInfo(Integer id) {
+		return this.getCardKind(id, null, null, null,null).get(0);
 	}
 }

@@ -61,7 +61,7 @@ export class CardOrderComponent implements OnInit {
   ngOnInit() {
     //获取卡种信息
     let cardKinds = [];
-    this.cardService.getCardKind().subscribe(
+    this.cardService.getCardKind(0).subscribe(
       data => {
         //若服务器成功返回数据
         if(data['code'] === 100) {

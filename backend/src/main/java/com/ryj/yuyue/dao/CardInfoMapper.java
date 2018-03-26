@@ -32,11 +32,13 @@ public interface CardInfoMapper {
     
     /**
 	 * 查询会员卡
+	 * @param managerId 管理员编号
 	 * @param cardKId 卡种编号
 	 * @param uId 用户编号
 	 * @return
 	 */
 	List<CardInfoResult> getCardInfo(
+			@Param("managerId") Integer managerId,
 			@Param("cardKId") Integer cardKId, 
 			@Param("uId") Integer uId);
 }

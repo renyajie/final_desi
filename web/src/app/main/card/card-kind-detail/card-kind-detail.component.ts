@@ -5,51 +5,41 @@ import { of } from 'rxjs/observable/of';
 import 'rxjs/add/operator/switchMap';
 
 import { CardKind } from '../../../poto/card_kind';
-import { Place } from '../../../poto/place';
-
 import { CardService } from '../../../core/card.service';
-import { PersonInfoService } from '../../../core/person-info.service';
-import { PlaceService } from '../../../core/place.service';
 
 @Component({
-  selector: 'app-card-kind-insert',
-  templateUrl: './card-kind-insert.component.html',
-  styleUrls: ['./card-kind-insert.component.css']
+  selector: 'app-card-kind-detail',
+  templateUrl: './card-kind-detail.component.html',
+  styleUrls: ['./card-kind-detail.component.css']
 })
-export class CardKindInsertComponent implements OnInit {
+export class CardKindDetailComponent implements OnInit {
 
   cardKind$: Observable<CardKind>;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
-    private cardService: CardService,
-    private personInfoService: PersonInfoService,
-    private placeService: PlaceService
+    private cardService: CardService
   ) { }
 
   ngOnInit() {
-    let place: Place;
-    let cardKind = new CardKind();
-    this.placeService.getAllPlace(this.personInfoService.manager.pId).subscribe(
+    this.route.paramMap.switchMap((params: ParamMap) =>
+      this.cardService.getCardKindInfo(params.get('id'))).subscribe(
       data => {
-        if(data['code'] == 100) {
-          data['extend']['info'].map(p => {
-            place = Place.fromJSON(p);
-          })
-          cardKind.pId = place.id;
-          cardKind.pName = place.sName;
-          this.cardKind$ = of(cardKind);
+        //若服务器成功返回消息
+        if (data['code'] === 100) {
+          this.cardKind$ = of(data['extend']['info']);
         }
+        //若发生错误，提示出错
         else {
           alert("发生错误");
         }
       }
-    )
+    );
   }
 
-  //添加会员卡
-  addCardKind(cardKind: CardKind) {
+  //提交更新信息
+  submitData(cardKind: CardKind) {
     //检查数据的完备性
     if(cardKind.cardKName == null || cardKind.cardKName.length == 0) {
       alert("会员卡名称不能为空");
@@ -64,7 +54,7 @@ export class CardKindInsertComponent implements OnInit {
       return;
     }
     //提交服务器
-    this.cardService.addCardKind(cardKind).subscribe(
+    this.cardService.cardKindUpdate(cardKind).subscribe(
       data => {
         if (data['code'] === 100) {
           alert("信息更新成功");
@@ -86,7 +76,6 @@ export class CardKindInsertComponent implements OnInit {
 
   //返回会员卡种类列表
   goBack() {
-    this.router.navigate(['main/card']);
+    this.router.navigate(['../'], { relativeTo: this.route });
   }
-
 }

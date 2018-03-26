@@ -1,3 +1,99 @@
-<p>
-  card-info works!
-</p>
+<div class="row">
+  <div class="col-md-3 go-right">
+    会员卡种类:
+    <select [(ngModel)]="cardKId" id="cardKId">
+        <option *ngFor="let cardKind of cardKinds$ | async" value="{{cardKind.id}}">
+            {{cardKind.cardKName}}
+        </option>
+    </select>
+  </div>
+  <div class="col-md-3 go-right">
+    用户编号：
+    <input [(ngModel)]="userId">
+  </div>
+  <div class="col-md-3 go-right">
+    <button type="button" class="btn btn-info btn-sm" (click)="clear();getCardInfo();">清空</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getCardInfo(1, cardKId, userId);">搜索</button>
+  </div>
+</div>
+
+<div class="main-table">  
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td class="idColumn">卡号</td>
+            <td class="idColumn">会员卡种编号</td>
+            <td class="nameColumn">会员卡名称</td>
+            <td class="idColumn">用户编号</td>
+            <td class="nameColumn">用户姓名</td>
+            <td class="numberColumn">余额</td>
+                       
+        </tr>
+        <tr *ngFor="let cardInfo of cardInfos$ | async">
+            <td class="idColumn">{{cardInfo.id}}</td>
+            <td class="idColumn">{{cardInfo.cardKId}}</td>
+            <td class="nameColumn">{{cardInfo.cardKName}}</td>
+            <td class="idColumn">{{cardInfo.uId}}</td>
+            <td class="nameColumn">{{cardInfo.uName}}</td>
+            <td class="numberColumn">{{cardInfo.allowance}}</td>
+        </tr>
+    </table>
+</div> 
+
+<div class="row foot-content">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="main-page">
+      <nav aria-label="Page navigation">
+        <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getCardInfo(1, cardKId, userId);">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getCardInfo(pageInfo.pageNum - 1, cardKId, userId);">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getCardInfo(item, cardKId, userId);">
+            <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getCardInfo(pageInfo.pageNum + 1, cardKId, userId);">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getCardInfo(pageInfo.pages, cardKId, userId);">
+            <a>
+              末页
+            </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a>
+              末页
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

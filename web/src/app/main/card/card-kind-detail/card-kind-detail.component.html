@@ -1,6 +1,10 @@
 <h3>会员卡信息</h3>
 <div class="main-cont" *ngIf="cardKind$ | async as cardKind">
   <div class="form-group">
+    <label for="id">编号</label>
+    <input type="text" [(ngModel)]="cardKind.id" id="id" placeholder="编号" readonly="true">
+  </div>
+  <div class="form-group">
     <label for="pId">瑜伽馆编号</label>
     <input type="text" [(ngModel)]="cardKind.pId" id="pId" placeholder="瑜伽馆编号" readonly="true">
   </div>
@@ -10,7 +14,7 @@
   </div>
   <div class="form-group">
     <label for="cardKName">会员卡名称</label>
-    <input type="text" [(ngModel)]="cardKind.cardKName" id="cardKName" placeholder="会员卡名称" 会员卡名称>
+    <input type="text" [(ngModel)]="cardKind.cardKName" id="cardKName" placeholder="手机号码" 会员卡名称>
   </div>
   <div class="form-group">
     <label for="capacity">会员卡容量</label>
@@ -22,6 +26,6 @@
   </div>
   <div class="main-btn">
     <button type="button" class="btn btn-info btn-sm" (click)="goBack();">返回</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="addCardKind(cardKind);">添加</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="submitData(cardKind);">提交</button>
   </div>
 </div>
