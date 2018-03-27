@@ -10,6 +10,7 @@ import { ClassService } from '../core/class.service';
 import { MainComponent } from './main.component';
 import { CardService } from '../core/card.service';
 import { TeacherService } from '../core/teacher.service';
+import { NewsService } from '../core/news.service';
 
 @NgModule({
   imports: [
@@ -22,7 +23,7 @@ import { TeacherService } from '../core/teacher.service';
     MainComponent
   ],
   providers: [
-    ClassService, CardService, TeacherService
+    ClassService, CardService, TeacherService, NewsService
   ]
 })
 export class MainModule { }

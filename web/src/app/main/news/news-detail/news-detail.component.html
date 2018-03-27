@@ -1,0 +1,23 @@
+<div class="main-cont" *ngIf="news$ | async as news">
+  <div class="main-content" deep="2">
+    <div>
+      <h3>{{news.title}}</h3>
+        <span>发布日期:</span>
+        <span class="span-margin">{{news.pubTime}}</span>
+        <span>浏览次数:</span>
+        <span class="span-margin">{{news.browTime}}</span>
+        <span>发布人编号:</span>
+        <span class="span-margin">{{news.mId}}</span>
+        <span>发布人姓名:</span>
+        <span>{{news.mName}}</span>
+      <hr>
+    </div>
+    <div>
+      <p>{{news.context}}</p>
+    </div>
+  </div>
+  <div class="main-btn">
+    <button class="btn btn-info" (click)="goBack()">返回</button>
+    <button class="btn btn-info" (click)="deleteNews(news.id)">删除</button>
+  </div>
+</div>

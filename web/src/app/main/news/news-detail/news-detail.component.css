@@ -1,0 +1,35 @@
+.main-content{
+    width: 80%;
+    margin:20px auto;
+    border: 1px solid #aed2d4;
+}
+
+.main-content>div:first-child{
+    text-align: center;
+}
+
+h3{
+    color: firebrick;
+}
+
+.span-margin{
+    margin-right: 10px;
+}
+
+hr{
+    width: 90%;
+}
+.main-content>div:nth-child(2){
+    padding: 20px;
+}
+
+.main-content>div:nth-child(2) p{
+    text-indent: 2em;
+}
+
+.main-btn{
+    position: fixed;
+    bottom:20px; 
+    margin-left:120px; 
+    z-index:100;
+}

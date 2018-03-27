@@ -1,0 +1,42 @@
+.newsCont{
+    padding-bottom: 10px;
+    margin-top: 20px; 
+    border: 1px solid darkgray;
+}
+
+.newsCont>div:first-child h3{
+    color: firebrick;
+    text-align: center;
+}
+
+.newsCont>div:first-child hr{
+    width: 90%;
+    border: 1px dashed darkgray;
+
+}
+.main-cont{
+    width: 600px;
+}
+
+.list li {
+    margin: 2px;
+}
+
+.list li span{
+    float: right;
+}
+
+.main-page{
+    position: fixed;
+    right: 100px;
+    bottom: 0px;
+}
+
+.pagination a{
+    color: darkgray;
+}
+
+datepicker{
+    position: absolute;
+    z-index: 100;
+}

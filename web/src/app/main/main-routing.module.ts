@@ -14,6 +14,7 @@ const mainRoutes: Routes = [
       { path: 'order', loadChildren: 'app/main/order/order.module#OrderModule' },
       { path: 'card', loadChildren: 'app/main/card/card.module#CardModule' },
       { path: 'class', loadChildren: 'app/main/class/class.module#ClassModule' },
+      { path: 'news', loadChildren: 'app/main/news/news.module#NewsModule' },
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }

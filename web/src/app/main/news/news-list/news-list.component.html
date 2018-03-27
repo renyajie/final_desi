@@ -1,0 +1,101 @@
+<div class="row">
+  <div class="col-md-3">
+      <button type="button" class="btn btn-info btn-sm" (click)="showBeforePicker(null)">{{beforeBtnText}}</button>
+      {{beforeDateText}}
+      <br>
+      <datepicker *ngIf="showBeforeDate" [(ngModel)]="beforeDate" [showWeeks]="true" (onChange)="showBeforePicker($event)" [maxDate]="maxDate"
+          [minDate]="minDate"></datepicker>
+  </div>
+  <div class="col-md-3">
+      <button type="button" class="btn btn-info btn-sm" (click)="showAfterPicker(null)">{{afterBtnText}}</button>
+      {{afterDateText}}
+      <br>
+      <datepicker *ngIf="showAfterDate" [(ngModel)]="afterDate" [showWeeks]="true" (onChange)="showAfterPicker($event)" [maxDate]="maxDate"
+          [minDate]="minDate"></datepicker>
+  </div>
+  <div class="col-md-3">
+      标题模糊：
+      <input #newsName [(ngModel)]="title">
+  </div>
+  <div class="col-md-3">
+      <button type="button" class="btn btn-info btn-sm" (click)="clear();getNews()">清空</button>
+      <button type="button" class="btn btn-info btn-sm" (click)="getNews(1, title)">搜索</button>
+  </div>
+</div>
+
+
+<div class="row">
+
+  <div class="newsCont col-md-7 col-md-offset-2">
+      <div>
+          <h3>已发布通知</h3>
+          <hr>
+      </div>
+      <div class="main-cont">
+          <ul class="list">
+              <!-- 循环生成新闻列表 -->
+              <li *ngFor="let news of newses$ | async">
+                  <span>{{news.pubTime}}</span>
+                  <a [routerLink]="['./', news.id]" class="btn btn-link">{{news.title}}</a>
+              </li>
+          </ul>
+      </div>
+  </div>
+</div>
+
+
+
+<div class="main-page row">
+  <nav aria-label="Page navigation">
+      <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getNews(1, newsName.value)">
+              <a>
+                  首页
+              </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getNews(pageInfo.pageNum - 1, newsName.value)">
+              <span>
+                  <span aria-hidden="true">&laquo;</span>
+              </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+              <a>
+                  首页
+              </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+              <span>
+                  <span aria-hidden="true">&laquo;</span>
+              </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getNews(item, newsName.value)">
+              <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getNews(pageInfo.pageNum + 1, newsName.value)">
+              <a aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getNews(pageInfo.pages, newsName.value)">
+              <a>
+                  末页
+              </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+              <a aria-label="Next">
+                  <span aria-hidden="true">&raquo;</span>
+              </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+              <a>
+                  末页
+              </a>
+          </li>
+      </ul>
+  </nav>
+</div>
