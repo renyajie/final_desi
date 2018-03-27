@@ -11,7 +11,7 @@
   <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.TeacherResult">
     <result column="id" property="id" />
     <result column="p_id" property="pId" />
-    <result column="p_name" property="pName" />
+    <result column="s_name" property="pName" />
     <result column="tea_name" property="teaName" />
     <result column="phone" property="phone" />
     <result column="intro" property="intro" />
@@ -78,7 +78,7 @@
     id, p_id, tea_name, phone, intro
   </sql>
   <sql id="Base_Column_List_Result">
-    t.id, t.p_id, p.p_name, t.tea_name, t.phone, t.intro
+    t.id, t.p_id, p.s_name, t.tea_name, t.phone, t.intro
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.TeacherExample" resultMap="BaseResultMap">
     select

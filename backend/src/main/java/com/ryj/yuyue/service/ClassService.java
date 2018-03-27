@@ -101,18 +101,35 @@ public class ClassService {
 	 * @param classKindId 课程种类编号
 	 * @param placeId 地点编号
 	 * @param teacherId 教师编号
+	 * @param teacherName 教师姓名
 	 * @param before 大于等于此日期
 	 * @param after 小于等于此日期
 	 * @param isPub 是否公开, null代表全部查看
 	 */
+	@SuppressWarnings("deprecation")
 	public List<ClassInfoResult> getClassInfo(
 			Integer classId, Integer classKindId, Integer placeId, 
-			Integer teacherId, Date before, Date after, 
-			Integer isPub) {
+			Integer teacherId, String teacherName, Date before, Date after, 
+			String property) {
 		
-		return classInfoMapper.getClassInfo(
-				classId, classKindId, placeId, teacherId, before, 
-				after, isPub);
+		List<ClassInfoResult> result = classInfoMapper.getClassInfo(
+				classId, classKindId, placeId, teacherId, 
+				teacherName, before, after, property);
+		Date cDay, staTime, endTime;
+		for(ClassInfoResult classInfo: result) {
+			cDay = classInfo.getcDay();
+			staTime = classInfo.getStaTime();
+			endTime = classInfo.getEndTime();
+			
+			cDay.setHours(cDay.getHours() + 8);
+			staTime.setHours(staTime.getHours() + 8);
+			endTime.setHours(endTime.getHours() + 8);
+			
+			classInfo.setcDay(cDay);
+			classInfo.setStaTime(staTime);
+			classInfo.setEndTime(endTime);
+		}
+		return result;
 	}
 	
 	/**
@@ -145,12 +162,49 @@ public class ClassService {
 	 * @param managerId 管理员编号
 	 * @param kName 课程名
 	 * @param property 团课或私教
+	 * @param difficulty 难度
 	 */
 	public List<ClassKindResult> getClassKind(
 			Integer classKId, Integer managerId, String kName, 
-			String property) {
+			String property, Integer difficulty) {
 		
 		return classKindMapper.getClassKind(
-				classKId, managerId, kName, property);
+				classKId, managerId, kName, property, difficulty);
+	}
+
+	/**
+	 * 获取某个课程种类的信息
+	 * @param id
+	 * @return
+	 */
+	public ClassKindResult getClassKindInfo(Integer id) {
+		// TODO Auto-generated method stub
+		return classKindMapper.getClassKind(id, null, null, null, null).get(0);
+	}
+
+	/**
+	 * 获取某个课程信息
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public ClassInfoResult getOneClassInfo(Integer id) {
+		// TODO Auto-generated method stub
+		ClassInfoResult classInfo = classInfoMapper.getClassInfo(
+				id, null, null, null, null, null, null, null).get(0);
+		//修正时间
+		Date cDay, staTime, endTime;
+		cDay = classInfo.getcDay();
+		staTime = classInfo.getStaTime();
+		endTime = classInfo.getEndTime();
+		
+		cDay.setHours(cDay.getHours() + 8);
+		staTime.setHours(staTime.getHours() + 8);
+		endTime.setHours(endTime.getHours() + 8);
+		
+		classInfo.setcDay(cDay);
+		classInfo.setStaTime(staTime);
+		classInfo.setEndTime(endTime);
+		return classInfo;
 	}
 }

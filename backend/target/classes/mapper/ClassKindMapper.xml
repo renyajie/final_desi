@@ -107,7 +107,8 @@
   			@Param("classKId") Integer classKId,
     		@Param("managerId") Integer managerId, 
     		@Param("kName") String kName, 
-    		@Param("property") String property); -->
+    		@Param("property") String property,
+    		@Param("difficulty") Integer difficulty); -->
   <select id="getClassKind" 
   		  resultMap="BaseResultMapForResult">
     select 
@@ -121,11 +122,14 @@
       <if test="managerId != null">
         and m.id = #{managerId}
       </if>
-      <if test="kName != null">
+      <if test="kName != null and kName.length != 0">
         and ck.cla_k_name like '%${kName}%'
       </if>
-      <if test="property != null">
+      <if test="property != null and property.length != 0">
         and ck.property = #{property}
+      </if>
+      <if test="difficulty != null">
+        and ck.difficulty = #{difficulty}
       </if>
     </trim>
     order by ck.id asc

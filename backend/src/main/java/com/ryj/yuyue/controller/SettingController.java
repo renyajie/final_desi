@@ -24,6 +24,7 @@ import com.ryj.yuyue.bean.CardKind;
 import com.ryj.yuyue.bean.CardKindResult;
 import com.ryj.yuyue.bean.ClassInfo;
 import com.ryj.yuyue.bean.ClassKind;
+import com.ryj.yuyue.bean.ClassKindResult;
 import com.ryj.yuyue.bean.Place;
 import com.ryj.yuyue.bean.Teacher;
 import com.ryj.yuyue.service.CardService;
@@ -191,19 +192,30 @@ public class SettingController {
 	 * @param managerId
 	 * @param kName
 	 * @param property
+	 * @param difficulty
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "getClassKind", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getClassKind(
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
 			@RequestParam(value = "classKId", required = false) Integer classKId, 
 			@RequestParam(value = "managerId", required = false) Integer managerId, 
-			@RequestParam(value = "kName", required = false) String kName, 
-			@RequestParam(value = "property", required = false) String property) {
+			@RequestParam(value = "classKName", required = false) String classKName, 
+			@RequestParam(value = "property", required = false) String property,
+			@RequestParam(value = "difficulty", required = false) Integer difficulty,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
-		return Messenger.success().add("info", 
-				classService.getClassKind(
-						classKId, managerId, kName, property));
+		List<ClassKindResult> result = classService.getClassKind(
+				classKId, managerId, classKName, property, difficulty);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
+		return Messenger.success().add("info", result);
 	}
 
 	/**
@@ -303,9 +315,7 @@ public class SettingController {
 			PageInfo page = new PageInfo(result, 5);
 			return Messenger.success().add("pageInfo", page);
 		}
-		return Messenger.success().add("info", 
-				cardService.getCardKind(
-						cardKId, managerId, cardKName, capacity, expend));
+		return Messenger.success().add("info", result);
 	}
 	
 	/**
@@ -320,6 +330,34 @@ public class SettingController {
 		
 		return Messenger.success().add("info", 
 				cardService.getCardKindInfo(id));
+	}
+	
+	/**
+	 * 获取某个课程种类的信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getClassKindInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getClassKindInfo(
+			@RequestParam(value = "id", required = true) Integer id) {
+		
+		return Messenger.success().add("info", 
+				classService.getClassKindInfo(id));
+	}
+	
+	/**
+	 * 获取某个课程信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getOneClassInfo", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOneClassInfo(
+			@RequestParam(value = "id", required = true) Integer id) {
+		
+		return Messenger.success().add("info", 
+				classService.getOneClassInfo(id));
 	}
 	
 	/**

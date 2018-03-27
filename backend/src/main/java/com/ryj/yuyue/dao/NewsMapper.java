@@ -54,4 +54,12 @@ public interface NewsMapper {
 			@Param("title") String title,
 			@Param("before") Date before,
 			@Param("after") Date after);
+	
+	/**
+	 * 获取某个新闻的内容
+	 * @param newsId
+	 * @return
+	 */
+	NewsResult getNewsById(
+			@Param("id") Integer newsId);
 }

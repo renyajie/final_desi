@@ -28,7 +28,7 @@ public class ClassKindTest {
 	@Test
 	public void getClassKindTest() {
 		logger.info("getClassKindTest: {}", 
-				classKindMapper.getClassKind(1, null, "基", null));
+				classKindMapper.getClassKind(1, null, "基", null, 2));
 	}
 
 }

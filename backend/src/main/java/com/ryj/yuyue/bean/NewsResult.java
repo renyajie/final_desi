@@ -2,6 +2,8 @@ package com.ryj.yuyue.bean;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 查询新闻
  * @author Thor
@@ -23,6 +25,7 @@ public class NewsResult {
 
     private Integer browTime;
 
+    @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date pubTime;
 
     private String context;

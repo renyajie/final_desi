@@ -156,7 +156,7 @@
       <if test="placeId != null">
         and n.p_id = #{placeId}
       </if>
-      <if test="title != null">
+      <if test="title != null and title.length != 0">
         and n.title like '%${title}%'
       </if>
       <if test="before != null">

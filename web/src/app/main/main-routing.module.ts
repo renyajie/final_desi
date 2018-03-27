@@ -10,6 +10,7 @@ const mainRoutes: Routes = [
     path: 'main', 
     component: MainComponent,
     children: [
+      { path: 'mine', loadChildren: 'app/main/mine/mine.module#MineModule' },
       { path: 'user', loadChildren: 'app/main/user/user.module#UserModule' },
       { path: 'order', loadChildren: 'app/main/order/order.module#OrderModule' },
       { path: 'card', loadChildren: 'app/main/card/card.module#CardModule' },

@@ -29,8 +29,9 @@ public class NewsService {
 	 * 新增新闻
 	 * @param news
 	 */
-	public void addNews(News news) {
+	public void addOneNews(News news) {
 		news.setPubTime(new Date());
+		news.setBrowTime(0);
 		newsMapper.insertSelective(news);
 	}
 	
@@ -60,6 +61,7 @@ public class NewsService {
 	 * @param after 小于等于此日期
 	 * @return
 	 */
+	@SuppressWarnings("deprecation")
 	public List<NewsResult> getNewsList(
 			Integer newsId,
 			Integer managerId, 
@@ -67,8 +69,29 @@ public class NewsService {
 			String title,
 			Date before,
 			Date after) {
-		return newsMapper.getNewsList(
+		
+		List<NewsResult> result = newsMapper.getNewsList(
 				newsId, managerId, placeId, title, before, after);
+		for(NewsResult newsResult: result) {
+    		Date d = newsResult.getPubTime();
+    		d.setHours(d.getHours() + 8);
+    		newsResult.setPubTime(d);
+    	}
+		return result;
+	}
+	
+	/**
+	 * 获取某个新闻消息
+	 * @param id
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public NewsResult getNewsById(Integer id) {
+		NewsResult result = newsMapper.getNewsById(id);
+		Date d = result.getPubTime();
+		d.setHours(d.getHours() + 8);
+		result.setPubTime(d);
+		return result;
 	}
 
 }

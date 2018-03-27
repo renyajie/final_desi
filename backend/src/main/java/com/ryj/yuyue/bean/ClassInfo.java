@@ -4,6 +4,9 @@ import java.util.Date;
 
 import javax.validation.constraints.NotNull;
 
+import com.fasterxml.jackson.databind.annotation.JsonDeserialize;
+import com.ryj.yuyue.utils.CustomJsonDateDeserializer;
+
 public class ClassInfo {
     private Integer id;
     
@@ -19,10 +22,12 @@ public class ClassInfo {
     @NotNull(message="上课时间不能为空")
     private Date cDay;
 
-    @NotNull(message="开始时间不能为空")
+    @NotNull(message="上课时间不能为空")
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     private Date staTime;
 
-    @NotNull(message="结束时间不能为空")
+    @NotNull(message="上课时间不能为空")
+    @JsonDeserialize(using = CustomJsonDateDeserializer.class)
     private Date endTime;
 
     private Integer length;

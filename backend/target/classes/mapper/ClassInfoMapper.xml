@@ -19,7 +19,7 @@
     <result column="cla_k_id" property="claKId" />
     <result column="cla_k_name" property="claKName" />
     <result column="p_id" property="pId" />
-    <result column="p_name" property="pName" />
+    <result column="s_name" property="pName" />
     <result column="tea_id" property="teaId" />
     <result column="tea_name" property="teaName" />
     <result column="c_day" property="cDay" />
@@ -94,7 +94,7 @@
     expend
   </sql>
   <sql id="Base_Column_List_Result">
-    ci.id, ci.cla_k_id, ck.cla_k_name, ci.p_id, p.p_name, ci.tea_id, t.tea_name, 
+    ci.id, ci.cla_k_id, ck.cla_k_name, ci.p_id, p.s_name, ci.tea_id, t.tea_name, 
 	ci.c_day, ci.sta_time, ci.end_time, ci.length, ci.allowance, ci.order_num, ci.expend, ck.property
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ClassInfoExample" resultMap="BaseResultMap">
@@ -122,9 +122,10 @@
     		@Param("classKindId") Integer classKindId, 
     		@Param("placeId") Integer placeId, 
     		@Param("teacherId") Integer teacherId, 
+    		@Param("teacherName") String teacherName, 
     		@Param("before") Date before, 
     		@Param("after") Date after,
-    		@Param("isPub") boolean isPub) -->
+    		@Param("property") String property) -->
   <select id="getClassInfo" 
   		  resultMap="BaseResultMapForResult">
     select 
@@ -144,19 +145,17 @@
       <if test="teacherId != null">
         and ci.tea_id = #{teacherId}
       </if>
+      <if test="teacherName != null and teacherName.length != 0">
+        and t.tea_name like '%${teacherName}%'
+      </if>
       <if test="before != null">
         and ci.c_day &gt;= #{before}
       </if>
       <if test="after != null">
         and ci.c_day &lt;= #{after}
       </if>
-      <if test="isPub != null">
-      	<if test="isPub == 1">
-      		and ck.property = 's'
-      	</if>
-      	<if test="isPub == 0">
-      		and ck.property = 'g'
-      	</if>
+      <if test="property != null and property.length != 0">
+      		and ck.property = #{property}
       </if>
     </trim>
     order by ci.sta_time asc

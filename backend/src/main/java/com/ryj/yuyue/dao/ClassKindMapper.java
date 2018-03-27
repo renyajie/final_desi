@@ -36,12 +36,14 @@ public interface ClassKindMapper {
      * @param managerId
      * @param kName
      * @param property
+     * @param difficulty
      * @return
      */
     List<ClassKindResult> getClassKind(
     		@Param("classKId") Integer classKId,
     		@Param("managerId") Integer managerId, 
     		@Param("kName") String kName, 
-    		@Param("property") String property);
+    		@Param("property") String property,
+    		@Param("difficulty") Integer difficulty);
     
 }

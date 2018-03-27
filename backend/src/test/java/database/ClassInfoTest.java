@@ -29,6 +29,6 @@ public class ClassInfoTest {
 	public void getClassInfoTest() throws Exception {
 		logger.info("getClassInfoTest: {}", 
 				classInfoMapper.getClassInfo(
-						null, null, null, null, null, null, 1));
+						null, null, null, null, null, null, null, null));
 	}
 }

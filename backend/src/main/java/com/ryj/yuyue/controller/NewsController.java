@@ -18,7 +18,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.News;
+import com.ryj.yuyue.bean.NewsResult;
 import com.ryj.yuyue.service.NewsService;
 import com.ryj.yuyue.utils.Messenger;
 
@@ -44,9 +47,11 @@ public class NewsController {
 	 * @param after
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "getNews", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getNews(
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "newsId", required = false) Integer newsId,
 			@RequestParam(value = "managerId", required = false) Integer managerId, 
 			@RequestParam(value = "placeId", required = false) Integer placeId,
@@ -56,9 +61,25 @@ public class NewsController {
 			@DateTimeFormat(pattern = "yyyy-MM-dd") 
 			@RequestParam(value = "after", required = false) Date after) {
 
+		PageHelper.startPage(pn, 5);
+		List<NewsResult> result = newsService.getNewsList(
+				newsId, managerId, placeId, title, before, after);
+		PageInfo page = new PageInfo(result, 5);
+		return Messenger.success().add("pageInfo", page);
+	}
+	
+	/**
+	 * 获取一个新闻消息
+	 * @param newsId
+	 * @return
+	 */
+	@RequestMapping(value = "getOneNews", method = RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOneNews(
+			@RequestParam(value = "newsId", required = true) Integer newsId) {
+
 		return Messenger.success().add("info", 
-				newsService.getNewsList(
-						newsId, managerId, placeId, title, before, after));
+				newsService.getNewsById(newsId));
 	}
 	
 	/**
@@ -67,9 +88,9 @@ public class NewsController {
 	 * @param syntaxResult
 	 * @return
 	 */
-	@RequestMapping(value = "addNews", method = RequestMethod.POST)
+	@RequestMapping(value = "addOneNews", method = RequestMethod.POST)
 	@ResponseBody
-	public Messenger addNews(
+	public Messenger addOneNews(
 			@RequestBody @Valid News news, 
 			BindingResult syntaxResult) {
 		
@@ -83,7 +104,7 @@ public class NewsController {
 			return Messenger.fail().add("errorFields", map);
 		}
 		
-		newsService.addNews(news);
+		newsService.addOneNews(news);
 		return Messenger.success();
 	}
 

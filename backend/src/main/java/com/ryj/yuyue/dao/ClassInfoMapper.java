@@ -37,16 +37,18 @@ public interface ClassInfoMapper {
 	 * @param classKindId 课程种类编号
 	 * @param placeId 地点编号
 	 * @param teacherId 教师编号
+	 * @param teacherName 教师姓名
 	 * @param before 大于等于此日期
 	 * @param after 小于等于此日期
-	 * @param isPub 是否公开
+	 * @param property 课程属性
 	 */
     List<ClassInfoResult> getClassInfo(
     		@Param("classId") Integer classId, 
     		@Param("classKindId") Integer classKindId, 
     		@Param("placeId") Integer placeId, 
     		@Param("teacherId") Integer teacherId, 
+    		@Param("teacherName") String teacherName, 
     		@Param("before") Date before, 
     		@Param("after") Date after,
-    		@Param("isPub") Integer isPub);
+    		@Param("property") String property);
 }

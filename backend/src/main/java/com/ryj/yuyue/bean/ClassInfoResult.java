@@ -2,6 +2,8 @@ package com.ryj.yuyue.bean;
 
 import java.util.Date;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 /**
  * 用户查看课程信息
  * @author Thor
@@ -23,10 +25,13 @@ public class ClassInfoResult {
     
     private String teaName;
 
+    @JsonFormat(pattern="yyyy-MM-dd")
     private Date cDay;
-
+ 
+    @JsonFormat(pattern="HH:mm:ss")
     private Date staTime;
 
+    @JsonFormat(pattern="HH:mm:ss")
     private Date endTime;
 
     private Integer length;

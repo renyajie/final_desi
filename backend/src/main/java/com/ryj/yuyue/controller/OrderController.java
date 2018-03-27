@@ -23,6 +23,7 @@ import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.CardInfo;
 import com.ryj.yuyue.bean.CardOrder;
 import com.ryj.yuyue.bean.CardOrderResult;
+import com.ryj.yuyue.bean.ClassInfoResult;
 import com.ryj.yuyue.bean.ClassOrder;
 import com.ryj.yuyue.bean.ClassOrderResult;
 import com.ryj.yuyue.service.CardService;
@@ -57,23 +58,28 @@ public class OrderController {
 	 * @param after 小于等于此日期
 	 * @param isPub 是否公开
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "getClassInfo", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getClassInfo(
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "classId", required = false) Integer classId,
-			@RequestParam(value = "classKindId", required = false) Integer classKindId,
+			@RequestParam(value = "classKId", required = false) Integer classKId,
 			@RequestParam(value = "placeId", required = false) Integer placeId,
 			@RequestParam(value = "teacherId", required = false) Integer teacherId,
+			@RequestParam(value = "teaName", required = false) String teaName,
 			@DateTimeFormat(pattern = "yyyy-MM-dd") 
-			@RequestParam(value = "before", required = true) Date before,
+			@RequestParam(value = "before", required = false) Date before,
 			@DateTimeFormat(pattern = "yyyy-MM-dd") 
-			@RequestParam(value = "after", required = true) Date after,
-			@RequestParam(value = "isPub", required = false) Integer isPub) {
+			@RequestParam(value = "after", required = false) Date after,
+			@RequestParam(value = "property", required = false) String property) {
 
-		return Messenger.success().add("info", 
-				classService.getClassInfo(
-						classId, classKindId, placeId, teacherId, 
-						before, after, isPub));
+		PageHelper.startPage(pn, 5);
+		List<ClassInfoResult> result = classService.getClassInfo(
+				classId, classKId, placeId, teacherId, 
+				teaName, before, after, property);
+		PageInfo page = new PageInfo(result, 5);
+		return Messenger.success().add("pageInfo", page);
 	}
 
 	/**
