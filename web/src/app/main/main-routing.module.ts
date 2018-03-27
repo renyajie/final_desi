@@ -13,6 +13,7 @@ const mainRoutes: Routes = [
       { path: 'user', loadChildren: 'app/main/user/user.module#UserModule' },
       { path: 'order', loadChildren: 'app/main/order/order.module#OrderModule' },
       { path: 'card', loadChildren: 'app/main/card/card.module#CardModule' },
+      { path: 'class', loadChildren: 'app/main/class/class.module#ClassModule' },
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }

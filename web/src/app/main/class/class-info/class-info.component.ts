@@ -6,21 +6,27 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 import { of } from 'rxjs/observable/of';
 
-import { ClassKind } from '../../../poto/class_kind';
-import { DateFormat } from '../../../utility/date-format';
 import { ClassService } from '../../../core/class.service';
-import { ClassOrder } from '../../../poto/class_order';
+import { DateFormat } from '../../../utility/date-format';
+import { ClassInfo } from '../../../poto/class_info';
+import { ClassKind } from '../../../poto/class_kind';
+import { SimpleToken } from '../../../utility/simple_token';
 
 @Component({
-  selector: 'app-class-order',
-  templateUrl: './class-order.component.html',
-  styleUrls: ['./class-order.component.css']
+  selector: 'app-class-info',
+  templateUrl: './class-info.component.html',
+  styleUrls: ['./class-info.component.css']
 })
-export class ClassOrderComponent implements OnInit {
+export class ClassInfoComponent implements OnInit {
 
   classKinds$: Observable<ClassKind[]>;
   pageInfo$: Observable<any>;
-  classOrders$: Observable<any>;
+  classInfos$: Observable<any>;
+
+  propertys: SimpleToken[] = [
+    new SimpleToken("私教", "s"),
+    new SimpleToken("团课", "g")
+  ];
 
   //日期选择框文本
   beforeBtnText = '选择最早日期';
@@ -38,10 +44,10 @@ export class ClassOrderComponent implements OnInit {
   current: Date;
   maxDate: Date;
   minDate: Date;
-  //用于搜索的用户编号，会员卡编号，课程种类
-  userId: string = '';
-  cardId: string = '';
+  //用于搜索的用户编号，课程种类
+  teaName: string = '';
   classKId: string = '';
+  property: string = '';
 
   constructor(
     private classService: ClassService
@@ -76,7 +82,7 @@ export class ClassOrderComponent implements OnInit {
         }
       }
     )
-    this.getClassOrder();
+    this.getClassInfo();
   }
 
   showBeforePicker(event: any) {
@@ -117,12 +123,12 @@ export class ClassOrderComponent implements OnInit {
     this.firstChooseForBeforeDate = true;
     this.afterDate = new Date();
     this.beforeDate = new Date();
-    this.userId = '';
-    this.cardId = '';
+    this.teaName = '';
     this.classKId = '';
+    this.property = '';
   }
 
-  getClassOrder(pn?, classKId?, userId?, cardId?) {
+  getClassInfo(pn?, classKId?, teaName?, property?) {
     //判断日期选择的合理性
     if (!this.firstChooseForBeforeDate && !this.firstChooseForAfterDate) {
       if (this.beforeDate.getDate() > this.afterDate.getDate()) {
@@ -131,18 +137,18 @@ export class ClassOrderComponent implements OnInit {
       }
     }
     //发出搜索，并展示结果
-    const classOrders = [];
-    this.classService.getClassOrder(
-      pn, classKId, userId, cardId,
+    const classInfos = [];
+    this.classService.getClassInfo(
+      pn, classKId, teaName, property,
       this.firstChooseForBeforeDate ? null : DateFormat.formatWithDay(this.beforeDate),
       this.firstChooseForAfterDate ? null : DateFormat.formatWithDay(this.afterDate)).subscribe(
         data => {
           //若成功返回数据，为元素赋值
           if (data['code'] === 100) {
-            data['extend']['pageInfo']['list'].map(classOrder => {
-              classOrders.push(ClassOrder.fromJSON(classOrder));
+            data['extend']['pageInfo']['list'].map(classInfo => {
+              classInfos.push(ClassInfo.fromJSON(classInfo));
             });
-            this.classOrders$ = of(classOrders);
+            this.classInfos$ = of(classInfos);
             this.pageInfo$ = of(data['extend']['pageInfo']);
           }
           //若发生错误
@@ -152,5 +158,23 @@ export class ClassOrderComponent implements OnInit {
         }
       )
   }
+
+  //删除课程信息
+  deleteClassInfo(classId) {
+    this.classService.deleteClassInfo(classId).subscribe(
+      data => {
+        if(data['code'] == 100) {
+          //提示成功并重新获取课程信息
+          alert("删除成功");
+          this.clear();
+          this.getClassInfo();
+        }
+        else
+        {
+          alert("发生错误");
+        }
+      }
+    )
+  } 
 
 }

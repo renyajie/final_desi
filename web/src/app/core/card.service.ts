@@ -31,6 +31,17 @@ export class CardService {
   }
 
   /**
+   * 删除会员卡种类
+   * @param cardKId 
+   */
+  deleteCardKind(cardKId) {
+    const url = this.url + 'deleteCardKind';
+    const params = new HttpParams()
+    .set('cardKId', cardKId);
+    return this.httpClient.delete(url, { params });
+  }
+
+  /**
    * 更新会员卡种类信息
    * @param cardKind 
    */

@@ -46,21 +46,39 @@ export class CardKindComponent implements OnInit {
   getCardKind(pn?, cardKId?, cardKName?, capacity?, expend?) {
     const cardKinds = [];
     this.cardService.getCardKind(1, pn, cardKId, cardKName, capacity, expend).subscribe(
-        data => {
-          //若成功返回数据，为元素赋值
-          if (data['code'] === 100) {
-            data['extend']['pageInfo']['list'].map(cardKind => {
-              cardKinds.push(CardKind.fromJSON(cardKind));
-            });
-            this.cardKinds$ = of(cardKinds);
-            this.pageInfo$ = of(data['extend']['pageInfo']);
-          }
-          //若发生错误
-          else {
-            alert("服务器响应错误")
-          }
+      data => {
+        //若成功返回数据，为元素赋值
+        if (data['code'] === 100) {
+          data['extend']['pageInfo']['list'].map(cardKind => {
+            cardKinds.push(CardKind.fromJSON(cardKind));
+          });
+          this.cardKinds$ = of(cardKinds);
+          this.pageInfo$ = of(data['extend']['pageInfo']);
         }
-      )
+        //若发生错误
+        else {
+          alert("服务器响应错误")
+        }
+      }
+    )
   }
+
+  //删除会员卡种类
+  deleteCardKind(cardKId) {
+    this.cardService.deleteCardKind(cardKId).subscribe(
+      data => {
+        if(data['code'] == 100) {
+          //提示成功并重新获取会员卡列表
+          alert("删除成功");
+          this.clear();
+          this.getCardKind();
+        }
+        else
+        {
+          alert("发生错误");
+        }
+      }
+    )
+  } 
 
 }

@@ -1,0 +1,129 @@
+<div class="row">
+  <div class="col-md-3">
+    <button type="button" class="btn btn-info btn-sm" (click)="showBeforePicker(null)">{{beforeBtnText}}</button>
+    {{beforeDateText}} 
+    <br>
+    <datepicker *ngIf="showBeforeDate" [(ngModel)]="beforeDate" [showWeeks]="true" (onChange)="showBeforePicker($event)" [maxDate]="maxDate"
+      [minDate]="minDate"></datepicker>
+  </div>
+  <div class="col-md-3">
+    <button type="button" class="btn btn-info btn-sm" (click)="showAfterPicker(null)">{{afterBtnText}}</button>
+    {{afterDateText}}
+    <br>
+    <datepicker *ngIf="showAfterDate" [(ngModel)]="afterDate" [showWeeks]="true" (onChange)="showAfterPicker($event)" [maxDate]="maxDate"
+      [minDate]="minDate"></datepicker>
+  </div>
+  <div class="col-md-2">
+    课程种类:
+    <select [(ngModel)]="classKId" id="classKId">
+        <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
+            {{classKind.claKName}}
+        </option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    课程属性:
+    <select [(ngModel)]="property" id="property">
+      <option *ngFor="let p of propertys" value="{{p.value}}">
+          {{p.name}}
+      </option>
+    </select>
+  </div>
+  <div class="col-md-2">
+    教师名称：
+    <input [(ngModel)]="teaName">
+  </div>
+  <div class="col-md-12 one-line-button">
+    <button type="button" class="btn btn-info btn-sm" (click)="clear();getClassInfo();">清空</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getClassInfo(1, classKId, teaName, property);">搜索</button>
+  </div>
+</div>
+
+<div class="main-table">  
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td class="idColumn">编号</td>
+            <td class="classColumn">课程名称</td>
+            <td class="nameColumn">任课教师</td>
+            <td class="timeColumn">上课时间</td>
+            <td class="timeColumn">开始时间</td>
+            <td class="timeColumn">结束时间</td>
+            <td class="nameColumn">课程属性</td>
+            <td class="numberColumn">价格</td>
+            <td>操作</td>          
+        </tr>
+        <tr *ngFor="let classInfo of classInfos$ | async">
+            <td class="idColumn">{{classInfo.id}}</td>
+            <td class="classColumn">{{classInfo.claKName}}</td>
+            <td class="nameColumn">{{classInfo.teaName}}</td>
+            <td class="timeColumn">{{classInfo.cDay}}</td>
+            <td class="timeColumn">{{classInfo.staTime}}</td>
+            <td class="timeColumn">{{classInfo.endTime}}</td>
+            <td class="nameColumn">{{classInfo.property == 's' ? '私教' : '团课'}}</td>
+            <td class="numberColumn">{{classInfo.expend}}</td>
+            <td>
+              <a [routerLink]="['./', classInfo.id]" class="btn btn-info btn-sm">编辑</a>
+              <button class="btn btn-info btn-sm" (click)="deleteClassInfo(classInfo.id);">删除</button>
+            </td>
+        </tr>
+    </table>
+</div> 
+
+<div class="row foot-content">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="main-page">
+      <nav aria-label="Page navigation">
+        <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getClassInfo(1, classKId, teaName, property);">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getClassInfo(pageInfo.pageNum - 1, classKId, teaName, property);">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getClassInfo(item, classKId, teaName, property);">
+            <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getClassInfo(pageInfo.pageNum + 1, classKId, teaName, property);">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getClassInfo(pageInfo.pages, classKId, teaName, property);">
+            <a>
+              末页
+            </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a>
+              末页
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
