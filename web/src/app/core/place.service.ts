@@ -15,14 +15,60 @@ export class PlaceService {
   ) { }
 
   /**
-   * 获取所有的场地信息
+   * 获取场地信息
    */
-  getAllPlace(id?, placeName?) {
+  getAllPlace(isPage?, id?, pn?, sName?, address?, phone?) {
     const url = this.url + 'getPlace';
     const params = new HttpParams()
-    .set('id', id ? id : '')
-    .set('placeName', placeName ? placeName : '')
+    .set('isPage', isPage + '')
+    .set('id', id ? id + '' : '')
+    .set('pn', pn ? pn : '')
+    .set('sName', sName ? sName : '')
+    .set('address', address ? address : '')
+    .set('phone', phone ? phone : '')
     return this.httpClient.get(url, { params });
+  }
+
+  /**
+   * 删除场馆
+   * @param id 
+   */
+  deletePlace(id) {
+    const url = this.url + 'deletePlace';
+    const params = new HttpParams()
+    .set('id', id);
+    return this.httpClient.delete(url, { params });
+  }
+
+  /**
+   * 获取一个场馆信息
+   * @param id 
+   */
+  getOnePlace(id) {
+    const url = this.url + 'getOnePlace';
+    const params = new HttpParams()
+    .set('id', id);
+    return this.httpClient.get(url, { params });
+  }
+
+  /**
+   * 更新场馆信息
+   * @param place 
+   */
+  placeUpdate(place: Place) {
+    const url = this.url + 'updatePlace';
+    return this.httpClient.put(url, place);
+  }
+
+  /**
+   * 添加场馆信息
+   * @param place 
+   */
+  addPlace(place: Place) {
+    let tmp = new Place(null, null);
+    tmp = Object.assign(tmp, place);
+    const url = this.url + 'addPlace';
+    return this.httpClient.post(url, tmp);
   }
 
 }

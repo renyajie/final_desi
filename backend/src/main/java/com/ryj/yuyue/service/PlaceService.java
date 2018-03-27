@@ -52,15 +52,31 @@ public class PlaceService {
 	 * @param placeName 场馆名称
 	 * @return 
 	 */
-	public List<Place> getPlace(Integer id, String placeName) {
+	public List<Place> getPlace(
+			Integer id, String sName, String address, String phone) {
 		PlaceExample example = new PlaceExample();
 		Criteria criteria = example.createCriteria();
 		if(id != null) {
 			criteria.andIdEqualTo(id);
 		}
-		if(placeName != null && placeName.length() != 0) {
-			criteria.andSNameLike(placeName);
+		if(sName != null && sName.length() != 0) {
+			criteria.andSNameLike("%" + sName +"%");
+		}
+		if(address != null && address.length() != 0) {
+			criteria.andAddressLike("%" + address + "%");
+		}
+		if(phone != null && phone.length() != 0) {
+			criteria.andPhoneLike("%" + phone + "%");
 		}
 		return placeMapper.selectByExample(example);
+	}
+
+	/**
+	 * 获取一个场馆信息
+	 * @param id
+	 * @return
+	 */
+	public Place getOnePlace(Integer id) {
+		return placeMapper.selectByPrimaryKey(id);
 	}
 }

@@ -42,6 +42,7 @@ import com.ryj.yuyue.utils.Messenger;
 @RequestMapping("api/setting")
 public class SettingController {
 	
+	@SuppressWarnings("unused")
 	private static final Logger logger = 
 			LoggerFactory.getLogger(SettingController.class);
 
@@ -533,19 +534,46 @@ public class SettingController {
 	}
 
 	/**
-	 * 管理员获取场馆信息
+	 * 获取场馆信息
+	 * @param pn
 	 * @param id
-	 * @param placeName
+	 * @param sName
+	 * @param address
+	 * @param phone
 	 * @return
 	 */
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	@RequestMapping(value = "getPlace", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getPlace( 
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
 			@RequestParam(value = "id", required = false) Integer id, 
-			@RequestParam(value = "placeName", required = false) String placeName) {
+			@RequestParam(value = "sName", required = false) String sName,
+			@RequestParam(value = "address", required = false) String address, 
+			@RequestParam(value = "phone", required = false) String phone,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
-		logger.info("getPlace");
+		List<Place> result = placeService.getPlace(id, sName, address, phone);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
+		return Messenger.success().add("info", result);
+	}
+	
+	/**
+	 * 获取一个场馆信息
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value="getOnePlace", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOnePlace(
+			@RequestParam(value = "id", required = true) Integer id) {
+		
 		return Messenger.success().add("info", 
-				placeService.getPlace(id, placeName));
+				placeService.getOnePlace(id));
 	}
 }

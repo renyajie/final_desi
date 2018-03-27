@@ -80,37 +80,30 @@
             <dd>
               <a routerLink="./mine/manager" routerLinkActive="active">个人信息</a>
             </dd>
+            <dd>
+              <a routerLink="./mine/place" routerLinkActive="active">场馆信息</a>
+            </dd>
           </dl>
         </li>
       </ul>
       <!-- 若用户登录身份为系统管理员，显示系统管理员的菜单项 -->
       <ul *ngIf="isSysManager === true">
         <li>
-          场馆管理
+          瑜伽场馆
           <dl>
             <dd>
-              <a routerLink="./lab" routerLinkActive="active">查看瑜伽馆</a>
+              <a routerLink="./place" routerLinkActive="active">查看瑜伽馆</a>
             </dd>
             <dd>
-              <a routerLink="./lab" routerLinkActive="active">新增瑜伽馆</a>
+              <a routerLink="./place/insert" routerLinkActive="active">新增瑜伽馆</a>
             </dd>
           </dl>
         </li>
         <li>
-          消息通知推送
+          场馆管理员
           <dl>
             <dd>
-              <a routerLink="./msg" routerLinkActive="active">查看消息</a>
-            </dd>
-            <dd>
-              <a routerLink="./msg" routerLinkActive="active">新增消息</a>
-            </dd>
-          </dl>
-        </li>
-        <li>瑜伽馆管理员
-          <dl>
-            <dd>
-              <a routerLink="./course-doc" routerLinkActive="active">查看人员列表</a>
+              <a routerLink="./manager" routerLinkActive="active">查看人员列表</a>
             </dd>
           </dl>
         </li>
@@ -118,7 +111,7 @@
           个人中心
           <dl>
             <dd>
-              <a routerLink="./student/info" routerLinkActive="active">个人信息</a>
+              <a routerLink="./mine/sys-manager" routerLinkActive="active">个人信息</a>
             </dd>
           </dl>
         </li>

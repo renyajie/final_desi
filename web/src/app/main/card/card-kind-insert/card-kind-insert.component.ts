@@ -31,7 +31,7 @@ export class CardKindInsertComponent implements OnInit {
   ngOnInit() {
     let place: Place;
     let cardKind = new CardKind();
-    this.placeService.getAllPlace(this.personInfoService.manager.pId).subscribe(
+    this.placeService.getAllPlace(0, this.personInfoService.manager.pId).subscribe(
       data => {
         if(data['code'] == 100) {
           data['extend']['info'].map(p => {

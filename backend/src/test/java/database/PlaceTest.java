@@ -30,6 +30,8 @@ public class PlaceTest {
 		logger.info("getPlaceTest: {}", 
 				placeService.getPlace(
 						1,
+						null,
+						null,
 						null));
 	}
 }

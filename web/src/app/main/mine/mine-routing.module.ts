@@ -9,6 +9,7 @@ const mineRoutes: Routes = [
     component: MineComponent,
     children: [
       { path: 'manager', loadChildren: 'app/main/mine/manager/manager.module#ManagerModule'},
+      { path: 'place', loadChildren: 'app/main/mine/place/place.module#PlaceModule'},
       { path: 'sys-manager', loadChildren: 'app/main/mine/sys-manager/sys-manager.module#SysManagerModule'},
     ]
   }

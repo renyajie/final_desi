@@ -81,7 +81,7 @@ export class ClassInfoInsertComponent implements OnInit {
     //获取瑜伽馆信息
     let place: Place;
     let classInfo = new ClassInfo();
-    this.placeService.getAllPlace(this.personInfoService.manager.pId).subscribe(
+    this.placeService.getAllPlace(0, this.personInfoService.manager.pId).subscribe(
       data => {
         if(data['code'] == 100) {
           data['extend']['info'].map(p => {

@@ -10,12 +10,13 @@ const mainRoutes: Routes = [
     path: 'main', 
     component: MainComponent,
     children: [
-      { path: 'mine', loadChildren: 'app/main/mine/mine.module#MineModule' },
       { path: 'user', loadChildren: 'app/main/user/user.module#UserModule' },
       { path: 'order', loadChildren: 'app/main/order/order.module#OrderModule' },
       { path: 'card', loadChildren: 'app/main/card/card.module#CardModule' },
       { path: 'class', loadChildren: 'app/main/class/class.module#ClassModule' },
       { path: 'news', loadChildren: 'app/main/news/news.module#NewsModule' },
+      { path: 'mine', loadChildren: 'app/main/mine/mine.module#MineModule' },
+      { path: 'place', loadChildren: 'app/main/place/place.module#PlaceModule' },
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }

@@ -1,0 +1,103 @@
+<div class="row go-center">
+  <div class="col-md-3">
+    场馆编号：
+    <input [(ngModel)]="id">
+  </div>
+  <div class="col-md-3">
+    场馆名称：
+    <input [(ngModel)]="sName">
+  </div>
+  <div class="col-md-2">
+    地址:
+    <input [(ngModel)]="address">
+  </div>
+  <div class="col-md-2">
+    联系方式:
+    <input [(ngModel)]="phone">
+  </div>
+  <div class="col-md-2">
+    <button type="button" class="btn btn-info btn-sm" (click)="clear();getAllPlace();">清空</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getAllPlace(1, id, sName, address, phone);">搜索</button>
+  </div>
+</div>
+
+<div class="main-table">  
+    <table class="table table-bordered table-hover">
+        <tr>
+            <td class="idColumn">编号</td>
+            <td class="nameColumn">名称</td>
+            <td class="numberColumn">联系电话</td>
+            <td class="textColumn">地址</td>
+            <td>操作</td> 
+        </tr>
+        <tr *ngFor="let place of places$ | async">
+            <td class="idColumn">{{place.id}}</td>
+            <td class="nameColumn">{{place.sName}}</td>
+            <td class="numberColumn">{{place.phone}}</td>
+            <td class="textColumn">{{place.address}}</td>
+            <td>
+              <a [routerLink]="['./', place.id]" class="btn btn-info btn-sm">编辑</a>
+              <button class="btn btn-info btn-sm" (click)="deletePlace(place.id);">删除</button>
+            </td>
+        </tr>
+    </table>
+</div> 
+
+<div class="row foot-content">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="main-page">
+      <nav aria-label="Page navigation">
+        <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getAllPlace(1, id, sName, address, phone);">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getAllPlace(pageInfo.pageNum - 1, id, sName, address, phone);">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getAllPlace(item, id, sName, address, phone);">
+            <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getAllPlace(pageInfo.pageNum + 1, id, sName, address, phone);">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getAllPlace(pageInfo.pages, id, sName, address, phone);">
+            <a>
+              末页
+            </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a>
+              末页
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
