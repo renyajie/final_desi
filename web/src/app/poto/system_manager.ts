@@ -3,7 +3,7 @@
  */
 export class SystemManager {
     constructor(
-        public account?: String,
+        public account?: string,
         public passwd?: string,
         public id?: number,
         public phone?: string,

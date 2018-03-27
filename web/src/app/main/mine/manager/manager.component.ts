@@ -51,7 +51,7 @@ export class ManagerComponent implements OnInit {
       return;
     }
 
-    this.authService.managerUpdate(manager).subscribe(
+    this.authService.sysManagerUpdate(manager).subscribe(
       data => {
         if(data['code'] == 100) {
           alert("更新成功");
