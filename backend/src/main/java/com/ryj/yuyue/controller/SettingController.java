@@ -29,6 +29,7 @@ import com.ryj.yuyue.bean.Place;
 import com.ryj.yuyue.bean.Teacher;
 import com.ryj.yuyue.service.CardService;
 import com.ryj.yuyue.service.ClassService;
+import com.ryj.yuyue.service.ManagerService;
 import com.ryj.yuyue.service.PlaceService;
 import com.ryj.yuyue.service.TeacherService;
 import com.ryj.yuyue.utils.Messenger;
@@ -54,6 +55,8 @@ public class SettingController {
 	private TeacherService teacherService;
 	@Autowired
 	private PlaceService placeService;
+	@Autowired
+	private ManagerService managerService;
 	
 	/**
 	 * 管理员增加课程信息
@@ -380,6 +383,31 @@ public class SettingController {
 		PageHelper.startPage(pn, 5);
 		PageInfo page = new PageInfo(this.cardService.getCardInfo(
 				managerId, cardKId, userId), 5);
+		return Messenger.success().add("pageInfo", page);
+	}
+	
+	/**
+	 * 获取管理员列表
+	 * @param pn 第几页
+	 * @param id 编号
+	 * @param account 账号
+	 * @param mName 姓名
+	 * @param sName 地点名称
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value="getManagerList", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getManagerList(
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
+			@RequestParam(value = "id", required = false ) Integer id,
+			@RequestParam(value = "account", required = false) String account, 
+			@RequestParam(value = "mName", required = false) String mName,
+			@RequestParam(value = "sName", required = false) String sName) {
+		
+		PageHelper.startPage(pn, 5);
+		PageInfo page = new PageInfo(
+				managerService.getManagerList(id, account, mName, sName), 5);
 		return Messenger.success().add("pageInfo", page);
 	}
 

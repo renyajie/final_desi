@@ -101,4 +101,34 @@ export class AuthService {
     return this.httpClient.get(url, { params });
   }
 
+  /**
+   * 获取管理员列表
+   * @param pn 
+   * @param id 
+   * @param account 
+   * @param mName 
+   * @param sName 
+   */
+  getManagerList(pn?, id?, account?, mName?, sName?) {
+    const url = 'api/setting/getManagerList';
+    const params = new HttpParams()
+      .set('pn', pn ? pn : '')
+      .set('id', id ? id : '')
+      .set('account', account ? account : '')
+      .set('mName', mName ? mName : '')
+      .set('sName', sName ? sName : '');
+    return this.httpClient.get(url, {params});
+  }
+
+  /**
+   * 获取某个管理员的信息
+   * @param id 
+   */
+  getManagerInfo(id) {
+    const url = this.url + 'getManagerInfo';
+    const params = new HttpParams()
+    .set('id', id);
+    return this.httpClient.get(url, { params });
+  }
+
 }

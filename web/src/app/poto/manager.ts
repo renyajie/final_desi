@@ -3,13 +3,14 @@
  */
 export class Manager {
     constructor(
-        public account?: String,
+        public account?: string,
         public passwd?: string,
         public id?: number,
         public phone?: string,
         public mName?: string,
         public gender?: string,
-        public pId?: number
+        public pId?: number,
+        public sName?: string
     ) {}
 
     static fromJSON(json: any): Manager {

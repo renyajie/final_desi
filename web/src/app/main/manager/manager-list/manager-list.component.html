@@ -1,0 +1,108 @@
+<div class="row go-center">
+  <div class="col-md-2">
+    管理员编号：
+    <input [(ngModel)]="id">
+  </div>
+  <div class="col-md-2">
+    账号模糊搜索：
+    <input [(ngModel)]="account">
+  </div>
+  <div class="col-md-2">
+    姓名模糊搜索：
+    <input [(ngModel)]="mName">
+  </div>
+  <div class="col-md-2">
+    场馆名称搜索：
+    <input [(ngModel)]="sName">
+  </div>
+  <div class="col-md-2 margin-top">
+    <button type="button" class="btn btn-info btn-sm" (click)="clear();getManagerList();">清空</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getManagerList(1, id, account, mName, sName);">搜索</button>
+  </div>
+</div>
+
+<div class="main-table">  
+  <table class="table table-bordered table-hover">
+      <tr>
+          <td class="idColumn">管理员编号</td>
+          <td class="nameColumn">姓名</td>
+          <td class="genderColumn">性别</td>
+          <td class="phoneColumn">手机</td>
+          <td class="phoneColumn">账号</td>
+          <td class="passwdColumn">密码</td>
+          <td class="nameColumn">所在场馆</td>
+          <td>操作</td>                                
+      </tr>
+      <tr *ngFor="let manager of managers$ | async">
+          <td class="idColumn">{{manager.id}}</td>
+          <td class="nameColumn">{{manager.mName}}</td>
+          <td class="genderColumn">{{manager.gender == 'f' ? '女' : '男'}}</td>
+          <td class="phoneColumn">{{manager.phone}}</td>
+          <td class="phoneColumn">{{manager.account}}</td>
+          <td class="passwdColumn">{{manager.passwd}}</td>
+          <td class="nameColumn">{{manager.sName}}</td>
+          <td>
+              <a [routerLink]="['./', manager.id]" class="btn btn-info btn-sm">编辑</a>
+          </td>
+      </tr>
+  </table>
+</div> 
+
+<div class="row foot-content">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="main-page">
+      <nav aria-label="Page navigation">
+        <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getManagerList(1, id, account, mName, sName);">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getManagerList(pageInfo.pageNum - 1, account, mName, sName);">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getManagerList(item, account, mName, sName);">
+            <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getManagerList(pageInfo.pageNum + 1, account, mName, sName);">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getManagerList(pageInfo.pages, account, mName, sName);">
+            <a>
+              末页
+            </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a>
+              末页
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

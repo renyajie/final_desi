@@ -2,6 +2,8 @@ package com.ryj.yuyue.dao;
 
 import com.ryj.yuyue.bean.Manager;
 import com.ryj.yuyue.bean.ManagerExample;
+import com.ryj.yuyue.bean.ManagerResult;
+
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
 
@@ -27,4 +29,18 @@ public interface ManagerMapper {
     int updateByPrimaryKeySelective(Manager record);
 
     int updateByPrimaryKey(Manager record);
+    
+    /**
+     * 查询管理员列表
+     * @param id 编号
+     * @param account 账号
+     * @param mName 姓名
+     * @param sName 瑜伽馆名称
+     * @return
+     */
+    List<ManagerResult> getManagerList(
+    		@Param("id") Integer id, 
+    		@Param("account") String account, 
+    		@Param("mName") String mName, 
+    		@Param("sName") String sName);
 }

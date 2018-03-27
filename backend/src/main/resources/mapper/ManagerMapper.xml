@@ -10,6 +10,16 @@
     <result column="gender" jdbcType="VARCHAR" property="gender" />
     <result column="p_id" jdbcType="INTEGER" property="pId" />
   </resultMap>
+  <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.ManagerResult">
+    <result column="id" property="id" />
+    <result column="phone" property="phone" />
+    <result column="account" property="account" />
+    <result column="passwd" property="passwd" />
+    <result column="m_name" property="mName" />
+    <result column="gender" property="gender" />
+    <result column="p_id" property="pId" />
+    <result column="s_name" property="sName" />
+  </resultMap>
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -71,6 +81,9 @@
   <sql id="Base_Column_List">
     id, phone, account, passwd, m_name, gender, p_id
   </sql>
+  <sql id="Base_Column_List_Result">
+    m.id, m.phone, m.account, m.passwd, m.gender, m.m_name, m.p_id, p.s_name
+  </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ManagerExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -90,6 +103,33 @@
     <include refid="Base_Column_List" />
     from manager
     where id = #{id,jdbcType=INTEGER}
+  </select>
+  <!-- List<ManagerResult> getManagerList(
+    		@Param("id") Integer id, 
+    		@Param("account") String account, 
+    		@Param("mName") String mName, 
+    		@Param("sName") String sName); -->
+  <select id="getManagerList" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from manager m, place p
+    <trim prefix="where" prefixOverrides="and">
+      m.p_id = p.id
+	  <if test="id != null">
+        and m.id = #{id}
+      </if>
+      <if test="account != null and account.length != 0">
+        and m.account like '%${account}%'
+      </if>
+      <if test="mName != null and mName.length != 0">
+        and m.m_name like '%${mName}%'
+      </if>
+      <if test="sName != null and sName.length != 0">
+        and p.s_name like '%${sName}%'
+      </if>
+    </trim>
+    order by m.id asc
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from manager

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.ryj.yuyue.bean.Manager;
 import com.ryj.yuyue.bean.ManagerExample;
 import com.ryj.yuyue.bean.ManagerExample.Criteria;
+import com.ryj.yuyue.bean.ManagerResult;
 import com.ryj.yuyue.dao.ManagerMapper;
 
 @Service
@@ -65,5 +66,19 @@ public class ManagerService {
 	 */
 	public void update(Manager manager) {
 		managerMapper.updateByPrimaryKeySelective(manager);
+	}
+	
+	/**
+	 * 查看管理员列表
+	 * @param id
+	 * @param account
+	 * @param mName
+	 * @param sName
+	 * @return
+	 */
+	public List<ManagerResult> getManagerList(
+			Integer id, String account, String mName, String sName) {
+		
+		return managerMapper.getManagerList(id, account, mName, sName);
 	}
 }

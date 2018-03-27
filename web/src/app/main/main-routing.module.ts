@@ -17,6 +17,7 @@ const mainRoutes: Routes = [
       { path: 'news', loadChildren: 'app/main/news/news.module#NewsModule' },
       { path: 'mine', loadChildren: 'app/main/mine/mine.module#MineModule' },
       { path: 'place', loadChildren: 'app/main/place/place.module#PlaceModule' },
+      { path: 'manager', loadChildren: 'app/main/manager/manager.module#ManagerModule' },
       { path: 'welcome', component: WelcomeComponent },
       { path: '', redirectTo: 'welcome', pathMatch: 'full' },
       { path: '**', component: PageNotFoundComponent }
