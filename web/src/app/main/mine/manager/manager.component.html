@@ -24,7 +24,7 @@
     <label for="gender">性别</label>
     <select [(ngModel)]="manager.gender" id="gender">
       <option *ngFor="let gender of genders" value="{{gender.value}}">
-          {{gender.name}}
+          {{gender.label}}
       </option>
   </select>
   </div>

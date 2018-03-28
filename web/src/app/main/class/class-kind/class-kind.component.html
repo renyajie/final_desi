@@ -11,7 +11,7 @@
     课程属性:
     <select [(ngModel)]="property" id="property">
         <option *ngFor="let classProperty of classPropertys" value="{{classProperty.value}}">
-            {{classProperty.name}}
+            {{classProperty.label}}
         </option>
     </select>
   </div>

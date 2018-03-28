@@ -1,3 +1,3 @@
 export class SimpleToken {
-    constructor(public name: string, public value: string|number) {};
+    constructor(public label: string, public value: string|number) {};
 }

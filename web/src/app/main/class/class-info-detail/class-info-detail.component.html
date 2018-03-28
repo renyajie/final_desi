@@ -41,7 +41,7 @@
     <label for="staTime">开始时间</label>
     <select [(ngModel)]="my_staTime" id="staTime">
         <option *ngFor="let courseTime of courseTimes" value="{{courseTime.value}}">
-            {{courseTime.name}}
+            {{courseTime.label}}
         </option>
     </select>
   </div>
@@ -49,7 +49,7 @@
     <label for="staTime">结束时间</label>
     <select [(ngModel)]="my_endTime" id="endTime">
         <option *ngFor="let courseTime of courseTimes" value="{{courseTime.value}}">
-            {{courseTime.name}}
+            {{courseTime.label}}
         </option>
     </select>
   </div>

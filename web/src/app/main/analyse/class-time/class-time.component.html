@@ -1,0 +1,23 @@
+<h3 class="go-center">上课时间统计</h3>
+<div class="row go-center main_btn">
+        <button type="button" class="btn btn-info btn-sm" (click)="showColumnGraph();">显示柱状图</button>
+        <button type="button" class="btn btn-info btn-sm margin" (click)="showPieGraph();">显示饼图</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="threeDay();">最近三天</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="oneWeek();">最近一周</button>
+        <button type="button" class="btn btn-info btn-sm" (click)="oneMonth();">最近一个月</button>
+</div>
+
+<fusioncharts class = "go-center" *ngIf="showColumn == true"
+    width="600" 
+    height="400" 
+    type="column2d" 
+    dataFormat="json" 
+    [dataSource]=dataSourceForColumn>
+</fusioncharts>
+
+<fusioncharts class = "go-center" *ngIf="showColumn == false"
+    width="600" 
+    height="400"
+    type="pie3d"
+    [dataSource]=dataSourceForPie >
+ </fusioncharts>

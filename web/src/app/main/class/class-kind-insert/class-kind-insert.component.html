@@ -16,7 +16,7 @@
     <label for="property">课程属性</label>
     <select [(ngModel)]="classKind.property" id="property">
       <option *ngFor="let property of propertys" value="{{property.value}}">
-          {{property.name}}
+          {{property.label}}
       </option>
     </select>
   </div>
@@ -24,7 +24,7 @@
     <label for="difficulty">难度</label>
     <select [(ngModel)]="classKind.difficulty" id="difficulty">
       <option *ngFor="let difficulty of difficultys" value="{{difficulty.value}}">
-          {{difficulty.name}}
+          {{difficulty.label}}
       </option>
     </select>
   </div>
