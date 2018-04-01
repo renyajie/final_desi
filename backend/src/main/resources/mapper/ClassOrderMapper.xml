@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.ryj.yuyue.dao.ClassOrderMapper">
   <resultMap id="BaseResultMap" type="com.ryj.yuyue.bean.ClassOrder">
     <id column="id" jdbcType="INTEGER" property="id" />
@@ -287,5 +287,27 @@
       </if>
     </trim>
     order by co.ord_time desc
+  </select>
+  <!-- int getOrderNumberByHour(
+  			@Param("placeId") Integer placeId,
+    		@Param("before") Date before,
+    		@Param("after") Date after); -->
+  <select id="getOrderNumberByHour" resultType="java.lang.Integer">  
+    select count(co.num) from class_order co, class_info ci
+    where co.cla_id = ci.id
+    and ci.p_id = #{placeId}
+    and co.ord_time &gt;= #{before} 
+    and co.ord_time &lt;= #{after}  
+  </select>
+  <!-- int getOrderNumberByClass(
+    		@Param("classKId") Integer classKId,
+    		@Param("before") Date before,
+    		@Param("after") Date after); -->
+  <select id="getOrderNumberByClass" resultType="java.lang.Integer">  
+    select count(co.num) from class_order co, class_info ci, class_kind ck
+    where ci.id = co.cla_id and ci.cla_k_id = ck.id
+    and ck.id = #{classKId}
+    and co.ord_time &gt;= #{before} 
+    and co.ord_time &lt;= #{after}  
   </select>
 </mapper>

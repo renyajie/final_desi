@@ -32,6 +32,7 @@ public interface ClassKindMapper {
     
     /**
      * 管理员获取课程种类信息
+     * @param placeId
      * @param classKId
      * @param managerId
      * @param kName
@@ -40,10 +41,12 @@ public interface ClassKindMapper {
      * @return
      */
     List<ClassKindResult> getClassKind(
+    		@Param("placeId") Integer placeId,
     		@Param("classKId") Integer classKId,
     		@Param("managerId") Integer managerId, 
     		@Param("kName") String kName, 
     		@Param("property") String property,
     		@Param("difficulty") Integer difficulty);
+    
     
 }

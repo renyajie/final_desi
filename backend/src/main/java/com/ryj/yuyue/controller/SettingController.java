@@ -204,6 +204,7 @@ public class SettingController {
 	@ResponseBody
 	public Messenger getClassKind(
 			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
+			@RequestParam(value = "placeId", required = false) Integer placeId,
 			@RequestParam(value = "classKId", required = false) Integer classKId, 
 			@RequestParam(value = "managerId", required = false) Integer managerId, 
 			@RequestParam(value = "classKName", required = false) String classKName, 
@@ -212,7 +213,7 @@ public class SettingController {
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
 		List<ClassKindResult> result = classService.getClassKind(
-				classKId, managerId, classKName, property, difficulty);
+				placeId, classKId, managerId, classKName, property, difficulty);
 		//判断是否需要分页
 		if(isPage == 1) {
 			PageHelper.startPage(pn, 5);

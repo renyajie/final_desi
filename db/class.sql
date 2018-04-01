@@ -1,10 +1,12 @@
 -- 和课程有关的SQL
 use yuyue;
 select * from class_kind;
+select * from class_order;
 select * from class_info;
 select * from manager;
 select * from place;
 select * from teacher;
+
 
 -- 目的：根据课程编号，课程种类，场地，教师，上课时间，课程属性查询课程信息
 -- 方法：getClassInfo()

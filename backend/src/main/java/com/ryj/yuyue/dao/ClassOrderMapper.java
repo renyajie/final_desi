@@ -52,4 +52,28 @@ public interface ClassOrderMapper {
     		@Param("cardId") Integer cardId,
     		@Param("before") Date before,
     		@Param("after") Date after);
+    
+    /**
+     * 根据时间查找某个场馆对应时间段内的订单数量
+     * @param placeId
+     * @param before
+     * @param after
+     * @return
+     */
+    int getOrderNumberByHour(
+    		@Param("placeId") Integer placeId,
+    		@Param("before") Date before,
+    		@Param("after") Date after);
+    
+    /**
+     * 根据时间查找某个课程对应时间段内的订单数量
+     * @param classKId
+     * @param before
+     * @param after
+     * @return
+     */
+    int getOrderNumberByClass(
+    		@Param("classKId") Integer classKId,
+    		@Param("before") Date before,
+    		@Param("after") Date after);
 }

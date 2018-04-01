@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
+import { Observable } from 'rxjs/Observable';
 
+import 'rxjs/add/operator/map';
+import { of } from 'rxjs/observable/of';
 import { SimpleToken } from '../../../utility/simple_token';
+import { AnalyseService } from '../../../core/analyse.service';
 
 @Component({
   selector: 'app-class-time',
@@ -9,82 +13,103 @@ import { SimpleToken } from '../../../utility/simple_token';
 })
 export class ClassTimeComponent implements OnInit {
 
+  //数据
+  data: SimpleToken[];
+  //柱状图的平均值和线的名称
+  averageNumber: number;
+
   //是否显示柱状图
   showColumn: boolean;
+  //是否显示数据
+  show: boolean;
+
   //标题和子标题
   caption: string
   subCaption: string
-  //数据
-  data: SimpleToken[];
-
-  constructor() {
-    this.showColumn = true;
+  
+  constructor(private analyseService: AnalyseService) {
     this.caption = "上课时间统计图";
     this.subCaption = "最近三天";
-    this.data = [
-      new SimpleToken('A', 800),
-      new SimpleToken('B', 800),
-      new SimpleToken('C', 800)
-    ]
   }
 
   ngOnInit() {
-    this.resetCaption();
-    this.dataSourceForColumn.data = this.data;
+    this.showColumn = true;
+    this.getData(3);
   }
 
-  resetCaption() {
-    //设置标题
-    this.dataSourceForPie.chart.caption = this.caption;
-    this.dataSourceForPie.chart.subcaption = this.subCaption;
+  //计算柱状图的平均值
+  calculateAverage() {
+    let totalNumber = 0;
+    this.data.map(simpleToken => {
+      totalNumber = totalNumber + (+simpleToken.value);
+    })
+    this.averageNumber = totalNumber / this.data.length;
+  }
+
+  //设置数据源
+  resetData() {
+    //设置标题和数据
+    if(this.showColumn) {
+      this.calculateAverage();
+      this.dataSourceForColumn.trendlines = [{
+        line: [
+            {
+              //线的高度
+              startvalue: this.averageNumber + '',
+              //颜色
+              color: "#1aaf5d",
+              //右侧显示
+              valueOnRight: "1",
+              //显示内容
+              displayvalue: "平均值: " + this.averageNumber.toFixed(2)
+            }
+        ]}]
+    }
+
     this.dataSourceForColumn.chart.caption = this.caption;
     this.dataSourceForColumn.chart.subCaption = this.subCaption;
-  }
+    this.dataSourceForPie.chart.caption = this.caption;
+    this.dataSourceForPie.chart.subcaption = this.subCaption;
 
-  resetData() {
     this.dataSourceForPie.data = this.data;
     this.dataSourceForColumn.data = this.data;
+    //显示图标
+    this.show = true;
   }
 
-  //最近三天
-  threeDay() {
-    this.subCaption = '最近三天';
-    this.data = [
-      new SimpleToken('A', 800),
-      new SimpleToken('B', 800),
-      new SimpleToken('C', 800)
-    ]
-    this.resetCaption();
-    this.resetData();
-  }
+  //获取图表数据
+  getData(timeLength) {
+    this.show = false;
 
-  //最近一周
-  oneWeek() {
-    this.subCaption = '最近一周';
-    this.data = [
-      new SimpleToken('A', 800),
-      new SimpleToken('B', 800),
-      new SimpleToken('C', 800),
-      new SimpleToken('D', 800)
-    ]
-    this.resetCaption();
-    this.resetData();
-  }
+    if(timeLength == 3) {
+      this.subCaption = '最近三天';
+    }
+    else if(timeLength == 7) {
+      this.subCaption = '最近一周';
+    }
+    else {
+      this.subCaption = '最近一个月';
+    }
 
-  //最近一个月
-  oneMonth() {
-    this.subCaption = '最近一月';
-    this.data = [
-      new SimpleToken('A', 800),
-      new SimpleToken('B', 800),
-      new SimpleToken('C', 800),
-      new SimpleToken('D', 800),
-      new SimpleToken('E', 800),
-      new SimpleToken('F', 800),
-      new SimpleToken('G', 800),
-    ]
-    this.resetCaption();
-    this.resetData();
+    const graphData = [];
+    this.analyseService.getByClassTime(timeLength).subscribe(
+      data => {
+        //若服务器成功返回数据
+        if(data['code'] == 100) {
+          data['extend']['info'].map(simpleToken => {
+            graphData.push(SimpleToken.fromJSON(simpleToken));
+          })
+          this.data = graphData;
+          alert(graphData.length);
+          this.resetData();
+        }
+        //若出错
+        else {
+          alert("服务器发生错误");
+        }
+      }
+    )
+    
   }
 
   //显示柱状图
@@ -117,7 +142,7 @@ export class ClassTimeComponent implements OnInit {
       enablemultislicing: '1',
       showpercentvalues: '1',
       //鼠标移动到对应部分显示出来的文字
-      plottooltext: 'Age group : $label Total visit : $datavalue'
+      plottooltext: '时间段 : $label 预约数 : $datavalue'
     },
     data: []
   }

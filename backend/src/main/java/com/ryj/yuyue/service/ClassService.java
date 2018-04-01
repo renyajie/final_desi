@@ -158,6 +158,7 @@ public class ClassService {
 	
 	/**多
 	 * 管理员根据课程名，课程属性多条件查询所在场馆的课程信息
+	 * @param placeId 场馆编号
 	 * @param classKId 课程种类编号
 	 * @param managerId 管理员编号
 	 * @param kName 课程名
@@ -165,11 +166,12 @@ public class ClassService {
 	 * @param difficulty 难度
 	 */
 	public List<ClassKindResult> getClassKind(
+			Integer placeId,
 			Integer classKId, Integer managerId, String kName, 
 			String property, Integer difficulty) {
 		
 		return classKindMapper.getClassKind(
-				classKId, managerId, kName, property, difficulty);
+				placeId, classKId, managerId, kName, property, difficulty);
 	}
 
 	/**
@@ -179,7 +181,7 @@ public class ClassService {
 	 */
 	public ClassKindResult getClassKindInfo(Integer id) {
 		// TODO Auto-generated method stub
-		return classKindMapper.getClassKind(id, null, null, null, null).get(0);
+		return classKindMapper.getClassKind(null, id, null, null, null, null).get(0);
 	}
 
 	/**
