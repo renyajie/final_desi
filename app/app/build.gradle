@@ -37,4 +37,7 @@ dependencies {
     compile 'com.ruffian.library:RTextView:1.0.6'
 
     compile 'com.github.delight-im:Android-AdvancedWebView:v3.0.0'
+
+    compile 'com.squareup.okhttp3:okhttp:3.4.1'
+    compile 'com.google.code.gson:gson:2.8.2'
 }

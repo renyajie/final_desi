@@ -6,6 +6,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
 
+import okhttp3.OkHttpClient;
 import utils.BitmapCache;
 
 /**
@@ -18,6 +19,7 @@ public class MyApplication extends Application {
     public static RequestQueue queue;
     public static BitmapCache bitmapCache;
     public static ImageLoader imageLoader;
+    public static OkHttpClient okHttpClient;
 
     @Override
     public void onCreate() {
@@ -25,6 +27,7 @@ public class MyApplication extends Application {
         queue = Volley.newRequestQueue(getApplicationContext());
         bitmapCache = new BitmapCache();
         imageLoader = new ImageLoader(queue, bitmapCache);
+        okHttpClient = new OkHttpClient();
     }
 
     public static RequestQueue getHttpQueue() {
@@ -37,5 +40,9 @@ public class MyApplication extends Application {
 
     public static ImageLoader getImageLoader() {
         return imageLoader;
+    }
+
+    public static OkHttpClient getOkHttpClient() {
+        return okHttpClient;
     }
 }

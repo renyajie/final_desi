@@ -91,7 +91,6 @@ public class OrderController {
 	@RequestMapping(value = "userOrderClass", method = RequestMethod.POST)
 	@ResponseBody
 	public Messenger userOrderClass(
-			@RequestParam(value = "expend", required = true) Integer expend,
 			@RequestBody @Valid ClassOrder classOrder, 
 			BindingResult syntaxResult) {
 
@@ -105,7 +104,7 @@ public class OrderController {
 			return Messenger.fail().add("errorFields", map);
 		}
 		//若格式正确，判断会员卡余额是否充足
-		if(!cardService.updateCardInfo(classOrder.getCardId(), expend)) {
+		if(!cardService.updateCardInfo(classOrder.getCardId(), classOrder.getExpend())) {
 			return Messenger.fail().add("info", "会员卡余额不足");
 		}
 		//判断课程余量是否充足

@@ -20,8 +20,18 @@ public class ClassOrder {
 
     @NotNull(message="预约人数不能为空")
     private Integer num;
+    
+    private Integer expend;
+    
+    public Integer getExpend() {
+		return expend;
+	}
 
-    public Integer getId() {
+	public void setExpend(Integer expend) {
+		this.expend = expend;
+	}
+
+	public Integer getId() {
         return id;
     }
 

@@ -1,5 +1,6 @@
 package com.ryj.yuyue.utils;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -9,7 +10,9 @@ import java.util.Map;
  * @author Thor
  *
  */
-public class Messenger {
+public class Messenger implements Serializable{
+	
+	private static final long serialVersionUID = 1L;
 	private int code;
 	private String msg;
 	private Map<String, Object> extend = new HashMap<String, Object>();
@@ -17,16 +20,16 @@ public class Messenger {
 	//定义快捷成功方法
 	public static Messenger success() {
 		Messenger result = new Messenger();
-		result.setCode(ConstantLiteral.HANLDE_SUCCESS_CODE);
-		result.setMsg(ConstantLiteral.HANLDE_SUCCESS_STRING);
+		result.setCode(100);
+		result.setMsg("处理成功");
 		return result;
 	}
 
 	//定义快捷失败方法
 	public static Messenger fail() {
 		Messenger result = new Messenger();
-		result.setCode(ConstantLiteral.HANLDE_FAILURE_CODE);
-		result.setMsg(ConstantLiteral.HANLDE_FAILURE_STRING);
+		result.setCode(200);
+		result.setMsg("处理失败");
 		return result;
 	}
 

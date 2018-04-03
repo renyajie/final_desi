@@ -19,4 +19,9 @@ public class AppConstant {
     public static final Integer PEOPLE_ORDER = 1;
     public static final Integer INDIVIDUAL_ORDER = 2;
     public static final Integer EXPERIENCE_ORDER = 3;
+
+    //后台交互常量
+    public static final String URL = "http://192.168.137.1:8000/";
+    public static final Integer HANDLE_SUCCESS_CODE = 100;
+    public static final Integer HANDLE_FAILURE_CODE = 200;
 }

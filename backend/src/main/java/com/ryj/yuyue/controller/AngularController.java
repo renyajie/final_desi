@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.ryj.yuyue.bean.SystemManager;
+import com.ryj.yuyue.bean.User;
 import com.ryj.yuyue.service.SystemManagerService;
 import com.ryj.yuyue.utils.Messenger;
 
@@ -30,7 +32,40 @@ public class AngularController {
 	@RequestMapping(value="getSimpleMessage", method=RequestMethod.GET)
 	@ResponseBody
 	public Messenger getSimpleMessage() {
-		return Messenger.success().add("info", "简单消息");
+		logger.info("getSimpleMessage");
+		return Messenger.success().add("info", "GET方法: 简单消息");
+	}
+	
+	@RequestMapping(value="getSimpleMessageWithParams", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getSimpleMessage(
+			@RequestParam("name")String name) {
+		logger.info("getSimpleMessageWithParam, name is {}", name);
+		return Messenger.success().add("info", "带参数GET方法: 简单消息");
+	}
+	
+	@RequestMapping(value="postParams", method=RequestMethod.POST)
+	@ResponseBody
+	public Messenger postParams(
+			@RequestBody User user) {
+		logger.info("postParams, name is {}", user.getuName());
+		return Messenger.success().add("info", "POST方法: 简单消息");
+	}
+	
+	@RequestMapping(value="putParams", method=RequestMethod.PUT)
+	@ResponseBody
+	public Messenger putParams(
+			@RequestBody User user) {
+		logger.info("putParams, name is {}", user.getuName());
+		return Messenger.success().add("info", "PUT方法: 简单消息");
+	}
+	
+	@RequestMapping(value="deleteParams", method=RequestMethod.POST)
+	@ResponseBody
+	public Messenger deleteParams(
+			@RequestParam("name") String name) {
+		logger.info("deleteParams, name is {}", name);
+		return Messenger.success().add("info", "DELETE方法: 简单消息");
 	}
 	
 	/**
