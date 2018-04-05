@@ -4,7 +4,10 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
+import java.lang.reflect.Type;
 import java.net.URLEncoder;
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -28,7 +31,35 @@ import okhttp3.Response;
 public class UtilsMethod {
 
     private static final String DATE_FORMAT = "MM月dd日";
-    private static final Gson gson = new Gson();
+    private static final String DATE_FORMAT_FOR_SERVER = "yyyy-MM-dd";
+
+    /**
+     * 将时间转化为 yyyy-MM-dd HH:mm-HH:mm的形式，用于查看约课详细情况
+     * @param date
+     * @param startTime
+     * @param endTime
+     * @return
+     */
+    public static String getStringFromDateForDetail(
+            Date date, Date startTime, Date endTime) {
+        DateFormat dateFormatOne = new SimpleDateFormat("HH:mm:ss");
+        DateFormat dateFormatTwo = new SimpleDateFormat("yyyy-MM");
+        String day = dateFormatTwo.format(date);
+        String start =  dateFormatOne.format(startTime);
+        String end =  dateFormatOne.format(endTime);
+        return day + ' ' + start + '-' + end;
+    }
+
+    /**
+     * 将DATE转化为小时分的字符串
+     * @param date
+     * @return
+     * @throws ParseException
+     */
+    public static String getStringFromDate(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss");
+        return dateFormat.format(date);
+    }
 
     /**
      * 返回日期的字符串，可以指定是第几天后
@@ -49,6 +80,22 @@ public class UtilsMethod {
         return dateString;
     }
 
+    /**
+     * 发送给服务器的字符串格式
+     * @param nextAmount
+     * @return
+     */
+    public static String theNextNDayForServer(int nextAmount) {
+        Date today = new Date();
+        Calendar c = Calendar.getInstance();
+        c.setTime(today);
+        c.add(Calendar.DAY_OF_MONTH, nextAmount);
+        Date tomorrow = c.getTime();
+        SimpleDateFormat formatter = new SimpleDateFormat(DATE_FORMAT_FOR_SERVER);
+        String dateString = formatter.format(tomorrow);
+        return dateString;
+    }
+
     //在theNextNDay的基础上加上“今天明天和后天”
     public static String theNextNDayWithText(int nextAmount) {
         String result = null;
@@ -57,10 +104,10 @@ public class UtilsMethod {
                 result = "今天" + theNextNDay(0);
                 break;
             case 1:
-                result = "明天" + theNextNDay(0);
+                result = "明天" + theNextNDay(1);
                 break;
             case 2:
-                result = "后天" + theNextNDay(0);
+                result = "后天" + theNextNDay(2);
                 break;
             default:
                 result = theNextNDay(nextAmount);
@@ -153,11 +200,16 @@ public class UtilsMethod {
     }
 
     /**
-     * 将服务器传来的response对象转化为Messenger对象
+     * 将json转化为指定类型的Messenger
      * @param response
+     * @param token
+     * @param <T>
      * @return
+     * @throws IOException
      */
-    public static Messenger getMessengerFromJson(Response response) throws IOException {
-        return gson.fromJson(response.body().string(), new TypeToken<Messenger>() {}.getType());
+    public static <T> Messenger<T> getFromJson(int gsonType, Response response, TypeToken<Messenger<T>> token) throws IOException {
+        Type type = token.getType();
+        return MyApplication.getGson(gsonType).fromJson(response.body().string(), type);
     }
+
 }

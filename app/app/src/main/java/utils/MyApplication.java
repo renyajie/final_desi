@@ -5,6 +5,8 @@ import android.app.Application;
 import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 
 import okhttp3.OkHttpClient;
 import utils.BitmapCache;
@@ -20,6 +22,7 @@ public class MyApplication extends Application {
     public static BitmapCache bitmapCache;
     public static ImageLoader imageLoader;
     public static OkHttpClient okHttpClient;
+    public static Gson gson, gsonForHour, gsonForAll;
 
     @Override
     public void onCreate() {
@@ -28,6 +31,9 @@ public class MyApplication extends Application {
         bitmapCache = new BitmapCache();
         imageLoader = new ImageLoader(queue, bitmapCache);
         okHttpClient = new OkHttpClient();
+        gsonForHour = new GsonBuilder().setDateFormat("HH:mm:ss").create();
+        gsonForAll = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
+        gson = new Gson();
     }
 
     public static RequestQueue getHttpQueue() {
@@ -44,5 +50,15 @@ public class MyApplication extends Application {
 
     public static OkHttpClient getOkHttpClient() {
         return okHttpClient;
+    }
+
+    public static Gson getGson(int type) {
+        switch (type) {
+            case AppConstant.GSON_FOR_ALL:
+                return gsonForAll;
+            case AppConstant.GSON_FOR_HOUR:
+                return gsonForHour;
+        }
+        return gson;
     }
 }

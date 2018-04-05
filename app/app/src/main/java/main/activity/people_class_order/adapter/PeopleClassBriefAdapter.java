@@ -15,11 +15,14 @@ import android.widget.TextView;
 
 import com.renyajie.yuyue.R;
 
+import java.text.ParseException;
 import java.util.List;
 
+import bean.ClassInfo;
 import main.activity.people_order_confirm.PeopleOrderConfirmActivity;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import utils.AppConstant;
+import utils.UtilsMethod;
 
 /**
  * Created by Thor on 2018/3/12.
@@ -32,9 +35,9 @@ public class PeopleClassBriefAdapter extends BaseAdapter
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<PeopleClassBriefModel> data;
+    private List<ClassInfo> data;
 
-    public PeopleClassBriefAdapter(Context context, List<PeopleClassBriefModel> data) {
+    public PeopleClassBriefAdapter(Context context, List<ClassInfo> data) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
@@ -57,7 +60,7 @@ public class PeopleClassBriefAdapter extends BaseAdapter
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        PeopleClassBriefModel model = data.get(position);
+        ClassInfo model = data.get(position);
         ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -69,50 +72,50 @@ public class PeopleClassBriefAdapter extends BaseAdapter
             viewHolder.startTime = convertView.findViewById(R.id.start_time);
             viewHolder.className = convertView.findViewById(R.id.class_name);
             viewHolder.teacherName = convertView.findViewById(R.id.teacher_name);
-            viewHolder.classroom = convertView.findViewById(R.id.classroom);
+            //viewHolder.classroom = convertView.findViewById(R.id.classroom);
             viewHolder.statusText = convertView.findViewById(R.id.status_text);
             viewHolder.difficulty = convertView.findViewById(R.id.difficulty);
             viewHolder.statusButton = convertView.findViewById(R.id.status_button);
             viewHolder.allowance = convertView.findViewById(R.id.allowance);
             viewHolder.allowanceHelp = convertView.findViewById(R.id.allowance_help);
 
-            viewHolder.startTime.setText(model.startTime);
-            viewHolder.className.setText(model.className);
-            viewHolder.teacherName.setText(model.teacherName);
-            viewHolder.classroom.setText(model.classroom);
+            viewHolder.startTime.setText(UtilsMethod.getStringFromDate(model.getStaTime()));
+            viewHolder.className.setText(model.getClaKName());
+            viewHolder.teacherName.setText(model.getTeaName());
+            //viewHolder.classroom.setText(model.classroom);
 
             // 未约满时还需显示余量有多少，这里需要将status，涉及到Text和Button的转换
-            if(model.status != AppConstant.PEOPLE_ORDER_CAN_ORDER) {
+            if(model.getStatus() != AppConstant.PEOPLE_ORDER_CAN_ORDER) {
                 viewHolder.allowanceHelp.setVisibility(View.INVISIBLE);
                 viewHolder.allowance.setVisibility(View.INVISIBLE);
                 viewHolder.statusButton.setVisibility(View.INVISIBLE);
-                viewHolder.statusText.setText(convertStatusToString(model.status));
+                viewHolder.statusText.setText(convertStatusToString(model.getStatus()));
             } else {
-                viewHolder.allowance.setText(String.valueOf(model.allowance));
+                viewHolder.allowance.setText(String.valueOf(model.getAllowance()));
                 viewHolder.statusText.setVisibility(View.INVISIBLE);
             }
 
-            viewHolder.difficulty.setRating(Float.valueOf(model.difficulty));
+            viewHolder.difficulty.setRating(Float.valueOf(model.getDifficulty()));
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-            viewHolder.startTime.setText(model.startTime);
-            viewHolder.className.setText(model.className);
-            viewHolder.teacherName.setText(model.teacherName);
-            viewHolder.classroom.setText(model.classroom);
+            viewHolder.startTime.setText(UtilsMethod.getStringFromDate(model.getStaTime()));
+            viewHolder.className.setText(model.getClaKName());
+            viewHolder.teacherName.setText(model.getTeaName());
+            //viewHolder.classroom.setText(model.classroom);
 
             // 未约满时还需显示余量有多少，这里需要将status，涉及到Text和Button的转换
-            if(model.status != AppConstant.PEOPLE_ORDER_CAN_ORDER) {
+            if(model.getStatus() != AppConstant.PEOPLE_ORDER_CAN_ORDER) {
                 viewHolder.allowanceHelp.setVisibility(View.INVISIBLE);
                 viewHolder.allowance.setVisibility(View.INVISIBLE);
                 viewHolder.statusButton.setVisibility(View.INVISIBLE);
-                viewHolder.statusText.setText(convertStatusToString(model.status));
+                viewHolder.statusText.setText(convertStatusToString(model.getStatus()));
             } else {
-                viewHolder.allowance.setText(String.valueOf(model.allowance));
+                viewHolder.allowance.setText(String.valueOf(model.getAllowance()));
                 viewHolder.statusText.setVisibility(View.INVISIBLE);
             }
 
-            viewHolder.difficulty.setRating(Float.valueOf(model.difficulty));
+            viewHolder.difficulty.setRating(Float.valueOf(model.getDifficulty()));
         }
 
         return convertView;
@@ -134,12 +137,12 @@ public class PeopleClassBriefAdapter extends BaseAdapter
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        PeopleClassBriefModel model = data.get(position);
-        Log.v("msg", "课程名:" + model.className);
+        ClassInfo model = data.get(position);
+        Log.v("msg", "课程名:" + model.getClaKName());
         Intent intent = new Intent(context, PeopleOrderConfirmActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("placeId", model.placeId);
-        bundle.putInt("classId", model.classId);
+        bundle.putInt("placeId", model.getpId());
+        bundle.putInt("classId", model.getClaKId());
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

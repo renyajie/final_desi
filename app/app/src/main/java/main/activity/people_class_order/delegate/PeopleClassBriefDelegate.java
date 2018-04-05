@@ -14,6 +14,7 @@ import com.renyajie.yuyue.R;
 
 import java.util.List;
 
+import bean.ClassInfo;
 import main.activity.people_class_order.adapter.PeopleClassBriefAdapter;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import utils.SuperDelegate;
@@ -29,7 +30,7 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<PeopleClassBriefModel> peopleClassBriefModelList;
+    private List<ClassInfo> classInfoList;
     private PeopleClassBriefAdapter adapter;
     private boolean showRecommendTitle;
 
@@ -39,8 +40,8 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
         showRecommendTitle = false;
     }
 
-    public void setPeopleClassBriefModelList(List<PeopleClassBriefModel> peopleClassBriefModelList) {
-        this.peopleClassBriefModelList = peopleClassBriefModelList;
+    public void setClassInfoList(List<ClassInfo> classInfoList) {
+        this.classInfoList = classInfoList;
     }
 
     public void setShowRecommendTitle(boolean showRecommendTitle) {
@@ -76,7 +77,7 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
-        adapter = new PeopleClassBriefAdapter(context, peopleClassBriefModelList);
+        adapter = new PeopleClassBriefAdapter(context, classInfoList);
         ((PeopleClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((PeopleClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
 

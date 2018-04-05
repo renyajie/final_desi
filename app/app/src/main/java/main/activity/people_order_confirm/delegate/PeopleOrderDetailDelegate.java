@@ -18,9 +18,12 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
+import bean.ClassInfo;
 import main.activity.people_order_confirm.model.PeopleOrderDetailModel;
+import utils.AppConstant;
 import utils.MyApplication;
 import utils.SuperDelegate;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -33,7 +36,7 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private PeopleOrderDetailModel model;
+    private ClassInfo classInfo;
     private ImageLoader imageLoader;
 
     public PeopleOrderDetailDelegate(Context context) {
@@ -42,9 +45,8 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
         imageLoader = MyApplication.getImageLoader();
     }
 
-    public void setPeopleOrderDetailModel(PeopleOrderDetailModel peopleOrderConfirmModel) {
-        this.model = peopleOrderConfirmModel;
-        Toast.makeText(context, "哈哈", Toast.LENGTH_SHORT).show();
+    public void setClassInfo(ClassInfo classInfo) {
+        this.classInfo = classInfo;
     }
 
     @Override
@@ -82,28 +84,30 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
         ((PeopleClassOrderDetailViewHolder)viewHolder).classPic
                 .setErrorImageResId(R.mipmap.ic_launcher);
         ((PeopleClassOrderDetailViewHolder)viewHolder).classPic
-                .setImageUrl(model.picUrl, imageLoader);
+                .setImageUrl(AppConstant.Pic_Url, imageLoader);
 
-        ((PeopleClassOrderDetailViewHolder)viewHolder).className.setText(model.className);
-        ((PeopleClassOrderDetailViewHolder)viewHolder).teacherName.setText(model.teacherName);
-        ((PeopleClassOrderDetailViewHolder)viewHolder).classroom.setText(model.classroom);
+        ((PeopleClassOrderDetailViewHolder)viewHolder).className.setText(classInfo.getClaKName());
+        ((PeopleClassOrderDetailViewHolder)viewHolder).teacherName.setText(classInfo.getTeaName());
+        //((PeopleClassOrderDetailViewHolder)viewHolder).classroom.setText(model.classroom);
         //Integer类型的参数不要直接设置到TextView里
-        ((PeopleClassOrderDetailViewHolder)viewHolder).allowance.setText(String.valueOf(model.allowance));
-        ((PeopleClassOrderDetailViewHolder)viewHolder).time.setText(model.classTime);
-        ((PeopleClassOrderDetailViewHolder)viewHolder).difficulty.setRating(Float.valueOf(model.difficulty));
+        ((PeopleClassOrderDetailViewHolder)viewHolder).allowance.setText(String.valueOf(classInfo.getAllowance()));
+        ((PeopleClassOrderDetailViewHolder)viewHolder).time.setText(
+                UtilsMethod.getStringFromDateForDetail(
+                        classInfo.getcDay(), classInfo.getStaTime(), classInfo.getEndTime()));
+        ((PeopleClassOrderDetailViewHolder)viewHolder).difficulty.setRating(Float.valueOf(classInfo.getDifficulty()));
 
         ((PeopleClassOrderDetailViewHolder)viewHolder).introduction.setOnClickListener(
                 new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
-                        showNormalDialog(model);
+                        showNormalDialog(classInfo);
                     }
                 }
         );
     }
 
     //显示对话框
-    private void showNormalDialog(PeopleOrderDetailModel model){
+    private void showNormalDialog(ClassInfo classInfo){
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -112,8 +116,8 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
         final AlertDialog.Builder normalDialog =
                 new AlertDialog.Builder(context);
         normalDialog.setIcon(R.mipmap.ic_launcher);
-        normalDialog.setTitle(model.className);
-        normalDialog.setMessage(model.introduction);
+        normalDialog.setTitle(classInfo.getClaKName());
+        normalDialog.setMessage(classInfo.getIntro());
         normalDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
@@ -136,7 +140,8 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
 
         NetworkImageView classPic;
         Button introduction;
-        TextView className, teacherName, classroom, allowance, time;
+        TextView className, teacherName, allowance, time;
+        //TextView classroom
         RatingBar difficulty;
 
         public PeopleClassOrderDetailViewHolder(View itemView) {
@@ -145,7 +150,7 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
             introduction = itemView.findViewById(R.id.introduction);
             className = itemView.findViewById(R.id.class_name);
             teacherName = itemView.findViewById(R.id.teacher_name);
-            classroom = itemView.findViewById(R.id.classroom);
+            //classroom = itemView.findViewById(R.id.classroom);
             allowance = itemView.findViewById(R.id.allowance);
             time = itemView.findViewById(R.id.time);
             difficulty = itemView.findViewById(R.id.difficulty);

@@ -1,5 +1,10 @@
 package main.activity.people_class_order.model;
 
+import java.text.ParseException;
+
+import bean.ClassInfo;
+import utils.UtilsMethod;
+
 /**
  * Created by Thor on 2018/3/12.
  *
@@ -12,6 +17,10 @@ public class PeopleClassBriefModel {
     public Integer placeId, classId;
     public String startTime, className, teacherName, classroom;
     public Integer difficulty, status, allowance;
+
+    public PeopleClassBriefModel() {
+
+    }
 
     public PeopleClassBriefModel(
             Integer placeId, Integer classId,

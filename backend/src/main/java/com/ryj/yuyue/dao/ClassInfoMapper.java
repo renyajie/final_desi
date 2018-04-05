@@ -51,4 +51,11 @@ public interface ClassInfoMapper {
     		@Param("before") Date before, 
     		@Param("after") Date after,
     		@Param("property") String property);
+    
+    /**
+     * 获取一个课程信息
+     * @param classId 班级编号
+     * @return
+     */
+    ClassInfoResult getOneClassInfo(@Param("classId") Integer classId);
 }

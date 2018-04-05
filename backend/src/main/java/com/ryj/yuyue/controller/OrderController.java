@@ -57,6 +57,7 @@ public class OrderController {
 	 * @param before 大于等于此日期
 	 * @param after 小于等于此日期
 	 * @param isPub 是否公开
+	 * @param isPage 是否分页
 	 */
 	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "getClassInfo", method = RequestMethod.GET)
@@ -72,14 +73,20 @@ public class OrderController {
 			@RequestParam(value = "before", required = false) Date before,
 			@DateTimeFormat(pattern = "yyyy-MM-dd") 
 			@RequestParam(value = "after", required = false) Date after,
-			@RequestParam(value = "property", required = false) String property) {
+			@RequestParam(value = "property", required = false) String property,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
-		PageHelper.startPage(pn, 5);
 		List<ClassInfoResult> result = classService.getClassInfo(
 				classId, classKId, placeId, teacherId, 
 				teaName, before, after, property);
-		PageInfo page = new PageInfo(result, 5);
-		return Messenger.success().add("pageInfo", page);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
+		
+		return Messenger.success().add("info", result);
 	}
 
 	/**
@@ -180,20 +187,25 @@ public class OrderController {
 	@ResponseBody
 	public Messenger getCardOrder(
 			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
-			@RequestParam(value = "managerId", required=true)  Integer managerId,
+			@RequestParam(value = "managerId", required=false)  Integer managerId,
 			@RequestParam(value = "userId", required=false)  Integer userId,
 			@RequestParam(value = "userName", required=false)  String userName,
 			@RequestParam(value = "cardKId", required=false)  Integer cardKId, 
 			@DateTimeFormat(pattern="yyyy-MM-dd")
 			@RequestParam(value = "before", required=false) Date before, 
 			@DateTimeFormat(pattern="yyyy-MM-dd")
-			@RequestParam(value = "after", required=false) Date after) {
+			@RequestParam(value = "after", required=false) Date after,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
-		PageHelper.startPage(pn, 5);
 		List<CardOrderResult> result = orderService.getCardOrder(
 				managerId, userId, userName, cardKId, before, after);
-		PageInfo page = new PageInfo(result, 5);
-		return Messenger.success().add("pageInfo", page);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
+		return Messenger.success().add("info", result);
 	}
 	
 	/**

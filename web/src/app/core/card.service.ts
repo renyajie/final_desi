@@ -96,6 +96,7 @@ export class CardService {
     let params: HttpParams;
     if (before != null && after != null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('cardKId', cardKId ? cardKId : '')
         .set('managerId', this.personInfoService.id + '')
@@ -105,6 +106,7 @@ export class CardService {
     }
     if (before === null && after === null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('cardKId', cardKId ? cardKId : '')
         .set('managerId', this.personInfoService.id + '')
@@ -112,6 +114,7 @@ export class CardService {
     }
     if (before === null && after != null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('cardKId', cardKId ? cardKId : '')
         .set('managerId', this.personInfoService.id + '')
@@ -120,6 +123,7 @@ export class CardService {
     }
     if (before != null && after === null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('cardKId', cardKId ? cardKId : '')
         .set('managerId', this.personInfoService.id + '')
@@ -139,6 +143,7 @@ export class CardService {
     const url = this.url + 'getCardInfo';
     let params = new HttpParams()
       .set('managerId', this.personInfoService.id + '')
+      .set('isPage', 1 + "")
       .set('pn', pn ? pn : '')
       .set('cardKId', cardKId ? cardKId : '')
       .set('userId', userId ? userId : '');

@@ -1,8 +1,11 @@
 package main.activity.people_order_confirm.delegate;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.RecyclerView;
@@ -18,15 +21,35 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.renyajie.yuyue.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import bean.CardInfo;
+import bean.CardOrder;
+import bean.ClassInfo;
+import bean.ClassOrder;
+import bean.User;
 import main.activity.order_success.OrderSuccessActivity;
+import main.activity.people_order_confirm.PeopleOrderConfirmActivity;
 import main.activity.people_order_confirm.model.CardModel;
 import main.activity.people_order_confirm.model.PeopleOrderPayModel;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.MediaType;
+import okhttp3.RequestBody;
+import okhttp3.Response;
+import utils.AppConstant;
+import utils.Messenger;
 import utils.SuperDelegate;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -43,10 +66,40 @@ public class PeopleOrderPayDelegate extends SuperDelegate
     private PeopleOrderPayModel model;
 
     private ArrayAdapter<String> arrayAdapter;
-    private List<String> cardName;
+    private List<String> cardNameList;
     private PeopleOrderPayViewHolder payViewHolder;
+
+    private static final int ORDER_CLASS_FAILURE = 1;
+    private static final int ORDER_CLASS_SUCCESS = 2;
+
     //从何处启动，用于继续预约时返回对应界面
     private Integer whereStart;
+    //会员卡余额，编号和名称
+    private Integer allowance, cardId;
+    private String cardName;
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            switch (msg.what) {
+                case ORDER_CLASS_FAILURE:
+                    Toast.makeText(context,
+                            "预约课程失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case ORDER_CLASS_SUCCESS:
+                    Intent intent = new Intent(context, OrderSuccessActivity.class);
+                    intent.putExtra("start_from", whereStart);
+                    context.startActivity(intent);
+                    break;
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     public PeopleOrderPayDelegate(Context context) {
         this.context = context;
@@ -95,12 +148,12 @@ public class PeopleOrderPayDelegate extends SuperDelegate
         //开始刷新UI
         payViewHolder = (PeopleOrderPayViewHolder)viewHolder;
         //设置会员卡下拉选择
-        cardName = new ArrayList<>();
-        for(CardModel cardModel: model.cardInformation) {
-            cardName.add(cardModel.cardName);
+        cardNameList = new ArrayList<>();
+        for(CardInfo cardInfo: model.cardInformation) {
+            cardNameList.add(cardInfo.getCardKName());
         }
         arrayAdapter = new ArrayAdapter<>(
-                context, android.R.layout.simple_spinner_item, cardName);
+                context, android.R.layout.simple_spinner_item, cardNameList);
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         payViewHolder.cardSpinner.setAdapter(arrayAdapter);
         payViewHolder.cardSpinner.setOnItemSelectedListener(this);
@@ -122,8 +175,11 @@ public class PeopleOrderPayDelegate extends SuperDelegate
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        CardModel cardModel = model.cardInformation.get(position);
-        Toast.makeText(context, "卡号" + cardModel.cardId + " ,卡名" + cardModel.cardName,
+        CardInfo cardInfo = model.cardInformation.get(position);
+        allowance = cardInfo.getAllowance();
+        cardName = cardInfo.getCardKName();
+        cardId = cardInfo.getId();
+        Toast.makeText(context, "卡号" + cardInfo.getId() + " ,卡名" + cardInfo.getCardKName(),
                 Toast.LENGTH_SHORT).show();
     }
 
@@ -153,20 +209,61 @@ public class PeopleOrderPayDelegate extends SuperDelegate
                 showProtocolDialog();
                 break;
             case R.id.confirm_button:
+                //检查会员协议和会员卡余额
                 if(!payViewHolder.readCheck.isChecked()) {
                     showNoticeDialog();
                     return;
                 }
 
-                    Log.d("msg", "机构编号" + model.placeId +
-                            ", 课程信息" + model.classId + ", 费用" + model.expend);
-                    Intent intent = new Intent(context, OrderSuccessActivity.class);
-                    intent.putExtra("start_from", this.whereStart);
-                    context.startActivity(intent);
-                    break;
+                if(model.expend > allowance) {
+                    showNoMoneyDialog();
+                    return;
+                }
+
+                Log.d("msg", "机构编号" + model.placeId +
+                        ", 课程信息" + model.classId + ", 费用" + model.expend);
+                orderClass();
+                break;
             default:
                 break;
         }
+    }
+
+    //预约课程信息
+    private void orderClass() {
+
+        String url = AppConstant.URL + "api/order/userOrderClass";
+
+        MediaType JSON = MediaType.parse("application/json; charset=utf-8");//数据类型为json格式，
+        ClassOrder classOrder = new ClassOrder();
+        classOrder.setClaId(model.classId);
+        //TODO 修改成用户的编号
+        classOrder.setuId(1);
+        classOrder.setCardId(cardId);
+        classOrder.setNum(model.number);
+        classOrder.setExpend(model.expend);
+        String jsonStr = new Gson().toJson(classOrder);
+        Log.d("get", jsonStr);
+        RequestBody body = RequestBody.create(JSON, jsonStr);
+
+        UtilsMethod.postDataAsync(url, body, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message msg = handler.obtainMessage();
+                msg.what = ORDER_CLASS_FAILURE;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Messenger messenger = UtilsMethod.getFromJson(AppConstant.NORMAL_GSON,
+                        response, new TypeToken<Messenger<Object>>(){});
+                Message msg = handler.obtainMessage();
+                msg.what = ORDER_CLASS_SUCCESS;
+                msg.obj = messenger;
+                handler.sendMessage(msg);
+            }
+        });
     }
 
     //显示对话框
@@ -219,6 +316,29 @@ public class PeopleOrderPayDelegate extends SuperDelegate
                     }
                 });
         normalDialog.setNegativeButton("关闭",
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        //...To-do
+                    }
+                });
+        // 显示
+        normalDialog.show();
+    }
+
+    //显示余额不足对话框
+    private void showNoMoneyDialog(){
+        /* @setIcon 设置对话框图标
+         * @setTitle 设置对话框标题
+         * @setMessage 设置对话框消息提示
+         * setXXX方法返回Dialog对象，因此可以链式设置属性
+         */
+        final AlertDialog.Builder normalDialog =
+                new AlertDialog.Builder(context);
+        normalDialog.setIcon(R.mipmap.ic_launcher);
+        normalDialog.setTitle("注意");
+        normalDialog.setMessage("您的" + cardName + "余额为" + allowance + ", 不足以支付");
+        normalDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {

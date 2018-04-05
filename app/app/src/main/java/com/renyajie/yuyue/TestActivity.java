@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -26,6 +27,7 @@ import okhttp3.RequestBody;
 import okhttp3.Response;
 import utils.AppConstant;
 import utils.Messenger;
+import utils.MyApplication;
 import utils.UtilsMethod;
 
 /**
@@ -110,7 +112,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Messenger messenger = UtilsMethod.getMessengerFromJson(response);
+                        Messenger messenger = UtilsMethod.getFromJson(AppConstant.NORMAL_GSON,
+                                response, new TypeToken<Messenger<Object>>(){});
                         Message msg = handler.obtainMessage();
                         msg.what = GET_SUCCESS;
                         msg.obj = messenger;
@@ -136,7 +139,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Messenger messenger = UtilsMethod.getMessengerFromJson(response);
+                        Messenger messenger = UtilsMethod.getFromJson(AppConstant.NORMAL_GSON,
+                                        response, new TypeToken<Messenger<Object>>(){});
                         Message msg = handler.obtainMessage();
                         msg.what = GET_SUCCESS;
                         msg.obj = messenger;
@@ -165,7 +169,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Messenger messenger = UtilsMethod.getMessengerFromJson(response);
+                        Messenger messenger = UtilsMethod.getFromJson(AppConstant.NORMAL_GSON,
+                                response, new TypeToken<Messenger<Object>>(){});
                         Message msg = handler.obtainMessage();
                         msg.what = POST_SUCCESS;
                         msg.obj = messenger;
@@ -194,7 +199,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Messenger messenger = UtilsMethod.getMessengerFromJson(response);
+                        Messenger messenger = UtilsMethod.getFromJson(AppConstant.NORMAL_GSON,
+                                response, new TypeToken<Messenger<Object>>(){});
                         Message msg = handler.obtainMessage();
                         msg.what = POST_SUCCESS;
                         msg.obj = messenger;
@@ -219,7 +225,8 @@ public class TestActivity extends AppCompatActivity implements View.OnClickListe
 
                     @Override
                     public void onResponse(Call call, Response response) throws IOException {
-                        Messenger messenger = UtilsMethod.getMessengerFromJson(response);
+                        Messenger messenger = UtilsMethod.getFromJson(AppConstant.NORMAL_GSON,
+                                response, new TypeToken<Messenger<Object>>(){});
                         Message msg = handler.obtainMessage();
                         msg.what = POST_SUCCESS;
                         msg.obj = messenger;

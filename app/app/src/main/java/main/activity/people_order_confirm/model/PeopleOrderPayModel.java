@@ -6,6 +6,8 @@ import android.widget.TextView;
 import java.util.List;
 import java.util.Map;
 
+import bean.CardInfo;
+import bean.CardOrder;
 import main.activity.people_order_confirm.delegate.PeopleOrderPayDelegate;
 
 /**
@@ -17,11 +19,15 @@ import main.activity.people_order_confirm.delegate.PeopleOrderPayDelegate;
 public class PeopleOrderPayModel {
 
     public Integer placeId, classId;
-    public List<CardModel> cardInformation;
+    public List<CardInfo> cardInformation;
     public Integer number, expend;
 
+    public PeopleOrderPayModel() {
+
+    }
+
     public PeopleOrderPayModel(
-            Integer placeId, Integer classId, List<CardModel> cardInformation,
+            Integer placeId, Integer classId, List<CardInfo> cardInformation,
                                   Integer number, Integer expend) {
         this.placeId = placeId;
         this.classId = classId;

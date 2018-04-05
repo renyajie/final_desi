@@ -114,7 +114,10 @@
     from card_order co, user u, card_kind ck, manager m
     <trim prefix="where" prefixOverrides="and">
       co.u_id = u.id and co.card_k_id = ck.id
-      and ck.p_id = m.p_id and m.id = #{managerId}
+      and ck.p_id = m.p_id
+      <if test="managerId != null">
+        and m.id = #{managerId}
+      </if>
       <if test="userId != null">
         and co.u_id = #{userId}
       </if>

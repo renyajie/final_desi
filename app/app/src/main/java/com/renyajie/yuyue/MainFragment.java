@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import java.util.ArrayList;
 import java.util.List;
 
+import bean.ClassInfo;
 import main.activity.individual_class_order.delegate.IndividualClassBriefDelegate;
 import main.activity.individual_class_order.model.IndividualClassBriefModel;
 import main.activity.people_class_order.delegate.PeopleClassBriefDelegate;
@@ -78,9 +79,8 @@ public class MainFragment extends Fragment {
 
         initGlideImage(MainData.imageModelList);
         initGridButton(MainData.buttonModelList);
-        //todo 移除猜你喜欢的推荐，初始化团课推荐和私教推荐
-        //initPossibleLike(MainData.possibleLikeModelList);
-        initPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList);
+        //todo 改好团课预约后，恢复此处界面
+        //initPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList);
         initIndividualClassBrief(IndividualClassOrderData.individualClassBriefModelList);
     }
 
@@ -109,11 +109,11 @@ public class MainFragment extends Fragment {
     }
 
     //初始化团课预约的课程信息
-    private void initPeopleClassBrief(List<PeopleClassBriefModel> peopleClassBriefModelList) {
+    private void initPeopleClassBrief(List<ClassInfo> classInfoList) {
         int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
         if(position == -1) return;
         ((PeopleClassBriefDelegate)delegates.get(position))
-                .setPeopleClassBriefModelList(peopleClassBriefModelList);
+                .setClassInfoList(classInfoList);
         ((PeopleClassBriefDelegate)delegates.get(position))
                 .setShowRecommendTitle(true);
         if(adapter != null) adapter.updatePositionDelegate(position);

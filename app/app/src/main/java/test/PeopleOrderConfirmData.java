@@ -26,13 +26,4 @@ public class PeopleOrderConfirmData {
             "印度的大好人，上了他的课你也会变成好人"
     );
 
-    public static PeopleOrderPayModel peopleOrderPayModel = new PeopleOrderPayModel(
-            1, 1,
-            Arrays.asList(
-                    new CardModel(1, "黄金卡"),
-                    new CardModel(2,"白银卡"),
-                    new CardModel(3,"青铜卡")),
-            1,
-            1
-    );
 }

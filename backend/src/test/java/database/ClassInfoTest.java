@@ -31,4 +31,10 @@ public class ClassInfoTest {
 				classInfoMapper.getClassInfo(
 						null, null, null, null, null, null, null, null));
 	}
+	
+	@Test
+	public void getOneClassInfoTest() throws Exception {
+		logger.info("getOneClassInfoTest: {}", 
+				classInfoMapper.getOneClassInfo(1));
+	}
 }

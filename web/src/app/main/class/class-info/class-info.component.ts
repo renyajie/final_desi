@@ -139,7 +139,7 @@ export class ClassInfoComponent implements OnInit {
     //发出搜索，并展示结果
     const classInfos = [];
     this.classService.getClassInfo(
-      pn, classKId, teaName, property,
+      1, pn, classKId, teaName, property,
       this.firstChooseForBeforeDate ? null : DateFormat.formatWithDay(this.beforeDate),
       this.firstChooseForAfterDate ? null : DateFormat.formatWithDay(this.afterDate)).subscribe(
         data => {

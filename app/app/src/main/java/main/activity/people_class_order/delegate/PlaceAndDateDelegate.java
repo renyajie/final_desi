@@ -40,9 +40,11 @@ public class PlaceAndDateDelegate extends SuperDelegate
     private PlaceAndDateDelegateViewHolder placeViewHolder;
     private ChangePlaceOrDate changePlaceOrDate;
 
+    private Integer amount = 0;
+    private Integer placeId = 1;
+
     public interface ChangePlaceOrDate {
-        void changePlace(int placeId);
-        void changeDate(int amount);
+        void changePlaceOrDate(int placeId, int amount);
     }
 
     public PlaceAndDateDelegate(Context context) {
@@ -108,7 +110,8 @@ public class PlaceAndDateDelegate extends SuperDelegate
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         PlaceModel model = placeModelList.get(position);
-        changePlaceOrDate.changePlace(model.placeId);
+        this.placeId = model.placeId;
+        changePlaceOrDate.changePlaceOrDate(placeId, amount);
     }
 
     @Override
@@ -120,13 +123,16 @@ public class PlaceAndDateDelegate extends SuperDelegate
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
             case R.id.today:
-                changePlaceOrDate.changeDate(0);
+                this.amount = 0;
+                changePlaceOrDate.changePlaceOrDate(placeId, amount);
                 break;
             case R.id.tomorrow:
-                changePlaceOrDate.changeDate(1);
+                this.amount = 1;
+                changePlaceOrDate.changePlaceOrDate(placeId, amount);
                 break;
             case R.id.the_day_after_tomorrow:
-                changePlaceOrDate.changeDate(2);
+                this.amount = 2;
+                changePlaceOrDate.changePlaceOrDate(placeId, amount);
                 break;
             default:
                 break;

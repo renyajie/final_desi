@@ -1,7 +1,10 @@
 package main.activity.people_class_order;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,20 +14,35 @@ import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.google.gson.internal.LinkedTreeMap;
+import com.google.gson.reflect.TypeToken;
 import com.renyajie.yuyue.R;
+import com.renyajie.yuyue.TestActivity;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import bean.ClassInfo;
+import bean.Place;
 import main.activity.people_class_order.delegate.PeopleClassBriefDelegate;
 import main.activity.people_class_order.delegate.PlaceAndDateDelegate;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import main.activity.people_class_order.model.PlaceModel;
 import main.helper.SpaceItemDecoration;
 import mine.activity.order_class.delegate.OrderLessonRuleDelegate;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 import test.PeopleClassOrderData;
+import utils.AppConstant;
 import utils.MainAdapter;
+import utils.Messenger;
 import utils.SuperDelegate;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -43,6 +61,66 @@ public class PeopleClassOrderActivity
     private MainAdapter adapter;
     private LinearLayoutManager layoutManager;
     private Context context;
+
+    private static final int GET_PLACE_SUCCESS = 1;
+    private static final int GET_PLACE_FAILURE = 2;
+    private static final int GET_CLASS_SUCCESS = 3;
+    private static final int GET_CLASS_FAILURE = 4;
+
+    //应用数据
+    private List<PlaceModel> placeModelList = new ArrayList<>();
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            switch (msg.what) {
+                case GET_PLACE_FAILURE:
+                    Toast.makeText(PeopleClassOrderActivity.this,
+                            "获取场馆失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case GET_PLACE_SUCCESS:
+                    //获取地址成功，填充地址信息，并发起课程查询
+                    Messenger messengerB = (Messenger) msg.obj;
+                    List<Place> placeList = (ArrayList<Place>) messengerB.getExtend().get("info");
+                    placeModelList.clear();
+                    for(Place place: placeList) {
+                        PlaceModel model = new PlaceModel(place.getId(), place.getsName());
+                        placeModelList.add(model);
+                    }
+                    initClass(placeModelList);
+
+                    getClassInfoData(placeModelList.get(0).placeId, 0);
+                    break;
+                case GET_CLASS_FAILURE:
+                    Toast.makeText(PeopleClassOrderActivity.this,
+                            "获取课程信息失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case GET_CLASS_SUCCESS:
+                    Messenger messengerD = (Messenger) msg.obj;
+                    List<ClassInfo> classInfos = (ArrayList<ClassInfo>) messengerD.getExtend().get("info");
+                    for(ClassInfo classInfo: classInfos) {
+                        if(classInfo.getStaTime().getTime() <= new Date().getTime()) {
+                            classInfo.setStatus(AppConstant.PEOPLE_ORDER_START_LESSON);
+                        }
+                        else if(classInfo.getAllowance() == 0) {
+                            classInfo.setStatus(AppConstant.PEOPLE_ORDER_FULL);
+                        }
+                        else {
+                            classInfo.setStatus(AppConstant.PEOPLE_ORDER_CAN_ORDER);
+                        }
+                    }
+                    initPeopleClassBrief(classInfos);
+
+                    break;
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,9 +154,14 @@ public class PeopleClassOrderActivity
         recyclerView.setAdapter(adapter);
 
         //初始化组件数据
-        initClass(PeopleClassOrderData.placeModelList);
+        //initClass(PeopleClassOrderData.placeModelList);
         //initPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList);
+
+        //网络请求数据
+        getPlaceData();
     }
+
+
 
     //初始化课程名称信息
     private void initClass(List<PlaceModel> placeModelList) {
@@ -89,21 +172,21 @@ public class PeopleClassOrderActivity
     }
 
     //初始化团课预约的课程信息
-    private void initPeopleClassBrief(List<PeopleClassBriefModel> peopleClassBriefModelList) {
+    private void initPeopleClassBrief(List<ClassInfo> classInfoList) {
         int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
         if(position == -1) return;
         ((PeopleClassBriefDelegate)delegates.get(position))
-                .setPeopleClassBriefModelList(peopleClassBriefModelList);
+                .setClassInfoList(classInfoList);
         ((PeopleClassBriefDelegate)delegates.get(position))
                 .setShowRecommendTitle(false);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
     //刷新PeopleClassBrief模块
-    private void refreshPeopleClassBrief(List<PeopleClassBriefModel> peopleClassBriefModelList) {
+    private void refreshPeopleClassBrief(List<ClassInfo> classInfoList) {
         int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
         ((PeopleClassBriefDelegate) delegates.get(position))
-                .setPeopleClassBriefModelList(peopleClassBriefModelList);
+                .setClassInfoList(classInfoList);
         ((PeopleClassBriefDelegate)delegates.get(position))
                 .setShowRecommendTitle(false);
         adapter.updatePositionDelegate(position);
@@ -119,17 +202,81 @@ public class PeopleClassOrderActivity
         return -1;
     }
 
-    //用户修改场馆时回调
+    //用户修改场馆或时间时回调
     @Override
-    public void changePlace(int placeId) {
-        Log.v("msg", "改变场馆");
-        refreshPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList.subList(0, 3));
+    public void changePlaceOrDate(int placeId, int amount) {
+        Log.v("msg", "改变搜索条件");
+        getClassInfoData(placeId, amount);
+
     }
 
-    //用户修改日期时回调
-    @Override
-    public void changeDate(int amount) {
-        Log.v("msg","改变日期");
-        refreshPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList.subList(0, 1));
+    //获取地址信息
+    private void getPlaceData() {
+
+        //构造请求地址
+        String tmp = AppConstant.URL + "api/setting/getPlace";
+        Map<String, String> params = new HashMap<>();
+        params.put("isPage", "0");
+        String url = UtilsMethod.makeGetParams(tmp, params);
+        Log.d("get", url);
+
+        UtilsMethod.getDataAsync(url, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message msg = handler.obtainMessage();
+                msg.what = GET_PLACE_FAILURE;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Messenger messenger = UtilsMethod.getFromJson(AppConstant.GSON_FOR_HOUR,
+                        response, new TypeToken<Messenger<List<Place>>>(){});
+                Message msg = handler.obtainMessage();
+                msg.what = GET_PLACE_SUCCESS;
+                msg.obj = messenger;
+                handler.sendMessage(msg);
+            }
+        });
+    }
+
+    /**
+     * 获取课程信息
+     * @param placeId 地址编号
+     * @param nextAmount 第几天
+     */
+    private void getClassInfoData(int placeId, int nextAmount) {
+
+        //构造请求地址
+        String tmp = AppConstant.URL + "api/order/getClassInfo";
+        String date = UtilsMethod.theNextNDayForServer(nextAmount);
+        Map<String, String> params = new HashMap<>();
+        params.put("isPage", "0");
+        params.put("before", date);
+        params.put("after", date);
+        params.put("placeId", placeId + "");
+        String url = UtilsMethod.makeGetParams(tmp, params);
+        Log.d("get", url);
+
+        UtilsMethod.getDataAsync(url, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message msg = handler.obtainMessage();
+                msg.what = GET_CLASS_FAILURE;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Messenger messenger = UtilsMethod.getFromJson(AppConstant.GSON_FOR_HOUR,
+                        response, new TypeToken<Messenger<List<ClassInfo>>>(){});
+                Message msg = handler.obtainMessage();
+                msg.what = GET_CLASS_SUCCESS;
+                msg.obj = messenger;
+                handler.sendMessage(msg);
+            }
+        });
     }
 }

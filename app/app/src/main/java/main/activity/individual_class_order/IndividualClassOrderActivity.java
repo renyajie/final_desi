@@ -121,12 +121,7 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
     }
 
     @Override
-    public void changePlace(int placeId) {
-        Log.v("msg", "改变场馆");
-    }
-
-    @Override
-    public void changeDate(int amount) {
-        Log.v("msg","改变日期");
+    public void changePlaceOrDate(int placeId, int amount) {
+        Log.d("msg","改变搜索条件");
     }
 }

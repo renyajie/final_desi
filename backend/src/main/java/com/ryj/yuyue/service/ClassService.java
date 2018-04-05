@@ -192,8 +192,7 @@ public class ClassService {
 	@SuppressWarnings("deprecation")
 	public ClassInfoResult getOneClassInfo(Integer id) {
 		// TODO Auto-generated method stub
-		ClassInfoResult classInfo = classInfoMapper.getClassInfo(
-				id, null, null, null, null, null, null, null).get(0);
+		ClassInfoResult classInfo = classInfoMapper.getOneClassInfo(id);
 		//修正时间
 		Date cDay, staTime, endTime;
 		cDay = classInfo.getcDay();

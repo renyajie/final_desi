@@ -85,8 +85,8 @@ public class IndividualOrderConfirmActivity extends AppCompatActivity {
         recyclerView.setAdapter(adapter);
 
         //TODO 初始化参数
-        initOrderDetail(IndividualOrderConfirmData.individualOrderDetailModel);
-        initOrderPay(PeopleOrderConfirmData.peopleOrderPayModel);
+        //initOrderDetail(IndividualOrderConfirmData.individualOrderDetailModel);
+        //initOrderPay(PeopleOrderConfirmData.peopleOrderPayModel);
     }
 
     //初始化课程详情部分

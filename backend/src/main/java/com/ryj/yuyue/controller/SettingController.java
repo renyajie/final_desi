@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
+import com.ryj.yuyue.bean.CardInfoResult;
 import com.ryj.yuyue.bean.CardKind;
 import com.ryj.yuyue.bean.CardKindResult;
 import com.ryj.yuyue.bean.ClassInfo;
@@ -377,14 +378,20 @@ public class SettingController {
 	@ResponseBody
 	public Messenger getCardInfo(
 			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
-			@RequestParam(value = "managerId", required = true ) Integer managerId,
+			@RequestParam(value = "managerId", required = false ) Integer managerId,
 			@RequestParam(value = "cardKId", required = false) Integer cardKId, 
-			@RequestParam(value = "userId", required = false) Integer userId) {
+			@RequestParam(value = "userId", required = false) Integer userId,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
-		PageHelper.startPage(pn, 5);
-		PageInfo page = new PageInfo(this.cardService.getCardInfo(
-				managerId, cardKId, userId), 5);
-		return Messenger.success().add("pageInfo", page);
+		List<CardInfoResult> result = this.cardService.getCardInfo(
+				managerId, cardKId, userId);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
+		return Messenger.success().add("info", result);
 	}
 	
 	/**

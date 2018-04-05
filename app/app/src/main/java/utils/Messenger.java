@@ -9,11 +9,11 @@ import java.util.Map;
  * Created by Thor on 2018/4/3.
  */
 
-public class Messenger implements Serializable{
+public class Messenger<T> implements Serializable{
     private static final long serialVersionUID = 1L;
     private int code;
     private String msg;
-    private Map<String, Object> extend = new HashMap<String, Object>();
+    private Map<String, T> extend = new HashMap<>();
 
     //定义快捷成功方法
     public static Messenger success() {
@@ -32,7 +32,7 @@ public class Messenger implements Serializable{
     }
 
     //使用自身map添加消息
-    public Messenger add(String key, Object value) {
+    public Messenger add(String key, T value) {
         this.getExtend().put(key, value);
         return this;
     }
@@ -53,11 +53,11 @@ public class Messenger implements Serializable{
         this.msg = msg;
     }
 
-    public Map<String, Object> getExtend() {
+    public Map<String, T> getExtend() {
         return extend;
     }
 
-    public void setExtend(Map<String, Object> extend) {
+    public void setExtend(Map<String, T> extend) {
         this.extend = extend;
     }
 

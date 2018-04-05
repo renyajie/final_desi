@@ -24,6 +24,8 @@ public class ClassInfoResult {
     private Integer teaId;
     
     private String teaName;
+    
+    private String intro;
 
     @JsonFormat(pattern="yyyy-MM-dd")
     private Date cDay;
@@ -43,6 +45,8 @@ public class ClassInfoResult {
     private Integer expend;
     
     private String property;
+    
+    private Integer difficulty;
 
 	public ClassInfoResult() {
 		super();
@@ -50,7 +54,7 @@ public class ClassInfoResult {
 
 	public ClassInfoResult(Integer id, Integer claKId, String claKName, Integer pId, String pName, Integer teaId,
 			String teaName, Date cDay, Date staTime, Date endTime, Integer length, Integer allowance, Integer orderNum,
-			Integer expend, String property) {
+			Integer expend, String property, String intro) {
 		super();
 		this.id = id;
 		this.claKId = claKId;
@@ -67,9 +71,17 @@ public class ClassInfoResult {
 		this.orderNum = orderNum;
 		this.expend = expend;
 		this.property = property;
+		this.intro = intro;
+	}
+	
+	public String getIntro() {
+		return intro;
 	}
 
-	
+	public void setIntro(String intro) {
+		this.intro = intro;
+	}
+
 	public String getProperty() {
 		return property;
 	}
@@ -188,6 +200,14 @@ public class ClassInfoResult {
 
 	public void setExpend(Integer expend) {
 		this.expend = expend;
+	}
+	
+	public Integer getDifficulty() {
+		return difficulty;
+	}
+
+	public void setDifficulty(Integer difficulty) {
+		this.difficulty = difficulty;
 	}
 
 	@Override

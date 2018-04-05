@@ -42,6 +42,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="教师： "
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/item_text_size_small" />
+
                 <TextView
                     android:id="@+id/teacher_name"
                     android:layout_width="wrap_content"
@@ -57,7 +65,8 @@
                     android:layout_marginStart="10dp"
                     tool:text="大教室"
                     android:textColor="@color/black"
-                    android:textSize="@dimen/item_text_size_small" />
+                    android:textSize="@dimen/item_text_size_small"
+                    android:visibility="gone"/>
 
                 <TextView
                     android:id="@+id/allowance_help"

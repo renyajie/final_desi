@@ -143,11 +143,12 @@ export class ClassService {
    * @param before 
    * @param after 
    */
-  getClassInfo(pn?, classKId?, teaName?, property?, before?, after?) {
+  getClassInfo(isPage, pn?, classKId?, teaName?, property?, before?, after?) {
     const url = 'api/order/getClassInfo';
     let params: HttpParams;
     if (before != null && after != null) {
       params = new HttpParams()
+        .set('isPage', isPage)
         .set('pn', pn ? pn : '')
         .set('placeId', this.personInfoService.manager.pId + '')
         .set('classKId', classKId ? classKId : '')
@@ -158,6 +159,7 @@ export class ClassService {
     }
     if (before === null && after === null) {
       params = new HttpParams()
+        .set('isPage', isPage)
         .set('pn', pn ? pn : '')
         .set('placeId', this.personInfoService.manager.pId + '')
         .set('classKId', classKId ? classKId : '')
@@ -166,6 +168,7 @@ export class ClassService {
     }
     if (before === null && after != null) {
       params = new HttpParams()
+        .set('isPage', isPage)
         .set('pn', pn ? pn : '')
         .set('placeId', this.personInfoService.manager.pId + '')
         .set('classKId', classKId ? classKId : '')
@@ -175,6 +178,7 @@ export class ClassService {
     }
     if (before != null && after === null) {
       params = new HttpParams()
+        .set('isPage', isPage)
         .set('pn', pn ? pn : '')
         .set('placeId', this.personInfoService.manager.pId + '')
         .set('classKId', classKId ? classKId : '')
