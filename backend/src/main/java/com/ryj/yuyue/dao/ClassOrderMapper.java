@@ -51,7 +51,8 @@ public interface ClassOrderMapper {
     		@Param("userId") Integer userId,
     		@Param("cardId") Integer cardId,
     		@Param("before") Date before,
-    		@Param("after") Date after);
+    		@Param("after") Date after,
+    		@Param("property") String property);
     
     /**
      * 根据时间查找某个场馆对应时间段内的订单数量

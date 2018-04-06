@@ -3,6 +3,8 @@ package com.ryj.yuyue.service;
 import java.util.Date;
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -38,6 +40,8 @@ public class ClassService {
 	@Autowired
 	private ClassOrderMapper classOrderMapper;
 	
+	private static final Logger logger = LoggerFactory.getLogger(ClassService.class);
+	
 	/**
 	 * 增加课程余量
 	 * @param classId 课程编号
@@ -61,12 +65,14 @@ public class ClassService {
 	 */
 	public boolean subClassAllowance(Integer classId, Integer number) {
 		ClassInfo classInfo = classInfoMapper.selectByPrimaryKey(classId);
+		logger.info("before change allowance: " + classInfo);
 		int allowance = classInfo.getAllowance();
 		if(allowance < number) {
 			return false;
 		}
 		classInfo.setAllowance(allowance - number);
 		classInfo.setOrderNum(classInfo.getOrderNum() + number);
+		logger.info("after change allowance: " + classInfo);
 		classInfoMapper.updateByPrimaryKeySelective(classInfo);
 		return true;
 	}

@@ -126,4 +126,13 @@ public class ClassInfo {
     public void setExpend(Integer expend) {
         this.expend = expend;
     }
+
+	@Override
+	public String toString() {
+		return "ClassInfo [id=" + id + ", claKId=" + claKId + ", pId=" + pId + ", teaId=" + teaId + ", cDay=" + cDay
+				+ ", staTime=" + staTime + ", endTime=" + endTime + ", length=" + length + ", allowance=" + allowance
+				+ ", orderNum=" + orderNum + ", expend=" + expend + "]";
+	}
+    
+    
 }

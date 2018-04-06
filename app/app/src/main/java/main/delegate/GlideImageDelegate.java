@@ -55,7 +55,6 @@ public class GlideImageDelegate extends SuperDelegate {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        Log.d("GlideImageDeledate", "onCreateViewHolder");
         View view = layoutInflater.inflate(
                 R.layout.fragment_main_glide_image, parent, false);
         GlideImageViewHolder viewHolder = new GlideImageViewHolder(view);
@@ -65,7 +64,7 @@ public class GlideImageDelegate extends SuperDelegate {
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("GlideImageDeledate", "onBindViewHolder");
+        Log.d("recycler", "bind GlideImageDelegate");
 
         // 防止刷新UI
         if(!uiFlag) {

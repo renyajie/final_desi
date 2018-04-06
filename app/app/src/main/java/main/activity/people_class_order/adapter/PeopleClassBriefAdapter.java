@@ -142,7 +142,7 @@ public class PeopleClassBriefAdapter extends BaseAdapter
         Intent intent = new Intent(context, PeopleOrderConfirmActivity.class);
         Bundle bundle = new Bundle();
         bundle.putInt("placeId", model.getpId());
-        bundle.putInt("classId", model.getClaKId());
+        bundle.putInt("classId", model.getId());
         intent.putExtras(bundle);
         context.startActivity(intent);
     }

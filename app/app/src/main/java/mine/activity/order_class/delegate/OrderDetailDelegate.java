@@ -11,9 +11,11 @@ import android.widget.TextView;
 
 import com.renyajie.yuyue.R;
 
+import bean.ClassOrder;
 import mine.activity.order_class.model.OrderDetailModel;
 import mine.activity.order_class.model.PlaceModel;
 import utils.SuperDelegate;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -26,15 +28,15 @@ public class OrderDetailDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private OrderDetailModel orderDetailModel;
+    private ClassOrder classOrder;
 
     public OrderDetailDelegate(Context context) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setOrderDetailModel(OrderDetailModel orderDetailModel) {
-        this.orderDetailModel = orderDetailModel;
+    public void setClassOrder(ClassOrder classOrder) {
+        this.classOrder = classOrder;
     }
 
     @Override
@@ -66,9 +68,13 @@ public class OrderDetailDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
-        ((OrderDetailViewHolder)viewHolder).orderId.setText(orderDetailModel.orderId);
-        ((OrderDetailViewHolder)viewHolder).orderTime.setText(orderDetailModel.orderTime);
-        ((OrderDetailViewHolder)viewHolder).phone.setText(orderDetailModel.phone);
+        ((OrderDetailViewHolder)viewHolder).orderId
+                .setText(String.valueOf(classOrder.getId()));
+        ((OrderDetailViewHolder)viewHolder).orderTime
+                .setText(UtilsMethod.getStringFromDateForCheck(classOrder.getOrdTime()));
+        //TODO 设置为用户自己的手机号
+        ((OrderDetailViewHolder)viewHolder).phone
+                .setText("17826856214");
     }
 
     public static class OrderDetailViewHolder extends RecyclerView.ViewHolder {

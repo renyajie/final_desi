@@ -34,6 +34,16 @@ public class UtilsMethod {
     private static final String DATE_FORMAT_FOR_SERVER = "yyyy-MM-dd";
 
     /**
+     * 获取yyyy-MM-dd HH:mm:ss格式的时间
+     * @param date
+     * @return
+     */
+    public static String getStringFromDateForCheck(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return dateFormat.format(date);
+    }
+
+    /**
      * 将时间转化为 yyyy-MM-dd HH:mm-HH:mm的形式，用于查看约课详细情况
      * @param date
      * @param startTime
@@ -42,8 +52,8 @@ public class UtilsMethod {
      */
     public static String getStringFromDateForDetail(
             Date date, Date startTime, Date endTime) {
-        DateFormat dateFormatOne = new SimpleDateFormat("HH:mm:ss");
-        DateFormat dateFormatTwo = new SimpleDateFormat("yyyy-MM");
+        DateFormat dateFormatOne = new SimpleDateFormat("HH:mm");
+        DateFormat dateFormatTwo = new SimpleDateFormat("yyyy-MM-dd");
         String day = dateFormatTwo.format(date);
         String start =  dateFormatOne.format(startTime);
         String end =  dateFormatOne.format(endTime);

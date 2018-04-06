@@ -238,10 +238,11 @@
     <result column="card_k_name" property="cardKName" />
     <result column="ord_time" property="ordTime" />
     <result column="num" property="num" />
+    <result column="property" property="property"/>
   </resultMap>
   <sql id="Base_Column_List_Result">
     co.id, p.id as p_id, p.s_name, co.cla_id, cla_k.id, cla_k.cla_k_name, co.u_id, u.u_name, 
-    co.card_id, card_k.card_k_name, co.ord_time, co.num
+    co.card_id, card_k.card_k_name, co.ord_time, co.num, cla_k.property
   </sql>
   <!-- List<ClassOrderResult> getClassOrder(
   			@Param("orderId") Integer orderId,
@@ -251,7 +252,8 @@
     		@Param("userId") Integer userId,
     		@Param("cardId") Integer cardId,
     		@Param("before") Date before,
-    		@Param("after") Date after); -->
+    		@Param("after") Date after,
+    		@Param("property") String property); -->
   <select id="getClassOrder" resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
@@ -284,6 +286,9 @@
       </if>
       <if test="orderId != null">
         and co.id = #{orderId}
+      </if>
+      <if test="property != null and property.length != 0">
+      	and cla_k.property = #{property}
       </if>
     </trim>
     order by co.ord_time desc

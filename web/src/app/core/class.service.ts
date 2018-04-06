@@ -90,6 +90,7 @@ export class ClassService {
     let params: HttpParams;
     if (before != null && after != null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('classKId', classKId ? classKId : '')
         .set('userId', userId ? userId : '')
@@ -99,6 +100,7 @@ export class ClassService {
     }
     if (before === null && after === null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('classKId', classKId ? classKId : '')
         .set('userId', userId ? userId : '')
@@ -106,6 +108,7 @@ export class ClassService {
     }
     if (before === null && after != null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('classKId', classKId ? classKId : '')
         .set('userId', userId ? userId : '')
@@ -114,6 +117,7 @@ export class ClassService {
     }
     if (before != null && after === null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('classKId', classKId ? classKId : '')
         .set('userId', userId ? userId : '')

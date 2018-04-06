@@ -69,7 +69,7 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("PeopleOrderDetailDelegate", "onBindViewHolder");
+        Log.d("recycler", "bind PeopleOrderDetailDelegate");
 
         // 防止刷新UI
         if(!uiFlag) {

@@ -1,9 +1,12 @@
 package mine.activity.order_class;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AlertDialog;
@@ -24,14 +27,32 @@ import android.widget.ListView;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.gson.reflect.TypeToken;
 import com.renyajie.yuyue.R;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import bean.ClassInfo;
+import bean.ClassOrder;
+import bean.Place;
+import main.activity.people_class_order.PeopleClassOrderActivity;
+import main.activity.people_class_order.model.PlaceModel;
 import mine.activity.order_class.model.OrderClassBriefModel;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.FormBody;
+import okhttp3.Response;
 import test.OrderClassListData;
+import utils.AppConstant;
+import utils.Messenger;
+import utils.UtilsMethod;
 
 /**
  * Created by Thor on 2018/3/15.
@@ -58,9 +79,59 @@ public class OrderClassListActivity extends AppCompatActivity
     private List<Integer> indexOfDeleteItem = new ArrayList<>();
     //第一次选中时的位置
     private Integer firstPosition = -1;
-    //TODO 改变数据源
-    private List<OrderClassBriefModel> orderClassBriefModelList =
-            new ArrayList<>(OrderClassListData.orderClassBriefModelList);
+
+    //3种约课类型的订单，第三种为了方便操作删除的情况
+    private List<ClassOrder> orderList = new ArrayList<>();
+
+    //课程种类序号
+    private static final int ALL_PROPERTY = 1;
+    private static final int PEOPLE_PROPERTY = 2;
+    private static final int INDIVIDUAL_PROPERTY = 3;
+    //当前用户选择的课程类型
+    private int classType = 1;
+
+    private static final int GET_CLASS_ORDER_SUCCESS = 1;
+    private static final int GET_CLASS_ORDER_FAILURE = 2;
+    private static final int DELETE_CLASS_ORDER_SUCCESS = 3;
+    private static final int DELETE_CLASS_ORDER_FAILURE = 4;
+
+
+    @SuppressLint("HandlerLeak")
+    private Handler handler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+
+            switch (msg.what) {
+                case GET_CLASS_ORDER_FAILURE:
+                    Toast.makeText(OrderClassListActivity.this,
+                            "获取订单失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case GET_CLASS_ORDER_SUCCESS:
+                    //更新列表
+                    Messenger messengerA = (Messenger) msg.obj;
+                    orderList = (ArrayList<ClassOrder>)
+                            messengerA.getExtend().get("info");
+                    adapter.setData(orderList);
+                    break;
+                case DELETE_CLASS_ORDER_FAILURE:
+                    Toast.makeText(OrderClassListActivity.this,
+                            "删除订单失败", Toast.LENGTH_SHORT).show();
+                    break;
+                case DELETE_CLASS_ORDER_SUCCESS:
+                    //重新设置界面，重置变量
+                    isSelected = false;
+                    indexOfDeleteItem.clear();
+                    relativeLayout.setVisibility(View.GONE);
+                    //重新获取订单数据
+                    getClassOrder(classType);
+                    break;
+                default:
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -78,7 +149,7 @@ public class OrderClassListActivity extends AppCompatActivity
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         listView = findViewById(R.id.list_view);
-        adapter = new OrderClassListAdapter(this, orderClassBriefModelList);
+        adapter = new OrderClassListAdapter(this, orderList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(this);
         listView.setOnItemLongClickListener(this);
@@ -94,6 +165,9 @@ public class OrderClassListActivity extends AppCompatActivity
         deleteButton.setOnClickListener(this);
         cancelButton.setOnClickListener(this);
         selectAll.setOnClickListener(this);
+
+        classType = ALL_PROPERTY;
+        getClassOrder(classType);
     }
 
     @Override
@@ -101,15 +175,16 @@ public class OrderClassListActivity extends AppCompatActivity
         switch (checkedId) {
             //TODO 改变数据源
             case R.id.all_lesson:
-                adapter.setData(orderClassBriefModelList);
+                classType = ALL_PROPERTY;
+                getClassOrder(classType);
                 break;
             case R.id.people_lesson:
-                adapter.setData(orderClassBriefModelList.subList(
-                        0, 1));
+                classType = PEOPLE_PROPERTY;
+                getClassOrder(classType);
                 break;
             case R.id.individual_lesson:
-                adapter.setData(orderClassBriefModelList.subList(
-                        1, 2));
+                classType = INDIVIDUAL_PROPERTY;
+                getClassOrder(classType);
                 break;
             default:
                 break;
@@ -133,9 +208,8 @@ public class OrderClassListActivity extends AppCompatActivity
             case R.id.select_all_checkbox:
                 if (selectAll.isChecked()) {
                     indexOfDeleteItem.clear();
-                    for (int i = 0; i < orderClassBriefModelList.size(); i++) {
-                        Log.d("msg", " indexOfDeleteItem add " + i);
-                        indexOfDeleteItem.add(new Integer(i));
+                    for (int i = 0; i < orderList.size(); i++) {
+                        indexOfDeleteItem.add(orderList.get(i).getId());
                     }
                     isSelectAll = true;
                     adapter.notifyDataSetChanged();
@@ -152,12 +226,16 @@ public class OrderClassListActivity extends AppCompatActivity
 
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+
+        int tmpId = orderList.get(position).getId();
+
         //若当前未开启选择，显示底部删除栏和所有单选框，将选中项加入删除列表
         if (!isSelected) {
             isSelected = true;
             firstPosition = position;
             relativeLayout.setVisibility(View.VISIBLE);
-            indexOfDeleteItem.add(new Integer(position));
+            Log.d("get", "添加了id: " + tmpId);
+            indexOfDeleteItem.add(tmpId);
             //通知适配器重新绘制
             adapter.notifyDataSetInvalidated();
         }
@@ -165,17 +243,18 @@ public class OrderClassListActivity extends AppCompatActivity
         else {
             CheckBox checkBox = view.findViewById(R.id.item_checkbox);
             checkBox.setChecked(!checkBox.isChecked());
-            if (!checkBox.isChecked() && indexOfDeleteItem.contains(position)) {
+            //移除ID值或添加ID值
+            if (!checkBox.isChecked() && indexOfDeleteItem.contains(tmpId)) {
                 for (int i = 0; i < indexOfDeleteItem.size(); i++) {
-                    if (indexOfDeleteItem.get(i).equals(new Integer(position))) {
-                        Log.d("msg", " indexOfDeleteItem remove " + position);
+                    if (indexOfDeleteItem.get(i).equals(tmpId)) {
+                        Log.d("get", "移除了id: " + tmpId);
                         indexOfDeleteItem.remove(i);
                         break;
                     }
                 }
-            } else if (checkBox.isChecked() && !indexOfDeleteItem.contains(position)) {
-                Log.d("msg", " indexOfDeleteItem add " + position);
-                indexOfDeleteItem.add(new Integer(position));
+            } else if (checkBox.isChecked() && !indexOfDeleteItem.contains(tmpId)) {
+                Log.d("get", "添加了id: " + tmpId);
+                indexOfDeleteItem.add(tmpId);
             }
         }
 
@@ -187,24 +266,31 @@ public class OrderClassListActivity extends AppCompatActivity
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //当前不在选择状态则跳转详情页面，若在则选中或移出对应项
         if (!isSelected) {
-            OrderClassBriefModel model = OrderClassListData.orderClassBriefModelList.get(position);
+            ClassOrder classOrder = orderList.get(position);
             Intent intent = new Intent(this, OrderDetailActivity.class);
-            intent.putExtra("viewType", model.classType);
+            //根据课程属性，加载不同的布局
+            intent.putExtra("viewType",
+                    classOrder.getProperty().equals("s") ? AppConstant.INDIVIDUAL_ORDER : AppConstant.PEOPLE_ORDER);
+            intent.putExtra("orderId", classOrder.getId());
+            intent.putExtra("classId", classOrder.getClaId());
+            intent.putExtra("placeId", classOrder.getpId());
             startActivity(intent);
         } else {
             CheckBox checkBox = view.findViewById(R.id.item_checkbox);
             checkBox.setChecked(!checkBox.isChecked());
-            if (!checkBox.isChecked() && indexOfDeleteItem.contains(position)) {
+            int tmpId = orderList.get(position).getId();
+            //移除ID值或添加ID值
+            if (!checkBox.isChecked() && indexOfDeleteItem.contains(tmpId)) {
                 for (int i = 0; i < indexOfDeleteItem.size(); i++) {
-                    if (indexOfDeleteItem.get(i).equals(new Integer(position))) {
-                        Log.d("msg", " indexOfDeleteItem remove " + position);
+                    if (indexOfDeleteItem.get(i).equals(tmpId)) {
+                        Log.d("get", "移除了id: " + tmpId);
                         indexOfDeleteItem.remove(i);
                         break;
                     }
                 }
-            } else if (checkBox.isChecked() && !indexOfDeleteItem.contains(position)) {
-                Log.d("msg", " indexOfDeleteItem add " + position);
-                indexOfDeleteItem.add(new Integer(position));
+            } else if (checkBox.isChecked() && !indexOfDeleteItem.contains(tmpId)) {
+                Log.d("get", "添加了id: " + tmpId);
+                indexOfDeleteItem.add(tmpId);
             }
         }
     }
@@ -278,15 +364,12 @@ public class OrderClassListActivity extends AppCompatActivity
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        for (int i = 0; i < indexOfDeleteItem.size(); i++) {
-                            //防止出现错删的情况
-                            orderClassBriefModelList
-                                    .remove(indexOfDeleteItem.get(i).intValue() - i);
-                        }
-                        isSelected = false;
-                        adapter.notifyDataSetChanged();
-                        indexOfDeleteItem.clear();
-                        relativeLayout.setVisibility(View.GONE);
+//                        for (int i = 0; i < indexOfDeleteItem.size(); i++) {
+//                            //防止出现错删的情况
+//                            orderList
+//                                    .remove(indexOfDeleteItem.get(i).intValue() - i);
+//                        }
+                        deleteClassOrder(indexOfDeleteItem);
                     }
                 });
         normalDialog.setNegativeButton("取消",
@@ -300,24 +383,99 @@ public class OrderClassListActivity extends AppCompatActivity
         normalDialog.show();
     }
 
+    //删除用户订单
+    private void deleteClassOrder(List<Integer> indexOfDeleteItem) {
+        String ids = "";
+        for(Integer index: indexOfDeleteItem) {
+            ids = ids + index + "-";
+        }
+        ids = ids.substring(0, ids.length() - 1);
+
+        String url = AppConstant.URL + "api/order/deleteClassOrder";
+
+        FormBody.Builder body = new FormBody.Builder();
+        body.add("ids", ids);
+
+        Log.d("get", url);
+        Log.d("get", "ids is " + ids);
+
+        UtilsMethod.deleteDataAsync(url, body, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message msg = handler.obtainMessage();
+                msg.what = DELETE_CLASS_ORDER_FAILURE;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Messenger messenger = UtilsMethod.getFromJson(AppConstant.NORMAL_GSON,
+                        response, new TypeToken<Messenger<String>>(){});
+                Message msg = handler.obtainMessage();
+                msg.what = DELETE_CLASS_ORDER_SUCCESS;
+                msg.obj = messenger;
+                handler.sendMessage(msg);
+            }
+        });
+    }
+
+    //获取用户订单
+    private void getClassOrder(int propertyType) {
+
+        //构造请求地址
+        String tmp = AppConstant.URL + "api/order/getClassOrder";
+        Map<String, String> params = new HashMap<>();
+        params.put("isPage", "0");
+        //TODO 修改用户编号
+        params.put("userId", 1 + "");
+        //判断请求哪种类型的订单
+        if(propertyType == PEOPLE_PROPERTY) {
+            params.put("property", "g");
+        }
+        else if(propertyType == INDIVIDUAL_PROPERTY) {
+            params.put("property", "s");
+        }
+        String url = UtilsMethod.makeGetParams(tmp, params);
+        Log.d("get", url);
+
+        UtilsMethod.getDataAsync(url, new Callback() {
+
+            @Override
+            public void onFailure(Call call, IOException e) {
+                Message msg = handler.obtainMessage();
+                msg.what = GET_CLASS_ORDER_FAILURE;
+                handler.sendMessage(msg);
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                Messenger messenger = UtilsMethod.getFromJson(AppConstant.GSON_FOR_ALL,
+                        response, new TypeToken<Messenger<List<ClassOrder>>>(){});
+                Message msg = handler.obtainMessage();
+                msg.what = GET_CLASS_ORDER_SUCCESS;
+                msg.obj = messenger;
+                handler.sendMessage(msg);
+            }
+        });
+    }
+
     /**
      * Created by Thor on 2018/3/15.
      * <p>
      * 约课列表的适配器
      */
-
     public class OrderClassListAdapter extends BaseAdapter {
 
         private LayoutInflater layoutInflater;
-        private List<OrderClassBriefModel> data;
+        private List<ClassOrder> data;
 
         public OrderClassListAdapter(Context context,
-                                     List<OrderClassBriefModel> orderClassBriefModelList) {
+                                     List<ClassOrder> classOrderList) {
             this.layoutInflater = LayoutInflater.from(context);
-            this.data = orderClassBriefModelList;
+            this.data = classOrderList;
         }
 
-        public void setData(List<OrderClassBriefModel> data) {
+        public void setData(List<ClassOrder> data) {
             this.data = data;
             notifyDataSetInvalidated();
         }
@@ -339,7 +497,7 @@ public class OrderClassListActivity extends AppCompatActivity
 
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
-            OrderClassBriefModel model = data.get(position);
+            ClassOrder model = data.get(position);
             ViewHolder viewHolder;
 
             if (convertView == null) {
@@ -359,9 +517,10 @@ public class OrderClassListActivity extends AppCompatActivity
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
-            viewHolder.className.setText(model.className);
-            viewHolder.orderTime.setText(model.orderTime);
-            viewHolder.placeName.setText(model.placeName);
+            viewHolder.className.setText(model.getClaKName());
+            viewHolder.orderTime.setText(
+                    UtilsMethod.getStringFromDateForCheck(model.getOrdTime()));
+            viewHolder.placeName.setText(model.getpName());
 
             //当前正在选择状态则显示勾选框，
             if (isSelected) {

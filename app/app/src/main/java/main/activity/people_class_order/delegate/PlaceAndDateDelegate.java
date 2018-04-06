@@ -78,7 +78,7 @@ public class PlaceAndDateDelegate extends SuperDelegate
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("PlaceAndDateDelegate", "onBindViewHolder");
+        Log.d("recycler", "bind PlaceAndDateDelegate");
 
         // 防止刷新UI
         if(!uiFlag) {

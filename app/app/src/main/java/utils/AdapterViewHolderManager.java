@@ -26,14 +26,19 @@ public class AdapterViewHolderManager {
 
     //获取对应位置的View的类型
     public int getItemViewType(int position) {
+        Log.d("recycler", "manager get delegate item view type");
         if (delegates != null) {
             SuperDelegate delegate = delegates.get(position);
             if (delegate != null) {
-                return delegate.getItemViewType(position);
+                int type = delegate.getItemViewType(position);
+                Log.d("recycler", "item view type is " + type);
+                return type;
             } else {
+                Log.d("recycler", "item view type is null");
                 return -1;
             }
         } else {
+            Log.d("recycler", "item view type is null");
             return -1;
         }
     }
@@ -53,17 +58,21 @@ public class AdapterViewHolderManager {
     //创建某个View类型
     @NonNull
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int ViewType) {
-        Log.d("create", "View Type Is " + ViewType);
+        Log.d("recycler", "manager create view");
         SuperDelegate delegate = getDelegateFromViewType(ViewType);
         if (delegate != null) {
+            Log.d("recycler", "manager create view, type is " + ViewType);
             return delegate.onCreateViewHolder(parent);
         }
+        Log.d("recycler", "manager create view, but it is null");
         return null;
     }
 
     public void onBindViewHolder(int position, @NonNull RecyclerView.ViewHolder viewHolder) {
+        Log.d("recycler", "manager bind view");
         SuperDelegate delegate = getDelegateFromViewType(position);
         if (delegate != null) {
+            Log.d("recycler", "manager bind view, view is not null");
             delegate.onBindViewHolder(viewHolder);
         }
     }
@@ -73,6 +82,8 @@ public class AdapterViewHolderManager {
     }
 
     public int getItemCount() {
-        return delegates.size();
+        int count = delegates.size();
+        Log.d("recycler", "manager get item count is " + count);
+        return count;
     }
 }

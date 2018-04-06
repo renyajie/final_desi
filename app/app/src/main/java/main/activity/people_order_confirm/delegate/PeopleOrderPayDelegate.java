@@ -137,7 +137,7 @@ public class PeopleOrderPayDelegate extends SuperDelegate
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("PeopleOrderPayDelegate", "onBindViewHolder");
+        Log.d("recycler", "bind PeopleOrderPayDelegate");
 
         // 防止刷新UI
         if(!uiFlag) {

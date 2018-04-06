@@ -31,6 +31,8 @@ public class ClassOrderResult {
     private Date ordTime;
     
     private Integer num;
+    
+    private String property;
 
 	public ClassOrderResult() {
 		super();
@@ -50,6 +52,14 @@ public class ClassOrderResult {
 		this.cardKName = cardKName;
 		this.ordTime = ordTime;
 		this.num = num;
+	}
+
+	public String getProperty() {
+		return property;
+	}
+
+	public void setProperty(String property) {
+		this.property = property;
 	}
 
 	public Integer getId() {

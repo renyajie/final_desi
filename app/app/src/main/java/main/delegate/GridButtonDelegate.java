@@ -64,7 +64,7 @@ public class GridButtonDelegate extends SuperDelegate {
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("GridButtonDeledate", "onBindViewHolder");
+        Log.d("recycler", "bind GridButtonDelegate");
 
         // 防止刷新UI
         if(!uiFlag) {

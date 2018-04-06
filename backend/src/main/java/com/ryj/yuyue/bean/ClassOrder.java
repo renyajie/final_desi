@@ -78,4 +78,12 @@ public class ClassOrder {
     public void setNum(Integer num) {
         this.num = num;
     }
+
+	@Override
+	public String toString() {
+		return "ClassOrder [id=" + id + ", claId=" + claId + ", uId=" + uId + ", cardId=" + cardId + ", ordTime="
+				+ ordTime + ", num=" + num + ", expend=" + expend + "]";
+	}
+    
+    
 }

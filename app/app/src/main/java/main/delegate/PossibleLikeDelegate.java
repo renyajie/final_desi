@@ -68,7 +68,7 @@ public class PossibleLikeDelegate extends SuperDelegate {
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("PossibleLikeDelegate", "onBindViewHolder");
+        Log.d("recycler", "bind PossibleLikeDelegate");
 
         // 防止刷新UI
         if(!uiFlag) {

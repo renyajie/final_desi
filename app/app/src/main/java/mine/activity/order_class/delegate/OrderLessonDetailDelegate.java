@@ -11,11 +11,13 @@ import android.widget.TextView;
 
 import com.renyajie.yuyue.R;
 
+import bean.ClassInfo;
 import main.activity.individual_order_confirm.model.IndividualOrderDetailModel;
 import mine.activity.order_class.model.IndividualLessonDetailModel;
 import mine.activity.order_class.model.PeopleLessonDetailModel;
 import utils.AppConstant;
 import utils.SuperDelegate;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -29,8 +31,7 @@ public class OrderLessonDetailDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private PeopleLessonDetailModel peopleModel;
-    private IndividualLessonDetailModel individualModel;
+    private ClassInfo classInfo;
     //此处有多种情况，该变量表示选择加载哪种布局
     private Integer viewType;
 
@@ -39,12 +40,8 @@ public class OrderLessonDetailDelegate extends SuperDelegate {
         this.layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setPeopleModel(PeopleLessonDetailModel model) {
-        this.peopleModel = model;
-    }
-
-    public void setIndividualModel(IndividualLessonDetailModel model) {
-        this.individualModel = model;
+    public void setClassInfo(ClassInfo classInfo) {
+        this.classInfo = classInfo;
     }
 
     public void setViewType(int viewType) {
@@ -64,35 +61,29 @@ public class OrderLessonDetailDelegate extends SuperDelegate {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
+
+        Log.d("recycler", "create OrderLessonDetailDelegate");
+        Log.d("get", "viewType is " + viewType);
         //若是团课约课信息
         if (viewType == AppConstant.PEOPLE_ORDER) {
-            Log.d("msg", "加载团课布局");
+            Log.d("get", "加载团课布局");
             return new PeopleOrderDetailViewHolder(layoutInflater.inflate(
                     R.layout.activity_mine_order_detail_lesson_people,
                     parent, false
             ));
         }
         //若是私教约课信息
-        else if (viewType == AppConstant.INDIVIDUAL_ORDER) {
-            Log.d("msg", "加载私教布局");
-            return new IndividualOrderDetailViewHolder(layoutInflater.inflate(
-                    R.layout.activity_mine_order_detail_lesson_individual,
-                    parent, false
-            ));
-        }
-        //若是体验课程
-        else {
-            Log.d("msg", "加载体验课布局");
-            return new ExperienceOrderDetailViewHolder(layoutInflater.inflate(
-                    R.layout.activity_mine_order_detail_lesson_experience,
-                    parent, false
-            ));
-        }
+        Log.d("get", "加载私教布局");
+        return new IndividualOrderDetailViewHolder(layoutInflater.inflate(
+                R.layout.activity_mine_order_detail_lesson_individual,
+                parent, false
+        ));
+
     }
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("OrderLessonDetailDelegate", "onBindViewHolder");
+        Log.d("recycler", "bind OrderLessonDetailDelegate");
 
         // 防止刷新UI
         if(!uiFlag) {
@@ -102,23 +93,24 @@ public class OrderLessonDetailDelegate extends SuperDelegate {
 
         //开始刷新UI
         if (viewType == AppConstant.PEOPLE_ORDER) {
-            ((PeopleOrderDetailViewHolder)viewHolder).className.setText(peopleModel.className);
-            ((PeopleOrderDetailViewHolder)viewHolder).time.setText(peopleModel.time);
-            ((PeopleOrderDetailViewHolder)viewHolder).placeName.setText(peopleModel.placeName);
-            ((PeopleOrderDetailViewHolder)viewHolder).classroom.setText(peopleModel.classroom);
+            ((PeopleOrderDetailViewHolder)viewHolder).className
+                    .setText(classInfo.getClaKName());
+            ((PeopleOrderDetailViewHolder)viewHolder).time
+                    .setText(UtilsMethod.getStringFromDateForDetail(
+                            classInfo.getcDay(), classInfo.getStaTime(), classInfo.getEndTime()));
+            ((PeopleOrderDetailViewHolder)viewHolder).placeName
+                    .setText(classInfo.getpName());
+            //((PeopleOrderDetailViewHolder)viewHolder).classroom.setText(peopleModel.classroom);
 
         } else if (viewType == AppConstant.INDIVIDUAL_ORDER) {
 
             ((IndividualOrderDetailViewHolder)viewHolder).teacherName
-                    .setText(individualModel.teacherName);
+                    .setText(classInfo.getTeaName());
             ((IndividualOrderDetailViewHolder)viewHolder).time
-                    .setText(individualModel.time);
+                    .setText(UtilsMethod.getStringFromDateForDetail(
+                            classInfo.getcDay(), classInfo.getStaTime(), classInfo.getEndTime()));
             ((IndividualOrderDetailViewHolder)viewHolder).placeName
-                    .setText(individualModel.placeName);
-
-        } else {
-
-
+                    .setText(classInfo.getpName());
 
         }
     }

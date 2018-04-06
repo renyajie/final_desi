@@ -19,10 +19,12 @@ import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
+import bean.ClassInfo;
 import main.activity.individual_order_confirm.model.IndividualOrderDetailModel;
 import main.activity.people_order_confirm.model.PeopleOrderDetailModel;
 import utils.MyApplication;
 import utils.SuperDelegate;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -35,7 +37,7 @@ public class IndividualOrderDetailDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private IndividualOrderDetailModel model;
+    private ClassInfo classInfo;
     private IndividualOrderDetailViewHolder detailViewHolder;
 
     public IndividualOrderDetailDelegate(Context context) {
@@ -43,8 +45,8 @@ public class IndividualOrderDetailDelegate extends SuperDelegate {
         this.layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setIndividualOrderDetailModel(IndividualOrderDetailModel individualOrderDetailModel) {
-        this.model = individualOrderDetailModel;
+    public void setClassInfo(ClassInfo classInfo) {
+        this.classInfo = classInfo;
     }
 
     @Override
@@ -77,19 +79,22 @@ public class IndividualOrderDetailDelegate extends SuperDelegate {
 
         //开始刷新UI
         detailViewHolder = (IndividualOrderDetailViewHolder)viewHolder;
-        detailViewHolder.teacherName.setText(model.teacherName);
-        detailViewHolder.number.setText(String.valueOf(model.number));
-        detailViewHolder.time.setText(model.time);
+        detailViewHolder.teacherName.setText(classInfo.getTeaName());
+        detailViewHolder.number.setText(String.valueOf(classInfo.getOrderNum()));
+        detailViewHolder.time.setText(
+                UtilsMethod.getStringFromDateForDetail(
+                        classInfo.getcDay(), classInfo.getStaTime(), classInfo.getEndTime()
+                ));
         detailViewHolder.introduction.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                showNormalDialog(model);
+                showNormalDialog(classInfo);
             }
         });
     }
 
     //显示对话框
-    private void showNormalDialog(IndividualOrderDetailModel model){
+    private void showNormalDialog(ClassInfo classInfo){
         /* @setIcon 设置对话框图标
          * @setTitle 设置对话框标题
          * @setMessage 设置对话框消息提示
@@ -99,7 +104,7 @@ public class IndividualOrderDetailDelegate extends SuperDelegate {
                 new AlertDialog.Builder(context);
         normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle("课程介绍");
-        normalDialog.setMessage(model.introduction);
+        normalDialog.setMessage(classInfo.getIntro());
         normalDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override

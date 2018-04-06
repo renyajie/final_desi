@@ -17,11 +17,13 @@ import com.renyajie.yuyue.R;
 
 import java.util.List;
 
+import bean.ClassInfo;
 import main.activity.individual_class_order.model.IndividualClassBriefModel;
 import main.activity.individual_order_confirm.IndividualOrderConfirmActivity;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import main.activity.people_order_confirm.PeopleOrderConfirmActivity;
 import utils.AppConstant;
+import utils.UtilsMethod;
 
 /**
  * Created by Thor on 2018/3/12.
@@ -34,9 +36,9 @@ public class IndividualClassBriefAdapter extends BaseAdapter
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<IndividualClassBriefModel> data;
+    private List<ClassInfo> data;
 
-    public IndividualClassBriefAdapter(Context context, List<IndividualClassBriefModel> data) {
+    public IndividualClassBriefAdapter(Context context, List<ClassInfo> data) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
@@ -59,7 +61,7 @@ public class IndividualClassBriefAdapter extends BaseAdapter
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        IndividualClassBriefModel model = data.get(position);
+        ClassInfo model = data.get(position);
         ViewHolder viewHolder;
 
         if (convertView == null) {
@@ -71,20 +73,20 @@ public class IndividualClassBriefAdapter extends BaseAdapter
 
             viewHolder.teacherName = convertView.findViewById(R.id.teacher_name);
             viewHolder.time = convertView.findViewById(R.id.time);
-            viewHolder.number = convertView.findViewById(R.id.number);
+            viewHolder.orderNumber = convertView.findViewById(R.id.order_number);
             viewHolder.button = convertView.findViewById(R.id.button);
 
-            viewHolder.teacherName.setText(model.teacherName);
-            viewHolder.time.setText(model.time);
-            viewHolder.number.setText(String.valueOf(model.number));
+            viewHolder.teacherName.setText(model.getTeaName());
+            viewHolder.time.setText(UtilsMethod.getStringFromDate(model.getStaTime()));
+            viewHolder.orderNumber.setText(String.valueOf(model.getOrderNum()));
 
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
 
-            viewHolder.teacherName.setText(model.teacherName);
-            viewHolder.time.setText(model.time);
-            viewHolder.number.setText(String.valueOf(model.number));
+            viewHolder.teacherName.setText(model.getTeaName());
+            viewHolder.time.setText(UtilsMethod.getStringFromDate(model.getStaTime()));
+            viewHolder.orderNumber.setText(String.valueOf(model.getOrderNum()));
         }
 
         return convertView;
@@ -94,18 +96,18 @@ public class IndividualClassBriefAdapter extends BaseAdapter
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        IndividualClassBriefModel model = data.get(position);
-        Log.v("msg", "教师:" + model.teacherName);
+        ClassInfo model = data.get(position);
+        Log.d("get", "教师:" + model.getTeaName());
         Intent intent = new Intent(context, IndividualOrderConfirmActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("placeId", model.placeId);
-        bundle.putInt("classId", model.classId);
+        bundle.putInt("placeId", model.getpId());
+        bundle.putInt("classId", model.getId());
         intent.putExtras(bundle);
         context.startActivity(intent);
     }
 
     public static class ViewHolder {
-        TextView teacherName, time, number;
+        TextView teacherName, time, orderNumber;
         Button button;
     }
 }

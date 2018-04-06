@@ -126,7 +126,7 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
                     //初始化支付部分的界面
                     PeopleOrderPayModel model = new PeopleOrderPayModel();
                     model.placeId = mClassInfo.getpId();
-                    model.classId = mClassInfo.getClaKId();
+                    model.classId = mClassInfo.getId();
                     model.cardInformation = cardInfos;
 
                     initOrderPay(model);
@@ -215,7 +215,7 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         return -1;
     }
 
-    //获取登录用户的会员卡信息
+    //获取课程信息
     private void getClassInfoDataById(int classId) {
 
         //构造请求地址

@@ -9,6 +9,8 @@ import org.springframework.stereotype.Service;
 import com.ryj.yuyue.bean.CardOrder;
 import com.ryj.yuyue.bean.CardOrderResult;
 import com.ryj.yuyue.bean.ClassOrder;
+import com.ryj.yuyue.bean.ClassOrderExample;
+import com.ryj.yuyue.bean.ClassOrderExample.Criteria;
 import com.ryj.yuyue.bean.ClassOrderResult;
 import com.ryj.yuyue.dao.CardOrderMapper;
 import com.ryj.yuyue.dao.ClassOrderMapper;
@@ -90,6 +92,17 @@ public class OrderService {
 	}
 	
 	/**
+	 * 根据ID批量删除用户订单
+	 * @param idList
+	 */
+	public void deleteOrderInBatch(List<Integer> idList) {
+		ClassOrderExample example = new ClassOrderExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andIdIn(idList);
+		classOrderMapper.deleteByExample(example);
+	}
+	
+	/**
      * 用户或管理员查询订单，可多条件查询
      * @param orderId 订单编号
      * @param placeId 场馆编号
@@ -105,16 +118,35 @@ public class OrderService {
 	public List<ClassOrderResult> getClassOrder(
   			Integer orderId, Integer placeId, Integer classId,
     		Integer classKId, Integer userId, Integer cardId,
-    		Date before, Date after) {
+    		Date before, Date after, String property) {
     	
     	List<ClassOrderResult> result = classOrderMapper.getClassOrder(
     			orderId, placeId, classId, classKId, 
-    			userId, cardId, before, after);
+    			userId, cardId, before, after, property);
     	for(ClassOrderResult classOrder: result) {
     		Date d = classOrder.getOrdTime();
     		d.setHours(d.getHours() + 8);
     		classOrder.setOrdTime(d);
     	}
+    	return result;
+    }
+    
+    /**
+     * 获取一个课程订单
+     * @param orderId
+     * @return
+     */
+    @SuppressWarnings("deprecation")
+	public ClassOrderResult getOneClassOrder(Integer orderId) {
+    	
+    	ClassOrderResult result = classOrderMapper.getClassOrder(
+    			orderId, null, null, null, null, 
+    			null, null, null, null).get(0);
+
+		Date d = result.getOrdTime();
+		d.setHours(d.getHours() + 8);
+		result.setOrdTime(d);
+    	
     	return result;
     }
 }

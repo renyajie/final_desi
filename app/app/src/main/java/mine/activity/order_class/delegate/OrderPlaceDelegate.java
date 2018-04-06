@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.renyajie.yuyue.R;
 
+import bean.Place;
 import mine.activity.order_class.model.PlaceModel;
 import utils.SuperDelegate;
 import utils.ViewHolderType;
@@ -25,15 +26,15 @@ public class OrderPlaceDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private PlaceModel placeModel;
+    private Place place;
 
     public OrderPlaceDelegate(Context context) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
-    public void setPlaceModel(PlaceModel placeModel) {
-        this.placeModel = placeModel;
+    public void setPlace(Place place) {
+        this.place = place;
     }
 
     @Override
@@ -65,8 +66,8 @@ public class OrderPlaceDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
-        ((OrderPlaceViewHolder)viewHolder).placeName.setText(placeModel.placeName);
-        ((OrderPlaceViewHolder)viewHolder).address.setText(placeModel.address);
+        ((OrderPlaceViewHolder)viewHolder).placeName.setText(place.getsName());
+        ((OrderPlaceViewHolder)viewHolder).address.setText(place.getAddress());
     }
 
     public static class OrderPlaceViewHolder extends RecyclerView.ViewHolder {

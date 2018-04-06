@@ -81,7 +81,7 @@ public class MainFragment extends Fragment {
         initGridButton(MainData.buttonModelList);
         //todo 改好团课预约后，恢复此处界面
         //initPeopleClassBrief(PeopleClassOrderData.peopleClassBriefModelList);
-        initIndividualClassBrief(IndividualClassOrderData.individualClassBriefModelList);
+        //initIndividualClassBrief(IndividualClassOrderData.individualClassBriefModelList);
     }
 
     //初始化轮播图
@@ -120,11 +120,11 @@ public class MainFragment extends Fragment {
     }
 
     //初始化私教课程详细信息
-    private void initIndividualClassBrief(List<IndividualClassBriefModel> individualClassBriefModelList) {
+    private void initIndividualClassBrief(List<ClassInfo> classInfoList) {
         int position = getViewHolderPosition(ViewHolderType.IndividualClassBrief);
         if(position == -1) return;
         ((IndividualClassBriefDelegate)delegates.get(position))
-                .setIndividualClassBriefModelList(individualClassBriefModelList);
+                .setClassInfoList(classInfoList);
         ((IndividualClassBriefDelegate)delegates.get(position))
                 .setShowRecommendTitle(true);
         if(adapter != null) adapter.updatePositionDelegate(position);

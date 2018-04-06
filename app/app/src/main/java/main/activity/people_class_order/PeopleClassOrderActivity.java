@@ -161,8 +161,6 @@ public class PeopleClassOrderActivity
         getPlaceData();
     }
 
-
-
     //初始化课程名称信息
     private void initClass(List<PlaceModel> placeModelList) {
         int position = getViewHolderPosition(ViewHolderType.ClassAndDate);
@@ -182,16 +180,6 @@ public class PeopleClassOrderActivity
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
-    //刷新PeopleClassBrief模块
-    private void refreshPeopleClassBrief(List<ClassInfo> classInfoList) {
-        int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
-        ((PeopleClassBriefDelegate) delegates.get(position))
-                .setClassInfoList(classInfoList);
-        ((PeopleClassBriefDelegate)delegates.get(position))
-                .setShowRecommendTitle(false);
-        adapter.updatePositionDelegate(position);
-    }
-
     // 获取指定类型View在列表中的位置
     private int getViewHolderPosition(ViewHolderType type) {
         for (int i = 0; i < delegates.size(); i++) {
@@ -207,7 +195,6 @@ public class PeopleClassOrderActivity
     public void changePlaceOrDate(int placeId, int amount) {
         Log.v("msg", "改变搜索条件");
         getClassInfoData(placeId, amount);
-
     }
 
     //获取地址信息
@@ -256,6 +243,7 @@ public class PeopleClassOrderActivity
         params.put("before", date);
         params.put("after", date);
         params.put("placeId", placeId + "");
+        params.put("property", "g");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 

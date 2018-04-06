@@ -14,6 +14,7 @@ import com.renyajie.yuyue.R;
 
 import java.util.List;
 
+import bean.ClassInfo;
 import main.activity.individual_class_order.adapter.IndividualClassBriefAdapter;
 import main.activity.individual_class_order.model.IndividualClassBriefModel;
 import utils.SuperDelegate;
@@ -27,7 +28,7 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
-    private List<IndividualClassBriefModel> individualClassBriefModelList;
+    private List<ClassInfo> classInfoList;
     private IndividualClassBriefAdapter adapter;
     private boolean showRecommendTitle;
 
@@ -37,8 +38,8 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
         showRecommendTitle = false;
     }
 
-    public void setIndividualClassBriefModelList(List<IndividualClassBriefModel> individualClassBriefModelList) {
-        this.individualClassBriefModelList = individualClassBriefModelList;
+    public void setClassInfoList(List<ClassInfo> classInfoList) {
+        this.classInfoList = classInfoList;
     }
 
     public void setShowRecommendTitle(boolean showRecommendTitle) {
@@ -65,7 +66,7 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("IndividualClassBriefDelegate", "onBindViewHolder");
+        Log.d("recycler", "bind IndividualClassBriefDelegate");
 
         // 防止刷新UI
 
@@ -75,7 +76,7 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
-        adapter = new IndividualClassBriefAdapter(context, individualClassBriefModelList);
+        adapter = new IndividualClassBriefAdapter(context, classInfoList);
         ((IndividualClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((IndividualClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
 

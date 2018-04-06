@@ -1,5 +1,6 @@
 package com.ryj.yuyue.controller;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -7,6 +8,8 @@ import java.util.Map;
 
 import javax.validation.Valid;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
@@ -47,6 +50,8 @@ public class OrderController {
 	private CardService cardService;
 	@Autowired
 	private OrderService orderService;
+	
+	private static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
 	/**
 	 * 根据课程编号，课程种类，场地，教师，上课时间，课程属性查询课程信息
@@ -100,6 +105,8 @@ public class OrderController {
 	public Messenger userOrderClass(
 			@RequestBody @Valid ClassOrder classOrder, 
 			BindingResult syntaxResult) {
+		
+		logger.info("userOrderClass, classOrder is {}", classOrder.toString());
 
 		// 校验字段格式
 		if (syntaxResult.hasErrors()) {
@@ -162,14 +169,20 @@ public class OrderController {
 			@DateTimeFormat(pattern="yyyy-MM-dd")
 			@RequestParam(value = "before", required=false) Date before, 
 			@DateTimeFormat(pattern="yyyy-MM-dd")
-			@RequestParam(value = "after", required=false) Date after) {
+			@RequestParam(value = "after", required=false) Date after,
+			@RequestParam(value = "property", required=false) String property,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
-		PageHelper.startPage(pn, 5);
 		List<ClassOrderResult> result = orderService.getClassOrder(
 				orderId, placeId, classId, classKId, 
-				userId, cardId, before, after);
-		PageInfo page = new PageInfo(result, 5);
-		return Messenger.success().add("pageInfo", page);
+				userId, cardId, before, after, property);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
+		return Messenger.success().add("info", result);
 	}
 	
 	/**
@@ -243,5 +256,31 @@ public class OrderController {
 		cardOrder.setOrdTime(new Date());
 		orderService.addCardOrder(cardOrder);
 		return Messenger.success();
+	}
+	
+	/**
+	 * 
+	 * 删除约课订单，可以根据参数形式批量删除
+	 * @param ids
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="deleteClassOrder", method=RequestMethod.POST)
+	public Messenger deleteClassOrder(
+			@RequestParam("ids") String ids){
+		logger.info("deleteClassOrder: ids is {}", ids);
+		//判断为多个删除还是单个删除
+		if(ids.contains("-")){
+			List<Integer> del_ids = new ArrayList<Integer>();
+			String[] str_ids = ids.split("-");
+			for (String string : str_ids) {
+				del_ids.add(Integer.parseInt(string));
+			}
+			orderService.deleteOrderInBatch(del_ids);
+		}else{
+			Integer id = Integer.parseInt(ids);
+			orderService.deleteOrderClassRecord(id);
+		}
+		return Messenger.success().add("info", "删除成功");
 	}
 }

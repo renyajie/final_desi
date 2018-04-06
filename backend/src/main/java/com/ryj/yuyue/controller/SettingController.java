@@ -26,11 +26,13 @@ import com.ryj.yuyue.bean.CardKindResult;
 import com.ryj.yuyue.bean.ClassInfo;
 import com.ryj.yuyue.bean.ClassKind;
 import com.ryj.yuyue.bean.ClassKindResult;
+import com.ryj.yuyue.bean.ClassOrderResult;
 import com.ryj.yuyue.bean.Place;
 import com.ryj.yuyue.bean.Teacher;
 import com.ryj.yuyue.service.CardService;
 import com.ryj.yuyue.service.ClassService;
 import com.ryj.yuyue.service.ManagerService;
+import com.ryj.yuyue.service.OrderService;
 import com.ryj.yuyue.service.PlaceService;
 import com.ryj.yuyue.service.TeacherService;
 import com.ryj.yuyue.utils.Messenger;
@@ -58,6 +60,8 @@ public class SettingController {
 	private PlaceService placeService;
 	@Autowired
 	private ManagerService managerService;
+	@Autowired
+	private OrderService orderService;
 	
 	/**
 	 * 管理员增加课程信息
@@ -417,6 +421,20 @@ public class SettingController {
 		PageInfo page = new PageInfo(
 				managerService.getManagerList(id, account, mName, sName), 5);
 		return Messenger.success().add("pageInfo", page);
+	}
+	
+	/**
+	 * 获取一个课程订单
+	 * @param orderId 订单编号
+	 * @return
+	 */
+	@RequestMapping(value = "getOneClassOrder", method = RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOneClassOrder(
+			@RequestParam(value = "orderId", required=false) Integer orderId) {
+		
+		ClassOrderResult result = orderService.getOneClassOrder(orderId);
+		return Messenger.success().add("info", result);
 	}
 
 	/**
