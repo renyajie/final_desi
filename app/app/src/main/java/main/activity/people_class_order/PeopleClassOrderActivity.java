@@ -113,7 +113,7 @@ public class PeopleClassOrderActivity
                         }
                     }
                     initPeopleClassBrief(classInfos);
-
+                    initOrderLessonRule();
                     break;
                 default:
                     break;
@@ -177,6 +177,13 @@ public class PeopleClassOrderActivity
                 .setClassInfoList(classInfoList);
         ((PeopleClassBriefDelegate)delegates.get(position))
                 .setShowRecommendTitle(false);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化约课规则
+    private void initOrderLessonRule() {
+        int position = getViewHolderPosition(ViewHolderType.OrderLessonRule);
+        if(position == -1) return;
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 

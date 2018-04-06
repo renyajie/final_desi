@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.CardInfo;
+import com.ryj.yuyue.bean.CardInfoResult;
 import com.ryj.yuyue.bean.CardOrder;
 import com.ryj.yuyue.bean.CardOrderResult;
 import com.ryj.yuyue.bean.ClassInfoResult;
@@ -129,6 +130,31 @@ public class OrderController {
 		classOrder.setOrdTime(new Date());
 		orderService.addOrderClassRecored(classOrder);
 		return Messenger.success();
+	}
+	
+	/**
+	 * 更新会员卡的余额次数，加上原始次数
+	 * @param cardId 会员卡编号
+	 * @return
+	 */
+	@RequestMapping(value = "updateCardCapacity", method = RequestMethod.GET)
+	@ResponseBody
+	public Messenger updateCardCapacity(
+			@RequestParam(value = "cardId", required = true) Integer cardId) {
+		
+		CardInfoResult cardInfo = cardService.getOneCardInfo(cardId);
+		
+		//添加购买记录
+		CardOrder cardOrder = new CardOrder();
+		//保存会员卡编号，日期，保存会员卡订单记录
+		cardOrder.setuId(cardInfo.getuId());
+		cardOrder.setCardId(cardInfo.getId());
+		cardOrder.setOrdTime(new Date());
+		cardOrder.setCardKId(cardInfo.getCardKId());
+		orderService.addCardOrder(cardOrder);
+		
+		return Messenger.success().add(
+				"info", cardService.updateCardCapacity(cardId));
 	}
 	
 	/**
@@ -280,6 +306,31 @@ public class OrderController {
 		}else{
 			Integer id = Integer.parseInt(ids);
 			orderService.deleteOrderClassRecord(id);
+		}
+		return Messenger.success().add("info", "删除成功");
+	}
+	
+	/**
+	 * 删除会员卡订单
+	 * @param ids
+	 * @return
+	 */
+	@ResponseBody
+	@RequestMapping(value="deleteCardOrder", method=RequestMethod.POST)
+	public Messenger deleteCardOrder(
+			@RequestParam("ids") String ids){
+		logger.info("deleteCardOrder: ids is {}", ids);
+		//判断为多个删除还是单个删除
+		if(ids.contains("-")){
+			List<Integer> del_ids = new ArrayList<Integer>();
+			String[] str_ids = ids.split("-");
+			for (String string : str_ids) {
+				del_ids.add(Integer.parseInt(string));
+			}
+			orderService.deleteCardOrderInBatch(del_ids);
+		}else{
+			Integer id = Integer.parseInt(ids);
+			orderService.deleteCardOrderRecord(id);
 		}
 		return Messenger.success().add("info", "删除成功");
 	}

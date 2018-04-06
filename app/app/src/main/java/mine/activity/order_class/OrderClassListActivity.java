@@ -80,7 +80,7 @@ public class OrderClassListActivity extends AppCompatActivity
     //第一次选中时的位置
     private Integer firstPosition = -1;
 
-    //3种约课类型的订单，第三种为了方便操作删除的情况
+    //约课订单
     private List<ClassOrder> orderList = new ArrayList<>();
 
     //课程种类序号
@@ -359,7 +359,7 @@ public class OrderClassListActivity extends AppCompatActivity
                 new AlertDialog.Builder(this);
         normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle("注意");
-        normalDialog.setMessage("确认要取消预约么");
+        normalDialog.setMessage("确认要删除预约记录么");
         normalDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override

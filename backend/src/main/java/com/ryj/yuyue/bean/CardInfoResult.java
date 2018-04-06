@@ -18,6 +18,14 @@ public class CardInfoResult {
     private String uName;
 
     private Integer allowance;
+    
+    private Integer pId;
+    
+    private String sName;
+    
+    private Integer expend;
+    
+    private Integer capacity;
 
 	public CardInfoResult() {
 		super();
@@ -31,6 +39,30 @@ public class CardInfoResult {
 		this.uId = uId;
 		this.uName = uName;
 		this.allowance = allowance;
+	}
+	
+	public Integer getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(Integer capacity) {
+		this.capacity = capacity;
+	}
+
+	public Integer getpId() {
+		return pId;
+	}
+
+	public void setpId(Integer pId) {
+		this.pId = pId;
+	}
+
+	public String getsName() {
+		return sName;
+	}
+
+	public void setsName(String sName) {
+		this.sName = sName;
 	}
 
 	public Integer getId() {
@@ -79,6 +111,14 @@ public class CardInfoResult {
 
 	public void setAllowance(Integer allowance) {
 		this.allowance = allowance;
+	}
+	
+	public Integer getExpend() {
+		return expend;
+	}
+
+	public void setExpend(Integer expend) {
+		this.expend = expend;
 	}
 
 	@Override

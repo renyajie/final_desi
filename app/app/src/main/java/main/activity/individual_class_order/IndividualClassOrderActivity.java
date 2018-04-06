@@ -117,7 +117,9 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
                         }
                         Log.d("get", classInfo.toString());
                     }
+
                     initIndividualClassBrief(classInfos);
+                    initOrderLessonRule();
                     break;
                 default:
                     break;
@@ -182,6 +184,13 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
                 .setClassInfoList(classInfos);
         ((IndividualClassBriefDelegate)delegates.get(position))
                 .setShowRecommendTitle(false);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化约课规则
+    private void initOrderLessonRule() {
+        int position = getViewHolderPosition(ViewHolderType.OrderLessonRule);
+        if(position == -1) return;
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 

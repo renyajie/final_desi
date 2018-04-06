@@ -6,9 +6,11 @@
 
     <color name="white">#FFFFFF</color>
     <color name="black">#3F3F40</color>
-    <color name="gray">#DCDCDC</color>
+    <color name="gray">#BCBCBC</color>
+    <color name="light_gray">#FEFEFE</color>
     <color name="yellow">#FFFF00</color>
     <color name="gold">#FFD700</color>
+    <color name="orange">#FFAC00</color>
     <color name="pure_black">#000000</color>
 
     <color name="app_background">#E3E3E3</color>

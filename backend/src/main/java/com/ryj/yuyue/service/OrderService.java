@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ryj.yuyue.bean.CardOrder;
+import com.ryj.yuyue.bean.CardOrderExample;
 import com.ryj.yuyue.bean.CardOrderResult;
 import com.ryj.yuyue.bean.ClassOrder;
 import com.ryj.yuyue.bean.ClassOrderExample;
@@ -92,7 +93,15 @@ public class OrderService {
 	}
 	
 	/**
-	 * 根据ID批量删除用户订单
+	 * 删除用户会员卡订单
+	 * @param id 会员卡编号
+	 */
+	public void deleteCardOrderRecord(Integer id) {
+		cardOrderMapper.deleteByPrimaryKey(id);
+	}
+	
+	/**
+	 * 根据ID批量删除约课订单
 	 * @param idList
 	 */
 	public void deleteOrderInBatch(List<Integer> idList) {
@@ -100,6 +109,17 @@ public class OrderService {
 		Criteria criteria = example.createCriteria();
 		criteria.andIdIn(idList);
 		classOrderMapper.deleteByExample(example);
+	}
+	
+	/**
+	 * 根据ID批量删除会员卡订单
+	 * @param idList
+	 */
+	public void deleteCardOrderInBatch(List<Integer> idList) {
+		CardOrderExample example = new CardOrderExample();
+		com.ryj.yuyue.bean.CardOrderExample.Criteria criteria = example.createCriteria();
+		criteria.andIdIn(idList);
+		cardOrderMapper.deleteByExample(example);
 	}
 	
 	/**

@@ -67,8 +67,6 @@ public class MoreFunctionDelegate extends SuperDelegate {
                 .setOnClickListener(new MyClickListener(RequestType.Mine_ExperimentLessonRecord, context));
         ((MoreFunctionViewHolder)viewHolder).memberCard
                 .setOnClickListener(new MyClickListener(RequestType.Mine_MemberCard, context));
-        ((MoreFunctionViewHolder)viewHolder).cardOrder
-                .setOnClickListener(new MyClickListener(RequestType.Mine_CardOrder, context));
         ((MoreFunctionViewHolder)viewHolder).lessonAbsent
                 .setOnClickListener(new MyClickListener(RequestType.Mine_LessonAbsent, context));
         ((MoreFunctionViewHolder)viewHolder).historyRecord
@@ -77,13 +75,12 @@ public class MoreFunctionDelegate extends SuperDelegate {
 
     public static class MoreFunctionViewHolder extends RecyclerView.ViewHolder {
 
-        TextView experimentLessonRecord, memberCard, cardOrder, lessonAbsent, historyRecord;
+        TextView experimentLessonRecord, memberCard, lessonAbsent, historyRecord;
 
         public MoreFunctionViewHolder(View itemView) {
             super(itemView);
             experimentLessonRecord = itemView.findViewById(R.id.experiment_lesson_record);
             memberCard = itemView.findViewById(R.id.member_card);
-            cardOrder = itemView.findViewById(R.id.card_order);
             lessonAbsent = itemView.findViewById(R.id.lesson_absent);
             historyRecord = itemView.findViewById(R.id.history_record);
         }

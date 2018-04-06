@@ -311,14 +311,15 @@ public class SettingController {
 	public Messenger getCardKind( 
 			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
 			@RequestParam(value = "cardKId", required = false) Integer cardKId, 
-			@RequestParam(value = "managerId", required = false) Integer managerId, 
+			@RequestParam(value = "managerId", required = false) Integer managerId,
+			@RequestParam(value = "placeId", required = false) Integer placeId,
 			@RequestParam(value = "cardKName", required = false) String cardKName, 
 			@RequestParam(value = "capacity", required = false) Integer capacity, 
 			@RequestParam(value = "expend", required = false) Integer expend,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
 		List<CardKindResult> result = cardService.getCardKind(
-				cardKId, managerId, cardKName, capacity, expend);
+				cardKId, managerId, placeId, cardKName, capacity, expend);
 		//判断是否需要分页
 		if(isPage == 1) {
 			PageHelper.startPage(pn, 5);
@@ -434,6 +435,34 @@ public class SettingController {
 			@RequestParam(value = "orderId", required=false) Integer orderId) {
 		
 		ClassOrderResult result = orderService.getOneClassOrder(orderId);
+		return Messenger.success().add("info", result);
+	}
+	
+	/**
+	 * 获取一个会员卡信息
+	 * @param cardId 会员卡编号
+	 * @return
+	 */
+	@RequestMapping(value = "getOneCardInfo", method = RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOneCardInfo(
+			@RequestParam(value = "cardId", required=true) Integer cardId) {
+		
+		CardInfoResult result = cardService.getOneCardInfo(cardId);
+		return Messenger.success().add("info", result);
+	}
+	
+	/**
+	 * 获取一个会员卡种类信息
+	 * @param cardKId 会员卡种类编号
+	 * @return
+	 */
+	@RequestMapping(value = "getOneCardKind", method = RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOneCardKind(
+			@RequestParam(value = "cardKId", required=true) Integer cardKId) {
+		
+		CardKindResult result = cardService.getOneCardKind(cardKId);
 		return Messenger.success().add("info", result);
 	}
 

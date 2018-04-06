@@ -1,4 +1,4 @@
-package mine.activity.order_class.delegate;
+package mine.activity.order_card.delegate;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -17,22 +17,22 @@ import utils.ViewHolderType;
 /**
  * Created by Thor on 2018/3/16.
  *
- * 约课详情的最后部分，约课规则
+ * 购买会员卡规则
  */
 
-public class OrderLessonRuleDelegate extends SuperDelegate {
+public class OrderCardRuleDelegate extends SuperDelegate {
 
     private Context context;
     private LayoutInflater layoutInflater;
 
-    public OrderLessonRuleDelegate(Context context) {
+    public OrderCardRuleDelegate(Context context) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
     }
 
     @Override
     public ViewHolderType getViewHolderType() {
-        return ViewHolderType.OrderLessonRule;
+        return ViewHolderType.OrderCardRule;
     }
 
     @Override
@@ -43,14 +43,14 @@ public class OrderLessonRuleDelegate extends SuperDelegate {
     @NonNull
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent) {
-        return new OrderLessonRuleViewHolder(layoutInflater.inflate(
+        return new OrderCardRuleViewHolder(layoutInflater.inflate(
                 R.layout.activity_mine_order_detail_rule, parent, false
         ));
     }
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("OrderLessonRuleDelegate", "onBindViewHolder");
+        Log.d("OrderCardRuleDelegate", "onBindViewHolder");
 
         // 防止刷新UI
         if(!uiFlag) {
@@ -59,15 +59,15 @@ public class OrderLessonRuleDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
-        ((OrderLessonRuleViewHolder)viewHolder).title.setText("约课须知");
-        ((OrderLessonRuleViewHolder)viewHolder).content.setText(R.string.member_rule);
+        ((OrderCardRuleViewHolder)viewHolder).title.setText("购卡须知");
+        ((OrderCardRuleViewHolder)viewHolder).content.setText(R.string.member_rule);
     }
 
-    public static class OrderLessonRuleViewHolder extends RecyclerView.ViewHolder {
+    public static class OrderCardRuleViewHolder extends RecyclerView.ViewHolder {
 
         TextView title, content;
 
-        public OrderLessonRuleViewHolder(View itemView) {
+        public OrderCardRuleViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.title);
             content = itemView.findViewById(R.id.content);

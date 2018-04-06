@@ -101,8 +101,9 @@
     where id = #{id,jdbcType=INTEGER}
   </select>
   <!-- List<CardKindResult> getCardKind(
-  			@Param("cardKId") Integer cardKId, 
+    		@Param("cardKId") Integer cardKId, 
     		@Param("managerId") Integer managerId, 
+    		@Param("placeId") Integer placeId, 
     		@Param("cardKName") String cardKName, 
     		@Param("capacity") Integer capacity, 
     		@Param("expend") Integer expend); -->
@@ -118,6 +119,9 @@
       </if>
       <if test="managerId != null">
         and m.id = #{managerId}
+      </if>
+      <if test="placeId != null">
+        and p.id = #{placeId}
       </if>
       <if test="cardKName != null">
         and ck.card_k_name like '%${cardKName}%'

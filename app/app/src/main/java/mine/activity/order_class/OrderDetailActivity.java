@@ -108,6 +108,7 @@ public class OrderDetailActivity extends AppCompatActivity {
                             messengerA.getExtend().get("info");
 
                     initOrderDetail(classOrder);
+                    initOrderLessonRule();
                     break;
                 case GET_CLASS_FAILURE:
                     Toast.makeText(OrderDetailActivity.this,
@@ -213,6 +214,13 @@ public class OrderDetailActivity extends AppCompatActivity {
         if(position == -1) return;
         ((OrderDetailDelegate)delegates.get(position))
                 .setClassOrder(classOrder);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化约课规则
+    private void initOrderLessonRule() {
+        int position = getViewHolderPosition(ViewHolderType.OrderLessonRule);
+        if(position == -1) return;
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 

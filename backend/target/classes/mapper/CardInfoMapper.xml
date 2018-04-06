@@ -14,6 +14,10 @@
     <result column="u_id" property="uId" />
     <result column="u_name" property="uName" />
     <result column="allowance" property="allowance" />
+    <result column="p_id" property="pId" />
+    <result column="s_name" property="sName" />
+    <result column="expend" property="expend" />
+    <result column="capacity" property="capacity" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -77,7 +81,7 @@
     id, card_k_id, u_id, allowance
   </sql>
   <sql id="Base_Column_List_Result">
-    ci.id, ci.card_k_id, ck.card_k_name, ci.u_id, u.u_name, ci.allowance
+    ci.id, ci.card_k_id, ck.card_k_name, ci.u_id, u.u_name, ci.allowance, p.id as p_id, p.s_name, ck.capacity, ck.expend
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.CardInfoExample" resultMap="BaseResultMap">
     select
@@ -106,10 +110,10 @@
   <select id="getCardInfo" resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
-    from card_info ci, card_kind ck, user u, manager m
+    from card_info ci, card_kind ck, user u, manager m, place p
     <trim prefix="where" prefixOverrides="and">
       ci.card_k_id = ck.id and ci.u_id = u.id
-      and ck.p_id = m.p_id
+      and ck.p_id = m.p_id and ck.p_id = p.id
       <if test="managerId">
       	and m.id = #{managerId}
       </if>
@@ -119,6 +123,18 @@
       <if test="uId != null">
         and ci.u_id = #{uId}
       </if>
+    </trim>
+  </select>
+  <!-- CardInfoResult getOneCardInfo(
+			@Param("id") Integer id); -->
+  <select id="getOneCardInfo" resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from card_info ci, card_kind ck, user u, manager m, place p
+    <trim prefix="where" prefixOverrides="and">
+      ci.card_k_id = ck.id and ci.u_id = u.id
+      and ck.p_id = m.p_id and ck.p_id = p.id
+      and ci.id = #{id}
     </trim>
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">

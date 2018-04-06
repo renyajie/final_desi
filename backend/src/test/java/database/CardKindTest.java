@@ -34,6 +34,7 @@ public class CardKindTest {
 						null,
 						null,
 						null,
+						null,
 						null));
 	}
 }

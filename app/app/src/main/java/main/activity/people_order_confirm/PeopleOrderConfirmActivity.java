@@ -3,6 +3,7 @@ package main.activity.people_order_confirm;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -39,6 +40,7 @@ import main.activity.people_order_confirm.model.CardModel;
 import main.activity.people_order_confirm.model.PeopleOrderDetailModel;
 import main.activity.people_order_confirm.model.PeopleOrderPayModel;
 import main.helper.SpaceItemDecoration;
+import mine.activity.order_card.PlaceCardListActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -254,7 +256,7 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         String tmp = AppConstant.URL + "api/setting/getCardInfo";
         Map<String, String> params = new HashMap<>();
         //TODO 修改成目前登录用户的ID
-        params.put("userId", 1 + "");
+        params.put("userId", 3 + "");
         params.put("isPage", 0 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
@@ -296,8 +298,12 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(PeopleOrderConfirmActivity.this,
-                                "跳转会员卡购买界面", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, PlaceCardListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("placeId", mClassInfo.getpId());
+                        bundle.putString("placeName", mClassInfo.getpName());
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
                     }
                 });
         normalDialog.setNegativeButton("关闭",

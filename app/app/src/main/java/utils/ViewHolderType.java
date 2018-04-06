@@ -24,5 +24,11 @@ public enum ViewHolderType {
     IndividualOrderDetail,
 
     //OrderDetailActivity中的view类型
-    OrderLesson, OrderPlace, OrderDetail, OrderLessonRule;
+    OrderLesson, OrderPlace, OrderDetail, OrderLessonRule,
+
+    //OrderCardDetailActivity中的view类型
+    OrderCardDetail, OrderCardRule,
+
+    //PlaceCardDetailActivity中的view类型
+    PlaceCardDetail;
 }

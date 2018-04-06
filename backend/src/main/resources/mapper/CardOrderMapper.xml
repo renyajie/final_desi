@@ -16,6 +16,8 @@
     <result column="card_k_name" property="cardKName" />
     <result column="ord_time" property="ordTime" />
     <result column="card_id" property="cardId" />
+    <result column="p_id" property="pId"/>
+    <result column="s_name" property="sName"/>
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -79,7 +81,7 @@
     id, u_id, card_k_id, ord_time, card_id
   </sql>
   <sql id="Base_Column_List_Result">
-    co.id, co.u_id, u.u_name, co.card_k_id, ck.card_k_name, co.card_id, co.ord_time
+    co.id, co.u_id, u.u_name, co.card_k_id, ck.card_k_name, co.card_id, co.ord_time, p.id as p_id, p.s_name
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.CardOrderExample" resultMap="BaseResultMap">
     select
@@ -111,10 +113,10 @@
   <select id="getCardOrder" resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
-    from card_order co, user u, card_kind ck, manager m
+    from card_order co, user u, card_kind ck, manager m, place p
     <trim prefix="where" prefixOverrides="and">
       co.u_id = u.id and co.card_k_id = ck.id
-      and ck.p_id = m.p_id
+      and ck.p_id = m.p_id and ck.p_id = p.id
       <if test="managerId != null">
         and m.id = #{managerId}
       </if>

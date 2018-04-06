@@ -33,4 +33,10 @@ public class CardInfoTest {
 						1,
 						null));
 	}
+	
+	@Test
+	public void getOneCardInfoTest() throws Exception {
+		logger.info("getOneCardInfoTest: {}", 
+				cardInfoMapper.getOneCardInfo(1));
+	}
 }

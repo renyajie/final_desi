@@ -21,6 +21,10 @@ public class CardOrderResult {
     private Integer cardKId;
     
     private String cardKName;
+    
+    private Integer pId;
+    
+    private String sName;
 
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date ordTime;
@@ -41,6 +45,24 @@ public class CardOrderResult {
 		this.cardKName = cardKName;
 		this.ordTime = ordTime;
 		this.cardId = cardId;
+	}
+	
+	
+
+	public Integer getpId() {
+		return pId;
+	}
+
+	public void setpId(Integer pId) {
+		this.pId = pId;
+	}
+
+	public String getsName() {
+		return sName;
+	}
+
+	public void setsName(String sName) {
+		this.sName = sName;
 	}
 
 	public Integer getId() {

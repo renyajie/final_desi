@@ -23,6 +23,10 @@ public class CardOrder {
 
     private Integer cardId;
 
+    private Integer pId;
+
+    private String sName;
+
     public CardOrder() {
         super();
     }
@@ -37,6 +41,22 @@ public class CardOrder {
         this.cardKName = cardKName;
         this.ordTime = ordTime;
         this.cardId = cardId;
+    }
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    public String getsName() {
+        return sName;
+    }
+
+    public void setsName(String sName) {
+        this.sName = sName;
     }
 
     public Integer getId() {

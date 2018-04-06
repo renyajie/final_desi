@@ -12,11 +12,19 @@ public class CardInfo {
 
     private String cardKName;
 
+    private Integer expend;
+
     private Integer uId;
 
     private String uName;
 
     private Integer allowance;
+
+    private Integer pId;
+
+    private String sName;
+
+    private Integer capacity;
 
     public CardInfo() {
         super();
@@ -30,6 +38,38 @@ public class CardInfo {
         this.uId = uId;
         this.uName = uName;
         this.allowance = allowance;
+    }
+
+    public Integer getCapacity() {
+        return capacity;
+    }
+
+    public void setCapacity(Integer capacity) {
+        this.capacity = capacity;
+    }
+
+    public Integer getExpend() {
+        return expend;
+    }
+
+    public void setExpend(Integer expend) {
+        this.expend = expend;
+    }
+
+    public Integer getpId() {
+        return pId;
+    }
+
+    public void setpId(Integer pId) {
+        this.pId = pId;
+    }
+
+    public String getsName() {
+        return sName;
+    }
+
+    public void setsName(String sName) {
+        this.sName = sName;
     }
 
     public Integer getId() {

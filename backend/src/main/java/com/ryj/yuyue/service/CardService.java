@@ -43,7 +43,8 @@ public class CardService {
 	 * @return 新增会员卡的ID
 	 */
 	public int addCardInfo(CardInfo cardInfo) {
-		return cardInfoMapper.insertSelective(cardInfo);
+		cardInfoMapper.insertSelective(cardInfo);
+		return cardInfo.getId();
 	}
 	
 	/**
@@ -75,6 +76,19 @@ public class CardService {
 	}
 	
 	/**
+	 * 更新某个会员卡的余额信息，加上原始次数
+	 * @param cardId 会员卡编号
+	 * @return 更新后的会员卡次数
+	 */
+	public int updateCardCapacity(int cardId) {
+		CardInfo cardInfo = cardInfoMapper.selectByPrimaryKey(cardId);
+		int capacity = getCardKindCapacity(cardInfo.getCardKId());
+		cardInfo.setAllowance(cardInfo.getAllowance() + capacity);
+		cardInfoMapper.updateByPrimaryKeySelective(cardInfo);
+		return cardInfo.getAllowance();
+	}
+	
+	/**
 	 * 管理员或用户查询会员卡
 	 * @param managerId 管理员编号
 	 * @param cardKId 卡种编号
@@ -87,20 +101,41 @@ public class CardService {
 	}
 	
 	/**
+	 * 获取一个会员卡信息
+	 * @param cardId 会员卡编号
+	 * @return
+	 */
+	public CardInfoResult getOneCardInfo(Integer cardId) {
+    	return cardInfoMapper.getOneCardInfo(cardId);
+    }
+	
+	/**
+	 * 获取一个会员卡种类信息
+	 * @param cardKId
+	 * @return
+	 */
+	public CardKindResult getOneCardKind(Integer cardKId) {
+    	return cardKindMapper
+    			.getCardKind(cardKId, null, null, null, null, null)
+    			.get(0);
+    }
+	
+	/**
      * 管理员或用户查询会员卡种类
      * @param cardKId 会员卡种类编号
      * @param managerId 管理员编号
+     * @param placeId 场馆编号
      * @param cardKName 卡种名
      * @param capacity 容量
      * @param expend 花费
      * @return
      */
 	public List<CardKindResult> getCardKind(
-			Integer cardKId, Integer managerId, String cardKName, 
-			Integer capacity, Integer expend) {
+			Integer cardKId, Integer managerId, Integer placeId,
+			String cardKName, Integer capacity, Integer expend) {
 		
 		return cardKindMapper.getCardKind(
-				cardKId, managerId, cardKName, capacity, expend);
+				cardKId, managerId, placeId, cardKName, capacity, expend);
 	}
 	
 	/**
@@ -133,6 +168,6 @@ public class CardService {
 	 * @return
 	 */
 	public CardKindResult getCardKindInfo(Integer id) {
-		return this.getCardKind(id, null, null, null,null).get(0);
+		return this.getCardKind(id, null, null, null, null,null).get(0);
 	}
 }
