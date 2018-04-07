@@ -63,6 +63,9 @@
 
         <activity android:name="mine.activity.order_card.PlaceCardDetailActivity"
             android:parentActivityName=".MainActivity"/>
+
+        <activity android:name="mine.activity.order_card.BuyCardActivity"
+            android:parentActivityName=".MainActivity"/>
     </application>
 
 </manifest>

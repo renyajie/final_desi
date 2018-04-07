@@ -137,6 +137,14 @@
       and ci.id = #{id}
     </trim>
   </select>
+  <!-- List<Integer> checkCardIsExistOrNot(
+			@Param("userId") Integer userId); -->
+  <select id="checkCardIsExistOrNot" resultType="java.lang.Integer">
+    select ci.card_k_id
+	from card_info ci, user u
+	where ci.u_id = u.id
+	and u.id = #{userId}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from card_info
     where id = #{id,jdbcType=INTEGER}

@@ -32,6 +32,7 @@ import java.util.List;
 import java.util.Map;
 
 import bean.CardKind;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -43,12 +44,12 @@ import utils.UtilsMethod;
  * Created by Thor on 2018/4/6.
  */
 
-public class PlaceCardListActivity extends AppCompatActivity {
+public class PlaceCardListActivity extends AppCompatActivity implements CardKindListAdapter.FinishActivity{
 
     private Toolbar toolbar;
     private ListView listView;
     private LinearLayout noCardLayout;
-    private PlaceCardListActivity.CardKindListAdapter adapter;
+    private CardKindListAdapter adapter;
 
     //场馆编号和场馆名称
     private int placeId;
@@ -115,7 +116,7 @@ public class PlaceCardListActivity extends AppCompatActivity {
         listView = findViewById(R.id.list_view);
         noCardLayout = findViewById(R.id.no_card_layout);
 
-        adapter = new PlaceCardListActivity.CardKindListAdapter(this, cardKindList);
+        adapter = new CardKindListAdapter(this, cardKindList);
         listView.setAdapter(adapter);
         listView.setOnItemClickListener(adapter);
 
@@ -162,84 +163,8 @@ public class PlaceCardListActivity extends AppCompatActivity {
         });
     }
 
-    public class CardKindListAdapter extends BaseAdapter implements AdapterView.OnItemClickListener{
-
-        private Context context;
-        private LayoutInflater layoutInflater;
-        private List<CardKind> data;
-
-        public CardKindListAdapter(Context context,
-                                   List<CardKind> cardKindList) {
-            this.context = context;
-            this.layoutInflater = LayoutInflater.from(context);
-            this.data = cardKindList;
-        }
-
-        public void setData(List<CardKind> data) {
-            this.data = data;
-            notifyDataSetInvalidated();
-        }
-
-        @Override
-        public int getCount() {
-            return data.size();
-        }
-
-        @Override
-        public Object getItem(int position) {
-            return data.get(position);
-        }
-
-        @Override
-        public long getItemId(int position) {
-            return position;
-        }
-
-        @Override
-        public View getView(int position, View convertView, ViewGroup parent) {
-            CardKind model = data.get(position);
-            PlaceCardListActivity.CardKindListAdapter.ViewHolder viewHolder;
-
-            if (convertView == null) {
-                viewHolder = new
-                        PlaceCardListActivity.CardKindListAdapter.ViewHolder();
-
-                convertView = layoutInflater.inflate(
-                        R.layout.activity_mine_place_card_list_item, parent, false);
-
-                viewHolder.classPic = convertView.findViewById(R.id.class_pic);
-                viewHolder.cardName = convertView.findViewById(R.id.card_name);
-                viewHolder.capacity = convertView.findViewById(R.id.capacity);
-                viewHolder.placeName = convertView.findViewById(R.id.place_name);
-                viewHolder.expend = convertView.findViewById(R.id.expend);
-
-                convertView.setTag(viewHolder);
-            } else {
-                viewHolder = (PlaceCardListActivity.CardKindListAdapter.ViewHolder) convertView.getTag();
-            }
-
-            viewHolder.cardName.setText(model.getCardKName());
-            viewHolder.capacity.setText(String.valueOf(model.getCapacity()));
-            viewHolder.placeName.setText(model.getpName());
-            viewHolder.expend.setText(String.valueOf(model.getExpend()));
-
-            return convertView;
-        }
-
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-
-            CardKind cardKind = cardKindList.get(position);
-            Log.d("get", "card name is " + cardKind.getCardKName());
-            Intent intent = new Intent(context, PlaceCardDetailActivity.class);
-            intent.putExtra("cardKindId", cardKind.getId());
-            startActivity(intent);
-            PlaceCardListActivity.this.finish();
-        }
-
-        class ViewHolder {
-            public ImageView classPic;
-            public TextView cardName, capacity, placeName, expend;
-        }
+    @Override
+    public void finishActivity() {
+        this.finish();
     }
 }

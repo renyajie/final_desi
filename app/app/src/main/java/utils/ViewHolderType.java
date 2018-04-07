@@ -30,5 +30,8 @@ public enum ViewHolderType {
     OrderCardDetail, OrderCardRule,
 
     //PlaceCardDetailActivity中的view类型
-    PlaceCardDetail;
+    PlaceCardDetail,
+
+    //BuyCardActivity中的view类型
+    PlaceDetail, CardKind;
 }

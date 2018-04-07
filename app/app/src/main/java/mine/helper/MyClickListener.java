@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.view.View;
 import android.widget.Toast;
 
+import mine.activity.order_card.BuyCardActivity;
 import mine.activity.order_card.OrderCardListActivity;
 import mine.activity.order_class.OrderClassListActivity;
 import utils.RequestType;
@@ -46,6 +47,11 @@ public class MyClickListener implements View.OnClickListener {
                 Intent intentForMyCard =
                         new Intent(context, OrderCardListActivity.class);
                 context.startActivity(intentForMyCard);
+                break;
+            case Mine_BuyCard:
+                Intent intentForBuyCard =
+                        new Intent(context, BuyCardActivity.class);
+                context.startActivity(intentForBuyCard);
                 break;
             case Mine_LessonAbsent:
                 Toast.makeText(context, "点击了我的请假", Toast.LENGTH_SHORT).show();

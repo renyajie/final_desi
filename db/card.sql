@@ -6,6 +6,15 @@ select * from card_info;
 select * from card_kind;
 select * from user;
 
+-- 目的: 检查用户是否已经拥有此种类会员卡
+-- 方法: checkCardIsExsitOrNot(int userId)
+-- 传入参数: u_id
+-- 传出参数: card_k_id
+select ci.card_k_id
+from card_info ci, user u
+where ci.u_id = u.id
+and u.id = 3;
+
 -- 目的: 查看会员卡
 -- 方法: getCardInfo()
 -- 传入参数: u_id, card_k_id

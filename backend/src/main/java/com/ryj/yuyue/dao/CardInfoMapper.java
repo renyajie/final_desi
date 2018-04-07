@@ -50,4 +50,12 @@ public interface CardInfoMapper {
 	 */
 	CardInfoResult getOneCardInfo(
 			@Param("id") Integer id);
+	
+	/**
+	 * 检查用户拥有放入会员卡种类
+	 * @param userId 用户编号
+	 * @return
+	 */
+	List<Integer> checkCardIsExistOrNot(
+			@Param("userId") Integer userId);
 }

@@ -5,7 +5,8 @@
     <string name="mine_lesson_time">上课次数</string>
     <string name="mine_member_score">积分</string>
     <string name="mine_experience">体验课程</string>
-    <string name="mine_card">会员卡</string>
+    <string name="mine_card">我的会员卡</string>
+    <string name="buy_card">购买会员卡</string>
     <string name="mine_card_order">购卡订单</string>
     <string name="mine_leave">我的请假</string>
     <string name="mine_history">历史记录</string>

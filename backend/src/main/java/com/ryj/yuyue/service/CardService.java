@@ -2,6 +2,8 @@ package com.ryj.yuyue.service;
 
 import java.util.List;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,11 +33,32 @@ import com.ryj.yuyue.dao.CardKindMapper;
  */
 @Service
 public class CardService {
+	
+	private static final Logger logger = LoggerFactory.getLogger(CardService.class);
 
 	@Autowired
 	private CardInfoMapper cardInfoMapper;
 	@Autowired
 	private CardKindMapper cardKindMapper;
+	
+	/**
+	 * 检查用户是否拥有对应的会员卡种类
+	 * @param userId
+	 * @param cardKId
+	 * @return 拥有返回1，不拥有返回0
+	 */
+	public int checkCardIsExistOrNot(Integer userId, Integer cardKId) {
+		
+		List<Integer> cardKindIdList = 
+				cardInfoMapper.checkCardIsExistOrNot(userId);
+		logger.info("checkCardIsExistOrNot cardKId is {}, list is {}", cardKId, cardKindIdList);
+		if(cardKindIdList.size() == 0 || !cardKindIdList.contains(cardKId)) {
+			logger.info("checkCardIsExistOrNot return 0");
+			return 0;
+		}
+		logger.info("checkCardIsExistOrNot return 1");
+		return 1;
+	}
 	
 	 /**
 	 * 用户添加会员卡

@@ -157,11 +157,23 @@ public class OrderController {
 				"info", cardService.updateCardCapacity(cardId));
 	}
 	
+	
 	/**
-	 * 用户取消预约
-	 * @param orderId 订单编号
-	 * @return
+	 * 检查用户是否拥有对应的会员卡种类
+	 * @param userId 用户编号
+	 * @param cardKId 会员卡种类编号
+	 * @return 拥有返回1，不拥有返回0
 	 */
+	@RequestMapping(value = "checkCardIsExistOrNot", method = RequestMethod.GET)
+	@ResponseBody
+	public Messenger checkCardIsExistOrNot(
+			@RequestParam(value = "userId", required = true) Integer userId,
+			@RequestParam(value = "cardKId", required = true) Integer cardKId) {
+		
+		return Messenger.success().add("info", 
+				cardService.checkCardIsExistOrNot(userId, cardKId));
+	}
+	
 	@RequestMapping(value = "cancelClassOrder", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger cancelClassOrder(
