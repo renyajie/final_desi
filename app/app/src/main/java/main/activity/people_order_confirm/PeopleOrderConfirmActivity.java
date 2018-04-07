@@ -203,8 +203,6 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         this.classId = bundle.getInt("classId", 0);
         Log.d("msg", "课程编号是" + classId);
-
-
     }
 
     // 获取指定类型View在列表中的位置

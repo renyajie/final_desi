@@ -14,7 +14,7 @@
     <result column="m_id" property="mId" />
     <result column="m_name" property="mName" />
     <result column="p_id" property="pId" />
-    <result column="p_name" property="mName" />
+    <result column="s_name" property="pName" />
     <result column="title" property="title" />
     <result column="brow_time" property="browTime" />
     <result column="pub_time" property="pubTime" />

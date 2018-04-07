@@ -3,11 +3,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
+
     <ListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:dividerHeight="1px"
-        android:divider="@color/divider_color">
+        android:divider="@color/divider_color"
+        android:visibility="gone">
     </ListView>
+
+    <LinearLayout
+        android:id="@+id/no_news_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="100dp"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="目前还没有任何新闻"
+            android:textSize="@dimen/title_size"/>
+    </LinearLayout>
 </LinearLayout>

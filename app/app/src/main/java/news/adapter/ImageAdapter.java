@@ -23,6 +23,7 @@ import com.renyajie.yuyue.R;
 import java.util.List;
 
 import news.model.NewsConfig;
+import utils.UtilsMethod;
 
 /**
  * Created by Thor on 2018/3/7.
@@ -43,6 +44,11 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
         imageLoader = new ImageLoader(MyApplication.getHttpQueue(), MyApplication.getBitmapCache());
         this.data = data;
         this.context = context;
+    }
+
+    public void setData(List<NewsConfig> data) {
+        this.data = data;
+        notifyDataSetInvalidated();
     }
 
     @Override
@@ -152,7 +158,8 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
                 viewHolderForLess.image.setImageUrl(item.url.get(0), imageLoader);
 
                 viewHolderForLess.title.setText(item.title);
-                viewHolderForLess.date.setText(item.date);
+                viewHolderForLess.date
+                        .setText(UtilsMethod.getStringFromDateForCheck(item.date));
                 viewHolderForLess.publisher.setText(item.publisher);
                 break;
             case MANY_PIC_LAYOUT:
@@ -169,7 +176,8 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
                 viewHolderForMany.pic_three.setImageUrl(item.url.get(2), imageLoader);
 
                 viewHolderForMany.title.setText(item.title);
-                viewHolderForMany.date.setText(item.date);
+                viewHolderForMany.date
+                        .setText(UtilsMethod.getStringFromDateForCheck(item.date));
                 viewHolderForMany.publisher.setText(item.publisher);
                 break;
             default:
@@ -183,7 +191,7 @@ public class ImageAdapter extends BaseAdapter implements AdapterView.OnItemClick
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         //点击项启动新闻详情页，并传递新闻参数
         Intent intent = new Intent(context, NewsDetailActivity.class);
-        intent.putExtra("id", data.get(position).newsId);
+        intent.putExtra("newsId", data.get(position).newsId);
         context.startActivity(intent);
     }
 

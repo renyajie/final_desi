@@ -59,6 +59,7 @@ export class NewsService {
     let params: HttpParams;
     if (before != null && after != null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('title', title ? title : '')
         .set('managerId', this.personInfoService.id + '')
@@ -67,12 +68,14 @@ export class NewsService {
     }
     if (before === null && after === null) {
       params = new HttpParams()
+        .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('managerId', this.personInfoService.id + '')
         .set('title', title ? title : '');
     }
       if (before === null && after != null) {
         params = new HttpParams()
+          .set('isPage', 1 + '')
           .set('pn', pn ? pn : '')
           .set('title', title ? title : '')
           .set('managerId', this.personInfoService.id + '')
@@ -80,6 +83,7 @@ export class NewsService {
       }
       if (before != null && after === null) {
         params = new HttpParams()
+          .set('isPage', 1 + '')
           .set('pn', pn ? pn : '')
           .set('title', title ? title : '')
           .set('managerId', this.personInfoService.id + '')

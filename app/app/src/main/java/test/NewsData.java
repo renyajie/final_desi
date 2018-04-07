@@ -22,6 +22,7 @@ public class NewsData {
             "http://img.zcool.cn/community/018d4e554967920000019ae9df1533.jpg@900w_1l_2o_100sh.jpg"
     };
 
+    /*
     public final static List<NewsConfig> newSet = Arrays.asList(
             new NewsConfig(1, "一起来吃芒果", "03-07",
                     "印度瑜伽馆",
@@ -69,4 +70,5 @@ public class NewsData {
                             "http://img.taopic.com/uploads/allimg/120727/201995-120HG1030762.jpg")
                     , null)
     );
+    */
 }

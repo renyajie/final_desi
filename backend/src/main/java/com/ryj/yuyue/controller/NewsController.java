@@ -56,16 +56,22 @@ public class NewsController {
 			@RequestParam(value = "managerId", required = false) Integer managerId, 
 			@RequestParam(value = "placeId", required = false) Integer placeId,
 			@RequestParam(value = "title", required = false) String title,
-			@DateTimeFormat(pattern = "yyyy-MM-dd") 
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
 			@RequestParam(value = "before", required = false) Date before,
-			@DateTimeFormat(pattern = "yyyy-MM-dd") 
-			@RequestParam(value = "after", required = false) Date after) {
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			@RequestParam(value = "after", required = false) Date after,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
-		PageHelper.startPage(pn, 5);
 		List<NewsResult> result = newsService.getNewsList(
 				newsId, managerId, placeId, title, before, after);
-		PageInfo page = new PageInfo(result, 5);
-		return Messenger.success().add("pageInfo", page);
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			PageInfo page = new PageInfo(result, 5);
+			return Messenger.success().add("pageInfo", page);
+		}
+		
+		return Messenger.success().add("info", result);
 	}
 	
 	/**

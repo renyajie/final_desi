@@ -14,55 +14,52 @@
         android:elevation="4dp"
         app:titleTextColor="@android:color/white" />
 
-    <!--<LinearLayout-->
-        <!--android:layout_width="match_parent"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:layout_marginTop="10dp"-->
-        <!--android:layout_marginBottom="10dp"-->
-        <!--android:layout_marginLeft="10dp"-->
-        <!--android:layout_marginRight="10dp"-->
-        <!--android:orientation="vertical">-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/title"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:textColor="@color/pure_black"-->
-            <!--android:textSize="@dimen/title_size"-->
-            <!--android:textStyle="bold"-->
-            <!--tool:text="我是一行大标题" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/publisher_name"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--tool:text="印度瑜伽馆" />-->
-
-        <!--<TextView-->
-            <!--android:id="@+id/publish_time"-->
-            <!--android:layout_width="wrap_content"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--tool:text="2018-03-15 15:12" />-->
-
-        <!--<View-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_marginTop="10dp"-->
-            <!--android:layout_marginBottom="10dp"-->
-            <!--android:layout_height="2px"-->
-            <!--android:background="@color/pure_black"/>-->
-
-        <!--<LinearLayout-->
-            <!--android:id="@+id/content"-->
-            <!--android:layout_width="match_parent"-->
-            <!--android:layout_height="wrap_content"-->
-            <!--android:orientation="vertical"/>-->
-
-    <!--</LinearLayout>-->
-
-    <im.delight.android.webview.AdvancedWebView
-        android:id="@+id/webview"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/pure_black"
+            android:textSize="@dimen/title_size"
+            android:textStyle="bold"
+            tool:text="我是一行大标题" />
+
+        <TextView
+            android:id="@+id/publisher_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tool:text="印度瑜伽馆" />
+
+        <TextView
+            android:id="@+id/publish_time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            tool:text="2018-03-15 15:12" />
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_height="2px"
+            android:background="@color/pure_black"/>
+
+        <TextView
+            android:id="@+id/content"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textSize="@dimen/item_text_size_normal"
+            tool:text="通知内容"
+            android:textColor="@color/pure_black"/>
+
+    </LinearLayout>
 
 
 </LinearLayout>
