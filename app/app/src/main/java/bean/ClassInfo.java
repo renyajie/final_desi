@@ -41,7 +41,6 @@ public class ClassInfo {
 
     private String property;
 
-    //TODO 接收到服务器数据后，添加Status属性
     private Integer status;
 
     private Integer difficulty;

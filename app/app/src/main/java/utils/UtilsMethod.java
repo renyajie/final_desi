@@ -1,5 +1,7 @@
 package utils;
 
+import android.content.SharedPreferences;
+
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
@@ -14,6 +16,7 @@ import java.util.Date;
 import java.util.Iterator;
 import java.util.Map;
 
+import bean.User;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.FormBody;
@@ -222,4 +225,50 @@ public class UtilsMethod {
         return MyApplication.getGson(gsonType).fromJson(response.body().string(), type);
     }
 
+    /**
+     * 保存登录用户的信息
+     * @param user
+     */
+    public static void saveUserInfo(User user) {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putInt("userId", user.getId());
+        editor.putString("phone", user.getPhone());
+        editor.putString("passwd", user.getPasswd());
+        editor.putString("uName", user.getuName());
+        editor.putString("gender", user.getGender());
+        editor.commit();
+    }
+
+    /**
+     * 获取用户编号
+     * @return
+     */
+
+    public static int getUserId() {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        return sharedPreferences.getInt("userId", 1);
+    }
+
+    /**
+     * 获取用户的手机号
+     * @return
+     */
+    public static String getUsername() {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        return sharedPreferences.getString("uName", "任亚捷");
+    }
+
+    /**
+     * 获取用户的手机号
+     * @return
+     */
+    public static String getUserPhone() {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        return sharedPreferences.getString("phone", "17826856214");
+    }
 }

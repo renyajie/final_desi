@@ -72,9 +72,8 @@ public class OrderDetailDelegate extends SuperDelegate {
                 .setText(String.valueOf(classOrder.getId()));
         ((OrderDetailViewHolder)viewHolder).orderTime
                 .setText(UtilsMethod.getStringFromDateForCheck(classOrder.getOrdTime()));
-        //TODO 设置为用户自己的手机号
         ((OrderDetailViewHolder)viewHolder).phone
-                .setText("17826856214");
+                .setText(UtilsMethod.getUserPhone());
     }
 
     public static class OrderDetailViewHolder extends RecyclerView.ViewHolder {

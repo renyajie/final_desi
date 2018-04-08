@@ -30,15 +30,18 @@ public class MyClickListener implements View.OnClickListener {
     public void onClick(View v) {
         switch (this.requestType) {
             case Mine_OrderLessonTime:
-                Intent intentForOrderLessonTime =
-                        new Intent(context, OrderClassListActivity.class);
-                context.startActivity(intentForOrderLessonTime);
+                Toast.makeText(context, "点击了约课记录", Toast.LENGTH_SHORT).show();
                 break;
             case Mine_LearnTime:
                 Toast.makeText(context, "点击了上课记录", Toast.LENGTH_SHORT).show();
                 break;
             case Mine_MemberScore:
                 Toast.makeText(context, "点击了积分", Toast.LENGTH_SHORT).show();
+                break;
+            case Mine_OrderLesson:
+                Intent intentForOrderLesson =
+                        new Intent(context, OrderClassListActivity.class);
+                context.startActivity(intentForOrderLesson);
                 break;
             case Mine_ExperimentLessonRecord:
                 Toast.makeText(context, "点击了体验课纪录", Toast.LENGTH_SHORT).show();

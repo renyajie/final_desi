@@ -199,8 +199,7 @@ public class MainFragment extends Fragment {
         //构造请求地址
         String tmp = AppConstant.URL + "api/recommand/getPeopleClassRecommand";
         Map<String, String> params = new HashMap<>();
-        //TODO 修改成目前在线的用户编号
-        params.put("userId", "1");
+        params.put("userId", UtilsMethod.getUserId() + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 
@@ -233,8 +232,7 @@ public class MainFragment extends Fragment {
         //构造请求地址
         String tmp = AppConstant.URL + "api/recommand/getIndividualClassRecommand";
         Map<String, String> params = new HashMap<>();
-        //TODO 修改成目前在线的用户编号
-        params.put("userId", "1");
+        params.put("userId", UtilsMethod.getUserId() + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 

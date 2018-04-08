@@ -228,8 +228,7 @@ public class PlaceCardDetailActivity extends AppCompatActivity implements View.O
 
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");//数据类型为json格式，
         CardOrder cardOrder = new CardOrder();
-        //TODO 修改成现在正在登陆的用户编号
-        cardOrder.setuId(3);
+        cardOrder.setuId(UtilsMethod.getUserId());
         cardOrder.setCardKId(cardKindId);
         String jsonStr = new Gson().toJson(cardOrder);
         Log.d("get", jsonStr);

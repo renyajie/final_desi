@@ -173,7 +173,6 @@ public class OrderClassListActivity extends AppCompatActivity
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
-            //TODO 改变数据源
             case R.id.all_lesson:
                 classType = ALL_PROPERTY;
                 getClassOrder(classType);
@@ -426,8 +425,7 @@ public class OrderClassListActivity extends AppCompatActivity
         String tmp = AppConstant.URL + "api/order/getClassOrder";
         Map<String, String> params = new HashMap<>();
         params.put("isPage", "0");
-        //TODO 修改用户编号
-        params.put("userId", 1 + "");
+        params.put("userId", UtilsMethod.getUserId() + "");
         //判断请求哪种类型的订单
         if(propertyType == PEOPLE_PROPERTY) {
             params.put("property", "g");

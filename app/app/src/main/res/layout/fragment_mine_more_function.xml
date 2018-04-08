@@ -6,6 +6,28 @@
     android:orientation="vertical">
 
     <TextView
+        android:id="@+id/order_lesson"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:drawablePadding="@dimen/mine_icon_text_distance"
+        android:drawableStart="@mipmap/order_lesson"
+        android:gravity="center_vertical"
+        android:paddingBottom="10dp"
+        android:paddingEnd="0dp"
+        android:paddingStart="@dimen/mine_icon_padding_start"
+        android:paddingTop="10dp"
+        android:text="@string/order_lesson"
+        android:textColor="@color/pure_black"
+        android:textSize="@dimen/item_text_size_normal" />
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_marginLeft="@dimen/mine_divider_padding_left_right"
+        android:layout_marginRight="@dimen/mine_divider_padding_left_right"
+        android:background="@color/mine_divider" />
+
+    <TextView
         android:id="@+id/experiment_lesson_record"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -54,7 +76,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:drawablePadding="@dimen/mine_icon_text_distance"
-        android:drawableStart="@mipmap/mine_card"
+        android:drawableStart="@mipmap/card_order"
         android:gravity="center_vertical"
         android:paddingBottom="10dp"
         android:paddingEnd="0dp"

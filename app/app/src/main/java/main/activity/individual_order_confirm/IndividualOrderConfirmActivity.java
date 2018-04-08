@@ -201,8 +201,6 @@ public class IndividualOrderConfirmActivity extends AppCompatActivity {
         Bundle bundle = getIntent().getExtras();
         this.placeId = bundle.getInt("placeId", 0);
         this.classId = bundle.getInt("classId", 0);
-        //TODO REMOVE, 初始化订单详情模型数据
-        Log.d("msg", "场地编号是" + placeId + ", 课程编号是" + classId);
     }
 
     // 获取指定类型View在列表中的位置
@@ -221,7 +219,6 @@ public class IndividualOrderConfirmActivity extends AppCompatActivity {
         //构造请求地址
         String tmp = AppConstant.URL + "api/setting/getOneClassInfo";
         Map<String, String> params = new HashMap<>();
-        //TODO 修改成目前登录用户的ID
         params.put("id", classId + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
@@ -253,8 +250,7 @@ public class IndividualOrderConfirmActivity extends AppCompatActivity {
         //构造请求地址
         String tmp = AppConstant.URL + "api/setting/getCardInfo";
         Map<String, String> params = new HashMap<>();
-        //TODO 修改成目前登录用户的ID
-        params.put("userId", 1 + "");
+        params.put("userId", UtilsMethod.getUserId() + "");
         params.put("isPage", 0 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);

@@ -288,8 +288,7 @@ public class BuyCardActivity extends AppCompatActivity
         String tmp = AppConstant.URL + "api/order/checkCardIsExistOrNot";
         Map<String, String> params = new HashMap<>();
         params.put("cardKId", cardKId + "");
-        //TODO 放入目前登录账号的ID
-        params.put("userId", 3 + "");
+        params.put("userId", UtilsMethod.getUserId() + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 

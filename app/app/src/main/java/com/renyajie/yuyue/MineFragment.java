@@ -22,8 +22,10 @@ import mine.delegate.UserInfoDelegate;
 import mine.model.BasicRecordModel;
 import mine.model.UserInfoModel;
 import test.MineData;
+import utils.AppConstant;
 import utils.MainAdapter;
 import utils.SuperDelegate;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -54,7 +56,7 @@ public class MineFragment extends Fragment {
 
         //向RecyclerView中添加各类Item布局
         delegates.add(new UserInfoDelegate(context));
-        delegates.add(new BasicRecordDelegate(context));
+        //delegates.add(new BasicRecordDelegate(context));
         delegates.add(new MoreFunctionDelegate(context));
         delegates.add(new SystemFunctionDelegate(context));
         delegates.add(new LogoutDelegate(context));
@@ -68,15 +70,20 @@ public class MineFragment extends Fragment {
         adapter = new MainAdapter(delegates);
         recyclerView.setAdapter(adapter);
 
-        initUserInfo(MineData.userInfoModel);
-        initBasicRecord(MineData.basicRecordModel);
+        initUserInfo();
         initMoreFunction();
         initSystemFunction();
         initLogout();
     }
 
     //初始化用户基本信息
-    private void initUserInfo(UserInfoModel userInfoModel) {
+    private void initUserInfo() {
+        //获取目前登录用户的信息
+        UserInfoModel userInfoModel = new UserInfoModel();
+        userInfoModel.username = UtilsMethod.getUsername();
+        userInfoModel.phone = UtilsMethod.getUserPhone();
+        userInfoModel.iconUrl = AppConstant.Pic_Url;
+
         int position = getViewHolderPosition(ViewHolderType.UserInfo);
         if(position == -1) return;
         ((UserInfoDelegate)delegates.get(position)).setUserInfoModel(userInfoModel);

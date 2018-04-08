@@ -74,7 +74,7 @@ public class UserInfoDelegate extends SuperDelegate {
         ((UserInfoViewHolder)viewHolder).icon.setErrorImageResId(R.mipmap.ic_launcher);
         ((UserInfoViewHolder)viewHolder).icon.setImageUrl(userInfoModel.iconUrl, imageLoader);
 
-        ((UserInfoViewHolder)viewHolder).nickname.setText(userInfoModel.nickname);
+        ((UserInfoViewHolder)viewHolder).nickname.setText(userInfoModel.username);
         ((UserInfoViewHolder)viewHolder).phone.setText(userInfoModel.phone);
     }
 

@@ -121,8 +121,7 @@ public class OrderCardListActivity extends AppCompatActivity{
         String tmp = AppConstant.URL + "api/setting/getCardInfo";
         Map<String, String> params = new HashMap<>();
         params.put("isPage", "0");
-        //TODO 修改用户编号
-        params.put("userId", 3 + "");
+        params.put("userId", UtilsMethod.getUserId() + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 

@@ -21,7 +21,6 @@ public class Messenger implements Serializable{
 	public static Messenger success() {
 		Messenger result = new Messenger();
 		result.setCode(100);
-		result.setMsg("处理成功");
 		return result;
 	}
 
@@ -29,7 +28,6 @@ public class Messenger implements Serializable{
 	public static Messenger fail() {
 		Messenger result = new Messenger();
 		result.setCode(200);
-		result.setMsg("处理失败");
 		return result;
 	}
 
@@ -51,8 +49,9 @@ public class Messenger implements Serializable{
 		return msg;
 	}
 
-	public void setMsg(String msg) {
+	public Messenger setMsg(String msg) {
 		this.msg = msg;
+		return this;
 	}
 
 	public Map<String, Object> getExtend() {

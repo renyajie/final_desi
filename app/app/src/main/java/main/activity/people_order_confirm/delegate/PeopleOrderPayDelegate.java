@@ -237,8 +237,7 @@ public class PeopleOrderPayDelegate extends SuperDelegate
         MediaType JSON = MediaType.parse("application/json; charset=utf-8");//数据类型为json格式，
         ClassOrder classOrder = new ClassOrder();
         classOrder.setClaId(model.classId);
-        //TODO 修改成用户的编号
-        classOrder.setuId(1);
+        classOrder.setuId(UtilsMethod.getUserId());
         classOrder.setCardId(cardId);
         classOrder.setNum(model.number);
         classOrder.setExpend(model.expend);

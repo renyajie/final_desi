@@ -282,7 +282,6 @@ public class OrderDetailActivity extends AppCompatActivity {
         //构造请求地址
         String tmp = AppConstant.URL + "api/setting/getOneClassInfo";
         Map<String, String> params = new HashMap<>();
-        //TODO 修改成目前登录用户的ID
         params.put("id", classId + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);

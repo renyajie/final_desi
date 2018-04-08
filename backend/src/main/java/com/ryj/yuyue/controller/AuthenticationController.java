@@ -68,12 +68,12 @@ public class AuthenticationController {
 				|| user.getPhone().length() == 0
 				|| user.getPasswd() == null
 				|| user.getPasswd().length() == 0){
-			return Messenger.fail().add(ConstantLiteral.INFO, ConstantLiteral.NULL_INFO);
+			return Messenger.fail().setMsg(ConstantLiteral.NULL_INFO);
 		}
 		//检查登录信息
 		User result = userService.checkLogin(user);
 		if(result == null) {
-			return Messenger.fail().add(ConstantLiteral.INFO, ConstantLiteral.LOGIN_FAILURE);
+			return Messenger.fail().setMsg(ConstantLiteral.LOGIN_FAILURE);
 		}
 		return Messenger.success().add("info", result);
 	}
@@ -146,6 +146,10 @@ public class AuthenticationController {
 				map.put(fieldError.getField(), fieldError.getDefaultMessage());
 			}
 			return Messenger.fail().add("errorFields", map);
+		}
+		//检查手机号是否重复
+		if(userService.checkPhoneExist(user.getPhone())) {
+			return Messenger.fail().setMsg("手机号已被注册");
 		}
 		//注册信息
 		userService.register(user);

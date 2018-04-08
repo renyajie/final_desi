@@ -9,12 +9,16 @@ package mine.model;
 public class UserInfoModel {
 
     public String iconUrl;
-    public String nickname;
+    public String username;
     public String phone;
 
-    public UserInfoModel(String iconUrl, String nickname, String phone) {
+    public UserInfoModel() {
+
+    }
+
+    public UserInfoModel(String iconUrl, String username, String phone) {
         this.iconUrl = iconUrl;
-        this.nickname = nickname;
+        this.username = username;
         this.phone = phone;
     }
 }

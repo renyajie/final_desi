@@ -40,6 +40,19 @@ public class UserService {
 	}
 	
 	/**
+	 * 检查手机号是否重复， 如果出现重复，则返回true，不重复返回false
+	 * @param username
+	 * @return
+	 */
+	public boolean checkPhoneExist(String phone) {
+		UserExample example = new UserExample();
+		Criteria criteria = example.createCriteria();
+		criteria.andPhoneEqualTo(phone);
+		int size = userMapper.selectByExample(example).size();
+		return size == 0 ? false : true;
+	}
+	
+	/**
 	 * 用户注册
 	 * @param user
 	 */
