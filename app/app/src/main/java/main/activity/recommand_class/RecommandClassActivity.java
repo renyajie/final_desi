@@ -1,4 +1,4 @@
-package main.activity.individual_class_order;
+package main.activity.recommand_class;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
@@ -27,19 +27,13 @@ import java.util.Map;
 import bean.ClassInfo;
 import bean.Place;
 import main.activity.individual_class_order.delegate.IndividualClassBriefDelegate;
-import main.activity.individual_class_order.model.IndividualClassBriefModel;
-import main.activity.people_class_order.PeopleClassOrderActivity;
 import main.activity.people_class_order.delegate.PeopleClassBriefDelegate;
-import main.activity.people_class_order.delegate.PlaceAndDateDelegate;
-import main.activity.people_class_order.model.PeopleClassBriefModel;
-import main.activity.people_class_order.model.PlaceModel;
+import main.activity.recommand_class.delegate.DateDelegate;
 import main.helper.SpaceItemDecoration;
 import mine.activity.order_class.delegate.OrderLessonRuleDelegate;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
-import test.IndividualClassOrderData;
-import test.PeopleClassOrderData;
 import utils.AppConstant;
 import utils.MainAdapter;
 import utils.Messenger;
@@ -48,14 +42,12 @@ import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
- * Created by Thor on 2018/3/11.
- *
- * Main页面中的私教预约子页面，负责私教预约的所有业务逻辑
+ * Created by Thor on 2018/4/8.
  */
 
-public class IndividualClassOrderActivity extends AppCompatActivity implements PlaceAndDateDelegate.ChangePlaceOrDate{
+public class RecommandClassActivity extends AppCompatActivity
+implements DateDelegate.ChangeDate{
 
-    private static final String PageName = "私教预约";
     private Toolbar toolbar;
     private List<SuperDelegate> delegates = new ArrayList<>();
     private RecyclerView recyclerView;
@@ -63,16 +55,13 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
     private LinearLayoutManager layoutManager;
     private Context context;
 
-    private static final int GET_PLACE_SUCCESS = 1;
-    private static final int GET_PLACE_FAILURE = 2;
-    private static final int GET_CLASS_SUCCESS = 3;
-    private static final int GET_CLASS_FAILURE = 4;
+    private String placeName = "";
+    private int classKindId;
+    private String classKName = "";
+    private int isPeopleClass = 1;
 
-    //防止连续发起两次搜索
-    private boolean isFirst = true;
-
-    //应用数据
-    private List<PlaceModel> placeModelList = new ArrayList<>();
+    private static final int GET_CLASS_SUCCESS = 1;
+    private static final int GET_CLASS_FAILURE = 2;
 
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
@@ -81,30 +70,13 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
         public void handleMessage(Message msg) {
 
             switch (msg.what) {
-                case GET_PLACE_FAILURE:
-                    Toast.makeText(IndividualClassOrderActivity.this,
-                            "获取场馆失败", Toast.LENGTH_SHORT).show();
-                    break;
-                case GET_PLACE_SUCCESS:
-                    //获取地址成功，填充地址信息，并发起课程查询
-                    Messenger messengerA = (Messenger) msg.obj;
-                    List<Place> placeList = (ArrayList<Place>) messengerA.getExtend().get("info");
-                    placeModelList.clear();
-                    for(Place place: placeList) {
-                        PlaceModel model = new PlaceModel(place.getId(), place.getsName());
-                        placeModelList.add(model);
-                    }
-                    initClass(placeModelList);
-
-                    getClassInfoData(placeModelList.get(0).placeId, 0);
-                    break;
                 case GET_CLASS_FAILURE:
-                    Toast.makeText(IndividualClassOrderActivity.this,
+                    Toast.makeText(RecommandClassActivity.this,
                             "获取课程信息失败", Toast.LENGTH_SHORT).show();
                     break;
                 case GET_CLASS_SUCCESS:
-                    Messenger messengerB = (Messenger) msg.obj;
-                    List<ClassInfo> classInfos = (ArrayList<ClassInfo>) messengerB.getExtend().get("info");
+                    Messenger messengerA = (Messenger) msg.obj;
+                    List<ClassInfo> classInfos = (ArrayList<ClassInfo>) messengerA.getExtend().get("info");
                     for(ClassInfo classInfo: classInfos) {
                         if(classInfo.getStaTime().getTime() <= new Date().getTime()) {
                             classInfo.setStatus(AppConstant.PEOPLE_ORDER_START_LESSON);
@@ -115,10 +87,15 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
                         else {
                             classInfo.setStatus(AppConstant.PEOPLE_ORDER_CAN_ORDER);
                         }
-                        Log.d("get", classInfo.toString());
                     }
 
-                    initIndividualClassBrief(classInfos);
+                    //初始化界面
+                    if(isPeopleClass == 1) {
+                        initPeopleClassBrief(classInfos);
+                    }
+                    else {
+                        initIndividualClassBrief(classInfos);
+                    }
                     initOrderLessonRule();
                     break;
                 default:
@@ -130,15 +107,18 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
 
 
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
+    protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main_individual_class_order);
+        setContentView(R.layout.activity_main_recommand_class);
         initView();
     }
 
     private void initView() {
+        //接收启动参数
+        receiveIntentData();
+
         toolbar = findViewById(R.id.my_toolBar);
-        toolbar.setTitle(PageName);
+        toolbar.setTitle(classKName);
         setSupportActionBar(toolbar);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setDisplayHomeAsUpEnabled(true);
@@ -146,9 +126,16 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
         context = this;
         delegates.clear();
 
-        //TODO 向RecyclerView中添加各类Item布局
-        delegates.add(new PlaceAndDateDelegate(this));
-        delegates.add(new IndividualClassBriefDelegate(this));
+        //向RecyclerView中添加各类Item布局
+        delegates.add(new DateDelegate(this));
+
+        //若课程属性为团课，加载团课布局，否则加载私教布局
+        if(isPeopleClass == 1) {
+            delegates.add(new PeopleClassBriefDelegate(this));
+        }
+        else {
+            delegates.add(new IndividualClassBriefDelegate(this));
+        }
         delegates.add(new OrderLessonRuleDelegate(this));
 
         recyclerView = findViewById(R.id.recycler_view_content_container);
@@ -160,19 +147,36 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
         adapter = new MainAdapter(delegates);
         recyclerView.setAdapter(adapter);
 
-        //初始化组件
-        //initClass(PeopleClassOrderData.placeModelList);
-        //initIndividualClassBrief(IndividualClassOrderData.individualClassBriefModelList);
+        //初始化界面
+        initDate();
 
-        //网络请求数据
-        getPlaceData();
+        //请求课程信息
+        getClassInfoData(0);
     }
 
-    //初始化课程名称信息
-    private void initClass(List<PlaceModel> placeModelList) {
-        int position = getViewHolderPosition(ViewHolderType.ClassAndDate);
+    //接收Intent启动参数
+    private void receiveIntentData() {
+        Bundle bundle = getIntent().getExtras();
+        this.classKName = bundle.getString("classKName", null);
+        this.placeName = bundle.getString("placeName", null);
+        this.classKindId = bundle.getInt("classKindId", 0);
+        this.isPeopleClass = bundle.getInt("isPeopleClass", 1);
+    }
+
+    //初始化日期选择部分
+    private void initDate() {
+        int position = getViewHolderPosition(ViewHolderType.Date);
         if(position == -1) return;
-        ((PlaceAndDateDelegate)delegates.get(position)).setPlaceModelList(placeModelList);
+        ((DateDelegate)delegates.get(position)).setPlaceName(placeName);
+        if(adapter != null) adapter.updatePositionDelegate(position);
+    }
+
+    //初始化团课预约的课程信息
+    private void initPeopleClassBrief(List<ClassInfo> classInfoList) {
+        int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
+        if(position == -1) return;
+        ((PeopleClassBriefDelegate)delegates.get(position))
+                .setClassInfoList(classInfoList);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
@@ -202,53 +206,11 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
         return -1;
     }
 
-    @Override
-    public void changePlaceOrDate(int placeId, int amount) {
-        Log.d("msg","改变搜索条件");
-        if(isFirst) {
-           isFirst = false;
-           return;
-        }
-        getClassInfoData(placeId, amount);
-    }
-
-    //获取地址信息
-    private void getPlaceData() {
-
-        //构造请求地址
-        String tmp = AppConstant.URL + "api/setting/getPlace";
-        Map<String, String> params = new HashMap<>();
-        params.put("isPage", "0");
-        String url = UtilsMethod.makeGetParams(tmp, params);
-        Log.d("get", url);
-
-        UtilsMethod.getDataAsync(url, new Callback() {
-
-            @Override
-            public void onFailure(Call call, IOException e) {
-                Message msg = handler.obtainMessage();
-                msg.what = GET_PLACE_FAILURE;
-                handler.sendMessage(msg);
-            }
-
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                Messenger messenger = UtilsMethod.getFromJson(AppConstant.GSON_FOR_HOUR,
-                        response, new TypeToken<Messenger<List<Place>>>(){});
-                Message msg = handler.obtainMessage();
-                msg.what = GET_PLACE_SUCCESS;
-                msg.obj = messenger;
-                handler.sendMessage(msg);
-            }
-        });
-    }
-
     /**
      * 获取课程信息
-     * @param placeId 地址编号
      * @param nextAmount 第几天
      */
-    private void getClassInfoData(int placeId, int nextAmount) {
+    private void getClassInfoData(int nextAmount) {
 
         //构造请求地址
         String tmp = AppConstant.URL + "api/order/getClassInfo";
@@ -258,8 +220,7 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
         params.put("isPage", "0");
         params.put("before", before);
         params.put("after", after);
-        params.put("placeId", placeId + "");
-        params.put("property", "s");
+        params.put("classKId", classKindId + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 
@@ -282,5 +243,10 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
                 handler.sendMessage(msg);
             }
         });
+    }
+
+    @Override
+    public void changeDate(int amount) {
+        getClassInfoData(amount);
     }
 }

@@ -138,6 +138,21 @@
     </trim>
     order by ck.id asc
   </select>
+  <!-- List<ClassKindResult> getClassKindByIdList(
+    		@Param("idList") List<Integer> idList); -->
+  <select id="getClassKindByIdList" 
+  		  resultMap="BaseResultMapForResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from class_kind ck, manager m, place p
+    <trim prefix="where" prefixOverrides="and">
+      ck.p_id = p.id and m.p_id = p.id and ck.id in
+	  <foreach collection="idList" index="index" item="item" open="(" separator="," close=")">  
+        #{item}  
+      </foreach>
+    </trim>
+    order by ck.id asc
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from class_kind
     where id = #{id,jdbcType=INTEGER}

@@ -8,8 +8,11 @@ package utils;
 
 public enum ViewHolderType {
     //MainActivity中View类型
-    GlideImage, GridButton, PossibleLike, RecommendNotice,
+    GlideImage, GridButton, PossibleLike, RecommandPeopleClass, RecommandIndividualClass,
     UserInfo, BasicRecord, MoreFunction, SystemFunction, Logout,
+
+    //RecommandClass中的View类型
+    Date,
 
     //PeopleClassOrderActivity中的View类型
     ClassAndDate, PeopleClassBrief,

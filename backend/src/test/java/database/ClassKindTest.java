@@ -1,5 +1,7 @@
 package database;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -29,6 +31,12 @@ public class ClassKindTest {
 	public void getClassKindTest() {
 		logger.info("getClassKindTest: {}", 
 				classKindMapper.getClassKind(2, null, null, null, null, null));
+	}
+	
+	@Test
+	public void getClassKindByIdTest() throws Exception {
+		logger.info("getClassKindByIdTest: {}", 
+				classKindMapper.getClassKindByIdList(Arrays.asList(1, 2)));
 	}
 
 }

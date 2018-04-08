@@ -16,6 +16,7 @@ import com.ryj.yuyue.bean.ClassOrder;
 import com.ryj.yuyue.dao.ClassInfoMapper;
 import com.ryj.yuyue.dao.ClassKindMapper;
 import com.ryj.yuyue.dao.ClassOrderMapper;
+import com.ryj.yuyue.utils.DateMethod;
 
 /**
  * 有关课程的所有业务
@@ -112,7 +113,6 @@ public class ClassService {
 	 * @param after 小于等于此日期
 	 * @param isPub 是否公开, null代表全部查看
 	 */
-	@SuppressWarnings("deprecation")
 	public List<ClassInfoResult> getClassInfo(
 			Integer classId, Integer classKindId, Integer placeId, 
 			Integer teacherId, String teacherName, Date before, Date after, 
@@ -121,21 +121,8 @@ public class ClassService {
 		List<ClassInfoResult> result = classInfoMapper.getClassInfo(
 				classId, classKindId, placeId, teacherId, 
 				teacherName, before, after, property);
-		Date cDay, staTime, endTime;
-		for(ClassInfoResult classInfo: result) {
-			cDay = classInfo.getcDay();
-			staTime = classInfo.getStaTime();
-			endTime = classInfo.getEndTime();
-			
-			cDay.setHours(cDay.getHours() + 8);
-			staTime.setHours(staTime.getHours() + 8);
-			endTime.setHours(endTime.getHours() + 8);
-			
-			classInfo.setcDay(cDay);
-			classInfo.setStaTime(staTime);
-			classInfo.setEndTime(endTime);
-		}
-		return result;
+		//修正时间
+		return DateMethod.fixClassInfoResultTime(result);
 	}
 	
 	/**

@@ -58,4 +58,11 @@ public interface ClassInfoMapper {
      * @return
      */
     ClassInfoResult getOneClassInfo(@Param("classId") Integer classId);
+    
+    /**
+     * 获取编号列表中所有编号的课程信息
+     * @param idList 编号列表
+     * @return
+     */
+    List<ClassInfoResult> getClassInfoByIdList(@Param("idList") List<Integer> idList);
 }

@@ -21,6 +21,8 @@
         </activity>
         <activity android:name=".TestActivity">
         </activity>
+        <activity android:name="main.activity.recommand_class.RecommandClassActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name="main.activity.people_class_order.PeopleClassOrderActivity"
             android:parentActivityName=".MainActivity"/>

@@ -1,5 +1,7 @@
 package database;
 
+import java.util.Arrays;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -36,5 +38,11 @@ public class ClassInfoTest {
 	public void getOneClassInfoTest() throws Exception {
 		logger.info("getOneClassInfoTest: {}", 
 				classInfoMapper.getOneClassInfo(1));
+	}
+	
+	@Test
+	public void getClassInfoByIdTest() throws Exception {
+		logger.info("getClassInfoByIdTest: {}", 
+				classInfoMapper.getClassInfoByIdList(Arrays.asList(1, 2, 3, 4, 5)));
 	}
 }

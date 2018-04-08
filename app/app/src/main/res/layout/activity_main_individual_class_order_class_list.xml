@@ -6,26 +6,30 @@
     android:background="@color/white"
     android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/title"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:paddingTop="6dp"
-        android:paddingBottom="6dp"
-        android:paddingStart="40dp"
-        android:paddingEnd="40dp"
-        tool:text="-私教推荐-"
-        android:textSize="@dimen/item_text_size_small"
-        android:textColor="@color/white"
-        android:gravity="center"
-        android:textStyle="bold"
-        android:background="@drawable/green_button"/>
-
     <main.view.MyListView
         android:id="@+id/list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:dividerHeight="1px"
-        android:divider="@color/divider_color">
+        android:divider="@color/divider_color"
+        android:visibility="gone">
     </main.view.MyListView>
+
+    <LinearLayout
+        android:id="@+id/no_class_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这一天没有课程安排。。。"
+            android:textSize="@dimen/title_size"/>
+    </LinearLayout>
 </LinearLayout>

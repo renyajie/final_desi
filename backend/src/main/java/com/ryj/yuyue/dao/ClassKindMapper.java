@@ -48,5 +48,11 @@ public interface ClassKindMapper {
     		@Param("property") String property,
     		@Param("difficulty") Integer difficulty);
     
-    
+    /**
+     * 获取编号列表中所有编号的课程种类
+     * @param idList 编号列表
+     * @return
+     */
+    List<ClassKindResult> getClassKindByIdList(
+    		@Param("idList") List<Integer> idList);
 }

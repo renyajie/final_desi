@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -17,6 +18,7 @@ import java.util.List;
 import bean.ClassInfo;
 import main.activity.individual_class_order.adapter.IndividualClassBriefAdapter;
 import main.activity.individual_class_order.model.IndividualClassBriefModel;
+import main.activity.people_class_order.delegate.PeopleClassBriefDelegate;
 import utils.SuperDelegate;
 import utils.ViewHolderType;
 
@@ -30,20 +32,14 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
     private LayoutInflater layoutInflater;
     private List<ClassInfo> classInfoList;
     private IndividualClassBriefAdapter adapter;
-    private boolean showRecommendTitle;
 
     public IndividualClassBriefDelegate(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-        showRecommendTitle = false;
     }
 
     public void setClassInfoList(List<ClassInfo> classInfoList) {
         this.classInfoList = classInfoList;
-    }
-
-    public void setShowRecommendTitle(boolean showRecommendTitle) {
-        this.showRecommendTitle = showRecommendTitle;
     }
 
     @Override
@@ -80,10 +76,13 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
         ((IndividualClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((IndividualClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
 
-        if (showRecommendTitle) {
-            ((IndividualClassBriefViewHolder)viewHolder).title.setText("-私教推荐-");
-        }else {
-            ((IndividualClassBriefViewHolder)viewHolder).title.setVisibility(View.GONE);
+        if(classInfoList.size() == 0) {
+            ((IndividualClassBriefViewHolder)viewHolder).noClassLayout.setVisibility(View.VISIBLE);
+            ((IndividualClassBriefViewHolder)viewHolder).listView.setVisibility(View.GONE);
+        }
+        else {
+            ((IndividualClassBriefViewHolder)viewHolder).noClassLayout.setVisibility(View.GONE);
+            ((IndividualClassBriefViewHolder)viewHolder).listView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -91,11 +90,13 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
 
         ListView listView;
         TextView title;
+        LinearLayout noClassLayout;
 
         public IndividualClassBriefViewHolder(View itemView) {
             super(itemView);
             listView = itemView.findViewById(R.id.list_view);
             title = itemView.findViewById(R.id.title);
+            noClassLayout = itemView.findViewById(R.id.no_class_layout);
         }
     }
 }

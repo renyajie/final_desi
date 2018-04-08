@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@color/white"
+    xmlns:tool="http://schemas.android.com/tools"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/place_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="10dp"
+        tool:text="中国瑜伽馆"
+        android:textSize="@dimen/title_size"
+        android:textColor="@color/colorPrimaryDark"
+        android:textStyle="bold" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/today"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            tool:text="今天"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/tomorrow"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            tool:text="明天"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal" />
+
+        <RadioButton
+            android:id="@+id/the_day_after_tomorrow"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            tool:text="后天"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal" />
+
+    </RadioGroup>
+</LinearLayout>

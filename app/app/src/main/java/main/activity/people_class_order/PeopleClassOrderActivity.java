@@ -175,8 +175,6 @@ public class PeopleClassOrderActivity
         if(position == -1) return;
         ((PeopleClassBriefDelegate)delegates.get(position))
                 .setClassInfoList(classInfoList);
-        ((PeopleClassBriefDelegate)delegates.get(position))
-                .setShowRecommendTitle(false);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
 
@@ -244,11 +242,12 @@ public class PeopleClassOrderActivity
 
         //构造请求地址
         String tmp = AppConstant.URL + "api/order/getClassInfo";
-        String date = UtilsMethod.theNextNDayForServer(nextAmount);
+        String before = UtilsMethod.theNextNDayForServer(nextAmount);
+        String after = UtilsMethod.theNextNDayForServer(nextAmount + 1);
         Map<String, String> params = new HashMap<>();
         params.put("isPage", "0");
-        params.put("before", date);
-        params.put("after", date);
+        params.put("before", before);
+        params.put("after", after);
         params.put("placeId", placeId + "");
         params.put("property", "g");
         String url = UtilsMethod.makeGetParams(tmp, params);

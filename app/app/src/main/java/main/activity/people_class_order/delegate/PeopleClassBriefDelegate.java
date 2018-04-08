@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,20 +33,14 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
     private LayoutInflater layoutInflater;
     private List<ClassInfo> classInfoList;
     private PeopleClassBriefAdapter adapter;
-    private boolean showRecommendTitle;
 
     public PeopleClassBriefDelegate(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
-        showRecommendTitle = false;
     }
 
     public void setClassInfoList(List<ClassInfo> classInfoList) {
         this.classInfoList = classInfoList;
-    }
-
-    public void setShowRecommendTitle(boolean showRecommendTitle) {
-        this.showRecommendTitle = showRecommendTitle;
     }
 
     @Override
@@ -81,10 +76,13 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
         ((PeopleClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((PeopleClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
 
-        if (showRecommendTitle) {
-            ((PeopleClassBriefViewHolder)viewHolder).title.setText("-团课推荐-");
-        }else {
-            ((PeopleClassBriefViewHolder)viewHolder).title.setVisibility(View.GONE);
+        if(classInfoList.size() == 0) {
+            ((PeopleClassBriefViewHolder)viewHolder).noClassLayout.setVisibility(View.VISIBLE);
+            ((PeopleClassBriefViewHolder)viewHolder).listView.setVisibility(View.GONE);
+        }
+        else {
+            ((PeopleClassBriefViewHolder)viewHolder).noClassLayout.setVisibility(View.GONE);
+            ((PeopleClassBriefViewHolder)viewHolder).listView.setVisibility(View.VISIBLE);
         }
     }
 
@@ -92,11 +90,13 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
 
         TextView title;
         ListView listView;
+        LinearLayout noClassLayout;
 
         public PeopleClassBriefViewHolder(View itemView) {
             super(itemView);
             listView = itemView.findViewById(R.id.list_view);
             title = itemView.findViewById(R.id.title);
+            noClassLayout = itemView.findViewById(R.id.no_class_layout);
         }
     }
 }

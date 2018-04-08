@@ -12,16 +12,16 @@ select * from teacher;
 -- 方法：getClassInfo()
 -- 传入参数: id, cla_k_id, p_id, tea_id, c_day
 -- 传出参数: class_info_result 集合
-select ci.id, ci.cla_k_id, ck.cla_k_name, ci.p_id, p.p_name, ci.tea_id, t.tea_name, 
+select ci.id, ci.cla_k_id, ck.cla_k_name, ci.p_id, p.s_name, ci.tea_id, t.tea_name, 
 ci.c_day, ci.sta_time, ci.end_time, ci.length, ci.allowance, ci.order_num, ci.expend, ck.property
 from class_info ci, class_kind ck, place p, teacher t
 where ci.cla_k_id = ck.id and ci.p_id = p.id and ci.tea_id = t.id
-and ci.id = 1
-and ci.cla_k_id = 1
+-- and ci.id = 1
+-- and ci.cla_k_id = 1
 and ci.p_id = 1
-and ci.tea_id = 1
+-- and ci.tea_id = 1
 and ci.c_day >= '2018-3-1'
-and ci.c_day <= '2018-3-31'
+and ci.c_day <= '2018-4-31'
 and ck.property = 's'
 order by ci.sta_time asc;
 
