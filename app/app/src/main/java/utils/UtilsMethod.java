@@ -238,7 +238,29 @@ public class UtilsMethod {
         editor.putString("passwd", user.getPasswd());
         editor.putString("uName", user.getuName());
         editor.putString("gender", user.getGender());
+        editor.putBoolean("login", true);
         editor.commit();
+    }
+
+    /**
+     * 设置用户登录状态为未登录
+     */
+    public static void setUserLogOut() {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putBoolean("login", false);
+        editor.commit();
+    }
+
+    /**
+     * 获取用户当前的登录状态
+     * @return 若用户已登录，返回true，否则返回false
+     */
+    public static boolean getLogInStatus() {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        return sharedPreferences.getBoolean("login", false);
     }
 
     /**

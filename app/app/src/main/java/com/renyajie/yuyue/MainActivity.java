@@ -11,7 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener {
+import mine.activity.order_card.adapter.CardKindListAdapter;
+
+public class MainActivity extends AppCompatActivity
+        implements View.OnClickListener, CardKindListAdapter.FinishActivity {
 
     private Toolbar toolbar;
     private Fragment main_fragment, news_fragment, mine_fragment;
@@ -153,5 +156,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         news_layout.setBackground(getResources().getDrawable(R.color.black));
         mine_layout.setBackground(getResources().getDrawable(R.color.black));
         */
+    }
+
+    @Override
+    public void finishActivity() {
+        this.finish();
     }
 }

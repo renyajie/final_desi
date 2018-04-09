@@ -60,7 +60,7 @@ public class OrderCardRuleDelegate extends SuperDelegate {
 
         //开始刷新UI
         ((OrderCardRuleViewHolder)viewHolder).title.setText("购卡须知");
-        ((OrderCardRuleViewHolder)viewHolder).content.setText(R.string.member_rule);
+        ((OrderCardRuleViewHolder)viewHolder).content.setText(R.string.card_rule);
     }
 
     public static class OrderCardRuleViewHolder extends RecyclerView.ViewHolder {
