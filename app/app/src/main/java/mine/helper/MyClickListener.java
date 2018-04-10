@@ -8,6 +8,7 @@ import android.widget.Toast;
 import com.renyajie.yuyue.LoginActivity;
 import com.renyajie.yuyue.MainActivity;
 
+import mine.activity.comment.CommentOrderListActivity;
 import mine.activity.order_card.BuyCardActivity;
 import mine.activity.order_card.OrderCardListActivity;
 import mine.activity.order_card.adapter.CardKindListAdapter;
@@ -49,6 +50,11 @@ public class MyClickListener implements View.OnClickListener {
                 Intent intentForOrderLesson =
                         new Intent(context, OrderClassListActivity.class);
                 context.startActivity(intentForOrderLesson);
+                break;
+            case Mine_CommentOrder:
+                Intent intentForComment =
+                        new Intent(context, CommentOrderListActivity.class);
+                context.startActivity(intentForComment);
                 break;
             case Mine_ExperimentLessonRecord:
                 Toast.makeText(context, "点击了体验课纪录", Toast.LENGTH_SHORT).show();

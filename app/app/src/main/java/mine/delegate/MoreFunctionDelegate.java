@@ -65,6 +65,8 @@ public class MoreFunctionDelegate extends SuperDelegate {
         //开始刷新UI
         ((MoreFunctionViewHolder)viewHolder).orderLesson
                 .setOnClickListener(new MyClickListener(RequestType.Mine_OrderLesson, context));
+        ((MoreFunctionViewHolder)viewHolder).commentOrder
+                .setOnClickListener(new MyClickListener(RequestType.Mine_CommentOrder, context));
         ((MoreFunctionViewHolder)viewHolder).experimentLessonRecord
                 .setOnClickListener(new MyClickListener(RequestType.Mine_ExperimentLessonRecord, context));
         ((MoreFunctionViewHolder)viewHolder).memberCard
@@ -79,11 +81,13 @@ public class MoreFunctionDelegate extends SuperDelegate {
 
     public static class MoreFunctionViewHolder extends RecyclerView.ViewHolder {
 
-        TextView orderLesson, experimentLessonRecord, memberCard, buyCard, lessonAbsent, historyRecord;
+        TextView orderLesson, commentOrder, experimentLessonRecord,
+                memberCard, buyCard, lessonAbsent, historyRecord;
 
         public MoreFunctionViewHolder(View itemView) {
             super(itemView);
             orderLesson = itemView.findViewById(R.id.order_lesson);
+            commentOrder = itemView.findViewById(R.id.comment_order);
             experimentLessonRecord = itemView.findViewById(R.id.experiment_lesson_record);
             memberCard = itemView.findViewById(R.id.member_card);
             buyCard = itemView.findViewById(R.id.buy_card);

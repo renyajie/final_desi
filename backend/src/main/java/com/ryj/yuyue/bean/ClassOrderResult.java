@@ -33,13 +33,15 @@ public class ClassOrderResult {
     private Integer num;
     
     private String property;
+    
+    private Integer isScore;
 
 	public ClassOrderResult() {
 		super();
 	}
 
 	public ClassOrderResult(Integer id, Integer pId, String pName, Integer claId, String claKName, Integer uId,
-			String uName, Integer cardId, String cardKName, Date ordTime, Integer num) {
+			String uName, Integer cardId, String cardKName, Date ordTime, Integer num, Integer isScore) {
 		super();
 		this.id = id;
 		this.pId = pId;
@@ -52,6 +54,15 @@ public class ClassOrderResult {
 		this.cardKName = cardKName;
 		this.ordTime = ordTime;
 		this.num = num;
+		this.isScore = isScore;
+	}
+	
+	public Integer getIsScore() {
+		return isScore;
+	}
+
+	public void setIsScore(Integer isScore) {
+		this.isScore = isScore;
 	}
 
 	public String getProperty() {

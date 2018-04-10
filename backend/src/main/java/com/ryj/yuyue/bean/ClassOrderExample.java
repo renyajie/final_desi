@@ -464,6 +464,66 @@ public class ClassOrderExample {
             addCriterion("num not between", value1, value2, "num");
             return (Criteria) this;
         }
+
+        public Criteria andIsScoreIsNull() {
+            addCriterion("is_score is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreIsNotNull() {
+            addCriterion("is_score is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreEqualTo(Integer value) {
+            addCriterion("is_score =", value, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreNotEqualTo(Integer value) {
+            addCriterion("is_score <>", value, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreGreaterThan(Integer value) {
+            addCriterion("is_score >", value, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreGreaterThanOrEqualTo(Integer value) {
+            addCriterion("is_score >=", value, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreLessThan(Integer value) {
+            addCriterion("is_score <", value, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreLessThanOrEqualTo(Integer value) {
+            addCriterion("is_score <=", value, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreIn(List<Integer> values) {
+            addCriterion("is_score in", values, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreNotIn(List<Integer> values) {
+            addCriterion("is_score not in", values, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreBetween(Integer value1, Integer value2) {
+            addCriterion("is_score between", value1, value2, "isScore");
+            return (Criteria) this;
+        }
+
+        public Criteria andIsScoreNotBetween(Integer value1, Integer value2) {
+            addCriterion("is_score not between", value1, value2, "isScore");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

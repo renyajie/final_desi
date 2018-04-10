@@ -138,11 +138,11 @@ public class OrderService {
 	public List<ClassOrderResult> getClassOrder(
   			Integer orderId, Integer placeId, Integer classId,
     		Integer classKId, Integer userId, Integer cardId,
-    		Date before, Date after, String property) {
+    		Date before, Date after, String property, Integer isScore) {
     	
     	List<ClassOrderResult> result = classOrderMapper.getClassOrder(
     			orderId, placeId, classId, classKId, 
-    			userId, cardId, before, after, property);
+    			userId, cardId, before, after, property, isScore);
     	for(ClassOrderResult classOrder: result) {
     		Date d = classOrder.getOrdTime();
     		d.setHours(d.getHours() + 8);
@@ -161,12 +161,24 @@ public class OrderService {
     	
     	ClassOrderResult result = classOrderMapper.getClassOrder(
     			orderId, null, null, null, null, 
-    			null, null, null, null).get(0);
+    			null, null, null, null, null).get(0);
 
 		Date d = result.getOrdTime();
 		d.setHours(d.getHours() + 8);
 		result.setOrdTime(d);
     	
     	return result;
+    }
+    
+    /**
+     * 修改某课程订单的状态为已评价
+     * @param orderId 订单编号
+     */
+    public void updateOrderScoreStatus(Integer orderId) {
+    	
+    	ClassOrder classOrder = new ClassOrder();
+    	classOrder.setId(orderId);
+    	classOrder.setIsScore(1);
+    	classOrderMapper.updateByPrimaryKeySelective(classOrder);
     }
 }

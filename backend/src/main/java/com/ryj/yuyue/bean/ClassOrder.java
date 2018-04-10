@@ -20,6 +20,8 @@ public class ClassOrder {
 
     @NotNull(message="预约人数不能为空")
     private Integer num;
+
+    private Integer isScore;
     
     private Integer expend;
     
@@ -79,11 +81,11 @@ public class ClassOrder {
         this.num = num;
     }
 
-	@Override
-	public String toString() {
-		return "ClassOrder [id=" + id + ", claId=" + claId + ", uId=" + uId + ", cardId=" + cardId + ", ordTime="
-				+ ordTime + ", num=" + num + ", expend=" + expend + "]";
-	}
-    
-    
+    public Integer getIsScore() {
+        return isScore;
+    }
+
+    public void setIsScore(Integer isScore) {
+        this.isScore = isScore;
+    }
 }

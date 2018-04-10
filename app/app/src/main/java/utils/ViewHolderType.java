@@ -36,5 +36,8 @@ public enum ViewHolderType {
     PlaceCardDetail,
 
     //BuyCardActivity中的view类型
-    PlaceDetail, CardKind;
+    PlaceDetail, CardKind,
+
+    //CommentOrderActivity中的view类型
+    COMMENT_RATING, COMMENT_STRING;
 }

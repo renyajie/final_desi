@@ -33,8 +33,19 @@ import okhttp3.Response;
 
 public class UtilsMethod {
 
+    private static final String DATE_FORMAT_FOR_SCORE = "yyyy年MM月dd日";
     private static final String DATE_FORMAT = "MM月dd日";
     private static final String DATE_FORMAT_FOR_SERVER = "yyyy-MM-dd";
+
+    /**
+     * 获取 yyyy年MM月dd日 格式的时间
+     * @param date
+     * @return
+     */
+    public static String getStringFromDateForScore(Date date) {
+        DateFormat dateFormat = new SimpleDateFormat(DATE_FORMAT_FOR_SCORE);
+        return dateFormat.format(date);
+    }
 
     /**
      * 获取yyyy-MM-dd HH:mm:ss格式的时间

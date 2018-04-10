@@ -72,6 +72,12 @@
 
         <activity android:name="mine.activity.order_card.BuyCardActivity"
             android:parentActivityName=".MainActivity"/>
+
+        <activity android:name="mine.activity.comment.CommentOrderListActivity"
+            android:parentActivityName=".MainActivity"/>
+
+        <activity android:name="mine.activity.comment.CommentOrderActivity"
+            android:parentActivityName="mine.activity.comment.CommentOrderListActivity"/>
     </application>
 
 </manifest>

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/my_toolBar"
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary"
+        android:elevation="4dp"
+        app:titleTextColor="@android:color/white" />
+
+    <RadioGroup
+        android:id="@+id/radio_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
+        android:layout_marginBottom="20dp"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/score_lesson"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="已评价课程"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal"
+            android:checked="true"/>
+
+        <RadioButton
+            android:id="@+id/unscore_lesson"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_marginStart="10dp"
+            android:layout_weight="1"
+            android:background="@drawable/radiobutton_background"
+            android:button="@null"
+            android:gravity="center"
+            android:text="未评价课程"
+            android:textColor="@color/radiobutton_textcolor"
+            android:textSize="@dimen/item_text_size_normal" />
+    </RadioGroup>
+
+    <ListView
+        android:id="@+id/list_view"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:dividerHeight="1px"
+        android:divider="@color/divider_color"
+        android:visibility="gone">
+    </ListView>
+
+    <LinearLayout
+        android:id="@+id/no_comment_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="200dp"
+        android:gravity="center"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@mipmap/ic_launcher"/>
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="这里什么也没有。。。"
+            android:textSize="@dimen/title_size"/>
+    </LinearLayout>
+
+</LinearLayout>

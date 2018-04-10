@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:paddingTop="10dp"
+    android:paddingBottom="10dp"
+    android:paddingStart="20dp"
+    android:paddingEnd="20dp"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <EditText
+        android:id="@+id/comment_string"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:padding="10dp"
+        android:textSize="@dimen/item_text_size_normal"
+        android:gravity="start"
+        android:maxLength="5"
+        android:textColor="@color/black"
+        android:hint="填写您对课程订单的评价"
+        android:focusable="false"
+        android:background="@drawable/comment_background"/>
+
+    <Button
+        android:id="@+id/submit_button"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/green_button"
+        android:layout_marginTop="20dp"
+        android:text="提交评价"
+        android:textColor="@color/white"
+        android:textSize="@dimen/item_text_size_normal"/>
+
+</LinearLayout>

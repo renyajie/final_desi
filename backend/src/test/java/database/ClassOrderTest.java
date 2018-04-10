@@ -41,7 +41,8 @@ public class ClassOrderTest {
 						null, 
 						null, 
 						null,
-						"g"));
+						"g",
+						null));
 	}
 	
 	//将每一天的时间按小时划分

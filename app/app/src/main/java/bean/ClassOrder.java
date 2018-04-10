@@ -34,6 +34,16 @@ public class ClassOrder {
 
     private String property;
 
+    private Integer isScore;
+
+    public Integer getIsScore() {
+        return isScore;
+    }
+
+    public void setIsScore(Integer isScore) {
+        this.isScore = isScore;
+    }
+
     public String getProperty() {
         return property;
     }

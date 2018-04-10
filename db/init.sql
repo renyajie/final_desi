@@ -146,3 +146,15 @@ create table news (
 );
 
 describe news;
+
+/* 评分表 */
+create table score (
+	id int not null primary key,
+    u_id int not null,
+    cla_id int not null,
+    cla_k_id int not null,
+    p_id int not null,
+    score float(3,1) not null
+);
+
+describe score;

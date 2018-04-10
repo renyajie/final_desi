@@ -36,7 +36,9 @@ import com.ryj.yuyue.service.OrderService;
 import com.ryj.yuyue.utils.Messenger;
 
 /**
- * 处理预约课程的功能 1. 用户查看预约信息，预约课程，取消预约 2. 管理员查看预约信息
+ * 处理预约课程的功能 
+ * 1. 用户查看预约信息，预约课程，取消预约
+ * 2. 管理员查看预约信息
  * 
  * @author Thor
  *
@@ -191,6 +193,7 @@ public class OrderController {
 	 * @param cardId
 	 * @param before
 	 * @param after
+	 * @param isScore
 	 * @return
 	 */
 	@SuppressWarnings({ "rawtypes", "unchecked" })
@@ -209,11 +212,12 @@ public class OrderController {
 			@DateTimeFormat(pattern="yyyy-MM-dd")
 			@RequestParam(value = "after", required=false) Date after,
 			@RequestParam(value = "property", required=false) String property,
+			@RequestParam(value = "isScore", required=false) Integer isScore,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
 		List<ClassOrderResult> result = orderService.getClassOrder(
 				orderId, placeId, classId, classKId, 
-				userId, cardId, before, after, property);
+				userId, cardId, before, after, property, isScore);
 		//判断是否需要分页
 		if(isPage == 1) {
 			PageHelper.startPage(pn, 5);

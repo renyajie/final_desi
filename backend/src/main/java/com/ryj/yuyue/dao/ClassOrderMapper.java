@@ -41,6 +41,7 @@ public interface ClassOrderMapper {
      * @param cardId 会员卡
      * @param before 大于等于此时间
      * @param after 小于等于此事件
+     * @param isScore 是否评价过
      * @return
      */
     List<ClassOrderResult> getClassOrder(
@@ -52,7 +53,8 @@ public interface ClassOrderMapper {
     		@Param("cardId") Integer cardId,
     		@Param("before") Date before,
     		@Param("after") Date after,
-    		@Param("property") String property);
+    		@Param("property") String property,
+    		@Param("isScore") Integer isScore);
     
     /**
      * 根据时间查找某个场馆对应时间段内的订单数量
