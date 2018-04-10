@@ -18,6 +18,7 @@ import java.util.List;
 import bean.ClassInfo;
 import main.activity.people_class_order.adapter.PeopleClassBriefAdapter;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import utils.SuperDelegate;
 import utils.ViewHolderType;
 
@@ -33,6 +34,11 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
     private LayoutInflater layoutInflater;
     private List<ClassInfo> classInfoList;
     private PeopleClassBriefAdapter adapter;
+    private CardKindListAdapter.FinishActivity finishActivity;
+
+    public void setFinishActivity(CardKindListAdapter.FinishActivity finishActivity) {
+        this.finishActivity = finishActivity;
+    }
 
     public PeopleClassBriefDelegate(Context context) {
         this.context = context;
@@ -73,6 +79,7 @@ public class PeopleClassBriefDelegate extends SuperDelegate {
 
         //开始刷新UI
         adapter = new PeopleClassBriefAdapter(context, classInfoList);
+        adapter.setFinishActivity(finishActivity);
         ((PeopleClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((PeopleClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
 

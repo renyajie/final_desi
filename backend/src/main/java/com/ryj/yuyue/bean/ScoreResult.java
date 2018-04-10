@@ -14,6 +14,8 @@ public class ScoreResult {
 	private Integer id;
 
     private Integer uId;
+    
+    private String uName;
 
     private Integer claId;
     
@@ -36,6 +38,14 @@ public class ScoreResult {
     
     @JsonFormat(pattern="yyyy-MM-dd HH:mm:ss")
     private Date orderTime;
+    
+	public String getuName() {
+		return uName;
+	}
+
+	public void setuName(String uName) {
+		this.uName = uName;
+	}
 
 	public Integer getId() {
 		return id;

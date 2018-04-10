@@ -15,6 +15,7 @@
   <resultMap id="BaseResultMapResult" type="com.ryj.yuyue.bean.ScoreResult">
     <result column="id" property="id" />
     <result column="u_id" property="uId" />
+    <result column="u_name" property="uName" />
     <result column="cla_id" property="claId" />
     <result column="cla_k_id" property="claKId" />
     <result column="cla_k_name" property="classKName" />
@@ -88,7 +89,7 @@
     id, u_id, cla_id, cla_k_id, p_id, score, comment, score_time, order_id
   </sql>
   <sql id="Base_Column_List_Result">
-    s.id, s.u_id, s.cla_id, s.cla_k_id, ck.cla_k_name, s.p_id, p.s_name, 
+    s.id, s.u_id, u.u_name, s.cla_id, s.cla_k_id, ck.cla_k_name, s.p_id, p.s_name, 
 	s.score, s.comment,  s.score_time, s.order_id, co.ord_time
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ScoreExample" resultMap="BaseResultMap">

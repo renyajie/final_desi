@@ -22,6 +22,7 @@ import com.renyajie.yuyue.R;
 import bean.ClassInfo;
 import main.activity.individual_order_confirm.model.IndividualOrderDetailModel;
 import main.activity.people_order_confirm.model.PeopleOrderDetailModel;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import utils.MyApplication;
 import utils.SuperDelegate;
 import utils.UtilsMethod;

@@ -33,6 +33,7 @@ import main.activity.people_class_order.delegate.PlaceAndDateDelegate;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import main.activity.people_class_order.model.PlaceModel;
 import main.helper.SpaceItemDecoration;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import mine.activity.order_class.delegate.OrderLessonRuleDelegate;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -52,7 +53,8 @@ import utils.ViewHolderType;
  */
 
 public class PeopleClassOrderActivity
-        extends AppCompatActivity implements PlaceAndDateDelegate.ChangePlaceOrDate {
+        extends AppCompatActivity
+        implements PlaceAndDateDelegate.ChangePlaceOrDate, CardKindListAdapter.FinishActivity {
 
     private static final String PageName = "团课预约";
     private Toolbar toolbar;
@@ -174,6 +176,8 @@ public class PeopleClassOrderActivity
         int position = getViewHolderPosition(ViewHolderType.PeopleClassBrief);
         if(position == -1) return;
         ((PeopleClassBriefDelegate)delegates.get(position))
+                .setFinishActivity(this);
+        ((PeopleClassBriefDelegate)delegates.get(position))
                 .setClassInfoList(classInfoList);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
@@ -272,5 +276,10 @@ public class PeopleClassOrderActivity
                 handler.sendMessage(msg);
             }
         });
+    }
+
+    @Override
+    public void finishActivity() {
+        this.finish();
     }
 }

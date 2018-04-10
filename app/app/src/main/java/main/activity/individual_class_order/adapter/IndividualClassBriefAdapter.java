@@ -18,10 +18,12 @@ import com.renyajie.yuyue.R;
 import java.util.List;
 
 import bean.ClassInfo;
+import main.activity.class_comment.ClassCommentActivity;
 import main.activity.individual_class_order.model.IndividualClassBriefModel;
 import main.activity.individual_order_confirm.IndividualOrderConfirmActivity;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import main.activity.people_order_confirm.PeopleOrderConfirmActivity;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import utils.AppConstant;
 import utils.UtilsMethod;
 
@@ -37,6 +39,11 @@ public class IndividualClassBriefAdapter extends BaseAdapter
     private Context context;
     private LayoutInflater layoutInflater;
     private List<ClassInfo> data;
+    private CardKindListAdapter.FinishActivity finishActivity;
+
+    public void setFinishActivity(CardKindListAdapter.FinishActivity finishActivity) {
+        this.finishActivity = finishActivity;
+    }
 
     public IndividualClassBriefAdapter(Context context, List<ClassInfo> data) {
         this.context = context;
@@ -98,12 +105,14 @@ public class IndividualClassBriefAdapter extends BaseAdapter
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ClassInfo model = data.get(position);
         Log.d("get", "教师:" + model.getTeaName());
-        Intent intent = new Intent(context, IndividualOrderConfirmActivity.class);
+        Intent intent = new Intent(context, ClassCommentActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("placeId", model.getpId());
         bundle.putInt("classId", model.getId());
+        bundle.putInt("classKId", model.getClaKId());
+        bundle.putString("property", model.getProperty());
         intent.putExtras(bundle);
         context.startActivity(intent);
+        finishActivity.finishActivity();
     }
 
     public static class ViewHolder {

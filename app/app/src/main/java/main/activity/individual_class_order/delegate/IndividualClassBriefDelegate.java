@@ -19,6 +19,7 @@ import bean.ClassInfo;
 import main.activity.individual_class_order.adapter.IndividualClassBriefAdapter;
 import main.activity.individual_class_order.model.IndividualClassBriefModel;
 import main.activity.people_class_order.delegate.PeopleClassBriefDelegate;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import utils.SuperDelegate;
 import utils.ViewHolderType;
 
@@ -32,6 +33,11 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
     private LayoutInflater layoutInflater;
     private List<ClassInfo> classInfoList;
     private IndividualClassBriefAdapter adapter;
+    private CardKindListAdapter.FinishActivity finishActivity;
+
+    public void setFinishActivity(CardKindListAdapter.FinishActivity finishActivity) {
+        this.finishActivity = finishActivity;
+    }
 
     public IndividualClassBriefDelegate(Context context) {
         this.context = context;
@@ -73,6 +79,7 @@ public class IndividualClassBriefDelegate extends SuperDelegate {
 
         //开始刷新UI
         adapter = new IndividualClassBriefAdapter(context, classInfoList);
+        adapter.setFinishActivity(finishActivity);
         ((IndividualClassBriefViewHolder)viewHolder).listView.setAdapter(adapter);
         ((IndividualClassBriefViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
 

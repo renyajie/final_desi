@@ -34,6 +34,7 @@ import main.activity.people_class_order.delegate.PlaceAndDateDelegate;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
 import main.activity.people_class_order.model.PlaceModel;
 import main.helper.SpaceItemDecoration;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import mine.activity.order_class.delegate.OrderLessonRuleDelegate;
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -53,7 +54,8 @@ import utils.ViewHolderType;
  * Main页面中的私教预约子页面，负责私教预约的所有业务逻辑
  */
 
-public class IndividualClassOrderActivity extends AppCompatActivity implements PlaceAndDateDelegate.ChangePlaceOrDate{
+public class IndividualClassOrderActivity extends AppCompatActivity
+        implements PlaceAndDateDelegate.ChangePlaceOrDate, CardKindListAdapter.FinishActivity{
 
     private static final String PageName = "私教预约";
     private Toolbar toolbar;
@@ -180,6 +182,8 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
         int position = getViewHolderPosition(ViewHolderType.IndividualClassBrief);
         if(position == -1) return;
         ((IndividualClassBriefDelegate)delegates.get(position))
+                .setFinishActivity(this);
+        ((IndividualClassBriefDelegate)delegates.get(position))
                 .setClassInfoList(classInfos);
         if(adapter != null) adapter.updatePositionDelegate(position);
     }
@@ -281,5 +285,10 @@ public class IndividualClassOrderActivity extends AppCompatActivity implements P
                 handler.sendMessage(msg);
             }
         });
+    }
+
+    @Override
+    public void finishActivity() {
+        this.finish();
     }
 }

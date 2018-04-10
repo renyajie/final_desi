@@ -33,6 +33,8 @@
         <activity
             android:name="main.activity.individual_class_order.IndividualClassOrderActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name="main.activity.class_comment.ClassCommentActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name="main.activity.people_order_confirm.PeopleOrderConfirmActivity"
             android:parentActivityName="main.activity.people_class_order.PeopleClassOrderActivity"/>

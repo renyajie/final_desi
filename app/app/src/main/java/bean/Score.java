@@ -13,6 +13,8 @@ public class Score {
 
     private Integer uId;
 
+    private String uName;
+
     private Integer claId;
 
     private String classKName;
@@ -32,6 +34,14 @@ public class Score {
     private Integer orderId;
 
     private Date orderTime;
+
+    public String getuName() {
+        return uName;
+    }
+
+    public void setuName(String uName) {
+        this.uName = uName;
+    }
 
     public Integer getId() {
         return id;

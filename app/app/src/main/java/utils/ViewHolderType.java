@@ -20,6 +20,9 @@ public enum ViewHolderType {
     //PeopleOrderConfirmActivity中的View类型
     PeopleOrderDetail, PeopleOrderPay,
 
+    //ClassCommentActivity中的view类型
+    ClassComment,
+
     //IndividualOrderActivity中的View类型
     IndividualClassBrief,
 

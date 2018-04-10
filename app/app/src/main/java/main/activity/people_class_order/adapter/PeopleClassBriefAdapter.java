@@ -19,8 +19,11 @@ import java.text.ParseException;
 import java.util.List;
 
 import bean.ClassInfo;
+import main.activity.class_comment.ClassCommentActivity;
+import main.activity.class_comment.delegate.ClassCommentDelegate;
 import main.activity.people_order_confirm.PeopleOrderConfirmActivity;
 import main.activity.people_class_order.model.PeopleClassBriefModel;
+import mine.activity.order_card.adapter.CardKindListAdapter;
 import utils.AppConstant;
 import utils.UtilsMethod;
 
@@ -36,11 +39,16 @@ public class PeopleClassBriefAdapter extends BaseAdapter
     private Context context;
     private LayoutInflater layoutInflater;
     private List<ClassInfo> data;
+    private CardKindListAdapter.FinishActivity finishActivity;
 
     public PeopleClassBriefAdapter(Context context, List<ClassInfo> data) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
         this.data = data;
+    }
+
+    public void setFinishActivity(CardKindListAdapter.FinishActivity finishActivity) {
+        this.finishActivity = finishActivity;
     }
 
     @Override
@@ -139,12 +147,14 @@ public class PeopleClassBriefAdapter extends BaseAdapter
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ClassInfo model = data.get(position);
         Log.v("msg", "课程名:" + model.getClaKName());
-        Intent intent = new Intent(context, PeopleOrderConfirmActivity.class);
+        Intent intent = new Intent(context, ClassCommentActivity.class);
         Bundle bundle = new Bundle();
-        bundle.putInt("placeId", model.getpId());
         bundle.putInt("classId", model.getId());
+        bundle.putInt("classKId", model.getClaKId());
+        bundle.putString("property", model.getProperty());
         intent.putExtras(bundle);
         context.startActivity(intent);
+        finishActivity.finishActivity();
     }
 
     public static class ViewHolder {
