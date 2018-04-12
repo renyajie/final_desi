@@ -56,4 +56,12 @@ public class Teacher {
     public void setIntro(String intro) {
         this.intro = intro == null ? null : intro.trim();
     }
+
+	@Override
+	public String toString() {
+		return "Teacher [id=" + id + ", pId=" + pId + ", teaName=" + teaName + ", phone=" + phone + ", intro=" + intro
+				+ "]";
+	}
+    
+    
 }

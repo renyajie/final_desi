@@ -11,10 +11,25 @@ import java.util.List;
 import java.util.Random;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ryj.yuyue.bean.ClassKind;
+import com.ryj.yuyue.dao.ClassKindMapper;
 
+/**
+ * 每个瑜伽馆场馆生成20种团课，20种私教课
+ * @author Thor
+ *
+ */
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class CreateClassKind {
+	
+	@Autowired
+	private ClassKindMapper classKindMapper;
 	
 	/**
 	 * 获取场地名称
@@ -68,8 +83,8 @@ public class CreateClassKind {
 	    return result;
 	}
 	
-	@Test
-	public void generateClassKind() throws IOException {
+	//@Test
+	public List<ClassKind> generateClassKind() throws IOException {
 		List<String> placeList = getPlaceName();
 		List<String> classList = getClassName();
 		List<ClassKind> result = new ArrayList<ClassKind>();
@@ -97,19 +112,27 @@ public class CreateClassKind {
 				for(int k = 0; k < 4; k++) {
 					classKind = new ClassKind();
 					classKind.setpId(i + 1);
-					classKind.setProperty("g");
+					classKind.setProperty("s");
 					classKind.setClaKName(className + level[k]);
 					classKind.setDifficulty(difficultyList[difficulty][k]);
 					classKind.setIntro(
 							"这是" + className + level[k] + "瑜伽， 难度为" 
 									+ difficultyList[difficulty][k] + "颗星。");
 					result.add(classKind);
-					System.out.println(classKind);
+					//System.out.println(classKind);
 				}
 				
 			}
 		}
 		
-		//return result;
+		return result;
+	}
+	
+	@Test
+	public void addClassKind() throws IOException {
+		List<ClassKind> classKindList = generateClassKind();
+		for(ClassKind classKind: classKindList) {
+			classKindMapper.insertSelective(classKind);
+		}
 	}
 }
