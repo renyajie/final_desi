@@ -45,8 +45,8 @@ import utils.UtilsMethod;
 public class RegisterActivity extends AppCompatActivity
 implements View.OnClickListener{
 
-    private EditText phone, password, username;
-    private ImageView phoneClear, passwordClear, usernameClear;
+    private EditText phone, password, username, age;
+    private ImageView phoneClear, passwordClear, usernameClear, ageClear;
     private Button login, register;
     private RadioButton maleButton, femaleButton;
 
@@ -112,9 +112,11 @@ implements View.OnClickListener{
         phone = findViewById(R.id.phone);
         password = findViewById(R.id.password);
         username = findViewById(R.id.username);
+        age = findViewById(R.id.age);
         phoneClear = findViewById(R.id.phone_clear);
         passwordClear = findViewById(R.id.password_clear);
         usernameClear = findViewById(R.id.username_clear);
+        ageClear = findViewById(R.id.age_clear);
         login = findViewById(R.id.login);
         register = findViewById(R.id.register);
         maleButton = findViewById(R.id.male);
@@ -124,6 +126,7 @@ implements View.OnClickListener{
         addClearListener(phone, phoneClear);
         addClearListener(password, passwordClear);
         addClearListener(username, usernameClear);
+        addClearListener(age, ageClear);
 
         login.setOnClickListener(this);
         register.setOnClickListener(this);
@@ -213,6 +216,15 @@ implements View.OnClickListener{
                     showNoticeDialog("提示", "姓名长度不能超过10");
                     return;
                 }
+                if(age.getText().toString().trim().length() == 0) {
+                    showNoticeDialog("提示", "未填写年龄");
+                    return;
+                }
+                int tmp = Integer.parseInt(age.getText().toString());
+                if(tmp < 18 || tmp > 70) {
+                    showNoticeDialog("提示", "用户年龄应在18~70岁之间");
+                    return;
+                }
                 if(!maleButton.isChecked() && !femaleButton.isChecked()) {
                     showNoticeDialog("提示", "未选择性别");
                     return;
@@ -223,6 +235,7 @@ implements View.OnClickListener{
                 user.setPasswd(password.getText().toString());
                 user.setuName(username.getText().toString());
                 user.setPhone(phone.getText().toString());
+                user.setAge(tmp);
                 if(maleButton.isChecked()) {
                     user.setGender("男");
                 }

@@ -18,6 +18,8 @@ public class User {
 
     private String dummy;
 
+    private Integer age;
+
     public String getDummy() {
         return dummy;
     }
@@ -64,5 +66,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender == null ? null : gender.trim();
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

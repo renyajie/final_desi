@@ -49,6 +49,10 @@ export class UserDetailComponent implements OnInit {
       alert("密码不能为空");
       return;
     }
+    if(user.age == null) {
+      alert("年龄不能为空");
+      return;
+    }
     if(user.phone == null || user.phone.length == 0) {
       alert("手机号码不能为空");
       return;
@@ -65,7 +69,7 @@ export class UserDetailComponent implements OnInit {
         //若发生错误，提示出错
         else {
           //提示字段错误信息
-          let notices: string[] = ['mName', 'phone', 'passwd', 'gender'];
+          let notices: string[] = ['mName', 'phone', 'passwd', 'age', 'gender'];
           const errorFields = data['extend']['errorFields'];
           for (let notice of notices) {
             if(errorFields[notice] != null) {

@@ -18,6 +18,12 @@ public class CallPython {
 	public static PythonInterpreter interpreter = new PythonInterpreter();
 	public static final String fileLocation = 
 			"E:\\python-workspace\\final_desi\\py\\recommand.py";
+	public static final String engine = 
+			"E:\\python-workspace\\final_desi\\py\\engine.py";
+	public static final String utils = 
+			"E:\\python-workspace\\final_desi\\py\\utils.py";
+	public static final String finalLocation = 
+			"E:\\python-workspace\\final_desi\\py\\final.py";
 	
 	/**
 	 * 获取指定用户编号的团课推荐编号
@@ -25,8 +31,7 @@ public class CallPython {
 	 * @return
 	 */
 	public static List<Integer> getPeopleClassRecommand(Integer userId) {
-		
-		interpreter.execfile(fileLocation);
+		interpreter.execfile(finalLocation);
 		PyFunction func = (PyFunction) interpreter
 				.get("getPeopleRecommandList", PyFunction.class);
 
@@ -49,8 +54,7 @@ public class CallPython {
 	 * @return
 	 */
 	public static List<Integer> getIndividualClassRecommand(Integer userId) {
-		
-		interpreter.execfile(fileLocation);
+		interpreter.execfile(finalLocation);
 		PyFunction func = (PyFunction) interpreter
 				.get("getIndividualRecommandList", PyFunction.class);
 

@@ -78,4 +78,12 @@ public class Manager {
     public void setpId(Integer pId) {
         this.pId = pId;
     }
+
+	@Override
+	public String toString() {
+		return "Manager [id=" + id + ", phone=" + phone + ", account=" + account + ", passwd=" + passwd + ", mName="
+				+ mName + ", gender=" + gender + ", pId=" + pId + "]";
+	}
+    
+    
 }

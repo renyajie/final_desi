@@ -1,22 +1,24 @@
 package com.ryj.yuyue.bean;
 
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 
 public class User {
     private Integer id;
 
-    @Pattern(regexp="^[0-9]{11}$", message="手机号为11位阿拉伯数字")
+    @NotNull(message="手机号不能为空")
     private String phone;
 
     @NotNull(message="密码不能为空")
     private String passwd;
 
-    @Pattern(regexp="(^[\u2E80-\u9FFF]{2,6})", message="姓名必须是2-6位中文")
+    @NotNull(message="姓名不能为空")
     private String uName;
 
     @NotNull(message="性别不能为空")
     private String gender;
+
+    @NotNull(message="年龄不能为空")
+    private Integer age;
 
     public Integer getId() {
         return id;
@@ -56,5 +58,13 @@ public class User {
 
     public void setGender(String gender) {
         this.gender = gender == null ? null : gender.trim();
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
     }
 }

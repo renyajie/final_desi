@@ -7,7 +7,8 @@ export class User {
         public phone?: string,
         public passwd?: string,
         public uName?: string,
-        public gender?: string
+        public gender?: string,
+        public age?: number
     ) {}
 
     static fromJSON(json: any): User {
@@ -23,7 +24,8 @@ export class User {
             phone: ${this.phone},
             passwd: ${this.passwd},
             uName: ${this.uName},
-            gender: ${this.gender}
+            gender: ${this.gender},
+            age: ${this.age}
         }`;
     }
 }

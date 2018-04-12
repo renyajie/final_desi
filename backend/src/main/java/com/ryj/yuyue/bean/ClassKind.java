@@ -66,4 +66,10 @@ public class ClassKind {
     public void setIntro(String intro) {
         this.intro = intro == null ? null : intro.trim();
     }
+
+	@Override
+	public String toString() {
+		return "ClassKind [id=" + id + ", pId=" + pId + ", property=" + property + ", claKName=" + claKName
+				+ ", difficulty=" + difficulty + ", intro=" + intro + "]";
+	}
 }
