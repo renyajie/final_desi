@@ -249,6 +249,7 @@ public class UtilsMethod {
         editor.putString("passwd", user.getPasswd());
         editor.putString("uName", user.getuName());
         editor.putString("gender", user.getGender());
+        editor.putInt("age", user.getAge());
         editor.putBoolean("login", true);
         editor.commit();
     }
@@ -303,5 +304,25 @@ public class UtilsMethod {
         SharedPreferences sharedPreferences =
                 MyApplication.getSharedPreferences();
         return sharedPreferences.getString("phone", "17826856214");
+    }
+
+    /**
+     * 获取用户的性别
+     * @return
+     */
+    public static String getUserGender() {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        return sharedPreferences.getString("gender", "男");
+    }
+
+    /**
+     * 获取用户的年龄
+     * @return
+     */
+    public static Integer getUserAge() {
+        SharedPreferences sharedPreferences =
+                MyApplication.getSharedPreferences();
+        return sharedPreferences.getInt("age", 24);
     }
 }

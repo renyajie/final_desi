@@ -10,11 +10,14 @@ select * from place;
 select * from class_kind;
 select * from class_info;
 select * from class_order;
+select * from score where u_id = 1;
 select * from card_kind;
 select * from teacher;
-select * from user where phone like '%5%';
+select * from user;
 
 -- 清空所有数据并重新设置内容
-TRUNCATE TABLE class_order;
+TRUNCATE TABLE score;
 
-select count(*) from class_order;
+update class_order set is_score = 1 where id between 1 and 25049;
+
+select count(*) from class_info;

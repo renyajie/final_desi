@@ -15,10 +15,10 @@ public class Score {
 
     private Integer claKId;
 
-    @NotNull(message="场馆编号不能为空")
+    @NotNull(message="课程评分不能为空")
     private Integer pId;
 
-    @NotNull(message="分数不能为空")
+    @NotNull(message="手机号不能为空")
     private Float score;
 
     private String comment;
@@ -27,6 +27,12 @@ public class Score {
 
     @NotNull(message="订单编号不能为空")
     private Integer orderId;
+
+    @NotNull(message="年龄不能为空")
+    private Integer age;
+
+    @NotNull(message="性别不能为空")
+    private String gender;
 
     public Integer getId() {
         return id;
@@ -98,5 +104,21 @@ public class Score {
 
     public void setOrderId(Integer orderId) {
         this.orderId = orderId;
+    }
+
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender == null ? null : gender.trim();
     }
 }

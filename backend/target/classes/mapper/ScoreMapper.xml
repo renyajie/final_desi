@@ -11,6 +11,8 @@
     <result column="comment" jdbcType="VARCHAR" property="comment" />
     <result column="score_time" jdbcType="DATE" property="scoreTime" />
     <result column="order_id" jdbcType="INTEGER" property="orderId" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
   </resultMap>
   <resultMap id="BaseResultMapResult" type="com.ryj.yuyue.bean.ScoreResult">
     <result column="id" property="id" />
@@ -26,7 +28,15 @@
     <result column="score_time" property="scoreTime" />
     <result column="order_id" property="orderId" />
     <result column="ord_time" property="orderTime" />
+    <result column="age" property="age" />
+    <result column="gender" property="gender" />
   </resultMap>
+  
+  <resultMap id="BaseResultMapForNew" type="com.ryj.yuyue.utils.ScoreToken">
+    <result column="cla_k_id" property="classKindId" />
+    <result column="number" property="number" />
+  </resultMap>
+  
   <sql id="Example_Where_Clause">
     <where>
       <foreach collection="oredCriteria" item="criteria" separator="or">
@@ -86,11 +96,11 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, u_id, cla_id, cla_k_id, p_id, score, comment, score_time, order_id
+    id, u_id, cla_id, cla_k_id, p_id, score, comment, score_time, order_id, age, gender
   </sql>
   <sql id="Base_Column_List_Result">
     s.id, s.u_id, u.u_name, s.cla_id, s.cla_k_id, ck.cla_k_name, s.p_id, p.s_name, 
-	s.score, s.comment,  s.score_time, s.order_id, co.ord_time
+	s.score, s.comment,  s.score_time, s.order_id, co.ord_time, s.gender, s.age
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ScoreExample" resultMap="BaseResultMap">
     select
@@ -112,25 +122,6 @@
     from score
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <!-- List<ScoreResult> getScore(
-    		@Param("classKId") Integer classKId,
-    		@Param("userId") Integer userId); -->
-  <select id="getScore" resultMap="BaseResultMapResult">
-    select 
-    <include refid="Base_Column_List_Result" />
-    from score s, class_order co, place p, class_kind ck, user u
-    <trim prefix="where" prefixOverrides="and">
-      s.p_id = p.id and s.cla_k_id = ck.id and s.order_id = co.id 
-      and s.u_id = u.id
-      <if test="userId != null">
-        and u.id = #{userId}
-      </if>
-      <if test="classKId != null">
-        and ck.id = #{classKId}
-      </if>
-    </trim>
-    order by co.ord_time desc
-  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from score
     where id = #{id,jdbcType=INTEGER}
@@ -144,10 +135,12 @@
   <insert id="insert" parameterType="com.ryj.yuyue.bean.Score">
     insert into score (id, u_id, cla_id, 
       cla_k_id, p_id, score, comment, 
-      score_time, order_id)
+      score_time, order_id, age, 
+      gender)
     values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{claId,jdbcType=INTEGER}, 
       #{claKId,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{score,jdbcType=REAL}, #{comment,jdbcType=VARCHAR}, 
-      #{scoreTime,jdbcType=DATE}, #{orderId,jdbcType=INTEGER})
+      #{scoreTime,jdbcType=DATE}, #{orderId,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
+      #{gender,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.Score">
     insert into score
@@ -179,6 +172,12 @@
       <if test="orderId != null">
         order_id,
       </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -208,6 +207,12 @@
       <if test="orderId != null">
         #{orderId,jdbcType=INTEGER},
       </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
   <select id="countByExample" parameterType="com.ryj.yuyue.bean.ScoreExample" resultType="java.lang.Long">
@@ -215,6 +220,47 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <!-- List&lt;ScoreResult&gt; getScore(
+    		@Param("classKId") Integer classKId,
+    		@Param("userId") Integer userId); -->
+  <select id="getScore" resultMap="BaseResultMapResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from score s, class_order co, place p, class_kind ck, user u
+    <trim prefix="where" prefixOverrides="and">
+      s.p_id = p.id and s.cla_k_id = ck.id and s.order_id = co.id 
+      and s.u_id = u.id
+      <if test="userId != null">
+        and u.id = #{userId}
+      </if>
+      <if test="classKId != null">
+        and ck.id = #{classKId}
+      </if>
+    </trim>
+    order by co.ord_time desc
+  </select>
+  <!-- List<ScoreToken> recommandForNewUser(
+    		@Param("age") Integer age,
+    		@Param("gender") String gender,
+    		@Param("property") String property); -->
+  <select id="recommandForNewUser" resultMap="BaseResultMapForNew">
+    select s.cla_k_id, count(cla_k_id) as number 
+	from score s, class_kind ck
+    <trim prefix="where" prefixOverrides="and">
+      s.cla_k_id = ck.id
+      <if test="age != null">
+        and age between (#{age} - 1) and (#{age} + 1)
+      </if>
+      <if test="gender != null">
+        and gender = #{gender}
+      </if>
+      <if test="property != null">
+        and ck.property = #{property}
+      </if>
+    </trim>
+    group by cla_k_id
+	order by number desc
   </select>
   <update id="updateByExampleSelective" parameterType="map">
     update score
@@ -246,6 +292,12 @@
       <if test="record.orderId != null">
         order_id = #{record.orderId,jdbcType=INTEGER},
       </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -261,7 +313,9 @@
       score = #{record.score,jdbcType=REAL},
       comment = #{record.comment,jdbcType=VARCHAR},
       score_time = #{record.scoreTime,jdbcType=DATE},
-      order_id = #{record.orderId,jdbcType=INTEGER}
+      order_id = #{record.orderId,jdbcType=INTEGER},
+      age = #{record.age,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -293,6 +347,12 @@
       <if test="orderId != null">
         order_id = #{orderId,jdbcType=INTEGER},
       </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -305,8 +365,9 @@
       score = #{score,jdbcType=REAL},
       comment = #{comment,jdbcType=VARCHAR},
       score_time = #{scoreTime,jdbcType=DATE},
-      order_id = #{orderId,jdbcType=INTEGER}
+      order_id = #{orderId,jdbcType=INTEGER},
+      age = #{age,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
-  
 </mapper>

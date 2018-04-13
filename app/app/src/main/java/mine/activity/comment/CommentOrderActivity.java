@@ -287,6 +287,8 @@ public class CommentOrderActivity extends AppCompatActivity
         score.setpId(placeId);
         score.setScore(ratingValue);
         score.setuId(UtilsMethod.getUserId());
+        score.setAge(UtilsMethod.getUserAge());
+        score.setGender(UtilsMethod.getUserGender());
         String jsonStr = new Gson().toJson(score);
         Log.d("get", jsonStr);
         RequestBody body = RequestBody.create(JSON, jsonStr);

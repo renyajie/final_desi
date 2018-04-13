@@ -30,4 +30,10 @@ public class ScoreTest {
 		logger.info("getScoreTest: {}", 
 				scoreMapper.getScore(null, null));
 	}
+	
+	@Test
+	public void recommandForNewUserTest() {
+		logger.info("recommandForNewUserTest: {}", 
+				scoreMapper.recommandForNewUser(25, "男", "g"));
+	}
 }
