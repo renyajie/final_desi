@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-print("hello")
+# print("hello")
 
 def adder(a, b):
     return [a, b]
@@ -16,9 +16,9 @@ def addScoreRecore(userId, userName, classKindId, classKindName, score):
                 userId = userId, userName = userName, classKindId = classKindId, 
                 classKindName = classKindName, score = score));
 
-addScoreRecore(1, "任亚捷", 1, "基础瑜伽", 3.0)
-addScoreRecore(1, "任亚捷", 2, "初级瑜伽", 3.0)
-addScoreRecore(2, "冰糖", 2, "高级瑜伽", 4.0)
+#addScoreRecore(1, "任亚捷", 1, "基础瑜伽", 3.0)
+#addScoreRecore(1, "任亚捷", 2, "初级瑜伽", 3.0)
+#addScoreRecore(2, "冰糖", 2, "高级瑜伽", 4.0)
 
 '''
 数据集格式
@@ -42,6 +42,28 @@ addScoreRecore(2, "冰糖", 2, "高级瑜伽", 4.0)
 }
 '''
 
+data = {
+    {
+        1,
+        {
+            {1, 2.0},
+            {2, 2.0}
+        }
+    },
+    {
+        2,
+        {
+            {1, 2.0},
+            {2, 2.0}
+        }
+    }
+}
+
+for instance in data:
+    print(instance, data[instance])
+
+
+'''
 users = {}
 def readScoreRecord():
     for line in open(fileLocation, encoding="utf-8"):
@@ -58,5 +80,6 @@ def readScoreRecord():
         else:
             users[lines[0]][lines[2]] = float(lines[4]), 1, float(lines[4])
     print(users)
+'''
 
-readScoreRecord()
+

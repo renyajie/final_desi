@@ -6,7 +6,6 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -20,13 +19,11 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import com.ryj.yuyue.bean.ClassInfo;
-import com.ryj.yuyue.bean.ClassKind;
 import com.ryj.yuyue.bean.ClassOrder;
 import com.ryj.yuyue.bean.ClassOrderExample;
 import com.ryj.yuyue.bean.ClassOrderExample.Criteria;
 import com.ryj.yuyue.bean.Score;
 import com.ryj.yuyue.bean.User;
-import com.ryj.yuyue.bean.UserExample;
 import com.ryj.yuyue.dao.ClassInfoMapper;
 import com.ryj.yuyue.dao.ClassOrderMapper;
 import com.ryj.yuyue.dao.ScoreMapper;
@@ -61,6 +58,7 @@ public class CreateScore {
 	 * @param date
 	 * @return
 	 */
+	@SuppressWarnings("static-access")
 	public Date getScoreDate(Date date) {
 		calendar.setTime(date);
 	    calendar.add(calendar.DATE, +1);

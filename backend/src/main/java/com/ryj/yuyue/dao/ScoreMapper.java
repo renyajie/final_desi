@@ -42,6 +42,20 @@ public interface ScoreMapper {
     		@Param("userId") Integer userId);
     
     /**
+     * 谋取指定编号的用户评论数据
+     * @param id 评论编号
+     * @return
+     */
+    ScoreResult getScoreResultById(
+    		@Param("id") Integer id);
+    
+    /**
+     * 获取所有的用户评分
+     * @return
+     */
+    List<ScoreResult> getAllScore();
+    
+    /**
      * 为新用户推荐课程
      * @param age 用户年龄
      * @param gender 性别

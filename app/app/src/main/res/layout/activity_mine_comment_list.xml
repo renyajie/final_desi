@@ -71,9 +71,9 @@
         android:layout_gravity="center"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/none"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

@@ -75,7 +75,7 @@ public class ClassCommentDelegate extends SuperDelegate {
         //开始刷新UI
         adapter = new ClassCommentAdapter(context, scoreList);
         ((ClassCommentViewHolder)viewHolder).listView.setAdapter(adapter);
-        ((ClassCommentViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
+        //((ClassCommentViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
 
         if(scoreList.size() == 0) {
             ((ClassCommentViewHolder)viewHolder).noCommentLayout.setVisibility(View.VISIBLE);

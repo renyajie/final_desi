@@ -88,30 +88,18 @@ public class RecommandController {
 	}
 	
 	/**
-	 * 获取某个用户的团课推荐结果
-	 * @param userId
+	 * 获取某个用户的推荐结果
+	 * @param userId 用户编号
+	 * @param isPeople 是否为团课
 	 * @return
 	 */
-	@RequestMapping(value = "getPeopleClassRecommand", method = RequestMethod.GET)
+	@RequestMapping(value = "getClassRecommand", method = RequestMethod.GET)
 	@ResponseBody
-	public Messenger getPeopleClassRecommand(
-			@RequestParam(value = "userId", required = true) Integer userId) {
+	public Messenger getClassRecommand(
+			@RequestParam(value = "userId", required = true) Integer userId,
+			@RequestParam(value = "isPeople", required = true) Integer isPeople) {
 		
 		return Messenger.success()
-				.add("info", recommandService.getPeopleClassRecommand(userId));
-	}
-	
-	/**
-	 * 获取某个用户的私教推荐结果
-	 * @param userId
-	 * @return
-	 */
-	@RequestMapping(value = "getIndividualClassRecommand", method = RequestMethod.GET)
-	@ResponseBody
-	public Messenger getIndividualClassRecommand(
-			@RequestParam(value = "userId", required = true) Integer userId) {
-		
-		return Messenger.success()
-				.add("info", recommandService.getIndividualClassRecommand(userId));
+				.add("info", recommandService.getRecommandResult(userId, isPeople));
 	}
 }

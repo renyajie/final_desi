@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
@@ -14,6 +15,7 @@ import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
 import utils.MyApplication;
+import utils.UtilsMethod;
 import utils.ViewHolderType;
 import mine.model.UserInfoModel;
 import utils.SuperDelegate;
@@ -70,9 +72,9 @@ public class UserInfoDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
-        ((UserInfoViewHolder)viewHolder).icon.setDefaultImageResId(R.mipmap.ic_launcher);
-        ((UserInfoViewHolder)viewHolder).icon.setErrorImageResId(R.mipmap.ic_launcher);
-        ((UserInfoViewHolder)viewHolder).icon.setImageUrl(userInfoModel.iconUrl, imageLoader);
+        int resourceId = UtilsMethod.getUserGender().equals("男")?
+                R.mipmap.boy : R.mipmap.girl;
+        ((UserInfoViewHolder)viewHolder).icon.setImageResource(resourceId);
 
         ((UserInfoViewHolder)viewHolder).nickname.setText(userInfoModel.username);
         ((UserInfoViewHolder)viewHolder).phone.setText(userInfoModel.phone);
@@ -80,7 +82,7 @@ public class UserInfoDelegate extends SuperDelegate {
 
     public static class UserInfoViewHolder extends RecyclerView.ViewHolder {
 
-        NetworkImageView icon;
+        ImageView icon;
         TextView nickname, phone;
 
         public UserInfoViewHolder(View itemView){

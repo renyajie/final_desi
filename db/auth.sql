@@ -20,4 +20,5 @@ TRUNCATE TABLE score;
 
 update class_order set is_score = 1 where id between 1 and 25049;
 
-select count(*) from class_info;
+select *
+from score where u_id = 251 and cla_k_id between 1 and 400;

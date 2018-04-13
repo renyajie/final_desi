@@ -33,6 +33,7 @@ for line in open("uid_score_bid"):
         users[lines[0]] = {}
     # 将每一行的信息记录到对应用户数据集中
     users[lines[0]][lines[2]]=float(lines[1])
+print(users)
 
 
 #----------------新增代码段END----------------------

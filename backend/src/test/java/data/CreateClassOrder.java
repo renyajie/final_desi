@@ -15,8 +15,6 @@ import com.ryj.yuyue.bean.CardInfoExample;
 import com.ryj.yuyue.bean.CardInfoExample.Criteria;
 import com.ryj.yuyue.bean.ClassOrder;
 import com.ryj.yuyue.dao.CardInfoMapper;
-import com.ryj.yuyue.dao.CardKindMapper;
-import com.ryj.yuyue.dao.ClassInfoMapper;
 import com.ryj.yuyue.dao.ClassOrderMapper;
 
 /**
@@ -28,8 +26,6 @@ import com.ryj.yuyue.dao.ClassOrderMapper;
 @ContextConfiguration(locations={"file:src/main/webapp/WEB-INF/spring/root-context.xml"})
 public class CreateClassOrder {
 
-	@Autowired
-	private CardKindMapper cardKindMapper;
 	
 	@Autowired
 	private CardInfoMapper cardInfoMapper;
@@ -37,8 +33,6 @@ public class CreateClassOrder {
 	@Autowired
 	private ClassOrderMapper classOrderMapper;
 	
-	@Autowired
-	private ClassInfoMapper classInfoMapper;
 	
 	Random rand = new Random();
 	
@@ -78,7 +72,7 @@ public class CreateClassOrder {
 		ClassOrder classOrder = null;
 		
 		//上课次数， 哪个瑜伽馆，哪个课，哪种课，会员卡编号
-		int time, placeId, classId, classKId, cardId;
+		int time, placeId, classId, cardId;
 		
 		for(int i = 0; i < 1000; i++) {
 			

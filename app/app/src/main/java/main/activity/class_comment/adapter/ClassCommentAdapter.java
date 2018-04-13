@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -72,6 +73,7 @@ public class ClassCommentAdapter extends BaseAdapter
             viewHolder.scoreTime = convertView.findViewById(R.id.score_time);
             viewHolder.comment = convertView.findViewById(R.id.comment);
             viewHolder.score = convertView.findViewById(R.id.score);
+            viewHolder.icon = convertView.findViewById(R.id.icon);
 
             convertView.setTag(viewHolder);
         } else {
@@ -82,6 +84,11 @@ public class ClassCommentAdapter extends BaseAdapter
         viewHolder.scoreTime.setText(UtilsMethod.getStringFromDateForScore(score.getScoreTime()));
         viewHolder.comment.setText(score.getComment());
         viewHolder.score.setRating(score.getScore());
+
+        //根据用户的性别设置邮箱
+        int imageResourceId = score.getGender().equals("男") ?
+                R.mipmap.boy : R.mipmap.girl;
+        viewHolder.icon.setImageResource(imageResourceId);
 
         return convertView;
     }
@@ -99,6 +106,7 @@ public class ClassCommentAdapter extends BaseAdapter
     }
 
     public static class ViewHolder {
+        ImageView icon;
         TextView username, scoreTime, comment;
         RatingBar score;
     }

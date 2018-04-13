@@ -84,6 +84,7 @@ public class MainFragment extends Fragment {
 
                     //初始化团课列表
                     initRecommandPeopleClass(peopleClassList);
+
                     break;
                 case GET_INDIVIDUAL_RECOMMAND_FAILURE:
                     Toast.makeText(getContext(),
@@ -197,9 +198,10 @@ public class MainFragment extends Fragment {
     private void getPeopleRecommand() {
 
         //构造请求地址
-        String tmp = AppConstant.URL + "api/recommand/getPeopleClassRecommand";
+        String tmp = AppConstant.URL + "api/recommand/getClassRecommand";
         Map<String, String> params = new HashMap<>();
         params.put("userId", UtilsMethod.getUserId() + "");
+        params.put("isPeople", 1 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 
@@ -230,9 +232,10 @@ public class MainFragment extends Fragment {
     private void getIndividualRecommand() {
 
         //构造请求地址
-        String tmp = AppConstant.URL + "api/recommand/getIndividualClassRecommand";
+        String tmp = AppConstant.URL + "api/recommand/getClassRecommand";
         Map<String, String> params = new HashMap<>();
         params.put("userId", UtilsMethod.getUserId() + "");
+        params.put("isPeople", 0 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 

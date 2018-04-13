@@ -2,10 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:tool="http://schemas.android.com/apk/res-auto"
     android:paddingTop="10dp"
     android:paddingBottom="10dp"
     android:background="@color/white"
     android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingTop="6dp"
+        android:paddingBottom="6dp"
+        android:paddingStart="40dp"
+        android:paddingEnd="40dp"
+        android:text="-课程评价-"
+        android:textSize="@dimen/item_text_size_small"
+        android:textColor="@color/white"
+        android:gravity="center"
+        android:textStyle="bold"
+        android:background="@drawable/green_button"/>
 
     <main.view.MyListView
         android:id="@+id/list_view"
@@ -25,9 +41,9 @@
         android:layout_gravity="center"
         android:orientation="vertical">
         <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:src="@mipmap/ic_launcher"/>
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            android:src="@mipmap/none"/>
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

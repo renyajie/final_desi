@@ -1,5 +1,11 @@
 package database;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.slf4j.Logger;
@@ -35,5 +41,14 @@ public class ScoreTest {
 	public void recommandForNewUserTest() {
 		logger.info("recommandForNewUserTest: {}", 
 				scoreMapper.recommandForNewUser(25, "男", "g"));
+	}
+	
+	@Test
+	public void setTest() {
+		
+		List<Integer> idList = new ArrayList<Integer>(Arrays.asList(1, 3));
+		Set<Integer> idSet = new HashSet<Integer>(idList);
+		idSet.add(2);
+		System.out.println(idSet);
 	}
 }

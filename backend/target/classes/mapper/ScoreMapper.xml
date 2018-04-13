@@ -262,6 +262,30 @@
     group by cla_k_id
 	order by number desc
   </select>
+  <!-- ScoreResult getScoreResultById(
+    		@Param("id") Integer id); -->
+  <select id="getScoreResultById" resultMap="BaseResultMapResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from score s, class_order co, place p, class_kind ck, user u
+    <trim prefix="where" prefixOverrides="and">
+      s.p_id = p.id and s.cla_k_id = ck.id and s.order_id = co.id 
+      and s.u_id = u.id
+      <if test="id != null">
+        and s.id = #{id}
+      </if>
+    </trim>
+  </select>
+  <!-- List<ScoreResult> getAllScore(); -->
+  <select id="getAllScore" resultMap="BaseResultMapResult">
+    select 
+    <include refid="Base_Column_List_Result" />
+    from score s, class_order co, place p, class_kind ck, user u
+    <trim prefix="where" prefixOverrides="and">
+      s.p_id = p.id and s.cla_k_id = ck.id and s.order_id = co.id 
+      and s.u_id = u.id
+    </trim>
+  </select>
   <update id="updateByExampleSelective" parameterType="map">
     update score
     <set>

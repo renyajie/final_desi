@@ -22,6 +22,6 @@ public class RecommandTest {
 	public void getIndividualRecommandList() {
 		logger.info(
 				"call getIndividualRecommandList: " + 
-				CallPython.getPeopleClassRecommand(1));
+				CallPython.getIndividualClassRecommand(1));
 	}
 }

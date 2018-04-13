@@ -16,6 +16,7 @@ public class Hello {
 	/**
 	 * Java直接调用Python语句
 	 */
+	@SuppressWarnings("resource")
 	@Test
 	public void testOne() {
 		PythonInterpreter interpreter = new PythonInterpreter();
@@ -26,6 +27,7 @@ public class Hello {
 	/**
 	 * Java调用python函数
 	 */
+	@SuppressWarnings("resource")
 	@Test
 	public void testTwo() {
 		
@@ -42,6 +44,7 @@ public class Hello {
 	/**
 	 * Java直接执行Python脚本
 	 */
+	@SuppressWarnings("resource")
 	@Test
 	public void testThree() {
 		PythonInterpreter interpreter = new PythonInterpreter();

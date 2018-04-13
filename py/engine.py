@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from math import sqrt
 
 class recommender:
     '''
@@ -7,7 +8,7 @@ class recommender:
     # metric：表示使用计算相似度的方法
     # n：表示推荐book的个数
     '''
-    def __init__(self, data, userIdToName, classKindIdToName, k=3, n=12):
+    def __init__(self, data, userIdToName, classKindIdToName, k = 10, n = 5):
 
         self.k = k
         self.n = n
@@ -80,7 +81,8 @@ class recommender:
             if instance != userId:
                 distance = self.pearson(self.data[userId], self.data[instance])
                 distances.append((instance, distance))
-
+        
+        #升序排序，将距离近的邻居放在上方
         distances.sort(key=lambda artistTuple: artistTuple[1], reverse=True)
         return distances
     
@@ -107,7 +109,7 @@ class recommender:
         #将与user最相近的k个人中user没有上过的课推荐给user，并且这里又做了一个分数的计算排名
         for i in range(self.k):
             
-            #第i个人的与user的相似度，转换到[0, 1]之间
+            #第i个人的与user的相似度，转换到[0, 1]之间，表示权重
             weight = nearest[i][1] / totalDistance
             
             #第i个邻居用户
@@ -116,21 +118,21 @@ class recommender:
             #第i个用户上的课和评分
             neighborRatings = self.data[userI]
 
-            for artist in neighborRatings:
+            for classKind in neighborRatings:
                 # 找出当前用户没有接触过的课
-                if not artist in userRatings:
+                if not classKind in userRatings:
                     # 如果当前课程不在推荐列表中加入，有则累加
-                    if artist not in recommendations:
-                        recommendations[artist] = (neighborRatings[artist] * weight)
+                    if classKind not in recommendations:
+                        recommendations[classKind] = neighborRatings[classKind][2] * weight
                     else:
-                        recommendations[artist] = (recommendations[artist] + neighborRatings[artist] * weight)
+                        recommendations[classKind] = recommendations[classKind] + neighborRatings[classKind][2] * weight
         
         # 把map中的数据对转化为list，将(课程种类编号, 分数)转化为(课程名, 分数)数据对
         recommendations = list(recommendations.items())
-        recommendations = [(self.convertClassKindIdToName(k), v) for (k, v) in recommendations]
+        #recommendations = [(self.convertClassKindIdToName(k), v) for (k, v) in recommendations]
 
         # nearest中的用户编号转化为用户名称
-        nearest = [(self.convertUserIdToName(k), v) for (k, v) in nearest]
+        #nearest = [(self.convertUserIdToName(k), v) for (k, v) in nearest]
 
         #根据分数对数据对进行降序排序
         recommendations.sort(key=lambda artistTuple: artistTuple[1], reverse = True)
