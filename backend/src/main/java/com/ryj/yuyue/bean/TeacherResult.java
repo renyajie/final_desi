@@ -18,6 +18,10 @@ public class TeacherResult {
     private String phone;
 
     private String intro;
+    
+    private Integer age;
+
+    private String gender;
 
 	public TeacherResult() {
 		super();
@@ -31,6 +35,22 @@ public class TeacherResult {
 		this.teaName = teaName;
 		this.phone = phone;
 		this.intro = intro;
+	}
+
+	public Integer getAge() {
+		return age;
+	}
+
+	public void setAge(Integer age) {
+		this.age = age;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
 	}
 
 	public Integer getId() {

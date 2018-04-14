@@ -9,7 +9,7 @@ package utils;
 public enum RequestType {
     //Main页面的网格数据
     Main_PeopleClassOrder, Main_IndividualClassOrder, Main_Sign, Main_ExperienceClassOrder,
-    Main_Photo, Main_Teacher, Main_Leave, Main_Classroom,
+    Main_Photo, Main_Teacher, Main_Leave, Main_Classroom, Main_PlaceClass,
 
     //Mine页面基本数据信息
     Mine_OrderLessonTime, Mine_LearnTime, Mine_MemberScore,

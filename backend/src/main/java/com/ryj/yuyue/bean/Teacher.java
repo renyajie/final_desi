@@ -11,11 +11,16 @@ public class Teacher {
     @NotNull(message="教师姓名不能为空")
     private String teaName;
 
-    @NotNull(message="手机号不能为空")
+    @NotNull(message="手机号码不能为空")
     private String phone;
 
-    @NotNull(message="教师简介不能为空")
     private String intro;
+
+    @NotNull(message="教师年龄不能为空")
+    private Integer age;
+
+    @NotNull(message="教师性别不能为空")
+    private String gender;
 
     public Integer getId() {
         return id;
@@ -57,11 +62,19 @@ public class Teacher {
         this.intro = intro == null ? null : intro.trim();
     }
 
-	@Override
-	public String toString() {
-		return "Teacher [id=" + id + ", pId=" + pId + ", teaName=" + teaName + ", phone=" + phone + ", intro=" + intro
-				+ "]";
-	}
-    
-    
+    public Integer getAge() {
+        return age;
+    }
+
+    public void setAge(Integer age) {
+        this.age = age;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender == null ? null : gender.trim();
+    }
 }

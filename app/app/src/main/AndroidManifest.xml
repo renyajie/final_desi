@@ -44,6 +44,10 @@
         <activity
             android:name="main.activity.order_success.OrderSuccessActivity"
             android:parentActivityName=".MainActivity"/>
+        <activity android:name="main.activity.place_class.PlaceClassActivity"
+            android:parentActivityName=".MainActivity"/>
+        <activity android:name="main.activity.place_teacher.PlaceTeacherActivity"
+            android:parentActivityName=".MainActivity"/>
         <activity
             android:name="main.activity.experience_class_order.ExperienceClassOrderActivity"
             android:parentActivityName=".MainActivity"/>

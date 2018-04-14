@@ -42,14 +42,14 @@
 		<table tableName="manager" domainObjectName="Manager"></table>
 		<table tableName="sys_manager" domainObjectName="SystemManager"></table>
 		<table tableName="place" domainObjectName="Place"></table>
-		<table tableName="class_kind" domainObjectName="ClassKind"></table>
+		<table tableName="class_kind" domainObjectName="ClassKind"></table> -->
 		<table tableName="teacher" domainObjectName="Teacher"></table>
-		<table tableName="class_info" domainObjectName="ClassInfo"></table>-->
-		<!-- <table tableName="class_order" domainObjectName="ClassOrder"></table> -->
-		<!-- <table tableName="card_kind" domainObjectName="CardKind"></table>
+		<!-- <table tableName="class_info" domainObjectName="ClassInfo"></table>-->
+		<!-- <table tableName="class_order" domainObjectName="ClassOrder"></table>
+		<table tableName="card_kind" domainObjectName="CardKind"></table>
 		<table tableName="card_info" domainObjectName="CardInfo"></table> 
 		<table tableName="card_order" domainObjectName="CardOrder"></table> 
 		<table tableName="news" domainObjectName="News"></table> -->
-		<table tableName="score" domainObjectName="Score"></table>
+		<!-- <table tableName="score" domainObjectName="Score"></table> -->
 	</context>
 </generatorConfiguration>

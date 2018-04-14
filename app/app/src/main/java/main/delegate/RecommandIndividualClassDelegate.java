@@ -65,7 +65,7 @@ public class RecommandIndividualClassDelegate extends SuperDelegate {
 
     @Override
     public <T extends RecyclerView.ViewHolder> void onBindViewHolder(T viewHolder) {
-        Log.d("recycler", "bind RecommandIndividualClassDelegate");
+        Log.d("recycler", "bind PlaceTeacherDelegate");
 
         // 防止刷新UI
 

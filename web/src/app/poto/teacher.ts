@@ -8,7 +8,9 @@ export class Teacher {
         public pName?: string,
         public teaName?: string,
         public phone?: string,
-        public intro?: string
+        public intro?: string,
+        public age?: number,
+        public gender?: string
     ) {}
 
     static fromJSON(json: any): Teacher {

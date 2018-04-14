@@ -13,6 +13,8 @@ import java.util.List;
 import main.activity.experience_class_order.ExperienceClassOrderActivity;
 import main.activity.individual_class_order.IndividualClassOrderActivity;
 import main.activity.people_class_order.PeopleClassOrderActivity;
+import main.activity.place_class.PlaceClassActivity;
+import main.activity.place_teacher.PlaceTeacherActivity;
 import main.model.GridButtonModel;
 import mine.activity.order_class.OrderClassListActivity;
 import utils.RequestType;
@@ -53,11 +55,13 @@ public class MyItemClickListener implements AdapterView.OnItemClickListener {
                 Intent intentForExperienceOrder = new Intent(context, ExperienceClassOrderActivity.class);
                 context.startActivity(intentForExperienceOrder);
                 break;
-            case Main_Photo:
-                Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();
+            case Main_PlaceClass:
+                Intent intentForPlaceClass = new Intent(context, PlaceClassActivity.class);
+                context.startActivity(intentForPlaceClass);
                 break;
             case Main_Teacher:
-                Toast.makeText(context, model.title, Toast.LENGTH_SHORT).show();
+                Intent intentForTeacher = new Intent(context, PlaceTeacherActivity.class);
+                context.startActivity(intentForTeacher);
                 break;
             case Main_Leave:
                 Intent intentForLeave = new Intent(context, OrderClassListActivity.class);

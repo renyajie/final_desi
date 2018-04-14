@@ -195,4 +195,20 @@ public class CreateTeacher {
 			teacherMapper.insertSelective(teacher);
 		}
 	}
+	
+	/**
+	 * 为所有的教师添加上年龄和性别
+	 */
+	@Test
+	public void addAgeAndGender() {
+		Random rand = new Random();
+		String[] gender = {"男", "女"};
+		List<Teacher> teacherList = teacherMapper.selectByExample(null);
+		
+		for(Teacher teacher: teacherList) {
+			teacher.setAge(rand.nextInt(14) + 22);
+			teacher.setGender(gender[rand.nextInt(2)]);
+			teacherMapper.updateByPrimaryKeySelective(teacher);
+		}
+	}
 }

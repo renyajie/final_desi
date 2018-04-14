@@ -7,6 +7,8 @@
     <result column="tea_name" jdbcType="VARCHAR" property="teaName" />
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="intro" jdbcType="VARCHAR" property="intro" />
+    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="gender" jdbcType="VARCHAR" property="gender" />
   </resultMap>
   <resultMap id="BaseResultMapForResult" type="com.ryj.yuyue.bean.TeacherResult">
     <result column="id" property="id" />
@@ -15,6 +17,8 @@
     <result column="tea_name" property="teaName" />
     <result column="phone" property="phone" />
     <result column="intro" property="intro" />
+    <result column="age" property="age" />
+    <result column="gender" property="gender" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -75,10 +79,10 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, p_id, tea_name, phone, intro
+    id, p_id, tea_name, phone, intro, age, gender
   </sql>
   <sql id="Base_Column_List_Result">
-    t.id, t.p_id, p.s_name, t.tea_name, t.phone, t.intro
+    t.id, t.p_id, p.s_name, t.tea_name, t.phone, t.intro, t.age, t.gender
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.TeacherExample" resultMap="BaseResultMap">
     select
@@ -100,12 +104,11 @@
     from teacher
     where id = #{id,jdbcType=INTEGER}
   </select>
-  <!-- List<TeacherResult> getTeacher(
+  <!-- List&lt;TeacherResult&gt; getTeacher(
   			@Param("id") Integer id, 
 			@Param("pId") Integer pId, 
 			@Param("teacherName") String teacherName); -->
-  <select id="getTeacher" 
-  		  resultMap="BaseResultMapForResult">
+  <select id="getTeacher" resultMap="BaseResultMapForResult">
     select 
     <include refid="Base_Column_List_Result" />
     from teacher t, place p
@@ -134,9 +137,11 @@
   </delete>
   <insert id="insert" parameterType="com.ryj.yuyue.bean.Teacher">
     insert into teacher (id, p_id, tea_name, 
-      phone, intro)
+      phone, intro, age, 
+      gender)
     values (#{id,jdbcType=INTEGER}, #{pId,jdbcType=INTEGER}, #{teaName,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR})
+      #{phone,jdbcType=VARCHAR}, #{intro,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
+      #{gender,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.Teacher">
     insert into teacher
@@ -156,6 +161,12 @@
       <if test="intro != null">
         intro,
       </if>
+      <if test="age != null">
+        age,
+      </if>
+      <if test="gender != null">
+        gender,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -172,6 +183,12 @@
       </if>
       <if test="intro != null">
         #{intro,jdbcType=VARCHAR},
+      </if>
+      <if test="age != null">
+        #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        #{gender,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -199,6 +216,12 @@
       <if test="record.intro != null">
         intro = #{record.intro,jdbcType=VARCHAR},
       </if>
+      <if test="record.age != null">
+        age = #{record.age,jdbcType=INTEGER},
+      </if>
+      <if test="record.gender != null">
+        gender = #{record.gender,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -210,7 +233,9 @@
       p_id = #{record.pId,jdbcType=INTEGER},
       tea_name = #{record.teaName,jdbcType=VARCHAR},
       phone = #{record.phone,jdbcType=VARCHAR},
-      intro = #{record.intro,jdbcType=VARCHAR}
+      intro = #{record.intro,jdbcType=VARCHAR},
+      age = #{record.age,jdbcType=INTEGER},
+      gender = #{record.gender,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -230,6 +255,12 @@
       <if test="intro != null">
         intro = #{intro,jdbcType=VARCHAR},
       </if>
+      <if test="age != null">
+        age = #{age,jdbcType=INTEGER},
+      </if>
+      <if test="gender != null">
+        gender = #{gender,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -238,7 +269,9 @@
     set p_id = #{pId,jdbcType=INTEGER},
       tea_name = #{teaName,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
-      intro = #{intro,jdbcType=VARCHAR}
+      intro = #{intro,jdbcType=VARCHAR},
+      age = #{age,jdbcType=INTEGER},
+      gender = #{gender,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -14,7 +14,6 @@ import org.springframework.stereotype.Service;
 import com.ryj.yuyue.bean.ClassKindResult;
 import com.ryj.yuyue.bean.ScoreExample;
 import com.ryj.yuyue.bean.ScoreExample.Criteria;
-import com.ryj.yuyue.controller.HomeController;
 import com.ryj.yuyue.bean.User;
 import com.ryj.yuyue.dao.ClassKindMapper;
 import com.ryj.yuyue.dao.ScoreMapper;

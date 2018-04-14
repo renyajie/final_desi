@@ -35,10 +35,16 @@ public class RecommandPeopleClassDelegate extends SuperDelegate {
     private List<ClassKind> classKindList;
     private RecommandClassAdapter adapter;
     private String title;
+    //是否显示标题
+    private boolean isShow = true;
 
     public RecommandPeopleClassDelegate(Context context) {
         this.context = context;
         layoutInflater = LayoutInflater.from(context);
+    }
+
+    public void setShow(boolean show) {
+        isShow = show;
     }
 
     public void setTitle(String title) {
@@ -82,6 +88,10 @@ public class RecommandPeopleClassDelegate extends SuperDelegate {
         ((RecommandPeopleClassViewHolder)viewHolder).listView.setAdapter(adapter);
         ((RecommandPeopleClassViewHolder)viewHolder).listView.setOnItemClickListener(adapter);
         ((RecommandPeopleClassViewHolder)viewHolder).title.setText(title);
+
+        if(!isShow) {
+            ((RecommandPeopleClassViewHolder)viewHolder).title.setVisibility(View.GONE);
+        }
     }
 
     public static class RecommandPeopleClassViewHolder extends RecyclerView.ViewHolder {

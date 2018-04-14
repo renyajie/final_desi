@@ -14,6 +14,9 @@ public enum ViewHolderType {
     //RecommandClass中的View类型
     Date,
 
+    //PlaceTeacherActivity中的View类型
+    Teacher,
+
     //PeopleClassOrderActivity中的View类型
     ClassAndDate, PeopleClassBrief,
 
@@ -28,6 +31,9 @@ public enum ViewHolderType {
 
     //IndividualOrderConfirmActivity中的View类型
     IndividualOrderDetail,
+
+    //PlaceClassActivity中的view类型
+    ClassProperty,
 
     //OrderDetailActivity中的view类型
     OrderLesson, OrderPlace, OrderDetail, OrderLessonRule,

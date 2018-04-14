@@ -29,10 +29,10 @@ public class MainData {
     public static List<GridButtonModel> buttonModelList = Arrays.asList(
             new GridButtonModel(R.mipmap.main_tuan_yuyue, "团课预约", RequestType.Main_PeopleClassOrder),
             new GridButtonModel(R.mipmap.main_si_yuyue, "私教预约", RequestType.Main_IndividualClassOrder),
-            new GridButtonModel(R.mipmap.main_qiandao, "上课签到", RequestType.Main_Sign),
-            new GridButtonModel(R.mipmap.main_tiyan, "申请体验", RequestType.Main_ExperienceClassOrder),
-            new GridButtonModel(R.mipmap.main_album, "精美相册", RequestType.Main_Photo),
+            new GridButtonModel(R.mipmap.main_place_class, "瑜伽课程", RequestType.Main_PlaceClass),
             new GridButtonModel(R.mipmap.main_teacher, "授课教师", RequestType.Main_Teacher),
+            new GridButtonModel(R.mipmap.main_tiyan, "申请体验", RequestType.Main_ExperienceClassOrder),
+            new GridButtonModel(R.mipmap.main_qiandao, "上课签到", RequestType.Main_Sign),
             new GridButtonModel(R.mipmap.main_leave, "我要请假", RequestType.Main_Leave),
             new GridButtonModel(R.mipmap.main_classroom, "教室环境", RequestType.Main_Classroom)
     );
