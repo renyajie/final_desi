@@ -15,8 +15,8 @@ export class ManagerComponent implements OnInit {
 
   manager: Manager;
   genders: SimpleToken[] = [
-    new SimpleToken("男", "m"),
-    new SimpleToken("女", "f")
+    new SimpleToken("男", "男"),
+    new SimpleToken("女", "女")
   ];
 
   constructor(

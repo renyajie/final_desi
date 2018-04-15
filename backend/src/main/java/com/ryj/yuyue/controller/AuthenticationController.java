@@ -342,8 +342,8 @@ public class AuthenticationController {
 			@RequestParam(value = "phone", required = false) String phone, 
 			@RequestParam(value = "uName", required = false) String uName) {
 		logger.info("getUser uName is {}", uName);
-		PageHelper.startPage(pn, 5);
-		PageInfo page = new PageInfo(userService.getUser(id, phone, uName), 5);
+		PageHelper.startPage(pn, 10);
+		PageInfo page = new PageInfo(userService.getUser(id, phone, uName), ConstantLiteral.PAGE_SIZE);
 		return Messenger.success().add("pageInfo", page);
 	}
 }

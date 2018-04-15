@@ -1,6 +1,8 @@
 package data;
 
+import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Random;
 
@@ -13,8 +15,12 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import com.ryj.yuyue.bean.CardInfo;
 import com.ryj.yuyue.bean.CardInfoExample;
 import com.ryj.yuyue.bean.CardInfoExample.Criteria;
+import com.ryj.yuyue.bean.CardOrder;
+import com.ryj.yuyue.bean.ClassInfo;
 import com.ryj.yuyue.bean.ClassOrder;
 import com.ryj.yuyue.dao.CardInfoMapper;
+import com.ryj.yuyue.dao.CardOrderMapper;
+import com.ryj.yuyue.dao.ClassInfoMapper;
 import com.ryj.yuyue.dao.ClassOrderMapper;
 
 /**
@@ -31,9 +37,15 @@ public class CreateClassOrder {
 	private CardInfoMapper cardInfoMapper;
 	
 	@Autowired
+	private ClassInfoMapper classInfoMapper;
+	
+	@Autowired
 	private ClassOrderMapper classOrderMapper;
 	
+	@Autowired
+	private CardOrderMapper cardOrderMapper;
 	
+	Calendar calendar = new GregorianCalendar();
 	Random rand = new Random();
 	
 	/**
@@ -42,24 +54,60 @@ public class CreateClassOrder {
 	 * @param cardKindId 会员卡种类编号
 	 * @return
 	 */
-	public int getCardInfoId(int userId, int cardKindId) {
+	@SuppressWarnings("deprecation")
+	public int getCardInfoId(int userId, int cardKindId, Date time) {
 		CardInfoExample example = new CardInfoExample();
 		Criteria criteria = example.createCriteria();
 		criteria.andUIdEqualTo(userId);
 		criteria.andCardKIdEqualTo(cardKindId);
 		List<CardInfo> result = cardInfoMapper.selectByExample(example);
 		
-		//若存在则返回编号，若不存在，则创建返回编号
+		//若存在，更新会员卡余额，并返回编号，若不存在，则创建会员卡订单和会员卡记录后，返回编号
 		if(result.size() != 0) {
-			return result.get(0).getId();
+			CardInfo cardInfo = result.get(0);
+			cardInfo.setAllowance(cardInfo.getAllowance() - 1);
+			cardInfoMapper.updateByPrimaryKeySelective(cardInfo);
+			return cardInfo.getId();
 		}
 		
+		//创建会员卡记录
 		CardInfo cardInfo = new CardInfo();
 		cardInfo.setuId(userId);
 		cardInfo.setCardKId(cardKindId);
-		cardInfo.setAllowance(100);
+		//使用了一次来预约
+		cardInfo.setAllowance(99);
 		cardInfoMapper.insertSelective(cardInfo);
+		
+		//创建会员卡订单
+		Date orderTime = time;
+		orderTime.setMinutes(time.getMinutes() - 1);
+		
+		CardOrder cardOrder = new CardOrder();
+		cardOrder.setCardId(cardInfo.getId());
+		cardOrder.setuId(userId);
+		cardOrder.setCardKId(cardKindId);
+		cardOrder.setOrdTime(orderTime);
+		cardOrderMapper.insertSelective(cardOrder);
+				
 		return cardInfo.getId();
+	}
+	
+	/**
+	 * 返回某门课程的预约时间为上课时间的前一天，小时，分钟和秒使用随机数生成
+	 * @param classId 课程编号
+	 * @return
+	 */
+	@SuppressWarnings({ "deprecation", "static-access" })
+	public Date getOrderTime(Integer classId) {
+		ClassInfo classInfo = classInfoMapper.selectByPrimaryKey(classId);
+		Date cDay = classInfo.getcDay();
+		calendar.setTime(cDay);
+	    calendar.add(calendar.DATE, -1);
+	    Date date = calendar.getTime();
+	    date.setHours(rand.nextInt(11) + 7);
+	    date.setMinutes(rand.nextInt(60));
+	    date.setSeconds(rand.nextInt(60));
+	    return date;
 	}
 	
 	/**
@@ -70,34 +118,52 @@ public class CreateClassOrder {
 	public void addClassOrder() {
 		
 		ClassOrder classOrder = null;
+		ClassInfo classInfo = null;
 		
 		//上课次数， 哪个瑜伽馆，哪个课，哪种课，会员卡编号
 		int time, placeId, classId, cardId;
+		//下单时间
+		Date orderTime = null;
+		
 		
 		for(int i = 0; i < 1000; i++) {
 			
 			time = rand.nextInt(6) + 10;
 			
-			for(int j = 0; j < time; j++) {
+			int j = 0;
+			while(j < time) {
 				
 				placeId = rand.nextInt(20) + 1;
 				classId = rand.nextInt(800) + 1 + 800;
+				
+				//若用户预约课程已经没有余量则重新选择课程，若还有余额则更新课程安排
+				classInfo = classInfoMapper.selectByPrimaryKey(classId);
+				if(classInfo.getAllowance() == 0) {
+					continue;
+				}
+				classInfo.setAllowance(classInfo.getAllowance() - 1);
+				classInfo.setOrderNum(classInfo.getOrderNum() + 1);
+				classInfoMapper.updateByPrimaryKeySelective(classInfo);
+				
+				orderTime = getOrderTime(classId);
 				/**
 				 * 获取瑜伽馆会员卡种类编号， 查看用户有无该种会员卡
 				 *    1. 有，获取会员卡编号，下订单
 				 *    2. 无，买会员卡，获取会员卡编号，下订单
 				 */
-				cardId = getCardInfoId(i + 1, placeId);
+				cardId = getCardInfoId(i + 1, placeId, orderTime);
 				
 				classOrder = new ClassOrder();
 				classOrder.setIsScore(0);
 				classOrder.setuId(i + 1);
-				classOrder.setOrdTime(new Date());
+				classOrder.setOrdTime(orderTime);
 				classOrder.setNum(1);
 				classOrder.setExpend(1);
 				classOrder.setClaId(classId);
 				classOrder.setCardId(cardId);
 				classOrderMapper.insertSelective(classOrder);
+				
+				j++;
 			}
 		}
 	}

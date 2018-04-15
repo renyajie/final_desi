@@ -35,6 +35,7 @@ import com.ryj.yuyue.service.ManagerService;
 import com.ryj.yuyue.service.OrderService;
 import com.ryj.yuyue.service.PlaceService;
 import com.ryj.yuyue.service.TeacherService;
+import com.ryj.yuyue.utils.ConstantLiteral;
 import com.ryj.yuyue.utils.Messenger;
 
 /**
@@ -217,12 +218,13 @@ public class SettingController {
 			@RequestParam(value = "difficulty", required = false) Integer difficulty,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 10);
 		List<ClassKindResult> result = classService.getClassKind(
 				placeId, classKId, managerId, classKName, property, difficulty);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
 		return Messenger.success().add("info", result);
@@ -318,12 +320,13 @@ public class SettingController {
 			@RequestParam(value = "expend", required = false) Integer expend,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 10);
 		List<CardKindResult> result = cardService.getCardKind(
 				cardKId, managerId, placeId, cardKName, capacity, expend);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
 		return Messenger.success().add("info", result);
@@ -388,14 +391,16 @@ public class SettingController {
 			@RequestParam(value = "userId", required = false) Integer userId,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 10);
 		List<CardInfoResult> result = this.cardService.getCardInfo(
 				managerId, cardKId, userId);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
+		logger.info("getCardInfo, without page");
 		return Messenger.success().add("info", result);
 	}
 	
@@ -418,9 +423,9 @@ public class SettingController {
 			@RequestParam(value = "mName", required = false) String mName,
 			@RequestParam(value = "sName", required = false) String sName) {
 		
-		PageHelper.startPage(pn, 5);
+		PageHelper.startPage(pn, 10);
 		PageInfo page = new PageInfo(
-				managerService.getManagerList(id, account, mName, sName), 5);
+				managerService.getManagerList(id, account, mName, sName), ConstantLiteral.PAGE_SIZE);
 		return Messenger.success().add("pageInfo", page);
 	}
 	
@@ -636,11 +641,12 @@ public class SettingController {
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 10);
 		List<Place> result = placeService.getPlace(id, sName, address, phone);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
 		return Messenger.success().add("info", result);

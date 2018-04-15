@@ -14,15 +14,15 @@
       [minDate]="minDate"></datepicker>
   </div>
   <div class="col-md-2">
-    课程种类:
-    <select [(ngModel)]="classKId" id="classKId">
+    种类:
+    <select [(ngModel)]="classKId" id="classKId" class="select-width">
         <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
             {{classKind.claKName}}
         </option>
     </select>
   </div>
   <div class="col-md-2">
-    课程属性:
+    属性:
     <select [(ngModel)]="property" id="property">
       <option *ngFor="let p of propertys" value="{{p.value}}">
           {{p.label}}
@@ -30,7 +30,7 @@
     </select>
   </div>
   <div class="col-md-2">
-    教师名称：
+    教师：
     <input [(ngModel)]="teaName">
   </div>
   <div class="col-md-12 one-line-button">

@@ -33,6 +33,7 @@ import com.ryj.yuyue.bean.ClassOrderResult;
 import com.ryj.yuyue.service.CardService;
 import com.ryj.yuyue.service.ClassService;
 import com.ryj.yuyue.service.OrderService;
+import com.ryj.yuyue.utils.ConstantLiteral;
 import com.ryj.yuyue.utils.Messenger;
 
 /**
@@ -84,13 +85,14 @@ public class OrderController {
 			@RequestParam(value = "property", required = false) String property,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 9);
 		List<ClassInfoResult> result = classService.getClassInfo(
 				classId, classKId, placeId, teacherId, 
 				teaName, before, after, property);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
 		
@@ -215,13 +217,14 @@ public class OrderController {
 			@RequestParam(value = "isScore", required=false) Integer isScore,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 10);
 		List<ClassOrderResult> result = orderService.getClassOrder(
 				orderId, placeId, classId, classKId, 
 				userId, cardId, before, after, property, isScore);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
 		return Messenger.success().add("info", result);
@@ -252,12 +255,13 @@ public class OrderController {
 			@RequestParam(value = "after", required=false) Date after,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 10);
 		List<CardOrderResult> result = orderService.getCardOrder(
 				managerId, userId, userName, cardKId, before, after);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
 		return Messenger.success().add("info", result);

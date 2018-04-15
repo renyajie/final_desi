@@ -40,7 +40,7 @@ public class CreateClassInfo {
 	@SuppressWarnings("static-access")
 	public Date getCDay() {
 		calendar.setTime(date);
-	    calendar.add(calendar.DATE, rand.nextInt(19) + 1);
+	    calendar.add(calendar.DATE, rand.nextInt(17) + 1);
 	    return calendar.getTime();
 	}
 	
@@ -53,7 +53,7 @@ public class CreateClassInfo {
 	public Date getStartTime(Date cDay) {
 		Date date = new Date();
 		date = cDay;
-		date.setHours(rand.nextInt(9) + 7);
+		date.setHours(rand.nextInt(10) + 7);
 		date.setMinutes(0);
 		date.setSeconds(0);
 		return date;
@@ -79,8 +79,8 @@ public class CreateClassInfo {
 	 * 1-20 场馆
 	 * 1-300 老师
 	 * 1-400 团课 401-800 私教
-	 * 上课时间 4月13-5月1
-	 * 开始时间 7：00-15：00
+	 * 上课时间 4月15-5月1
+	 * 开始时间 7：00-16：00
 	 * 结束时间：开始时间+1
 	 * 课程容量：20
 	 * 花费：1

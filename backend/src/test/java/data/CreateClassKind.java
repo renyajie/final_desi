@@ -7,8 +7,10 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -103,10 +105,22 @@ public class CreateClassKind {
 		String place = null;
 		int difficulty;
 		
+		Set<Integer> indexSet = new HashSet<Integer>();
+		
 		for(int i = 0; i < 20; i++) {
 			place = placeList.get(i);
-			for(int j = 0; j < 5; j++) {
-				className = place + classList.get(rand.nextInt(classList.size()));
+			indexSet.clear();
+			while(indexSet.size() < 5) {
+				
+				int index = rand.nextInt(classList.size());
+				
+				//若课程已经出现过则重新获取一个随机数
+				if(indexSet.contains(index)) {
+					continue;
+				}
+				indexSet.add(index);
+				
+				className = place + classList.get(index);
 				//生成随机难度列表
 				difficulty = rand.nextInt(5);
 				for(int k = 0; k < 4; k++) {

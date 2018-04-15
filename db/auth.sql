@@ -12,13 +12,17 @@ select * from class_info;
 select * from class_order;
 select * from score where u_id = 1;
 select * from card_kind;
+select * from card_info;
+select * from card_order;
 select * from teacher;
 select * from user;
 
 -- 清空所有数据并重新设置内容
 TRUNCATE TABLE score;
 
-update class_order set is_score = 1 where id between 1 and 25049;
+select count(*) from score;
+
+update class_info set allowance = 20 where id between 1 and 800;
 
 select *
 from score where u_id = 251 and cla_k_id between 1 and 400;

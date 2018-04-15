@@ -107,7 +107,7 @@ public class CreateScore {
 		//获取指定区间的用户的课程订单
 		ClassOrderExample example = new ClassOrderExample();
 		Criteria criteria = example.createCriteria();
-		criteria.andUIdBetween(751, 1000);
+		criteria.andUIdBetween(1, 750);
 		List<ClassOrder> classOrderList = 
 				classOrderMapper.selectByExample(example);
 		

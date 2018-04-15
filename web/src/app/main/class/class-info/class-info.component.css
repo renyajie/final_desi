@@ -9,6 +9,7 @@ input {
 
 select {
     height: 30px;
+    width: 80px;
 }
 
 .one-line-button {
@@ -41,11 +42,11 @@ td{
 
 /* 不同数据类型的表格列宽 */
 .idColumn{
-    width: 100px;
+    width: 70px;
 }
 
 .classColumn{
-    width: 120px;
+    width: 180px;
 }
 
 .nameColumn{

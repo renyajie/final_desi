@@ -14,6 +14,7 @@ public class ConstantLiteral {
 	public static final String HANLDE_FAILURE_STRING = "处理失败";
 	public static final String INFO = "info";
 	public static final String NON_ID = "编号不能为空";
+	public static final Integer PAGE_SIZE = 5;
 	
 	//身份认证常量
 	public static final String LOGIN_FAILURE = "账号或密码错误";
@@ -23,7 +24,6 @@ public class ConstantLiteral {
 	//文件传输常量
 	public static final String PEOPLE_SCORE = "E:\\python-workspace\\final_desi\\py\\data\\people_class_score_record";
 	public static final String INDIVIDUAL_SCORE = "E:\\python-workspace\\final_desi\\py\\data\\individual_class_score_record";
-	
 	
 	//尚未使用
 	public static final String FILE_LAB_IMAGE = "E:\\UploadFiles\\image";

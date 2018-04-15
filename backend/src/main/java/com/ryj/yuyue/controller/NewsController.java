@@ -23,6 +23,7 @@ import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.News;
 import com.ryj.yuyue.bean.NewsResult;
 import com.ryj.yuyue.service.NewsService;
+import com.ryj.yuyue.utils.ConstantLiteral;
 import com.ryj.yuyue.utils.Messenger;
 
 /**
@@ -62,12 +63,13 @@ public class NewsController {
 			@RequestParam(value = "after", required = false) Date after,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
+		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
+		PageHelper.startPage(pn, 10);
 		List<NewsResult> result = newsService.getNewsList(
 				newsId, managerId, placeId, title, before, after);
 		//判断是否需要分页
 		if(isPage == 1) {
-			PageHelper.startPage(pn, 5);
-			PageInfo page = new PageInfo(result, 5);
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
 		
