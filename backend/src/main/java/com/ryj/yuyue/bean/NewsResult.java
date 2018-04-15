@@ -29,6 +29,8 @@ public class NewsResult {
     private Date pubTime;
 
     private String context;
+    
+    private String picUrl;
 
 	public NewsResult() {
 		super();
@@ -118,6 +120,14 @@ public class NewsResult {
 
 	public void setContext(String context) {
 		this.context = context;
+	}
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
 	}
 
 	@Override

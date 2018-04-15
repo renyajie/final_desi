@@ -9,6 +9,7 @@ import com.ryj.yuyue.bean.Place;
 import com.ryj.yuyue.bean.PlaceExample;
 import com.ryj.yuyue.bean.PlaceExample.Criteria;
 import com.ryj.yuyue.dao.PlaceMapper;
+import com.ryj.yuyue.utils.ConstantLiteral;
 
 /**
  * 和场馆有关的所有业务
@@ -27,6 +28,11 @@ public class PlaceService {
 	 * @param place
 	 */
 	public void addPlace(Place place) {
+		//设置默认的图片和简介
+		place.setPicUrl(ConstantLiteral.DEFAULT_IMAGE);
+		if(place.getIntro() == null || place.getIntro().trim().length() == 0) {
+			place.setIntro("暂无介绍");
+		}
 		placeMapper.insertSelective(place);
 	}
 	

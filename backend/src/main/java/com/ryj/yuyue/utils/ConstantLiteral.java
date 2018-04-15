@@ -25,9 +25,8 @@ public class ConstantLiteral {
 	public static final String PEOPLE_SCORE = "E:\\python-workspace\\final_desi\\py\\data\\people_class_score_record";
 	public static final String INDIVIDUAL_SCORE = "E:\\python-workspace\\final_desi\\py\\data\\individual_class_score_record";
 	
-	//尚未使用
-	public static final String FILE_LAB_IMAGE = "E:\\UploadFiles\\image";
-	public static final String FILE_LAB_IMAGE_FRONT_END = "api/upload/image";
-	public static final String FILE_EXPERIMENT_DOCUMENT = "E:\\UploadFiles\\ExperimentDocument";
-	public static final String FILE_COURSE_DOCUMENT = "E:\\UploadFiles\\CourseDocument";
+	//瑜伽馆图片
+	public static final String FILE_PLACE_IMAGE = "E:\\image";
+	public static final String FILE_PLACE_IMAGE_FRONT_END = "api/image";
+	public static final String DEFAULT_IMAGE = "api/image/default.jpg";
 }

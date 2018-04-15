@@ -22,7 +22,7 @@ TRUNCATE TABLE score;
 
 select count(*) from score;
 
-update class_info set allowance = 20 where id between 1 and 800;
+update place set intro = '暂无介绍' where id between 1 and 20;
 
 select *
 from score where u_id = 251 and cla_k_id between 1 and 400;

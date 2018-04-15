@@ -26,6 +26,8 @@ public class News {
 
     private String context;
 
+    private String picUrl;
+
     public News() {
         super();
     }
@@ -114,6 +116,14 @@ public class News {
 
     public void setContext(String context) {
         this.context = context;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 
     @Override

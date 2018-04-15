@@ -23,9 +23,7 @@ public class NewsConfig implements Serializable {
     public String publisher;
     public List<String> tags = new ArrayList<>();
     public List<String> paragraphs = new ArrayList<>();
-    public List<String> url = new ArrayList<>(
-            Arrays.asList("https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1523080941245&di=6c08f1e304e782fc75b0539857005e94&imgtype=0&src=http%3A%2F%2Fgss0.bdstatic.com%2FyqACvGbaBA94lNC68IqT0jB-xx1xbK%2Fztd%2Fw%3D350%3Bq%3D70%2Fsign%3Dcd4310299813b07ebdbd560d3cece01e%2F962bd40735fae6cd4d383c6904b30f2442a70f2d.jpg")
-    );
+    public List<String> url = new ArrayList<>();
 
     public NewsConfig() {
 

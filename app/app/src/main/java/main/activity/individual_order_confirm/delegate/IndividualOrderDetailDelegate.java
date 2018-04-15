@@ -23,6 +23,7 @@ import bean.ClassInfo;
 import main.activity.individual_order_confirm.model.IndividualOrderDetailModel;
 import main.activity.people_order_confirm.model.PeopleOrderDetailModel;
 import mine.activity.order_card.adapter.CardKindListAdapter;
+import utils.AppConstant;
 import utils.MyApplication;
 import utils.SuperDelegate;
 import utils.UtilsMethod;
@@ -40,8 +41,10 @@ public class IndividualOrderDetailDelegate extends SuperDelegate {
     private LayoutInflater layoutInflater;
     private ClassInfo classInfo;
     private IndividualOrderDetailViewHolder detailViewHolder;
+    ImageLoader imageLoader;
 
     public IndividualOrderDetailDelegate(Context context) {
+        imageLoader = new ImageLoader(MyApplication.getHttpQueue(), MyApplication.getBitmapCache());
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
     }
@@ -80,6 +83,11 @@ public class IndividualOrderDetailDelegate extends SuperDelegate {
 
         //开始刷新UI
         detailViewHolder = (IndividualOrderDetailViewHolder)viewHolder;
+
+        detailViewHolder.classPic.setDefaultImageResId(R.mipmap.ic_launcher);
+        detailViewHolder.classPic.setErrorImageResId(R.mipmap.ic_launcher);
+        detailViewHolder.classPic.setImageUrl(AppConstant.URL + classInfo.getPicUrl(), imageLoader);
+
         detailViewHolder.teacherName.setText(classInfo.getTeaName());
         detailViewHolder.number.setText(String.valueOf(classInfo.getOrderNum()));
         detailViewHolder.time.setText(
@@ -126,7 +134,7 @@ public class IndividualOrderDetailDelegate extends SuperDelegate {
 
     public static class IndividualOrderDetailViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView classPic;
+        NetworkImageView classPic;
         Button introduction;
         TextView teacherName, number, time;
 

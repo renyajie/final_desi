@@ -6,6 +6,10 @@
     <result column="phone" jdbcType="VARCHAR" property="phone" />
     <result column="s_name" jdbcType="VARCHAR" property="sName" />
     <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="pic_url" jdbcType="VARCHAR" property="picUrl" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ryj.yuyue.bean.Place">
+    <result column="intro" jdbcType="LONGVARCHAR" property="intro" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,8 +70,27 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, phone, s_name, address
+    id, phone, s_name, address, pic_url
   </sql>
+  <sql id="Blob_Column_List">
+    intro
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.ryj.yuyue.bean.PlaceExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from place
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.PlaceExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
@@ -82,9 +105,11 @@
       order by ${orderByClause}
     </if>
   </select>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="ResultMapWithBLOBs">
     select 
     <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
     from place
     where id = #{id,jdbcType=INTEGER}
   </select>
@@ -100,9 +125,11 @@
   </delete>
   <insert id="insert" parameterType="com.ryj.yuyue.bean.Place">
     insert into place (id, phone, s_name, 
-      address)
+      address, pic_url, intro
+      )
     values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{sName,jdbcType=VARCHAR}, 
-      #{address,jdbcType=VARCHAR})
+      #{address,jdbcType=VARCHAR}, #{picUrl,jdbcType=VARCHAR}, #{intro,jdbcType=LONGVARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.Place">
     insert into place
@@ -119,6 +146,12 @@
       <if test="address != null">
         address,
       </if>
+      <if test="picUrl != null">
+        pic_url,
+      </if>
+      <if test="intro != null">
+        intro,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -132,6 +165,12 @@
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="picUrl != null">
+        #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        #{intro,jdbcType=LONGVARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,7 +195,25 @@
       <if test="record.address != null">
         address = #{record.address,jdbcType=VARCHAR},
       </if>
+      <if test="record.picUrl != null">
+        pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.intro != null">
+        intro = #{record.intro,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update place
+    set id = #{record.id,jdbcType=INTEGER},
+      phone = #{record.phone,jdbcType=VARCHAR},
+      s_name = #{record.sName,jdbcType=VARCHAR},
+      address = #{record.address,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR},
+      intro = #{record.intro,jdbcType=LONGVARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -166,7 +223,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       phone = #{record.phone,jdbcType=VARCHAR},
       s_name = #{record.sName,jdbcType=VARCHAR},
-      address = #{record.address,jdbcType=VARCHAR}
+      address = #{record.address,jdbcType=VARCHAR},
+      pic_url = #{record.picUrl,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,14 +241,30 @@
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="picUrl != null">
+        pic_url = #{picUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="intro != null">
+        intro = #{intro,jdbcType=LONGVARCHAR},
+      </if>
     </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ryj.yuyue.bean.Place">
+    update place
+    set phone = #{phone,jdbcType=VARCHAR},
+      s_name = #{sName,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR},
+      intro = #{intro,jdbcType=LONGVARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.ryj.yuyue.bean.Place">
     update place
     set phone = #{phone,jdbcType=VARCHAR},
       s_name = #{sName,jdbcType=VARCHAR},
-      address = #{address,jdbcType=VARCHAR}
+      address = #{address,jdbcType=VARCHAR},
+      pic_url = #{picUrl,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

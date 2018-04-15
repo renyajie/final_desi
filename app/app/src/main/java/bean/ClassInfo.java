@@ -45,6 +45,10 @@ public class ClassInfo {
 
     private Integer difficulty;
 
+    private String picUrl;
+
+    private String gender;
+
     public ClassInfo() {
         super();
     }
@@ -69,6 +73,14 @@ public class ClassInfo {
         this.expend = expend;
         this.property = property;
         this.intro = intro;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
     }
 
     public String getIntro() {
@@ -213,6 +225,14 @@ public class ClassInfo {
 
     public void setDifficulty(Integer difficulty) {
         this.difficulty = difficulty;
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
     }
 
     @Override

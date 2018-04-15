@@ -18,7 +18,8 @@
             android:id="@+id/class_pic"
             android:layout_width="100dp"
             android:layout_height="100dp"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@mipmap/ic_launcher"
+            android:scaleType="fitXY"/>
 
         <Button
             android:id="@+id/introduction"

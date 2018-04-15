@@ -3,10 +3,9 @@ package com.ryj.yuyue.bean;
 import javax.validation.constraints.NotNull;
 
 public class Place {
+    private Integer id;
 
-	private Integer id;
-
-    @NotNull(message="场馆联系电话不能为空")
+    @NotNull(message="场馆联系方式不能为空")
     private String phone;
 
     @NotNull(message="场馆名称不能为空")
@@ -14,6 +13,10 @@ public class Place {
 
     @NotNull(message="场馆地址不能为空")
     private String address;
+
+    private String picUrl;
+
+    private String intro;
 
     public Integer getId() {
         return id;
@@ -46,9 +49,20 @@ public class Place {
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
     }
-    
-    @Override
-	public String toString() {
-		return "Place [id=" + id + ", phone=" + phone + ", sName=" + sName + ", address=" + address + "]";
-	}
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl == null ? null : picUrl.trim();
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro == null ? null : intro.trim();
+    }
 }

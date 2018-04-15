@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
@@ -78,23 +79,21 @@ public class IndividualClassBriefAdapter extends BaseAdapter
             convertView = layoutInflater.inflate(
                     R.layout.activity_main_individual_class_order_class_list_item, parent, false);
 
+            viewHolder.teacherIcon = convertView.findViewById(R.id.teacher_icon);
             viewHolder.teacherName = convertView.findViewById(R.id.teacher_name);
             viewHolder.time = convertView.findViewById(R.id.time);
             viewHolder.orderNumber = convertView.findViewById(R.id.order_number);
             viewHolder.button = convertView.findViewById(R.id.button);
 
-            viewHolder.teacherName.setText(model.getTeaName());
-            viewHolder.time.setText(UtilsMethod.getStringFromDate(model.getStaTime()));
-            viewHolder.orderNumber.setText(String.valueOf(model.getOrderNum()));
-
             convertView.setTag(viewHolder);
         } else {
             viewHolder = (ViewHolder) convertView.getTag();
-
-            viewHolder.teacherName.setText(model.getTeaName());
-            viewHolder.time.setText(UtilsMethod.getStringFromDate(model.getStaTime()));
-            viewHolder.orderNumber.setText(String.valueOf(model.getOrderNum()));
         }
+
+        viewHolder.teacherIcon.setImageResource(model.getGender().equals("男") ? R.mipmap.male : R.mipmap.girl);
+        viewHolder.teacherName.setText(model.getTeaName());
+        viewHolder.time.setText(UtilsMethod.getStringFromDate(model.getStaTime()));
+        viewHolder.orderNumber.setText(String.valueOf(model.getOrderNum()));
 
         return convertView;
     }
@@ -116,6 +115,7 @@ public class IndividualClassBriefAdapter extends BaseAdapter
     }
 
     public static class ViewHolder {
+        ImageView teacherIcon;
         TextView teacherName, time, orderNumber;
         Button button;
     }

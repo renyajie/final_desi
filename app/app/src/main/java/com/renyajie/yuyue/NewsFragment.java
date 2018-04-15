@@ -76,7 +76,9 @@ public class NewsFragment extends Fragment {
                         config.publisher = news.getmName();
                         config.date = news.getPubTime();
                         config.newsId = news.getId();
+                        config.url.add(AppConstant.URL + news.getPicUrl());
                         newsData.add(config);
+
                     }
 
                     adapter.setData(newsData);

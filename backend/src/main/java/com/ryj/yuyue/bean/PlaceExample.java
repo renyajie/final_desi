@@ -373,6 +373,76 @@ public class PlaceExample {
             addCriterion("address not between", value1, value2, "address");
             return (Criteria) this;
         }
+
+        public Criteria andPicUrlIsNull() {
+            addCriterion("pic_url is null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlIsNotNull() {
+            addCriterion("pic_url is not null");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlEqualTo(String value) {
+            addCriterion("pic_url =", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlNotEqualTo(String value) {
+            addCriterion("pic_url <>", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlGreaterThan(String value) {
+            addCriterion("pic_url >", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlGreaterThanOrEqualTo(String value) {
+            addCriterion("pic_url >=", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlLessThan(String value) {
+            addCriterion("pic_url <", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlLessThanOrEqualTo(String value) {
+            addCriterion("pic_url <=", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlLike(String value) {
+            addCriterion("pic_url like", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlNotLike(String value) {
+            addCriterion("pic_url not like", value, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlIn(List<String> values) {
+            addCriterion("pic_url in", values, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlNotIn(List<String> values) {
+            addCriterion("pic_url not in", values, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlBetween(String value1, String value2) {
+            addCriterion("pic_url between", value1, value2, "picUrl");
+            return (Criteria) this;
+        }
+
+        public Criteria andPicUrlNotBetween(String value1, String value2) {
+            addCriterion("pic_url not between", value1, value2, "picUrl");
+            return (Criteria) this;
+        }
     }
 
     public static class Criteria extends GeneratedCriteria {

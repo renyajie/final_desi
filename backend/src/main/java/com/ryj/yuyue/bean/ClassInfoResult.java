@@ -23,6 +23,8 @@ public class ClassInfoResult {
 
     private Integer teaId;
     
+    private String gender;
+    
     private String teaName;
     
     private String intro;
@@ -47,6 +49,8 @@ public class ClassInfoResult {
     private String property;
     
     private Integer difficulty;
+    
+    private String picUrl;
 
 	public ClassInfoResult() {
 		super();
@@ -74,6 +78,14 @@ public class ClassInfoResult {
 		this.intro = intro;
 	}
 	
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	public String getIntro() {
 		return intro;
 	}
@@ -208,6 +220,14 @@ public class ClassInfoResult {
 
 	public void setDifficulty(Integer difficulty) {
 		this.difficulty = difficulty;
+	}
+	
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
 	}
 
 	@Override

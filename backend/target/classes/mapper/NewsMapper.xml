@@ -18,6 +18,7 @@
     <result column="title" property="title" />
     <result column="brow_time" property="browTime" />
     <result column="pub_time" property="pubTime" />
+    <result column="pic_url" property="picUrl" />
   </resultMap>
   <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.ryj.yuyue.bean.News">
     <result column="context" jdbcType="LONGVARCHAR" property="context" />
@@ -87,7 +88,7 @@
     id, m_id, p_id, title, brow_time, pub_time
   </sql>
   <sql id="Base_Column_List_Result">
-    n.id, n.m_id, m.m_name, n.p_id, p.s_name, n.title, n.brow_time, n.pub_time
+    n.id, n.m_id, m.m_name, n.p_id, p.s_name, n.title, n.brow_time, n.pub_time, p.pic_url
   </sql>
   <sql id="Blob_Column_List">
     context

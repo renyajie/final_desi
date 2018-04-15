@@ -84,7 +84,7 @@ public class PeopleOrderDetailDelegate extends SuperDelegate {
         ((PeopleClassOrderDetailViewHolder)viewHolder).classPic
                 .setErrorImageResId(R.mipmap.ic_launcher);
         ((PeopleClassOrderDetailViewHolder)viewHolder).classPic
-                .setImageUrl(AppConstant.Pic_Url, imageLoader);
+                .setImageUrl(AppConstant.URL + classInfo.getPicUrl(), imageLoader);
 
         ((PeopleClassOrderDetailViewHolder)viewHolder).className.setText(classInfo.getClaKName());
         ((PeopleClassOrderDetailViewHolder)viewHolder).teacherName.setText(classInfo.getTeaName());

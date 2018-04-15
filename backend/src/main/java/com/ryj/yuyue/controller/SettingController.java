@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -35,6 +36,7 @@ import com.ryj.yuyue.service.ManagerService;
 import com.ryj.yuyue.service.OrderService;
 import com.ryj.yuyue.service.PlaceService;
 import com.ryj.yuyue.service.TeacherService;
+import com.ryj.yuyue.service.TransferService;
 import com.ryj.yuyue.utils.ConstantLiteral;
 import com.ryj.yuyue.utils.Messenger;
 
@@ -63,6 +65,8 @@ public class SettingController {
 	private ManagerService managerService;
 	@Autowired
 	private OrderService orderService;
+	@Autowired
+	private TransferService transferService;
 	
 	/**
 	 * 管理员增加课程信息
@@ -598,13 +602,47 @@ public class SettingController {
 	/**
 	 * 管理员更新场馆信息
 	 * @param place
+	 * @param image 上传的图片，可以为空
 	 * @param syntaxResult
 	 * @return
 	 */
-	@RequestMapping(value = "updatePlace", method = RequestMethod.PUT)
+	@RequestMapping(value = "updatePlace", method = RequestMethod.POST)
 	@ResponseBody
 	public Messenger updatePlace(
-			@RequestBody @Valid Place place, 
+			@Valid Place place,
+			@RequestParam(value="image", required=false) MultipartFile image,
+			BindingResult syntaxResult) {
+		
+		logger.info("add place params: place is {}, image size is {}", place, image.getSize());
+		// 校验字段格式
+		if (syntaxResult.hasErrors()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<FieldError> errors = syntaxResult.getFieldErrors();
+			for (FieldError fieldError : errors) {
+				map.put(fieldError.getField(), fieldError.getDefaultMessage());
+			}
+			return Messenger.fail().add("errorFields", map);
+		}
+		
+		if(image != null) {
+			String picUrl = transferService.addPlaceImage(place.getId(), image);
+			place.setPicUrl(picUrl);
+		}
+		
+		placeService.updatePlace(place);
+		return Messenger.success();
+	}
+	
+	/**
+	 * 更新场馆信息，不带图片
+	 * @param place
+	 * @param syntaxResult
+	 * @return
+	 */
+	@RequestMapping(value = "updatePlaceSimple", method = RequestMethod.POST)
+	@ResponseBody
+	public Messenger updatePlaceSimple(
+			@RequestBody @Valid Place place,
 			BindingResult syntaxResult) {
 		
 		// 校验字段格式

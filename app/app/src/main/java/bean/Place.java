@@ -15,6 +15,10 @@ public class Place {
 
     private String address;
 
+    private String picUrl;
+
+    private String intro;
+
     public Integer getId() {
         return id;
     }
@@ -45,5 +49,21 @@ public class Place {
 
     public void setAddress(String address) {
         this.address = address == null ? null : address.trim();
+    }
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
     }
 }

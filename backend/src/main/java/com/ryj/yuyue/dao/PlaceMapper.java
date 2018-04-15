@@ -16,15 +16,21 @@ public interface PlaceMapper {
 
     int insertSelective(Place record);
 
+    List<Place> selectByExampleWithBLOBs(PlaceExample example);
+
     List<Place> selectByExample(PlaceExample example);
 
     Place selectByPrimaryKey(Integer id);
 
     int updateByExampleSelective(@Param("record") Place record, @Param("example") PlaceExample example);
 
+    int updateByExampleWithBLOBs(@Param("record") Place record, @Param("example") PlaceExample example);
+
     int updateByExample(@Param("record") Place record, @Param("example") PlaceExample example);
 
     int updateByPrimaryKeySelective(Place record);
+
+    int updateByPrimaryKeyWithBLOBs(Place record);
 
     int updateByPrimaryKey(Place record);
 }
