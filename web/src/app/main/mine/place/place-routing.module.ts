@@ -5,7 +5,13 @@ import { PlaceComponent } from './place.component';
 
 const placeRoutes: Routes = [
   { 
-    path: '', component: PlaceComponent
+    path: '', 
+    component: PlaceComponent,
+    children: [
+      { path: 'info', loadChildren: 'app/main/mine/place/place-detail/place-detail.module#PlaceDetailModule'},
+      { path: 'edit', loadChildren: 'app/main/mine/place/place-edit/place-edit.module#PlaceEditModule'},
+      { path: '', redirectTo: 'info', pathMatch: 'full' }
+    ]
   }
 ];
 

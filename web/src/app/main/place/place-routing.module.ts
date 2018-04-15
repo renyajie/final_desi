@@ -10,6 +10,7 @@ const placeRoutes: Routes = [
     children: [
       { path: 'list', loadChildren: 'app/main/place/place-list/place-list.module#PlaceListModule'},
       { path: 'insert', loadChildren: 'app/main/place/place-insert/place-insert.module#PlaceInsertModule'},
+      { path: 'edit', loadChildren: 'app/main/place/place-edit/place-edit.module#PlaceEditModule'},
       { path: '', redirectTo: 'list', pathMatch: 'full' }
     ]
   }

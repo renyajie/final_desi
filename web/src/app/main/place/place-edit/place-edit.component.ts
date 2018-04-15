@@ -9,11 +9,11 @@ import { PersonInfoService } from '../../../core/person-info.service';
 import { Place } from '../../../poto/place';
 
 @Component({
-  selector: 'app-place-detail',
-  templateUrl: './place-detail.component.html',
-  styleUrls: ['./place-detail.component.css']
+  selector: 'app-place-edit',
+  templateUrl: './place-edit.component.html',
+  styleUrls: ['./place-edit.component.css']
 })
-export class PlaceDetailComponent implements OnInit {
+export class PlaceEditComponent implements OnInit {
 
   place$: Observable<Place>;
   place: Place;
@@ -42,14 +42,41 @@ export class PlaceDetailComponent implements OnInit {
     );
   }
 
-  //编辑信息
-  edit() {
-    this.router.navigate(['main/place/edit', this.place.id]);
+  //提交更新信息
+  submitData(place: Place) {
+    //检查数据的完备性
+    if(place.sName == null || place.sName.length == 0) {
+      alert("场馆名称不能为空");
+      return;
+    }
+    if(place.phone == null || place.phone.length == 0) {
+      alert("联系方式不能为空");
+      return;
+    }
+    if(place.address == null || place.address.length == 0) {
+      alert("地址不能为空");
+      return;
+    }
+    this.placeService.updatePlaceSimple(place).subscribe(
+      data => {
+        //若服务器成功返回消息
+        if (data['code'] === 100) {
+          alert("更新成功")
+        }
+        //若发生错误，提示出错
+        else {
+          alert("发生错误");
+        }
+      }
+    )
+    
   }
 
-  //返回瑜伽馆列表
+  /**
+   * 返回查看场馆信息
+   */
   goToBack() {
-    this.router.navigate(['../'], { relativeTo: this.route });
+    this.router.navigate(['main/place/list', this.place.id]);
   }
 
 }

@@ -6,7 +6,9 @@ export class Place {
         public id?: number,
         public phone?: string,
         public sName?: string,
-        public address?: string
+        public address?: string,
+        public picUrl?: string,
+        public intro?: string
     ) {}
 
     static fromJSON(json: any): Place {
@@ -14,14 +16,5 @@ export class Place {
         Object.assign(place, json);
         return place;
     }
-
-    toString() {
-        return `
-        Place {
-            id: ${this.id},
-            phone: ${this.phone},
-            sName: ${this.sName},
-            address: ${this.address}
-        }`;
-    }
+    
 }

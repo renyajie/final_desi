@@ -20,8 +20,8 @@ export class ManagerDetailComponent implements OnInit {
   manager$: Observable<Manager>;
   places$: Observable<Place[]>;
   genders: SimpleToken[] = [
-    new SimpleToken("男", "m"),
-    new SimpleToken("女", "f")
+    new SimpleToken("男", "男"),
+    new SimpleToken("女", "女")
   ];
 
   constructor(

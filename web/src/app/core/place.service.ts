@@ -57,7 +57,16 @@ export class PlaceService {
    */
   placeUpdate(place: Place) {
     const url = this.url + 'updatePlace';
-    return this.httpClient.put(url, place);
+    return this.httpClient.post(url, place);
+  }
+
+  /**
+   * 更新场馆信息，不包括图片
+   * @param place 
+   */
+  updatePlaceSimple(place: Place) {
+    const url = this.url + 'updatePlaceSimple';
+    return this.httpClient.post(url, place);
   }
 
   /**

@@ -1,0 +1,30 @@
+<div class="main-content" deep="2" *ngIf="place$ | async as place">
+  <div class="left">
+    <div>
+      <img src={{place.picUrl}}>
+    </div>
+    <div>
+        <label>场馆编号：</label>
+        <span>{{place.id}}</span>
+        <br>
+      <label>场馆名称：</label>
+      <span>{{place.sName}}</span>
+      <br>
+      <label>联系方式：</label>
+      <span>{{place.phone}}</span>
+      <br>
+      <label>地址：</label>
+      <span>{{place.address}}</span>
+    </div>
+    <div class="main-btn">
+      <button class="btn btn-info" (click)="edit()">编辑</button>
+    </div>
+  </div>
+
+  <div class="right">
+    <p>
+        {{place.intro}}
+    </p>
+  </div>
+
+</div>
