@@ -56,13 +56,27 @@ export class ClassService {
 
   /**
    * 添加课程种类
-   * @param classKind 
+   * @param classKind 课程种类嘻嘻
+   * @param tagOne 
+   * @param tagTwo 
+   * @param tagThree 
+   * @param tagFour 
    */
-  addClassKind(classKind: ClassKind) {
-    let tmp = new ClassKind(null, null);
-    tmp = Object.assign(tmp, classKind);
+  addClassKind(classKind: ClassKind, tagOne:number, tagTwo: number, tagThree: number, tagFour: number) {
+    
+    const params = new HttpParams()
+      .set('pId', classKind.pId + '')
+      .set('property', classKind.property)
+      .set('claKName', classKind.claKName)
+      .set('difficulty', classKind.difficulty + '')
+      .set('intro', classKind.intro)
+      .set('tagOne', tagOne + '')
+      .set('tagTwo', tagTwo + '')
+      .set('tagThree', tagThree + '')
+      .set('tagFour', tagFour + '');
+
     const url = this.url + 'addClassKind';
-    return this.httpClient.post(url, tmp);
+    return this.httpClient.post(url, params);
   }
 
   /**

@@ -21,6 +21,10 @@ import { SimpleToken } from '../../../utility/simple_token';
 export class ClassKindInsertComponent implements OnInit {
 
   classKind$: Observable<ClassKind>;
+  tagOne: number = -1;
+  tagTwo: number = -1;
+  tagThree: number = 0;
+  tagFour: number = 0;
 
   difficultys: SimpleToken[] = [
     new SimpleToken("1星", "1"),
@@ -62,6 +66,8 @@ export class ClassKindInsertComponent implements OnInit {
     )
   }
 
+  get diagnostic() { return JSON.stringify('tagOne: ' + this.tagOne + ', tagTwo: ' + this.tagTwo + ', tagThree: ' + this.tagThree + ', tagFour: ' + this.tagFour); }
+
   //添加课程种类
   addClassKind(classKind: ClassKind) {
     //检查数据的完备性
@@ -81,8 +87,16 @@ export class ClassKindInsertComponent implements OnInit {
       alert("课程简介不能为空");
       return;
     }
+    if(this.tagOne == -1) {
+      alert("第一类标签不能为空");
+      return;
+    }
+    if(this.tagTwo == -1) {
+      alert("第二类标签不能为空");
+      return;
+    }
     //提交服务器
-    this.classService.addClassKind(classKind).subscribe(
+    this.classService.addClassKind(classKind, this.tagOne, this.tagTwo, this.tagThree, this.tagFour).subscribe(
       data => {
         if (data['code'] === 100) {
           alert("信息更新成功");

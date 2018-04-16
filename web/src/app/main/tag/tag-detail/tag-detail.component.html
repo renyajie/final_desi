@@ -1,36 +1,28 @@
 <h3>课程种类信息</h3>
-<div class="main-cont" *ngIf="classKind$ | async as classKind">
+<div class="main-cont" *ngIf="classTag$ | async as classTag">
   <div class="form-group">
-    <label for="pId">瑜伽馆编号</label>
-    <input type="text" [(ngModel)]="classKind.pId" id="pId" placeholder="瑜伽馆编号" readonly="true">
-  </div>
-  <div class="form-group">
-    <label for="pName">瑜伽馆名称</label>
-    <input type="text" [(ngModel)]="classKind.pName" id="pName" placeholder="瑜伽馆名称" readonly="true">
+    <label for="id">编号</label>
+    <input type="text" [(ngModel)]="classTag.id" id="id" placeholder="编号" readonly="true">
   </div>
   <div class="form-group">
     <label for="claKName">课程名称</label>
-    <input type="text" [(ngModel)]="classKind.claKName" id="claKName" placeholder="课程名称">
+    <input type="text" [(ngModel)]="classTag.claKName" id="claKName" placeholder="课程名称" readonly="true">
   </div>
   <div class="form-group">
     <label for="property">课程属性</label>
-    <select [(ngModel)]="classKind.property" id="property">
+    <select [(ngModel)]="classTag.property" id="property" disabled="true">
       <option *ngFor="let property of propertys" value="{{property.value}}">
           {{property.label}}
       </option>
     </select>
   </div>
   <div class="form-group">
-    <label for="difficulty">难度</label>
-    <select [(ngModel)]="classKind.difficulty" id="difficulty">
+    <label for="difficulty">课程难度</label>
+    <select [(ngModel)]="classTag.difficulty" id="difficulty" disabled="true">
       <option *ngFor="let difficulty of difficultys" value="{{difficulty.value}}">
           {{difficulty.label}}
       </option>
     </select>
-  </div>
-  <div class="form-group">
-    <label for="intro">简介</label>
-    <input type="text" [(ngModel)]="classKind.intro" id="intro" placeholder="简介">
   </div>
   <div>
     TODO: {{diagnostic}}
@@ -56,6 +48,6 @@
   </div>
   <div class="main-btn">
     <button type="button" class="btn btn-info btn-sm" (click)="goBack();">返回</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="addClassKind(classKind);">提交</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="submitData();">提交</button>
   </div>
 </div>

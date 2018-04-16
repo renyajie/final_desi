@@ -28,6 +28,7 @@ export class ClassKindDetailComponent implements OnInit {
     new SimpleToken("团课", "g")
   ];
 
+  
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -48,6 +49,7 @@ export class ClassKindDetailComponent implements OnInit {
         }
       }
     );
+
   }
 
   //提交更新信息

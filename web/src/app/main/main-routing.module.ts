@@ -14,6 +14,7 @@ const mainRoutes: Routes = [
       { path: 'order', loadChildren: 'app/main/order/order.module#OrderModule' },
       { path: 'card', loadChildren: 'app/main/card/card.module#CardModule' },
       { path: 'class', loadChildren: 'app/main/class/class.module#ClassModule' },
+      { path: 'tag', loadChildren: 'app/main/tag/tag.module#TagModule' },
       { path: 'news', loadChildren: 'app/main/news/news.module#NewsModule' },
       { path: 'mine', loadChildren: 'app/main/mine/mine.module#MineModule' },
       { path: 'place', loadChildren: 'app/main/place/place.module#PlaceModule' },

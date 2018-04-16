@@ -19,7 +19,11 @@ export class PersonInfoService {
 
   constructor(private httpClient: HttpClient) {
     //TODO: 测试信息，测试账号为1的管理员
-    this.id = 1;
+    this.id = 21;
+    this.manager = new Manager(
+      '17826856214', '123456', 1,  
+      '17826856214', '任亚捷', 
+      '男', 21 , "22222222222222");
     this._isSysManager = false;
   }
 

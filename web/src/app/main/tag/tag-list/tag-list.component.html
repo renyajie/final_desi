@@ -1,0 +1,111 @@
+<div class="row">
+  <div class="col-md-offset-4 col-md-2">
+    种类:
+    <select [(ngModel)]="classKId" id="classKId">
+        <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
+            {{classKind.claKName}}
+        </option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <button type="button" class="btn btn-info btn-sm" (click)="clear();getTag();">清空</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getTag(1, classKId);">搜索</button>
+  </div>
+</div>
+
+<div class="main-table">  
+    <table class="table table-bordered table-hover">
+        <tr>
+          <td class="idColumn">编号</td>
+          <td class="classColumn">课程名称</td>
+          <td class="nameColumn">课程属性</td>
+          <td class="numberColumn">课程难度</td>
+          <td class="tagColumn">轻松</td>
+          <td class="tagColumn">强烈</td>
+          <td class="tagColumn">普通</td>
+          <td class="tagColumn">恢复</td>
+          <td class="tagColumn">健体</td>
+          <td class="tagColumn">调理</td>
+          <td class="tagColumn">消耗</td>
+          <td>操作</td>
+        </tr>
+        <tr>
+          
+      </tr>
+        <tr *ngFor="let classTag of classTags$ | async">
+            <td class="idColumn">{{classTag.id}}</td>
+            <td class="classColumn">{{classTag.claKName}}</td>
+            <td class="nameColumn">{{classTag.property}}</td>
+            <td class="numberColumn">{{classTag.difficulty}}</td>
+            <td class="tagColumn">{{classTag.relaxed === 1 ? "Yes" : "No"}}</td>
+            <td class="tagColumn">{{classTag.intense === 1 ? "Yes" : "No"}}</td>
+            <td class="tagColumn">{{classTag.common === 1 ? "Yes" : "No"}}</td>
+            <td class="tagColumn">{{classTag.recovery === 1 ? "Yes" : "No"}}</td>
+            <td class="tagColumn">{{classTag.enhance === 1 ? "Yes" : "No"}}</td>
+            <td class="tagColumn">{{classTag.nurse === 1 ? "Yes" : "No"}}</td>
+            <td class="tagColumn">{{classTag.consume === 1 ? "Yes" : "No"}}</td>
+            <td>
+              <a [routerLink]="['./', classTag.id]" class="btn btn-info btn-sm">编辑</a>
+            </td>
+        </tr>
+    </table>
+</div> 
+
+<div class="row foot-content">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="main-page">
+      <nav aria-label="Page navigation">
+        <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getTag(1, classKId);">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getTag(pageInfo.pageNum - 1, classKId);">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getTag(item, classKId);">
+            <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getTag(pageInfo.pageNum + 1, classKId);">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getTag(pageInfo.pages, classKId);">
+            <a>
+              末页
+            </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a>
+              末页
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

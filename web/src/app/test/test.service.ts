@@ -25,4 +25,13 @@ export class TestService {
     return this.httpClient.post(testUrl, tmp);
   }
 
+  postMessage() {
+    const params = new HttpParams()
+      .set('name', 'renyajie')
+      .set('code', '100')
+      .set('msg', '233');
+    const testUrl = 'api/test/angular/' + 'postMessage';
+     return this.httpClient.post(testUrl, params);
+  }
+
 }

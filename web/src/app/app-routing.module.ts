@@ -6,9 +6,9 @@ import { PageNotFoundComponent } from './core/page-not-found.component';
 
 const appRoutes: Routes = [
   //登录启动页: 
-  { path: '', redirectTo: 'start', pathMatch: 'full' },
+  //{ path: '', redirectTo: 'start', pathMatch: 'full' },
   //主界面: 
-  //{ path: '', redirectTo: '/main', pathMatch: 'full' },
+  { path: '', redirectTo: '/main', pathMatch: 'full' },
   //测试连接页: 
   //{ path: '', redirectTo: '/test', pathMatch: 'full' },
   { path: '**', component: PageNotFoundComponent }

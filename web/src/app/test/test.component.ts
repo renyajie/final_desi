@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { SystemManager } from '../poto/system_manager';
 import { TestService } from './test.service';
+import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
 
 @Component({
   selector: 'app-test',
@@ -13,8 +14,11 @@ export class TestComponent implements OnInit {
     sName: '冰糖'
   }
 
+  message: string = '未接收到';
+
   constructor(
-    private testService: TestService
+    private testService: TestService,
+    private httpClient: HttpClient
   ) { }
 
   ngOnInit() {
@@ -44,6 +48,16 @@ export class TestComponent implements OnInit {
           alert('添加失败');
         }
       })
+  }
+
+  // POST方法，直接通过匿名的语法向服务器提交一个对象
+  postMessage() {
+    this.testService.postMessage().subscribe(
+      data => {
+        this.message
+          = `Message: ${data['msg']}`;
+      }
+    )
   }
 
 }
