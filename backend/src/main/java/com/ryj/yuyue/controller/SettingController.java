@@ -28,6 +28,7 @@ import com.ryj.yuyue.bean.ClassInfo;
 import com.ryj.yuyue.bean.ClassKind;
 import com.ryj.yuyue.bean.ClassKindResult;
 import com.ryj.yuyue.bean.ClassOrderResult;
+import com.ryj.yuyue.bean.ClassTagResult;
 import com.ryj.yuyue.bean.Place;
 import com.ryj.yuyue.bean.Teacher;
 import com.ryj.yuyue.service.CardService;
@@ -35,6 +36,7 @@ import com.ryj.yuyue.service.ClassService;
 import com.ryj.yuyue.service.ManagerService;
 import com.ryj.yuyue.service.OrderService;
 import com.ryj.yuyue.service.PlaceService;
+import com.ryj.yuyue.service.TagService;
 import com.ryj.yuyue.service.TeacherService;
 import com.ryj.yuyue.service.TransferService;
 import com.ryj.yuyue.utils.ConstantLiteral;
@@ -67,6 +69,8 @@ public class SettingController {
 	private OrderService orderService;
 	@Autowired
 	private TransferService transferService;
+	@Autowired
+	private TagService tagService;
 	
 	/**
 	 * 管理员增加课程信息
@@ -136,14 +140,22 @@ public class SettingController {
 
 	/**
 	 * 管理员添加课程种类
-	 * @param classKind
+	 * @param classKind 课程种类
+	 * @param tagOne 第一种标签：轻松，强烈，普通，三选一
+	 * @param tagTwo 第二种标签：恢复，健体，二选一
+	 * @param tagThree 第三种标签：调理，选或不选
+	 * @param tagFour 第四种标签：消耗，选或不选
 	 * @param syntaxResult
 	 * @return
 	 */
 	@RequestMapping(value = "addClassKind", method = RequestMethod.POST)
 	@ResponseBody
 	public Messenger addClassKind(
-			@RequestBody @Valid ClassKind classKind, 
+			@Valid ClassKind classKind, 
+			@RequestParam("tagOne") Integer tagOne,
+			@RequestParam("tagTwo") Integer tagTwo,
+			@RequestParam("tagThree") Integer tagThree,
+			@RequestParam("tagFour") Integer tagFour,
 			BindingResult syntaxResult) {
 		
 		// 校验字段格式
@@ -155,8 +167,10 @@ public class SettingController {
 			}
 			return Messenger.fail().add("errorFields", map);
 		}
-		
+		//添加课程种类
 		classService.addClassKind(classKind);
+		//添加课程标签
+		tagService.addClassTag(tagOne, tagTwo, tagThree, tagFour, classKind.getId());
 		return Messenger.success();
 	}
 	
@@ -171,6 +185,28 @@ public class SettingController {
 			@RequestParam(value = "classKId", required = true) Integer classKId) {
 		
 		classService.deleteClassKind(classKId);
+		return Messenger.success();
+	}
+	
+	/**
+	 * 更新课程标签
+	 * @param id
+	 * @param tagOne
+	 * @param tagTwo
+	 * @param tagThree
+	 * @param tagFour
+	 * @return
+	 */
+	@RequestMapping(value = "updateClassTag", method = RequestMethod.POST)
+	@ResponseBody
+	public Messenger updateClassTag(
+			@RequestParam(value = "id", required = true) Integer id,
+			@RequestParam(value = "tagOne", required = true) Integer tagOne,
+			@RequestParam(value = "tagTwo", required = true) Integer tagTwo,
+			@RequestParam(value = "tagThree", required = true) Integer tagThree,
+			@RequestParam(value = "tagFour", required = true) Integer tagFour) {
+		
+		tagService.updateClassTag(tagOne, tagTwo, tagThree, tagFour, id);
 		return Messenger.success();
 	}
 
@@ -379,6 +415,27 @@ public class SettingController {
 	}
 	
 	/**
+	 * 获取课程标签
+	 * @param pn
+	 * @param placeId
+	 * @param classKId
+	 * @return
+	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	@RequestMapping(value="getClassTag", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getClassTag(
+			@RequestParam(value = "pn", defaultValue = "1" ) Integer pn,
+			@RequestParam(value = "placeId", required = false ) Integer placeId,
+			@RequestParam(value = "classKindId", required = false) Integer classKId) {
+		
+		PageHelper.startPage(pn, 10);
+		List<ClassTagResult> result = tagService.getClassTag(placeId, classKId);
+		PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
+		return Messenger.success().add("pageInfo", page);
+	}
+	
+	/**
 	 * 获取会员卡信息
 	 * @param pn
 	 * @param cardKId
@@ -458,6 +515,20 @@ public class SettingController {
 			@RequestParam(value = "cardId", required=true) Integer cardId) {
 		
 		CardInfoResult result = cardService.getOneCardInfo(cardId);
+		return Messenger.success().add("info", result);
+	}
+	
+	/**
+	 * 获取一个课程标签
+	 * @param id
+	 * @return
+	 */
+	@RequestMapping(value = "getOneClassTag", method = RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOneClassTag(
+			@RequestParam(value = "id", required=true) Integer id) {
+		
+		ClassTagResult result = tagService.getOneClassTag(id);
 		return Messenger.success().add("info", result);
 	}
 	

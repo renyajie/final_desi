@@ -41,7 +41,7 @@
 		<!--<table tableName="user" domainObjectName="User"></table> 
 		<table tableName="manager" domainObjectName="Manager"></table>
 		<table tableName="sys_manager" domainObjectName="SystemManager"></table>-->
-		<table tableName="place" domainObjectName="Place"></table>
+		<!-- <table tableName="place" domainObjectName="Place"></table> -->
 		<!-- <table tableName="class_kind" domainObjectName="ClassKind"></table>
 		<table tableName="teacher" domainObjectName="Teacher"></table> -->
 		<!-- <table tableName="class_info" domainObjectName="ClassInfo"></table>-->
@@ -51,5 +51,6 @@
 		<table tableName="card_order" domainObjectName="CardOrder"></table> 
 		<table tableName="news" domainObjectName="News"></table> -->
 		<!-- <table tableName="score" domainObjectName="Score"></table> -->
+		<table tableName="class_tag" domainObjectName="ClassTag"></table>
 	</context>
 </generatorConfiguration>

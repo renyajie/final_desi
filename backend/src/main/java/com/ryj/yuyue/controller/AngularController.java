@@ -81,4 +81,19 @@ public class AngularController {
 		systemManagerService.insertASystemManager(sysManager);
 		return Messenger.success().add("info", "成功");
 	}
+	
+	/**
+	 * 服务器接收一个对象和单个信息
+	 * 注意： 要使用@RequestBody接收POJO
+	 * @param messenger
+	 * @return
+	 */
+	@RequestMapping(value="postMessage", method=RequestMethod.POST)
+	@ResponseBody
+	public Messenger postMessage(
+		 Messenger messenger,
+			@RequestParam("name") String name) {
+		logger.info("messenger is {}, name is {}", messenger, name);
+		return Messenger.success().add("info", messenger);
+	}
 }

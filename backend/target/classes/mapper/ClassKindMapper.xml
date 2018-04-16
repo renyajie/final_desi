@@ -171,7 +171,9 @@
       #{claKName,jdbcType=VARCHAR}, #{difficulty,jdbcType=INTEGER}, #{intro,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.ClassKind">
+  <insert id="insertSelective" 
+  	keyProperty="id" useGeneratedKeys="true"
+  	parameterType="com.ryj.yuyue.bean.ClassKind">
     insert into class_kind
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
