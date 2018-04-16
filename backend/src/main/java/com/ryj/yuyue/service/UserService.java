@@ -8,10 +8,15 @@ import org.springframework.stereotype.Service;
 import com.ryj.yuyue.bean.User;
 import com.ryj.yuyue.bean.UserExample;
 import com.ryj.yuyue.bean.UserExample.Criteria;
+import com.ryj.yuyue.bean.UserFeature;
+import com.ryj.yuyue.bean.UserFeatureExample;
+import com.ryj.yuyue.dao.UserFeatureMapper;
 import com.ryj.yuyue.dao.UserMapper;
 
 /**
  * 处理和用户相关的服务
+ * 1. 个人信息
+ * 2. 个人特征
  * @author Thor
  *
  */
@@ -20,6 +25,37 @@ public class UserService {
 
 	@Autowired
 	private UserMapper userMapper;
+	
+	@Autowired
+	private UserFeatureMapper userFeatureMapper;
+	
+	/**
+	 * 插入用户特征
+	 * @param userFeature
+	 */
+	public void addUserFeature(UserFeature userFeature) {
+		userFeatureMapper.insertSelective(userFeature);
+	}
+	
+	/**
+	 * 获取用户特征编号
+	 * @param userId
+	 * @return
+	 */
+	public UserFeature getUserFeature(Integer userId) {
+		UserFeatureExample example = new UserFeatureExample();
+		com.ryj.yuyue.bean.UserFeatureExample.Criteria criteria = example.createCriteria();
+		criteria.andUIdEqualTo(userId);
+		return userFeatureMapper.selectByExample(example).get(0);
+	}
+	
+	/**
+	 * 更新用户特征
+	 * @param userFeature
+	 */
+	public void updateUserFeature(UserFeature userFeature) {
+		userFeatureMapper.insertSelective(userFeature);
+	}
 	
 	/**
 	 * 检查账号和密码是否正确
@@ -56,8 +92,9 @@ public class UserService {
 	 * 用户注册
 	 * @param user
 	 */
-	public void register(User user) {
+	public User register(User user) {
 		userMapper.insertSelective(user);
+		return user;
 	}
 	
 	/**

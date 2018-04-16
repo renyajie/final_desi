@@ -25,6 +25,7 @@
         </activity>
         <activity android:name=".LoginActivity"/>
         <activity android:name=".RegisterActivity"/>
+        <activity android:name=".UserBasicInfoActivity"/>
         <activity android:name="main.activity.recommand_class.RecommandClassActivity"
             android:parentActivityName=".MainActivity"/>
         <activity

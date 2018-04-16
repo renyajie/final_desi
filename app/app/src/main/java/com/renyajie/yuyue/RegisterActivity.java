@@ -54,6 +54,9 @@ implements View.OnClickListener{
     private static final int REGISTER_FAILURE = 2;
     private static final int UNKNOW_ERROR = 3;
 
+    private int userId;
+    private User user = new User();
+
     @SuppressLint("HandlerLeak")
     private Handler handler = new Handler() {
 
@@ -65,11 +68,17 @@ implements View.OnClickListener{
                     showNoticeDialog("提示", "发送未知错误，请检查是否连接服务器");
                     break;
                 case REGISTER_SUCCESS:
+                    //保存用户信息
+                    Messenger messengerB = (Messenger) msg.obj;
+                    userId = Integer.parseInt(messengerB.getMsg());
+                    user.setId(userId);
+                    UtilsMethod.saveUserInfo(user);
+
                     //显示注册成功对话框
                     showSuccessDialog();
                     break;
                 case REGISTER_FAILURE:
-                    Messenger messengerA= (Messenger) msg.obj;
+                    Messenger messengerA = (Messenger) msg.obj;
 
                     //Msg存在，则为手机号重复错误，否则为字段错误
                     if(messengerA.getMsg() != null && messengerA.getMsg().length() > 0) {
@@ -231,7 +240,6 @@ implements View.OnClickListener{
                 }
 
                 //构造用户，发送注册请求
-                User user = new User();
                 user.setPasswd(password.getText().toString());
                 user.setuName(username.getText().toString());
                 user.setPhone(phone.getText().toString());
@@ -308,21 +316,17 @@ implements View.OnClickListener{
         normalDialog.setIcon(R.mipmap.ic_launcher);
         normalDialog.setTitle("提示");
         normalDialog.setMessage("注册成功");
-        normalDialog.setPositiveButton("前往登录",
+        normalDialog.setPositiveButton("确定",
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         Intent intent = new Intent(
-                                RegisterActivity.this, LoginActivity.class);
+                                RegisterActivity.this, UserBasicInfoActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("userId", userId);
+                        intent.putExtras(bundle);
                         startActivity(intent);
                         RegisterActivity.this.finish();
-                    }
-                });
-        normalDialog.setNegativeButton("确定",
-                new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-
                     }
                 });
         normalDialog.show();

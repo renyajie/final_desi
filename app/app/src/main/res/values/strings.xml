@@ -16,6 +16,26 @@
     <string name="mine_setting">设置</string>
     <string name="mine_logout">退出登录</string>
 
+    <string name="question_one">
+        1. 若有以下疾病?
+    </string>
+
+    <string name="illnese">
+        肠胃不佳，妇科疾病，肝功能不全，心脑血管疾病，胆结石，白血病，心肌梗塞，心绞痛，消化疾病，内分泌失调
+    </string>
+
+    <string name="question_two">
+        2. 最近几个月是否有严重病史或开刀?
+    </string>
+
+    <string name="question_three">
+        3. 平时饮食是否均衡，脂肪含量低，纤维含量高，吃大量的新鲜水果和蔬菜?
+    </string>
+
+    <string name="question_four">
+        4. 是否有限制盐和糖的摄入量?
+    </string>
+
     <string name="member_rule">
         1.预约时间：最早可提前<b>6天</b>，<b>6:00-22:00</b>接受预约。\n\n
         2.预约截止：开课<b>前1小时</b>。\n\n

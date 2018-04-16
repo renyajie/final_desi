@@ -47,4 +47,27 @@ public interface ClassTagMapper {
      */
     ClassTagResult getOneClassTag(
     		@Param("id") Integer id);
+    
+    /**
+     * 根据用户偏好获得推荐课程种类的编号
+     * @param relaxed
+     * @param intense
+     * @param common
+     * @param recovery
+     * @param enhance
+     * @param nurse
+     * @param consume
+     * @param property
+     * @return
+     */
+    List<Integer> getRecommandIdFromFeature(
+    		@Param("relaxed") Integer relaxed,
+    		@Param("intense") Integer intense,
+    		@Param("common") Integer common,
+    		@Param("recovery") Integer recovery,
+    		@Param("enhance") Integer enhance,
+    		@Param("nurse") Integer nurse,
+    		@Param("consume") Integer consume,
+    		@Param("property") String property);
+    
 }

@@ -3,7 +3,6 @@ package com.ryj.yuyue.service;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 import java.util.Set;
 
 import org.slf4j.Logger;
@@ -15,6 +14,7 @@ import com.ryj.yuyue.bean.ClassKindResult;
 import com.ryj.yuyue.bean.ScoreExample;
 import com.ryj.yuyue.bean.ScoreExample.Criteria;
 import com.ryj.yuyue.bean.User;
+import com.ryj.yuyue.bean.UserFeature;
 import com.ryj.yuyue.dao.ClassKindMapper;
 import com.ryj.yuyue.dao.ScoreMapper;
 import com.ryj.yuyue.dao.UserMapper;
@@ -39,6 +39,12 @@ public class RecommandService {
 	
 	@Autowired
 	private ClassKindMapper classKindMapper;
+	
+	@Autowired
+	private UserService userService;
+	
+	@Autowired
+	private TagService tagService;
 	
 	@Autowired
 	private UserMapper userMapper;
@@ -89,7 +95,7 @@ public class RecommandService {
 			//若是第一个用户，则根据专业知识进行推荐
 			if(userSize == 0) {
 				idList = getStaticRecommand(
-						isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
+						userId, isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
 				logger.info("用户没有评论，而是第一个用户，使用专业知识进行推荐");
 			}
 			//若不是第一个用户，则统计和用户人口特征相似的用户热门课程推荐
@@ -113,14 +119,14 @@ public class RecommandService {
 			//若是第一个用户，则根据专业知识进行推荐
 			if(userSize == 0) {
 				idList = getStaticRecommand(
-						isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
+						userId, isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
 				logger.info("用户有评论，是第一个用户，专业知识推荐");
 			}
 			else {
 				//若其他用户没有评论信息，根据专业知识进行静态推荐
 				if(otherScoreSize == 0) {
 					idList = getStaticRecommand(
-							isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
+						userId, isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
 					logger.info("用户有评论，其他用户没评论，专业知识推荐");
 				}
 				//若其他用户有评论
@@ -137,7 +143,7 @@ public class RecommandService {
 					//若推荐结果不足指定个数，则再根据专业知识进行补充
 					if(temp.size() < 5) {
 						idList = getStaticRecommand(
-								isPeople, RECOMMEND_SIZE - temp.size(), temp);
+							userId, isPeople, RECOMMEND_SIZE - temp.size(), temp);
 					}
 					else {
 						idList = temp;
@@ -154,27 +160,34 @@ public class RecommandService {
 	
 	/**
 	 * 获取根据专业知识的静态推荐
+	 * @param userId 用户编号
 	 * @param isPeople 是否团课
 	 * @param size 推荐多少个
 	 * @param temp 已有的推荐课程编号列表
 	 * @return
 	 */
 	public List<Integer> getStaticRecommand(
-			Integer isPeople, Integer size, List<Integer> temp) {
+			Integer userId, Integer isPeople, Integer size, List<Integer> temp) {
 		
-		Random rand = new Random();
 		Set<Integer> idSet = new HashSet<Integer>(temp);
 		
+		UserFeature userFeature = userService.getUserFeature(userId);
+		List<Integer> recommandIdList = 
+				tagService.getRecommandIdFromUserFeature(
+						userFeature, isPeople == 1 ? "g" : "s");
+		
+		int i = 0;
+		//若是团课，获取团课专业推荐
 		if(isPeople == 1) {
 			//从团课种类中随机生成五个种类编号
 			while(idSet.size() < 5) {
-				idSet.add(rand.nextInt(800) + 1);
+				idSet.add(recommandIdList.get(i++));
 			}
 		}
 		else {
 			//从私教种类中随机生成五个种类编号
 			while(idSet.size() < 5) {
-				idSet.add(rand.nextInt(800) + 1 + 800);
+				idSet.add(recommandIdList.get(i++));
 			}
 		}
 		

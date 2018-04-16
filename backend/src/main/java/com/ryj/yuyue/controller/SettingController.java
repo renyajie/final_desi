@@ -31,6 +31,7 @@ import com.ryj.yuyue.bean.ClassOrderResult;
 import com.ryj.yuyue.bean.ClassTagResult;
 import com.ryj.yuyue.bean.Place;
 import com.ryj.yuyue.bean.Teacher;
+import com.ryj.yuyue.bean.UserFeature;
 import com.ryj.yuyue.service.CardService;
 import com.ryj.yuyue.service.ClassService;
 import com.ryj.yuyue.service.ManagerService;
@@ -39,6 +40,7 @@ import com.ryj.yuyue.service.PlaceService;
 import com.ryj.yuyue.service.TagService;
 import com.ryj.yuyue.service.TeacherService;
 import com.ryj.yuyue.service.TransferService;
+import com.ryj.yuyue.service.UserService;
 import com.ryj.yuyue.utils.ConstantLiteral;
 import com.ryj.yuyue.utils.Messenger;
 
@@ -55,6 +57,8 @@ public class SettingController {
 	private static final Logger logger = 
 			LoggerFactory.getLogger(SettingController.class);
 
+	@Autowired
+	private UserService userService;
 	@Autowired
 	private ClassService classService;
 	@Autowired
@@ -268,6 +272,32 @@ public class SettingController {
 			return Messenger.success().add("pageInfo", page);
 		}
 		return Messenger.success().add("info", result);
+	}
+	
+	/**
+	 * 添加用户特征
+	 * @param userFeature
+	 * @param syntaxResult
+	 * @return
+	 */
+	@RequestMapping(value = "addUserFeature", method = RequestMethod.POST)
+	@ResponseBody
+	public Messenger addUserFeature(
+			@RequestBody @Valid UserFeature userFeature, 
+			BindingResult syntaxResult) {
+		
+		// 校验字段格式
+		if (syntaxResult.hasErrors()) {
+			Map<String, Object> map = new HashMap<String, Object>();
+			List<FieldError> errors = syntaxResult.getFieldErrors();
+			for (FieldError fieldError : errors) {
+				map.put(fieldError.getField(), fieldError.getDefaultMessage());
+			}
+			return Messenger.fail().add("errorFields", map);
+		}
+		
+		userService.addUserFeature(userFeature);
+		return Messenger.success();
 	}
 
 	/**
@@ -773,5 +803,19 @@ public class SettingController {
 		
 		return Messenger.success().add("info", 
 				placeService.getOnePlace(id));
+	}
+	
+	/**
+	 * 获取用户特征
+	 * @param userId 用户编号
+	 * @return
+	 */
+	@RequestMapping(value="getOneUserFeature", method=RequestMethod.GET)
+	@ResponseBody
+	public Messenger getOneUserFeature(
+			@RequestParam(value = "userId", required = true) Integer userId) {
+		
+		return Messenger.success().add("info", 
+				userService.getUserFeature(userId));
 	}
 }

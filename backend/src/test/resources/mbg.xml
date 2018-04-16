@@ -51,6 +51,7 @@
 		<table tableName="card_order" domainObjectName="CardOrder"></table> 
 		<table tableName="news" domainObjectName="News"></table> -->
 		<!-- <table tableName="score" domainObjectName="Score"></table> -->
-		<table tableName="class_tag" domainObjectName="ClassTag"></table>
+		<!-- <table tableName="class_tag" domainObjectName="ClassTag"></table> -->
+		<table tableName="user_feature" domainObjectName="UserFeature"></table>
 	</context>
 </generatorConfiguration>

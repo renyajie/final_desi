@@ -1,13 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.ryj.yuyue.dao.UserMapper">
-  <resultMap id="BaseResultMap" type="com.ryj.yuyue.bean.User">
+<mapper namespace="com.ryj.yuyue.dao.UserFeatureMapper">
+  <resultMap id="BaseResultMap" type="com.ryj.yuyue.bean.UserFeature">
     <id column="id" jdbcType="INTEGER" property="id" />
-    <result column="phone" jdbcType="VARCHAR" property="phone" />
-    <result column="passwd" jdbcType="VARCHAR" property="passwd" />
-    <result column="u_name" jdbcType="VARCHAR" property="uName" />
-    <result column="gender" jdbcType="VARCHAR" property="gender" />
-    <result column="age" jdbcType="INTEGER" property="age" />
+    <result column="u_id" jdbcType="INTEGER" property="uId" />
+    <result column="illnese" jdbcType="INTEGER" property="illnese" />
+    <result column="surgery" jdbcType="INTEGER" property="surgery" />
+    <result column="balance_diet" jdbcType="INTEGER" property="balanceDiet" />
+    <result column="limit_intake" jdbcType="INTEGER" property="limitIntake" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -68,15 +68,15 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, phone, passwd, u_name, gender, age
+    id, u_id, illnese, surgery, balance_diet, limit_intake
   </sql>
-  <select id="selectByExample" parameterType="com.ryj.yuyue.bean.UserExample" resultMap="BaseResultMap">
+  <select id="selectByExample" parameterType="com.ryj.yuyue.bean.UserFeatureExample" resultMap="BaseResultMap">
     select
     <if test="distinct">
       distinct
     </if>
     <include refid="Base_Column_List" />
-    from user
+    from user_feature
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
@@ -87,96 +87,96 @@
   <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
-    from user
+    from user_feature
     where id = #{id,jdbcType=INTEGER}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
-    delete from user
+    delete from user_feature
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <delete id="deleteByExample" parameterType="com.ryj.yuyue.bean.UserExample">
-    delete from user
+  <delete id="deleteByExample" parameterType="com.ryj.yuyue.bean.UserFeatureExample">
+    delete from user_feature
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </delete>
-  <insert id="insert" parameterType="com.ryj.yuyue.bean.User">
-    insert into user (id, phone, passwd, 
-      u_name, gender, age)
-    values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
-      #{uName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
+  <insert id="insert" parameterType="com.ryj.yuyue.bean.UserFeature">
+    insert into user_feature (id, u_id, illnese, 
+      surgery, balance_diet, limit_intake
+      )
+    values (#{id,jdbcType=INTEGER}, #{uId,jdbcType=INTEGER}, #{illnese,jdbcType=INTEGER}, 
+      #{surgery,jdbcType=INTEGER}, #{balanceDiet,jdbcType=INTEGER}, #{limitIntake,jdbcType=INTEGER}
+      )
   </insert>
-  <insert id="insertSelective" 
-	  keyProperty="id" useGeneratedKeys="true"
-	  parameterType="com.ryj.yuyue.bean.User">
-    insert into user
+  <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.UserFeature">
+    insert into user_feature
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
         id,
       </if>
-      <if test="phone != null">
-        phone,
+      <if test="uId != null">
+        u_id,
       </if>
-      <if test="passwd != null">
-        passwd,
+      <if test="illnese != null">
+        illnese,
       </if>
-      <if test="uName != null">
-        u_name,
+      <if test="surgery != null">
+        surgery,
       </if>
-      <if test="gender != null">
-        gender,
+      <if test="balanceDiet != null">
+        balance_diet,
       </if>
-      <if test="age != null">
-        age,
+      <if test="limitIntake != null">
+        limit_intake,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
         #{id,jdbcType=INTEGER},
       </if>
-      <if test="phone != null">
-        #{phone,jdbcType=VARCHAR},
+      <if test="uId != null">
+        #{uId,jdbcType=INTEGER},
       </if>
-      <if test="passwd != null">
-        #{passwd,jdbcType=VARCHAR},
+      <if test="illnese != null">
+        #{illnese,jdbcType=INTEGER},
       </if>
-      <if test="uName != null">
-        #{uName,jdbcType=VARCHAR},
+      <if test="surgery != null">
+        #{surgery,jdbcType=INTEGER},
       </if>
-      <if test="gender != null">
-        #{gender,jdbcType=VARCHAR},
+      <if test="balanceDiet != null">
+        #{balanceDiet,jdbcType=INTEGER},
       </if>
-      <if test="age != null">
-        #{age,jdbcType=INTEGER},
+      <if test="limitIntake != null">
+        #{limitIntake,jdbcType=INTEGER},
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="com.ryj.yuyue.bean.UserExample" resultType="java.lang.Long">
-    select count(*) from user
+  <select id="countByExample" parameterType="com.ryj.yuyue.bean.UserFeatureExample" resultType="java.lang.Long">
+    select count(*) from user_feature
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
   </select>
   <update id="updateByExampleSelective" parameterType="map">
-    update user
+    update user_feature
     <set>
       <if test="record.id != null">
         id = #{record.id,jdbcType=INTEGER},
       </if>
-      <if test="record.phone != null">
-        phone = #{record.phone,jdbcType=VARCHAR},
+      <if test="record.uId != null">
+        u_id = #{record.uId,jdbcType=INTEGER},
       </if>
-      <if test="record.passwd != null">
-        passwd = #{record.passwd,jdbcType=VARCHAR},
+      <if test="record.illnese != null">
+        illnese = #{record.illnese,jdbcType=INTEGER},
       </if>
-      <if test="record.uName != null">
-        u_name = #{record.uName,jdbcType=VARCHAR},
+      <if test="record.surgery != null">
+        surgery = #{record.surgery,jdbcType=INTEGER},
       </if>
-      <if test="record.gender != null">
-        gender = #{record.gender,jdbcType=VARCHAR},
+      <if test="record.balanceDiet != null">
+        balance_diet = #{record.balanceDiet,jdbcType=INTEGER},
       </if>
-      <if test="record.age != null">
-        age = #{record.age,jdbcType=INTEGER},
+      <if test="record.limitIntake != null">
+        limit_intake = #{record.limitIntake,jdbcType=INTEGER},
       </if>
     </set>
     <if test="_parameter != null">
@@ -184,45 +184,45 @@
     </if>
   </update>
   <update id="updateByExample" parameterType="map">
-    update user
+    update user_feature
     set id = #{record.id,jdbcType=INTEGER},
-      phone = #{record.phone,jdbcType=VARCHAR},
-      passwd = #{record.passwd,jdbcType=VARCHAR},
-      u_name = #{record.uName,jdbcType=VARCHAR},
-      gender = #{record.gender,jdbcType=VARCHAR},
-      age = #{record.age,jdbcType=INTEGER}
+      u_id = #{record.uId,jdbcType=INTEGER},
+      illnese = #{record.illnese,jdbcType=INTEGER},
+      surgery = #{record.surgery,jdbcType=INTEGER},
+      balance_diet = #{record.balanceDiet,jdbcType=INTEGER},
+      limit_intake = #{record.limitIntake,jdbcType=INTEGER}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
   </update>
-  <update id="updateByPrimaryKeySelective" parameterType="com.ryj.yuyue.bean.User">
-    update user
+  <update id="updateByPrimaryKeySelective" parameterType="com.ryj.yuyue.bean.UserFeature">
+    update user_feature
     <set>
-      <if test="phone != null">
-        phone = #{phone,jdbcType=VARCHAR},
+      <if test="uId != null">
+        u_id = #{uId,jdbcType=INTEGER},
       </if>
-      <if test="passwd != null">
-        passwd = #{passwd,jdbcType=VARCHAR},
+      <if test="illnese != null">
+        illnese = #{illnese,jdbcType=INTEGER},
       </if>
-      <if test="uName != null">
-        u_name = #{uName,jdbcType=VARCHAR},
+      <if test="surgery != null">
+        surgery = #{surgery,jdbcType=INTEGER},
       </if>
-      <if test="gender != null">
-        gender = #{gender,jdbcType=VARCHAR},
+      <if test="balanceDiet != null">
+        balance_diet = #{balanceDiet,jdbcType=INTEGER},
       </if>
-      <if test="age != null">
-        age = #{age,jdbcType=INTEGER},
+      <if test="limitIntake != null">
+        limit_intake = #{limitIntake,jdbcType=INTEGER},
       </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.ryj.yuyue.bean.User">
-    update user
-    set phone = #{phone,jdbcType=VARCHAR},
-      passwd = #{passwd,jdbcType=VARCHAR},
-      u_name = #{uName,jdbcType=VARCHAR},
-      gender = #{gender,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER}
+  <update id="updateByPrimaryKey" parameterType="com.ryj.yuyue.bean.UserFeature">
+    update user_feature
+    set u_id = #{uId,jdbcType=INTEGER},
+      illnese = #{illnese,jdbcType=INTEGER},
+      surgery = #{surgery,jdbcType=INTEGER},
+      balance_diet = #{balanceDiet,jdbcType=INTEGER},
+      limit_intake = #{limitIntake,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
 </mapper>

@@ -1,12 +1,14 @@
 package com.ryj.yuyue.service;
 
 import java.util.List;
+import java.util.Random;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.ryj.yuyue.bean.ClassTag;
 import com.ryj.yuyue.bean.ClassTagResult;
+import com.ryj.yuyue.bean.UserFeature;
 import com.ryj.yuyue.dao.ClassTagMapper;
 
 /**
@@ -88,6 +90,44 @@ public class TagService {
 	public List<ClassTagResult> getClassTag(
 			Integer placeId, Integer classKId) {
 		return classTagMapper.getClassTag(placeId, classKId);
+	}
+	
+	/**
+	 * 根据用户偏好获得推荐课程种类的编号
+	 * @param userFeature
+	 * @param property
+	 * @return
+	 */
+	public List<Integer> getRecommandIdFromUserFeature(
+			UserFeature userFeature, String property) {
+		Random rand = new Random();
+		
+		int relaxed, intense, common, recovery, enhance, nurse, consume;
+		
+		//设置第一类属性
+		relaxed = userFeature.getIllnese();
+		if(relaxed == 0) {
+			intense = rand.nextInt(2);
+			common = intense == 1 ? 0 : 1;
+		}
+		else {
+			intense = 0;
+			common = 0;
+		}
+		
+		//设置第二类属性
+		recovery = userFeature.getSurgery();
+		enhance = recovery == 1 ? 0 : 1;
+		
+		//设置第三类属性
+		nurse = userFeature.getBalanceDiet();
+		
+		//设置第四类属性
+		consume = userFeature.getLimitIntake() == 1 ? 0 : 1;
+		
+		return classTagMapper.getRecommandIdFromFeature(
+				relaxed, intense, common, recovery, 
+				enhance, nurse, consume, property);
 	}
 	
 	/**

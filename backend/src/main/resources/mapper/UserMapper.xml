@@ -106,7 +106,9 @@
     values (#{id,jdbcType=INTEGER}, #{phone,jdbcType=VARCHAR}, #{passwd,jdbcType=VARCHAR}, 
       #{uName,jdbcType=VARCHAR}, #{gender,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.User">
+  <insert id="insertSelective" 
+	  keyProperty="id" useGeneratedKeys="true"
+	  parameterType="com.ryj.yuyue.bean.User">
     insert into user
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">

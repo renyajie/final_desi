@@ -153,7 +153,7 @@ public class AuthenticationController {
 		}
 		//注册信息
 		userService.register(user);
-		return Messenger.success();
+		return Messenger.success().setMsg(user.getId() + "");
 	}
 	
 	/**

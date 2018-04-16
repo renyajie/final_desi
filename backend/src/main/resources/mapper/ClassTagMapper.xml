@@ -138,6 +138,29 @@
       ct.class_k_id = ck.id and ct.id = #{id}
     </trim>
   </select>
+  <!-- List<Integer> getRecommandIdFromFeature(
+    		@Param("relaxed") Integer relaxed,
+    		@Param("intense") Integer intense,
+    		@Param("common") Integer common,
+    		@Param("recovery") Integer recovery,
+    		@Param("enhance") Integer enhance,
+    		@Param("nurse") Integer nurse,
+    		@Param("consume") Integer consume,
+    		@Param("property") String property); -->
+  <select id="getRecommandIdFromFeature" resultType="java.util.List">
+    select ck.id
+	from class_tag ct, class_kind ck
+	where ct.class_k_id = ck.id
+	and ct.relaxed = #{relaxed}
+	and ct.intense = #{intense}
+	and ct.common = #{common}
+	and ct.recovery = #{recovery}
+	and ct.enhance = #{enhance}
+	and ct.nurse = #{nurse}
+	and ct.consume = #{consume}
+	and ck.property = #{property}
+	limit 5
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from class_tag
     where id = #{id,jdbcType=INTEGER}
