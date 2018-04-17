@@ -2,7 +2,9 @@
   <app-main-header></app-main-header>
 </div>
 <div class="row main">
+      
   <div class="col-md-2 menu">
+
     <div>
       <!-- 若用户登录身份为管理员，显示管理员的菜单项 -->
       <ul *ngIf="isSysManager === false">
@@ -111,6 +113,14 @@
       <!-- 若用户登录身份为系统管理员，显示系统管理员的菜单项 -->
       <ul *ngIf="isSysManager === true">
         <li>
+          用户管理
+          <dl>
+            <dd>
+              <a routerLink="./user" routerLinkActive="active">查看用户</a>
+            </dd>
+        </dl>
+        </li>
+        <li>
           瑜伽场馆
           <dl>
             <dd>
@@ -147,6 +157,7 @@
       </ul>
     </div>
   </div>
+
   <div class="col-md-10 col-md-offset-0 content">
     <router-outlet></router-outlet>
   </div>

@@ -1,20 +1,20 @@
-<div class="row go-center">
-  <div class="col-md-3">
-    用户编号：
-    <input [(ngModel)]="id">
-  </div>
-  <div class="col-md-3">
-    手机模糊搜索：
-    <input [(ngModel)]="phone">
-  </div>
-  <div class="col-md-3">
-    姓名模糊搜索：
-    <input [(ngModel)]="uName">
-  </div>
-  <div class="col-md-2">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getUser();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getUser(1, id, phone, uName);">搜索</button>
-  </div>
+<div class="row go-center form-inline">
+  <span class="search-input">
+    <label>用户编号：</label>
+    <input class="form-control" [(ngModel)]="id">
+  </span>
+  <span class="search-input">
+    <label>手机模糊搜索：</label>
+    <input class="form-control" [(ngModel)]="phone">
+  </span>
+  <span class="search-input">
+    <label>姓名模糊搜索：</label>
+    <input class="form-control" [(ngModel)]="uName">
+  </span>
+  <span class="search-button">
+    <button type="button" class="btn btn-danger" (click)="clear();getUser();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getUser(1, id, phone, uName);">搜索</button>
+  </span>
 </div>
 
 <div class="main-table">  
@@ -42,7 +42,7 @@
   </table>
 </div> 
 
-<div class="row foot-content">
+<div class="row">
   <div class="col-md-6 col-md-offset-3">
     <div class="main-page">
       <nav aria-label="Page navigation">

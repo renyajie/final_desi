@@ -1,30 +1,30 @@
 <h3>课程信息</h3>
 <div class="main-cont" *ngIf="classInfo$ | async as classInfo">
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="pId">瑜伽馆编号</label>
-    <input type="text" [(ngModel)]="classInfo.pId" id="pId" placeholder="瑜伽馆编号" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="classInfo.pId" id="pId" placeholder="瑜伽馆编号" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="pName">瑜伽馆名称</label>
-    <input type="text" [(ngModel)]="classInfo.pName" id="pName" placeholder="瑜伽馆名称" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="classInfo.pName" id="pName" placeholder="瑜伽馆名称" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="claKId">课程种类</label>
-    <select [(ngModel)]="classInfo.claKId" id="classKId">
+    <select class="form-control" [(ngModel)]="classInfo.claKId" id="classKId">
         <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
             {{classKind.claKName}}
         </option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="teaId">教师</label>
-    <select [(ngModel)]="classInfo.teaId" id="teaId">
+    <select class="form-control" [(ngModel)]="classInfo.teaId" id="teaId">
         <option *ngFor="let teacher of teachers$ | async" value="{{teacher.id}}">
             {{teacher.teaName}}
         </option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label>上课日期</label>
     <button type="button" class="btn btn-info btn-sm" (click)="showBeforePicker(null)">{{beforeBtnText}}</button>
     {{beforeDateText}} 
@@ -33,32 +33,32 @@
       [minDate]="minDate" [maxDate]="maxDate"></datepicker>
   </div>
   <!-- 注意, ngModel的值必须与select option的value值相同才能显示出来对应的内容 -->
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="staTime">开始时间</label>
-    <select [(ngModel)]="my_staTime" id="staTime">
+    <select class="form-control" [(ngModel)]="my_staTime" id="staTime">
         <option *ngFor="let courseTime of courseTimes" value="{{courseTime.value}}">
             {{courseTime.label}}
         </option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="staTime">结束时间</label>
-    <select [(ngModel)]="my_endTime" id="endTime">
+    <select class="form-control" [(ngModel)]="my_endTime" id="endTime">
         <option *ngFor="let courseTime of courseTimes" value="{{courseTime.value}}">
             {{courseTime.label}}
         </option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="allowance">课程容量</label>
-    <input type="text" [(ngModel)]="classInfo.allowance" id="allowance" placeholder="课程容量">
+    <input type="text" class="form-control" [(ngModel)]="classInfo.allowance" id="allowance" placeholder="课程容量">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="expend">价钱</label>
-    <input type="text" [(ngModel)]="classInfo.expend" id="expend" placeholder="价钱">
+    <input type="text" class="form-control" [(ngModel)]="classInfo.expend" id="expend" placeholder="价钱">
   </div>
   <div class="main-btn">
-    <button type="button" class="btn btn-info btn-sm" (click)="goBack();">返回</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="addClassInfo(classInfo);">提交</button>
+    <button type="button" class="btn btn-info" (click)="goBack();">返回</button>
+    <button type="button" class="btn btn-success" (click)="addClassInfo(classInfo);">提交</button>
   </div>
 </div>

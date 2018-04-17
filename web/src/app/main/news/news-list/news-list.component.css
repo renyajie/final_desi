@@ -14,12 +14,9 @@
     border: 1px dashed darkgray;
 
 }
-.main-cont{
-    width: 600px;
-}
 
 .list li {
-    margin: 2px;
+    margin: 2px 30px 0 0;
 }
 
 .list li span{

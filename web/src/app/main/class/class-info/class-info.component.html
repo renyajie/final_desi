@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row go-center form-inline">
   <div class="col-md-3">
     <button type="button" class="btn btn-info btn-sm" (click)="showBeforePicker(null)">{{beforeBtnText}}</button>
     {{beforeDateText}} 
@@ -13,29 +13,29 @@
     <datepicker *ngIf="showAfterDate" [(ngModel)]="afterDate" [showWeeks]="true" (onChange)="showAfterPicker($event)" [maxDate]="maxDate"
       [minDate]="minDate"></datepicker>
   </div>
-  <div class="col-md-2">
-    种类:
-    <select [(ngModel)]="classKId" id="classKId" class="select-width">
+  <span class="search-input">
+    <label>种类：</label>
+    <select class="form-control" [(ngModel)]="classKId" id="classKId">
         <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
             {{classKind.claKName}}
         </option>
     </select>
-  </div>
-  <div class="col-md-2">
-    属性:
-    <select [(ngModel)]="property" id="property">
+  </span>
+  <span class="search-input">
+    <label>属性：</label>
+    <select class="form-control" [(ngModel)]="property" id="property">
       <option *ngFor="let p of propertys" value="{{p.value}}">
           {{p.label}}
       </option>
     </select>
-  </div>
-  <div class="col-md-2">
-    教师：
-    <input [(ngModel)]="teaName">
-  </div>
-  <div class="col-md-12 one-line-button">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getClassInfo();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getClassInfo(1, classKId, teaName, property);">搜索</button>
+  </span>
+  <span class="search-input">
+    <label>教师：</label>
+    <input class="form-control" [(ngModel)]="teaName">
+  </span>
+  <div class="search-button">
+    <button type="button" class="btn btn-danger" (click)="clear();getClassInfo();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getClassInfo(1, classKId, teaName, property);">搜索</button>
   </div>
 </div>
 
@@ -63,7 +63,7 @@
             <td class="numberColumn">{{classInfo.expend}}</td>
             <td>
               <a [routerLink]="['./', classInfo.id]" class="btn btn-info btn-sm">编辑</a>
-              <button class="btn btn-info btn-sm" (click)="deleteClassInfo(classInfo.id);">删除</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteClassInfo(classInfo.id);">删除</button>
             </td>
         </tr>
     </table>

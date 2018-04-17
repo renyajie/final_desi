@@ -1,42 +1,42 @@
 <h3>管理员个人信息</h3>
 <div class="main-cont" *ngIf="manager$ | async as manager">
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="id">编号</label>
-    <input type="text" [(ngModel)]="manager.id" id="id" placeholder="编号" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="manager.id" id="id" placeholder="编号" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="pId">所在场馆</label>
-    <select [(ngModel)]="manager.pId" id="pId">
+    <select class="form-control" [(ngModel)]="manager.pId" id="pId">
       <option *ngFor="let place of places$ | async" value="{{place.id}}">
           {{place.sName}}
       </option>
   </select>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="phone">手机</label>
-    <input type="text" [(ngModel)]="manager.phone" id="phone" placeholder="手机">
+    <input type="text" class="form-control" [(ngModel)]="manager.phone" id="phone" placeholder="手机">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="account">账号</label>
-    <input type="text" [(ngModel)]="manager.account" id="account" placeholder="账号">
+    <input type="text" class="form-control" [(ngModel)]="manager.account" id="account" placeholder="账号">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="passwd">密码</label>
-    <input type="text" [(ngModel)]="manager.passwd" id="passwd" placeholder="密码">
+    <input type="text" class="form-control" [(ngModel)]="manager.passwd" id="passwd" placeholder="密码">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="mName">姓名</label>
-    <input type="text" [(ngModel)]="manager.mName" id="mName" placeholder="姓名">
+    <input type="text" class="form-control" [(ngModel)]="manager.mName" id="mName" placeholder="姓名">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="gender">性别</label>
-    <select [(ngModel)]="manager.gender" id="gender">
+    <select class="form-control" [(ngModel)]="manager.gender" id="gender">
       <option *ngFor="let gender of genders" value="{{gender.value}}">
           {{gender.label}}
       </option>
   </select>
   </div>
   <div class="main-btn">
-    <button type="button" class="btn btn-info btn-sm" (click)="goBack();">返回</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="submitData(manager);">提交</button>
+    <button type="button" class="btn btn-info" (click)="goBack();">返回</button>
+    <button type="button" class="btn btn-success" (click)="submitData(manager);">提交</button>
   </div>
 </div>

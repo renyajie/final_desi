@@ -1,25 +1,25 @@
 <h3>新增新闻</h3>
 TODO {{diagnostic}}
 <div class="main-cont">
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="newsTitle" class="NewsInsert-label">通知标题</label>
-    <input type="text" [(ngModel)]="news.title" class="NewsInsert-input" id="newsTitle" placeholder="通知标题">
+    <input type="text" class="form-control" [(ngModel)]="news.title" id="newsTitle" placeholder="通知标题">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="mId" class="NewsInsert-label">发布人编号</label>
-    <input type="text" [(ngModel)]="news.mId" class="NewsInsert-input" id="mId" placeholder="发布人编号" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="news.mId" id="mId" placeholder="发布人编号" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="mName" class="NewsInsert-label">发布人姓名</label>
-    <input type="text" [(ngModel)]="news.mName" class="NewsInsert-input" id="mName" placeholder="发布人姓名" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="news.mName" id="mName" placeholder="发布人姓名" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="path" class="NewsInsert-label">通知内容</label>
-    <textarea type="text" [(ngModel)]="news.context" class="NewsInsert-text" id="path" placeholder="通知内容"></textarea>
+    <textarea type="text" class="form-control NewsInsert-text" [(ngModel)]="news.context" id="path" placeholder="通知内容"></textarea>
   </div>
 
 </div>
-<div class="main-btn">
-  <button type="button" class="btn btn-primary" (click)="submitData()">提交</button>
-  <button type="button" class="btn btn-primary" (click)="goToList()">返回</button>
+<div class="search-button go-center">
+  <button type="button" class="btn btn-success" (click)="submitData()">提交</button>
+  <button type="button" class="btn btn-info" (click)="goToList()">返回</button>
 </div>

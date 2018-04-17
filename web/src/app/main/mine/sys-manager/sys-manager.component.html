@@ -1,34 +1,34 @@
 <h3>系统管理员个人信息</h3>
 <div class="main-cont">
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="id">编号</label>
-    <input type="text" [(ngModel)]="sysManager.id" id="id" placeholder="编号" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="sysManager.id" id="id" placeholder="编号" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="phone">手机</label>
-    <input type="text" [(ngModel)]="sysManager.phone" id="phone" placeholder="手机">
+    <input type="text" class="form-control" [(ngModel)]="sysManager.phone" id="phone" placeholder="手机">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="account">账号</label>
-    <input type="text" [(ngModel)]="sysManager.account" id="account" placeholder="账号">
+    <input type="text" class="form-control" [(ngModel)]="sysManager.account" id="account" placeholder="账号">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="passwd">密码</label>
-    <input type="text" [(ngModel)]="sysManager.passwd" id="passwd" placeholder="密码">
+    <input type="text" class="form-control" [(ngModel)]="sysManager.passwd" id="passwd" placeholder="密码">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="sName">姓名</label>
-    <input type="text" [(ngModel)]="sysManager.sName" id="sName" placeholder="姓名">
+    <input type="text" class="form-control" [(ngModel)]="sysManager.sName" id="sName" placeholder="姓名">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="gender">性别</label>
-    <select [(ngModel)]="sysManager.gender" id="gender">
+    <select class="form-control" [(ngModel)]="sysManager.gender" id="gender">
       <option *ngFor="let gender of genders" value="{{gender.value}}">
           {{gender.label}}
       </option>
   </select>
   </div>
   <div class="main-btn">
-    <button type="button" class="btn btn-info btn-sm" (click)="submitData(sysManager);">提交</button>
+    <button type="button" class="btn btn-success" (click)="submitData(sysManager);">提交</button>
   </div>
 </div>

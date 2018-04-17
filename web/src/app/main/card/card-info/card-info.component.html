@@ -1,20 +1,20 @@
-<div class="row">
-  <div class="col-md-3 go-right">
-    会员卡种类:
-    <select [(ngModel)]="cardKId" id="cardKId">
+<div class="row form-inline go-center">
+  <span class="search-input">
+    <label>会员卡种类: </label>
+    <select class="form-control" [(ngModel)]="cardKId" id="cardKId">
         <option *ngFor="let cardKind of cardKinds$ | async" value="{{cardKind.id}}">
             {{cardKind.cardKName}}
         </option>
     </select>
-  </div>
-  <div class="col-md-3 go-right">
-    用户编号：
-    <input [(ngModel)]="userId">
-  </div>
-  <div class="col-md-3 go-right">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getCardInfo();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getCardInfo(1, cardKId, userId);">搜索</button>
-  </div>
+  </span>
+  <span class="col-md-offset-1 search-input">
+    <label>用户编号：</label>
+    <input class="form-control" [(ngModel)]="userId">
+  </span>
+  <span class="col-md-offset-1">
+    <button type="button" class="btn btn-danger" (click)="clear();getCardInfo();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getCardInfo(1, cardKId, userId);">搜索</button>
+  </span>
 </div>
 
 <div class="main-table">  

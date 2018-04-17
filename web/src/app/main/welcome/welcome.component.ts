@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { PersonInfoService } from '../../core/person-info.service';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +8,14 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() { }
+  isSysManager: boolean;
+
+  constructor(
+    private personInfoService: PersonInfoService
+  ) { }
 
   ngOnInit() {
+    this.isSysManager = this.personInfoService.isSysManager;
   }
 
 }

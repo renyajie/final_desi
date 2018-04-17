@@ -152,8 +152,8 @@ export class OrderNumberComponent implements OnInit {
       caption: this.caption,
       subCaption: this.subCaption,
       numberSuffix: '次',
-      xAxisName: "Month",
-      yAxisName: "Revenue",
+      xAxisName: "日期",
+      yAxisName: "预约次数",
       //柱子颜色
       paletteColors: "#0075c2",
       bgColor: "#ffffff",

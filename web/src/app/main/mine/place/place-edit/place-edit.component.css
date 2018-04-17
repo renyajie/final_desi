@@ -1,14 +1,4 @@
-
-.main-cont{
-    margin-top: 20px;
-    margin-left: 30%;
-}
-
-h3{
-    font-weight: bold;
-    text-align: center;
-}
-
+/* 表单的label和输入框样式 */
 .form-group label{
     width: 50px;
     margin-top: 10px;
@@ -17,19 +7,6 @@ h3{
 .form-group input{
     width: 400px;
     padding-left: 20px;
+    padding-top: -5px;
     border: 1px  solid #a8a8a8;
 }
-
-.main-btn{
-    margin-top: 20px;
-    margin-left: 18%;
-}
-
-.main-btn button:first-child {
-    width: 60px;
-}
-
-.main-btn button:last-child {
-    width: 60px;
-    margin-left: 20px;
-}   

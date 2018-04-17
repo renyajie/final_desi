@@ -1,61 +1,61 @@
 <h3>课程种类信息</h3>
 <div class="main-cont" *ngIf="classKind$ | async as classKind">
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="pId">瑜伽馆编号</label>
-    <input type="text" [(ngModel)]="classKind.pId" id="pId" placeholder="瑜伽馆编号" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="classKind.pId" id="pId" placeholder="瑜伽馆编号" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="pName">瑜伽馆名称</label>
-    <input type="text" [(ngModel)]="classKind.pName" id="pName" placeholder="瑜伽馆名称" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="classKind.pName" id="pName" placeholder="瑜伽馆名称" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="claKName">课程名称</label>
-    <input type="text" [(ngModel)]="classKind.claKName" id="claKName" placeholder="课程名称">
+    <input type="text" class="form-control" [(ngModel)]="classKind.claKName" id="claKName" placeholder="课程名称">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="property">课程属性</label>
-    <select [(ngModel)]="classKind.property" id="property">
+    <select class="form-control" [(ngModel)]="classKind.property" id="property">
       <option *ngFor="let property of propertys" value="{{property.value}}">
           {{property.label}}
       </option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="difficulty">难度</label>
-    <select [(ngModel)]="classKind.difficulty" id="difficulty">
+    <select class="form-control" [(ngModel)]="classKind.difficulty" id="difficulty">
       <option *ngFor="let difficulty of difficultys" value="{{difficulty.value}}">
           {{difficulty.label}}
       </option>
     </select>
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="intro">简介</label>
-    <input type="text" [(ngModel)]="classKind.intro" id="intro" placeholder="简介">
+    <input type="text" class="form-control" [(ngModel)]="classKind.intro" id="intro" placeholder="简介">
   </div>
   <div>
     TODO: {{diagnostic}}
   </div>
   <div>
       <label class="tag-label">第一类标签</label>
-      <input id="relaxed" type="radio" name="tagOne" [checked]="tagOne === 1" (click)="tagOne=1"><label for="relaxed">轻松</label>
-      <input id="intense" type="radio" name="tagOne" [checked]="tagOne === 2" (click)="tagOne=2"><label for="intense">强烈</label>
-      <input id="common" type="radio" name="tagOne" [checked]="tagOne === 3" (click)="tagOne=3"><label for="common">普通</label>
+      <input id="relaxed" type="radio" name="tagOne" [checked]="tagOne === 1" (click)="tagOne=1"><label class="radio-label" for="relaxed">轻松</label>
+      <input id="intense" type="radio" name="tagOne" [checked]="tagOne === 2" (click)="tagOne=2"><label class="radio-label" for="intense">强烈</label>
+      <input id="common" type="radio" name="tagOne" [checked]="tagOne === 3" (click)="tagOne=3"><label class="radio-label" for="common">普通</label>
   </div>
   <div>
       <label class="tag-label">第二类标签</label>
-      <input id="recovery" type="radio" name="tagTwo" [checked]="tagTwo === 1" (click)="tagTwo=1"><label for="recovery">恢复</label>
-      <input id="enhance" type="radio" name="tagTwo" [checked]="tagTwo === 2" (click)="tagTwo=2"><label for="enhance">健体</label>
+      <input id="recovery" type="radio" name="tagTwo" [checked]="tagTwo === 1" (click)="tagTwo=1"><label class="radio-label" for="recovery">恢复</label>
+      <input id="enhance" type="radio" name="tagTwo" [checked]="tagTwo === 2" (click)="tagTwo=2"><label class="radio-label" for="enhance">健体</label>
   </div>
   <div>
       <label class="tag-label">第三类标签</label>
-      <input id="nurse" type="checkbox" name="tagThree" [checked]="tagThree === 1" (click)="tagThree === 1 ? tagThree = 0 : tagThree = 1"><label for="nurse">调理</label>
+      <input id="nurse" type="checkbox" name="tagThree" [checked]="tagThree === 1" (click)="tagThree === 1 ? tagThree = 0 : tagThree = 1"><label class="checkbox-label" for="nurse">调理</label>
   </div>
   <div>
       <label class="tag-label">第四类标签</label>
-      <input id="consume" type="checkbox" name="tagFour" [checked]="tagFour === 1" (click)="tagFour === 1 ? tagFour = 0 : tagFour = 1"><label for="consume">消耗</label>
+      <input id="consume" type="checkbox" name="tagFour" [checked]="tagFour === 1" (click)="tagFour === 1 ? tagFour = 0 : tagFour = 1"><label class="checkbox-label" for="consume">消耗</label>
   </div>
   <div class="main-btn">
-    <button type="button" class="btn btn-info btn-sm" (click)="goBack();">返回</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="addClassKind(classKind);">提交</button>
+    <button type="button" class="btn btn-info" (click)="goBack();">返回</button>
+    <button type="button" class="btn btn-success" (click)="addClassKind(classKind);">提交</button>
   </div>
 </div>

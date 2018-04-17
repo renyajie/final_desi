@@ -37,13 +37,13 @@
             <td class="numberColumn">{{cardKind.expend}}</td>
             <td>
               <a [routerLink]="['./', cardKind.id]" class="btn btn-info btn-sm">编辑</a>
-              <button class="btn btn-info btn-sm" (click)="deleteCardKind(cardKind.id);">删除</button>
+              <button class="btn btn-danger btn-sm" (click)="deleteCardKind(cardKind.id);">删除</button>
             </td>
         </tr>
     </table>
 </div> 
 
-<div class="row foot-content">
+<div>
   <div class="col-md-6 col-md-offset-3">
     <div class="main-page">
       <nav aria-label="Page navigation">

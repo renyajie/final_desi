@@ -1,31 +1,31 @@
 <h3>用户个人信息</h3>
 <div class="main-cont" *ngIf="user$ | async as user">
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="id">编号</label>
-    <input type="text" [(ngModel)]="user.id" id="id" placeholder="用户编号" readonly="true">
+    <input type="text" class="form-control" [(ngModel)]="user.id" id="id" placeholder="用户编号" readonly="true">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="name">姓名</label>
-    <input type="text" [(ngModel)]="user.uName" id="name" placeholder="姓名">
+    <input type="text" class="form-control" [(ngModel)]="user.uName" id="name" placeholder="姓名">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="gender">性别</label>
-    <input type="text" [(ngModel)]="user.gender" id="gender" placeholder="性别">
+    <input type="text" class="form-control" [(ngModel)]="user.gender" id="gender" placeholder="性别">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="age">年龄</label>
-    <input type="text" [(ngModel)]="user.age" id="age" placeholder="年龄">
+    <input type="text" class="form-control" [(ngModel)]="user.age" id="age" placeholder="年龄">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="phone">手机</label>
-    <input type="text" [(ngModel)]="user.phone" id="phone" placeholder="手机号码">
+    <input type="text" class="form-control" [(ngModel)]="user.phone" id="phone" placeholder="手机号码">
   </div>
-  <div class="form-group">
+  <div class="form-group form-inline">
     <label for="passwd">密码</label>
-    <input type="text" [(ngModel)]="user.passwd" id="passwd" placeholder="密码">
+    <input type="text" class="form-control" [(ngModel)]="user.passwd" id="passwd" placeholder="密码">
   </div>
   <div class="main-btn">
-    <button type="button" class="btn btn-info btn-sm" (click)="goBack();">返回</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="submitData(user);">提交</button>
+    <button type="button" class="btn btn-info" (click)="goBack();">返回</button>
+    <button type="button" class="btn btn-success" (click)="submitData(user);">提交</button>
   </div>
 </div>

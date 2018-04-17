@@ -1,13 +1,15 @@
 <h3 class="go-center">课程用户量统计</h3>
 <div class="row go-center main_btn">
-        <button type="button" class="btn btn-info btn-sm" (click)="showColumnGraph();">显示柱状图</button>
-        <button type="button" class="btn btn-info btn-sm margin" (click)="showPieGraph();">显示饼图</button>
-        <button type="button" class="btn btn-info btn-sm" (click)="getData(3);">最近三天</button>
-        <button type="button" class="btn btn-info btn-sm" (click)="getData(7);">最近一周</button>
-        <button type="button" class="btn btn-info btn-sm" (click)="getData(30);">最近一个月</button>
+    <label>图形选择：</label>
+    <button type="button" class="btn btn-info btn-sm" (click)="showColumnGraph();">显示柱状图</button>
+    <button type="button" class="btn btn-info btn-sm margin" (click)="showPieGraph();">显示饼图</button>
+    <label>时间选择：</label>
+    <button type="button" class="btn btn-info btn-sm" (click)="getData(3);">最近三天</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getData(7);">最近一周</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getData(30);">最近一个月</button>
 </div>
 
-<div *ngIf="show == true">
+<div class="graph-margin" *ngIf="show == true">
     <fusioncharts class = "go-center" *ngIf="showColumn == true"
         width="1000"
         height="400" 

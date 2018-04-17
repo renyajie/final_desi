@@ -3,6 +3,7 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    overflow: hidden; /*隐藏整个页面多余出来的滚动条*/
 }
 
 /* 左中右三种朝向 */
@@ -15,6 +16,81 @@ html, body {
 .go-right {
     text-align: right;
 }
+
+/* 日期选择框 */
+datepicker{
+    position: absolute;
+    z-index: 100;
+}
+
+/* 搜索输入框 */
+.search-input {
+    width: 20%;
+    margin-right: 10px;
+}
+
+/* 搜索按钮 */
+.search-button {
+    margin-top: 20px;
+}
+
+/* 两个搜索按钮之间的间距 */
+.search-button>button:first-child {
+    margin-right: 20px;
+}
+
+/* 当顶部有两行row时，顶部row和row之间的距离*/
+.margin-row {
+    margin-top: 20px;
+}
+
+/* 表格页码样式 */
+.main-page{
+    position: fixed;
+    right: 100px;
+    bottom: 5px;
+}
+
+/* 表格样式 */
+.main-table{
+    width: 90%;
+    height: 70%;
+    margin: 40px auto;
+}
+
+/* 单元格样式 */
+td{
+    height: 30px;
+    padding: 4px;
+    text-align: center;
+}
+
+.main-cont{
+    margin-top: 20px;
+    margin-left: 30%;
+}
+
+h3{
+    font-weight: bold;
+    text-align: center;
+}
+
+/* 表单的内容 */
+.main-btn{
+    margin-top: 20px;
+    margin-left: 18%;
+}
+
+/* 表单的按钮 */
+.main-btn button:first-child {
+    width: 60px;
+}
+
+.main-btn button:last-child {
+    width: 60px;
+    margin-left: 20px;
+}
+
 
 /* 定义了四种颜色 */
 .colorOne {

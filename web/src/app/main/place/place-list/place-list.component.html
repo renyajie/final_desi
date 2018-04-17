@@ -1,23 +1,23 @@
-<div class="row go-center">
-  <div class="col-md-3">
-    场馆编号：
-    <input [(ngModel)]="id">
-  </div>
-  <div class="col-md-3">
-    场馆名称：
-    <input [(ngModel)]="sName">
-  </div>
-  <div class="col-md-2">
-    地址:
-    <input [(ngModel)]="address">
-  </div>
-  <div class="col-md-2">
-    联系方式:
-    <input [(ngModel)]="phone">
-  </div>
-  <div class="col-md-2">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getAllPlace();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getAllPlace(1, id, sName, address, phone);">搜索</button>
+<div class="row go-center form-inline">
+  <span class="search-input">
+    <label>场馆编号：</label>
+    <input class="form-control" [(ngModel)]="id">
+  </span>
+  <span class="search-input">
+    <label>场馆名称：</label>
+    <input class="form-control" [(ngModel)]="sName">
+  </span>
+  <span class="search-input">
+    <label>地址：</label>
+    <input class="form-control" [(ngModel)]="address">
+  </span>
+  <span class="search-input">
+    <label>联系方式：</label>
+    <input class="form-control" [(ngModel)]="phone">
+  </span>
+  <div class="search-button">
+    <button type="button" class="btn btn-danger" (click)="clear();getAllPlace();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getAllPlace(1, id, sName, address, phone);">搜索</button>
   </div>
 </div>
 

@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row form-inline go-center">
   <div class="col-md-3">
     <button type="button" class="btn btn-info btn-sm" (click)="showBeforePicker(null)">{{beforeBtnText}}</button>
     {{beforeDateText}}
@@ -13,21 +13,21 @@
     <datepicker *ngIf="showAfterDate" [(ngModel)]="afterDate" [showWeeks]="true" (onChange)="showAfterPicker($event)" [maxDate]="maxDate"
       [minDate]="minDate"></datepicker>
   </div>
-  <div class="col-md-2">
-    会员卡种类:
-    <select [(ngModel)]="cardKId" id="cardKId">
+  <span class="search-input">
+    <label>会员卡种类:</label>
+    <select class="form-control" [(ngModel)]="cardKId" id="cardKId">
         <option *ngFor="let cardKind of cardKinds$ | async" value="{{cardKind.id}}">
             {{cardKind.cardKName}}
         </option>
     </select>
-  </div>
-  <div class="col-md-2">
-    用户编号：
-    <input [(ngModel)]="userId">
-  </div>
-  <div class="col-md-2">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getCardOrder();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getCardOrder(1, cardKId, userId);">搜索</button>
+  </span>
+  <span class="search-input">
+    <label>用户编号：</label>
+    <input class="form-control" [(ngModel)]="userId">
+  </span>
+  <div class="search-button">
+    <button type="button" class="btn btn-danger" (click)="clear();getCardOrder();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getCardOrder(1, cardKId, userId);">搜索</button>
   </div>
 </div>
 

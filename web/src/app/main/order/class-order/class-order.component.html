@@ -1,38 +1,40 @@
-<div class="row">
-  <div class="col-md-3">
+<div class="row form-inline go-center">
+  <div class="col-md-4">
     <button type="button" class="btn btn-info btn-sm" (click)="showBeforePicker(null)">{{beforeBtnText}}</button>
     {{beforeDateText}}
     <br>
     <datepicker *ngIf="showBeforeDate" [(ngModel)]="beforeDate" [showWeeks]="true" (onChange)="showBeforePicker($event)" [maxDate]="maxDate"
       [minDate]="minDate"></datepicker>
   </div>
-  <div class="col-md-3">
+  <div class="col-md-4">
     <button type="button" class="btn btn-info btn-sm" (click)="showAfterPicker(null)">{{afterBtnText}}</button>
     {{afterDateText}}
     <br>
     <datepicker *ngIf="showAfterDate" [(ngModel)]="afterDate" [showWeeks]="true" (onChange)="showAfterPicker($event)" [maxDate]="maxDate"
       [minDate]="minDate"></datepicker>
   </div>
-  <div class="col-md-2">
-    课程种类:
-    <select [(ngModel)]="classKId" id="classKId">
+  <div class="col-md-4">
+    <label>课程种类:</label>
+    <select class="form-control" [(ngModel)]="classKId" id="classKId">
         <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
             {{classKind.claKName}}
         </option>
     </select>
   </div>
-  <div class="col-md-2">
-    用户编号：
-    <input [(ngModel)]="userId">
-  </div>
-  <div class="col-md-2">
-    会员卡编号：
-    <input [(ngModel)]="cardId">
-  </div>
-  <div class="col-md-12 one-line-button">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getClassOrder();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getClassOrder(1, classKId, userId, cardId);">搜索</button>
-  </div>
+</div>
+<div class="row form-inline margin-row">
+  <span class="col-md-offset-1 search-input">
+    <label>用户编号：</label>
+    <input class="form-control" [(ngModel)]="userId">
+  </span>
+  <span class="col-md-offset-1 search-input">
+    <label>会员卡编号：</label>
+    <input class="form-control" [(ngModel)]="cardId">
+  </span>
+  <span class="col-md-offset-2 search-input">
+    <button type="button" class="btn btn-danger" (click)="clear();getClassOrder();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getClassOrder(1, classKId, userId, cardId);">搜索</button>
+  </span>
 </div>
 
 <div class="main-table">  

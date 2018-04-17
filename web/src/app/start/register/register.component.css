@@ -26,41 +26,29 @@
     border: 1px solid #a8a8a8;
 }
 
-h3{
+h2{
     text-align: center;
     font-weight: bold;
     margin-bottom: 30px;
+    margin-top: 30px;
 }
 
-.main-lg{
-    text-align: center
-}
-
-
-.lg-name{
-    margin-bottom: 10px;
-}
-
-.lg-name label{
-    width:50px;
-}
-
-.lg-pw label{
-    width:50px;
-}
-
-.lg-pw {
-    margin-bottom: 10px;
-}
-
-.lg-place label{
-    width:50px;
-}
-
-.main-rd{
-    text-align: center;
+/* 表单的label和输入框样式 */
+.form-group label{
+    width: 50px;
     margin-top: 10px;
-    margin-bottom: 10px;
+}
+
+.form-group input{
+    width: 300px;
+    padding-left: 20px;
+    border: 1px  solid #a8a8a8;
+}
+
+.form-group select{
+    width: 300px;
+    padding-left: 20px;
+    border: 1px  solid #a8a8a8;
 }
 
 .main-btn{
@@ -70,8 +58,10 @@ h3{
     margin-left: 30px;
 }
 
-.MessageInsert-input{
-    width: 180px;
-    padding-left: 20px;
-    border: 1px  solid #a8a8a8;
+.tag-label {
+    margin-right: 30px;
+}
+
+.radio-label {
+    margin-right: 40px;
 }

@@ -1,16 +1,16 @@
-<div class="row">
-  <div class="col-md-offset-4 col-md-2">
-    种类:
-    <select [(ngModel)]="classKId" id="classKId">
+<div class="row go-center form-inline">
+  <span class="search-input">
+    <label>种类：</label>
+    <select class="form-control" [(ngModel)]="classKId" id="classKId">
         <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
             {{classKind.claKName}}
         </option>
     </select>
-  </div>
-  <div class="col-md-4">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getTag();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getTag(1, classKId);">搜索</button>
-  </div>
+  </span>
+  <span class="search-button">
+    <button type="button" class="btn btn-danger" (click)="clear();getTag();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getTag(1, classKId);">搜索</button>
+  </span>
 </div>
 
 <div class="main-table">  
@@ -35,15 +35,29 @@
         <tr *ngFor="let classTag of classTags$ | async">
             <td class="idColumn">{{classTag.id}}</td>
             <td class="classColumn">{{classTag.claKName}}</td>
-            <td class="nameColumn">{{classTag.property}}</td>
+            <td class="nameColumn">{{classTag.property == 'g' ? '团课' : '私教'}}</td>
             <td class="numberColumn">{{classTag.difficulty}}</td>
-            <td class="tagColumn">{{classTag.relaxed === 1 ? "Yes" : "No"}}</td>
-            <td class="tagColumn">{{classTag.intense === 1 ? "Yes" : "No"}}</td>
-            <td class="tagColumn">{{classTag.common === 1 ? "Yes" : "No"}}</td>
-            <td class="tagColumn">{{classTag.recovery === 1 ? "Yes" : "No"}}</td>
-            <td class="tagColumn">{{classTag.enhance === 1 ? "Yes" : "No"}}</td>
-            <td class="tagColumn">{{classTag.nurse === 1 ? "Yes" : "No"}}</td>
-            <td class="tagColumn">{{classTag.consume === 1 ? "Yes" : "No"}}</td>
+            <td class="tagColumn">
+              <img *ngIf= "classTag.relaxed == 1" src="assets/image/ok.png"/>
+            </td>
+            <td class="tagColumn">
+              <img *ngIf= "classTag.intense == 1" src="assets/image/ok.png"/>
+            </td>
+            <td class="tagColumn">
+              <img *ngIf= "classTag.common == 1" src="assets/image/ok.png"/>
+            </td>
+            <td class="tagColumn">
+              <img *ngIf= "classTag.recovery == 1" src="assets/image/ok.png"/>
+            </td>
+            <td class="tagColumn">
+              <img *ngIf= "classTag.enhance == 1" src="assets/image/ok.png"/>
+            </td>
+            <td class="tagColumn">
+              <img *ngIf= "classTag.nurse == 1" src="assets/image/ok.png"/>
+            </td>
+            <td class="tagColumn">
+              <img *ngIf= "classTag.consume == 1" src="assets/image/ok.png"/>
+            </td>
             <td>
               <a [routerLink]="['./', classTag.id]" class="btn btn-info btn-sm">编辑</a>
             </td>
@@ -51,7 +65,7 @@
     </table>
 </div> 
 
-<div class="row foot-content">
+<div>
   <div class="col-md-6 col-md-offset-3">
     <div class="main-page">
       <nav aria-label="Page navigation">

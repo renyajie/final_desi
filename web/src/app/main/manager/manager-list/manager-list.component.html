@@ -1,23 +1,23 @@
-<div class="row go-center">
-  <div class="col-md-2">
-    管理员编号：
-    <input [(ngModel)]="id">
-  </div>
-  <div class="col-md-2">
-    账号模糊搜索：
-    <input [(ngModel)]="account">
-  </div>
-  <div class="col-md-2">
-    姓名模糊搜索：
-    <input [(ngModel)]="mName">
-  </div>
-  <div class="col-md-2">
-    场馆名称搜索：
-    <input [(ngModel)]="sName">
-  </div>
-  <div class="col-md-2 margin-top">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getManagerList();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getManagerList(1, id, account, mName, sName);">搜索</button>
+<div class="row go-center form-inline">
+  <span class="search-input">
+    <label>管理员编号：</label>
+    <input class="form-control" [(ngModel)]="id">
+  </span>
+  <span class="search-input">
+    <label>账号模糊搜索：</label>
+    <input class="form-control" [(ngModel)]="account">
+  </span>
+  <span class="search-input">
+    <label>姓名模糊搜索：</label>
+    <input class="form-control" [(ngModel)]="mName">
+  </span>
+  <span class="search-input">
+    <label>场馆名称搜索：</label>
+    <input class="form-control" [(ngModel)]="sName">
+  </span>
+  <div class="search-button">
+    <button type="button" class="btn btn-danger" (click)="clear();getManagerList();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getManagerList(1, id, account, mName, sName);">搜索</button>
   </div>
 </div>
 
