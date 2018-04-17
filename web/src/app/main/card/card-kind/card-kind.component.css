@@ -1,6 +1,14 @@
-datepicker{
-    position: absolute;
-    z-index: 100;
+.search-input {
+    width: 20%;
+    margin-right: 10px;
+}
+
+.search-button {
+    margin-top: 20px;
+}
+
+.search-button>button:first-child {
+    margin-right: 20px;
 }
 
 input {
@@ -9,12 +17,6 @@ input {
 
 select {
     height: 30px;
-}
-
-.one-line-button {
-    text-align: right;
-    padding-right: 20px;
-    margin-top: 10px;
 }
 
 .main-table{

@@ -221,9 +221,10 @@
       <include refid="Example_Where_Clause" />
     </if>
   </select>
-  <!-- List&lt;ScoreResult&gt; getScore(
+  <!-- List<ScoreResult> getScore(
     		@Param("classKId") Integer classKId,
-    		@Param("userId") Integer userId); -->
+    		@Param("userId") Integer userId,
+    		@Param("placeId") Integer placeId); -->
   <select id="getScore" resultMap="BaseResultMapResult">
     select 
     <include refid="Base_Column_List_Result" />
@@ -237,8 +238,11 @@
       <if test="classKId != null">
         and ck.id = #{classKId}
       </if>
+      <if test="placeId != null">
+        and ck.p_id = #{placeId}
+      </if>
     </trim>
-    order by co.ord_time desc
+    order by s.score_time desc
   </select>
   <!-- List<ScoreToken> recommandForNewUser(
     		@Param("age") Integer age,

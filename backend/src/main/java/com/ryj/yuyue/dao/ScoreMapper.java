@@ -35,11 +35,13 @@ public interface ScoreMapper {
      * 获取某种课程的评分
      * @param classKId 课程种类编号
      * @param userId 用户编号
+     * @param placeId 场馆编号
      * @return
      */
     List<ScoreResult> getScore(
     		@Param("classKId") Integer classKId,
-    		@Param("userId") Integer userId);
+    		@Param("userId") Integer userId,
+    		@Param("placeId") Integer placeId);
     
     /**
      * 谋取指定编号的用户评论数据

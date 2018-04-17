@@ -66,8 +66,9 @@ public class ScoreService {
 	 *            用户编号
 	 * @return
 	 */
-	public List<ScoreResult> getScore(Integer classKId, Integer userId) {
-		return scoreMapper.getScore(classKId, userId);
+	public List<ScoreResult> getScore(
+			Integer classKId, Integer userId, Integer placeId) {
+		return scoreMapper.getScore(classKId, userId, placeId);
 	}
 
 	/**

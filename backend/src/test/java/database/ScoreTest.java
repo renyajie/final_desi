@@ -34,7 +34,7 @@ public class ScoreTest {
 	@Test
 	public void getScoreTest() throws Exception {
 		logger.info("getScoreTest: {}", 
-				scoreMapper.getScore(null, null));
+				scoreMapper.getScore(null, null, null));
 	}
 	
 	@Test

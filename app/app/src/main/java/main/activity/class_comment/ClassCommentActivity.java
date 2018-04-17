@@ -263,6 +263,7 @@ implements View.OnClickListener{
         String tmp = AppConstant.URL + "api/recommand/getScore";
         Map<String, String> params = new HashMap<>();
         params.put("classKId", classKId + "");
+        params.put("isPage", 0 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 

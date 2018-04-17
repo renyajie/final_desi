@@ -1,0 +1,100 @@
+<div class="row menu">
+  <div class="col-md-offset-4 col-md-2">
+    种类:
+    <select [(ngModel)]="classKId" id="classKId">
+        <option *ngFor="let classKind of classKinds$ | async" value="{{classKind.id}}">
+            {{classKind.claKName}}
+        </option>
+    </select>
+  </div>
+  <div class="col-md-4">
+    <button type="button" class="btn btn-info btn-sm" (click)="clear();getScore();">清空</button>
+    <button type="button" class="btn btn-info btn-sm" (click)="getScore(1, classKId);">搜索</button>
+  </div>
+</div>
+
+<div class="main-score">
+  <div class="row score" *ngFor="let score of scores$ | async">
+    <div class="col-md-1">
+      <img src="{{score.gender === '男' ? 'assets/image/boy.png' : 'assets/image/girl.png'}}">
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-8">
+          <label>{{score.uName}}</label>
+        </div>
+        <div class="col-md-4">
+          <label>{{score.scoreTime}}</label>
+        </div>
+      </div>
+      <div>
+          <label>{{score.classKName}}</label>
+          <span><label>评分</label>{{score.score}}</span>
+      </div>
+      <div class="row">
+        <div class="col-md-8">
+          <span>{{score.comment}}</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="row foot-content">
+  <div class="col-md-6 col-md-offset-3">
+    <div class="main-page">
+      <nav aria-label="Page navigation">
+        <ul class="pagination" *ngIf="pageInfo$ | async as pageInfo">
+          <!-- 如果存在上一页 -->
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getScore(1, classKId);">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasPreviousPage" (click)="getScore(pageInfo.pageNum - 1, classKId);">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 如果不存在上一页 -->
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <a>
+              首页
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasPreviousPage" class="disabled">
+            <span>
+              <span aria-hidden="true">&laquo;</span>
+            </span>
+          </li>
+          <!-- 定义中间页 -->
+          <li *ngFor="let item of pageInfo.navigatepageNums" [class.active]="pageInfo.pageNum === item" (click)="getScore(item, classKId);">
+            <a>{{item}}</a>
+          </li>
+          <!-- 如果存在下一页 -->
+          <li *ngIf="pageInfo.hasNextPage" (click)="getScore(pageInfo.pageNum + 1, classKId);">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="pageInfo.hasNextPage" (click)="getScore(pageInfo.pages, classKId);">
+            <a>
+              末页
+            </a>
+          </li>
+          <!-- 如果不存在下一页 -->
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a aria-label="Next">
+              <span aria-hidden="true">&raquo;</span>
+            </a>
+          </li>
+          <li *ngIf="!pageInfo.hasNextPage" class="disabled">
+            <a>
+              末页
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>

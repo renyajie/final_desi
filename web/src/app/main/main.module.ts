@@ -13,6 +13,7 @@ import { TeacherService } from '../core/teacher.service';
 import { NewsService } from '../core/news.service';
 import { AnalyseService } from '../core/analyse.service';
 import { TagService } from '../core/tag.service';
+import { ScoreService } from '../core/score.service';
 
 @NgModule({
   imports: [
@@ -25,7 +26,7 @@ import { TagService } from '../core/tag.service';
     MainComponent
   ],
   providers: [
-    ClassService, CardService, TeacherService, NewsService, AnalyseService, TagService
+    ClassService, CardService, TeacherService, NewsService, AnalyseService, TagService, ScoreService
   ]
 })
 export class MainModule { }

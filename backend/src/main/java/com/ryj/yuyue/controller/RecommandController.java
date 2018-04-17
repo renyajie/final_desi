@@ -16,10 +16,14 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.ryj.yuyue.bean.Score;
+import com.ryj.yuyue.bean.ScoreResult;
 import com.ryj.yuyue.service.OrderService;
 import com.ryj.yuyue.service.RecommandService;
 import com.ryj.yuyue.service.ScoreService;
+import com.ryj.yuyue.utils.ConstantLiteral;
 import com.ryj.yuyue.utils.Messenger;
 
 /**
@@ -73,18 +77,31 @@ public class RecommandController {
 	
 	/**
 	 * 获取课程评价
+	 * @param pn
 	 * @param userId 用户编号
 	 * @param classKId 课程种类编号
+	 * @param isPage 是否分页
 	 * @return
 	 */
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@RequestMapping(value = "getScore", method = RequestMethod.GET)
 	@ResponseBody
 	public Messenger getScore(
+			@RequestParam(value = "pn", defaultValue = "1") Integer pn,
 			@RequestParam(value = "userId", required = false) Integer userId,
-			@RequestParam(value = "classKId", required = false) Integer classKId) {
+			@RequestParam(value = "classKId", required = false) Integer classKId,
+			@RequestParam(value = "placeId", required = false) Integer placeId,
+			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
-		return Messenger.success()
-				.add("info", scoreService.getScore(classKId, userId));
+		PageHelper.startPage(pn, 5);
+		List<ScoreResult> result = scoreService.getScore(classKId, userId, placeId);
+		
+		//判断是否需要分页
+		if(isPage == 1) {
+			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
+			return Messenger.success().add("pageInfo", page);
+		}
+		return Messenger.success().add("info", result);
 	}
 	
 	/**

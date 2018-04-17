@@ -1,23 +1,23 @@
-<div class="row go-center">
-  <div class="col-md-3">
-    会员卡编号：
-    <input [(ngModel)]="cardKId">
-  </div>
-  <div class="col-md-3">
-    会员卡名称：
-    <input [(ngModel)]="cardKName">
-  </div>
-  <div class="col-md-2">
-    会员卡容量：
-    <input [(ngModel)]="capacity">
-  </div>
-  <div class="col-md-2">
-    价格：
-    <input [(ngModel)]="expend">
-  </div>
-  <div class="col-md-2">
-    <button type="button" class="btn btn-info btn-sm" (click)="clear();getCardKind();">清空</button>
-    <button type="button" class="btn btn-info btn-sm" (click)="getCardKind(1, cardKId, cardKName, capacity, expend);">搜索</button>
+<div class="row go-center form-inline">
+  <span class="search-input">
+    <label>会员卡编号：</label>
+    <input class="form-control" [(ngModel)]="cardKId">
+  </span>
+  <span class="search-input">
+    <label>会员卡名称：</label>
+    <input class="form-control" [(ngModel)]="cardKName">
+  </span>
+  <span class="search-input">
+    <label>会员卡容量：</label>
+    <input class="form-control" [(ngModel)]="capacity">
+  </span>
+  <span class="search-input">
+    <label>价格：</label>
+    <input class="form-control" [(ngModel)]="expend">
+  </span>
+  <div class="search-button">
+    <button type="button" class="btn btn-danger" (click)="clear();getCardKind();">清空</button>
+    <button type="button" class="btn btn-success" (click)="getCardKind(1, cardKId, cardKName, capacity, expend);">搜索</button>
   </div>
 </div>
 
