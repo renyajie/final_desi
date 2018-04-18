@@ -36,6 +36,16 @@ public class ClassOrder {
 
     private Integer isScore;
 
+    private String picUrl;
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
     public Integer getIsScore() {
         return isScore;
     }

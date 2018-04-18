@@ -255,10 +255,11 @@
     <result column="num" property="num" />
     <result column="property" property="property"/>
     <result column="is_score" property="isScore"/>
+    <result column="pic_url" property="picUrl"/>
   </resultMap>
   <sql id="Base_Column_List_Result">
     co.id, p.id as p_id, p.s_name, co.cla_id, cla_k.id, cla_k.cla_k_name, co.u_id, u.u_name, 
-    co.card_id, card_k.card_k_name, co.ord_time, co.num, cla_k.property, co.is_score
+    co.card_id, card_k.card_k_name, co.ord_time, co.num, cla_k.property, co.is_score, p.pic_url
   </sql>
   <!-- List<ClassOrderResult> getClassOrder(
   			@Param("orderId") Integer orderId,

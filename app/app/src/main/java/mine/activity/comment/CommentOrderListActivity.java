@@ -204,6 +204,7 @@ public class CommentOrderListActivity extends AppCompatActivity
         String tmp = AppConstant.URL + "api/recommand/getScore";
         Map<String, String> params = new HashMap<>();
         params.put("userId", UtilsMethod.getUserId() + "");
+        params.put("isPage", 0 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
 
@@ -218,6 +219,7 @@ public class CommentOrderListActivity extends AppCompatActivity
 
             @Override
             public void onResponse(Call call, Response response) throws IOException {
+
                 Messenger messenger = UtilsMethod.getFromJson(AppConstant.GSON_FOR_ALL,
                         response, new TypeToken<Messenger<List<Score>>>(){});
                 Message msg = handler.obtainMessage();

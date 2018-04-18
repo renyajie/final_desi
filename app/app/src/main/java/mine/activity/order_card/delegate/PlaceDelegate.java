@@ -9,8 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
-import android.widget.RadioButton;
-import android.widget.RadioGroup;
+import android.widget.AutoCompleteTextView;
 import android.widget.Spinner;
 
 import com.renyajie.yuyue.R;
@@ -20,7 +19,6 @@ import java.util.List;
 
 import main.activity.people_class_order.model.PlaceModel;
 import utils.SuperDelegate;
-import utils.UtilsMethod;
 import utils.ViewHolderType;
 
 /**
@@ -98,6 +96,9 @@ public class PlaceDelegate extends SuperDelegate
         arrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         placeViewHolder.placeList.setAdapter(arrayAdapter);
         placeViewHolder.placeList.setOnItemSelectedListener(this);
+
+        //placeViewHolder.autoCompleteTextView.setAdapter(arrayAdapter);
+        //placeViewHolder.autoCompleteTextView.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -116,10 +117,12 @@ public class PlaceDelegate extends SuperDelegate
     public static class PlaceDelegateViewHolder extends RecyclerView.ViewHolder {
 
         Spinner placeList;
+        //AutoCompleteTextView autoCompleteTextView;
 
         public PlaceDelegateViewHolder(View itemView) {
             super(itemView);
             placeList = itemView.findViewById(R.id.place_list);
+            //autoCompleteTextView = itemView.findViewById(R.id.auto_view);
         }
     }
 }

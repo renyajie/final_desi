@@ -26,6 +26,16 @@ public class CardInfoResult {
     private Integer expend;
     
     private Integer capacity;
+    
+    private String picUrl;
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
 
 	public CardInfoResult() {
 		super();

@@ -11,6 +11,8 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.List;
 import bean.CardKind;
 import mine.activity.order_card.PlaceCardDetailActivity;
 import mine.activity.order_card.PlaceCardListActivity;
+import utils.AppConstant;
+import utils.MyApplication;
 
 /**
  * Created by Thor on 2018/4/7.
@@ -29,6 +33,7 @@ public class CardKindListAdapter extends BaseAdapter implements AdapterView.OnIt
     private LayoutInflater layoutInflater;
     private List<CardKind> cardKindList;
     private FinishActivity finishActivity;
+    private ImageLoader imageLoader;
 
     public CardKindListAdapter(Context context,
                                List<CardKind> cardKindList) {
@@ -36,6 +41,7 @@ public class CardKindListAdapter extends BaseAdapter implements AdapterView.OnIt
         this.layoutInflater = LayoutInflater.from(context);
         this.cardKindList = cardKindList;
         this.finishActivity = (FinishActivity) context;
+        imageLoader = MyApplication.getImageLoader();
     }
 
     public interface FinishActivity {
@@ -85,6 +91,13 @@ public class CardKindListAdapter extends BaseAdapter implements AdapterView.OnIt
             viewHolder = (CardKindListAdapter.ViewHolder) convertView.getTag();
         }
 
+        viewHolder.classPic
+                .setDefaultImageResId(R.mipmap.ic_launcher);
+        viewHolder.classPic
+                .setErrorImageResId(R.mipmap.ic_launcher);
+        viewHolder.classPic
+                .setImageUrl(AppConstant.URL + model.getPicUrl(), imageLoader);
+
         viewHolder.cardName.setText(model.getCardKName());
         viewHolder.capacity.setText(String.valueOf(model.getCapacity()));
         viewHolder.placeName.setText(model.getpName());
@@ -105,7 +118,7 @@ public class CardKindListAdapter extends BaseAdapter implements AdapterView.OnIt
     }
 
     class ViewHolder {
-        public ImageView classPic;
+        public NetworkImageView classPic;
         public TextView cardName, capacity, placeName, expend;
     }
 }

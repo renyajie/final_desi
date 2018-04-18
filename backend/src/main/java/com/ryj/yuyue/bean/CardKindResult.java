@@ -18,6 +18,16 @@ public class CardKindResult {
     private Integer capacity;
 
     private Integer expend;
+    
+    private String picUrl;
+
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
 
 	public CardKindResult() {
 		super();

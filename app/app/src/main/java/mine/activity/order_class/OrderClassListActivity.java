@@ -29,6 +29,8 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.reflect.TypeToken;
 import com.renyajie.yuyue.R;
 
@@ -52,6 +54,7 @@ import okhttp3.Response;
 import test.OrderClassListData;
 import utils.AppConstant;
 import utils.Messenger;
+import utils.MyApplication;
 import utils.UtilsMethod;
 
 /**
@@ -69,6 +72,7 @@ public class OrderClassListActivity extends AppCompatActivity
     private ListView listView;
     private OrderClassListAdapter adapter;
     private RadioGroup radioGroup;
+
 
     private RelativeLayout relativeLayout;
     private Button deleteButton, cancelButton;
@@ -466,11 +470,13 @@ public class OrderClassListActivity extends AppCompatActivity
 
         private LayoutInflater layoutInflater;
         private List<ClassOrder> data;
+        private ImageLoader imageLoader;
 
         public OrderClassListAdapter(Context context,
                                      List<ClassOrder> classOrderList) {
             this.layoutInflater = LayoutInflater.from(context);
             this.data = classOrderList;
+            imageLoader = MyApplication.getImageLoader();
         }
 
         public void setData(List<ClassOrder> data) {
@@ -515,6 +521,13 @@ public class OrderClassListActivity extends AppCompatActivity
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
+            viewHolder.classPic
+                    .setDefaultImageResId(R.mipmap.ic_launcher);
+            viewHolder.classPic
+                    .setErrorImageResId(R.mipmap.ic_launcher);
+            viewHolder.classPic
+                    .setImageUrl(AppConstant.URL + model.getPicUrl(), imageLoader);
+
             viewHolder.className.setText(model.getClaKName());
             viewHolder.orderTime.setText(
                     UtilsMethod.getStringFromDateForCheck(model.getOrdTime()));
@@ -544,7 +557,7 @@ public class OrderClassListActivity extends AppCompatActivity
         }
 
         class ViewHolder {
-            public ImageView classPic;
+            public NetworkImageView classPic;
             public TextView className, orderTime, placeName;
             public CheckBox itemCheckBox;
         }

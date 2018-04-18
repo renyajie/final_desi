@@ -10,18 +10,19 @@ select * from place;
 select * from class_kind;
 select * from class_info;
 select * from class_order;
-select * from score where u_id = 1;
+select * from score;
 select * from card_kind;
 select * from card_info;
 select * from card_order;
 select * from teacher;
-select * from user where id = 1000;
+select * from user where id = 1002;
 select * from class_tag where id > 800;
+select * from user_feature;
 
 -- 清空所有数据并重新设置内容
 TRUNCATE TABLE class_tag;
 
-delete from user where id = 1001;
+delete from user where id = 1005;
 
 select count(*) from user;
 

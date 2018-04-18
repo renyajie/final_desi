@@ -1,5 +1,6 @@
 package com.ryj.yuyue.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -514,7 +515,7 @@ public class SettingController {
 			@RequestParam(value = "mName", required = false) String mName,
 			@RequestParam(value = "sName", required = false) String sName) {
 		
-		PageHelper.startPage(pn, 10);
+		PageHelper.startPage(pn, 9);
 		PageInfo page = new PageInfo(
 				managerService.getManagerList(id, account, mName, sName), ConstantLiteral.PAGE_SIZE);
 		return Messenger.success().add("pageInfo", page);
@@ -780,9 +781,16 @@ public class SettingController {
 			@RequestParam(value = "phone", required = false) String phone,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
+		List<Place> result = new ArrayList<Place>();
 		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
-		PageHelper.startPage(pn, 10);
-		List<Place> result = placeService.getPlace(id, sName, address, phone);
+		if(isPage == 1) {
+			PageHelper.startPage(pn, 9);
+			result = placeService.getPlace(id, sName, address, phone);
+		}
+		//防止对不分页的情况限制了数据量
+		else {
+			result = placeService.getPlace(id, sName, address, phone);
+		}
 		//判断是否需要分页
 		if(isPage == 1) {
 			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);

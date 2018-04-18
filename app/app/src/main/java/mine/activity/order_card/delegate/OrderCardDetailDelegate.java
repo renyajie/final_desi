@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
 import bean.CardInfo;
@@ -31,10 +32,12 @@ public class OrderCardDetailDelegate extends SuperDelegate {
     private Context context;
     private LayoutInflater layoutInflater;
     private CardInfo cardInfo;
+    private ImageLoader imageLoader;
 
     public OrderCardDetailDelegate(Context context) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
+        imageLoader = MyApplication.getImageLoader();
     }
 
     public void setCardInfo(CardInfo cardInfo) {
@@ -70,6 +73,14 @@ public class OrderCardDetailDelegate extends SuperDelegate {
         uiFlag = false;
 
         //开始刷新UI
+
+        ((OrderCardDetailViewHolder)viewHolder).classPic
+                .setDefaultImageResId(R.mipmap.ic_launcher);
+        ((OrderCardDetailViewHolder)viewHolder).classPic
+                .setErrorImageResId(R.mipmap.ic_launcher);
+        ((OrderCardDetailViewHolder)viewHolder).classPic
+                .setImageUrl(AppConstant.URL + cardInfo.getPicUrl(), imageLoader);
+
         ((OrderCardDetailViewHolder)viewHolder).placeName
                 .setText(cardInfo.getsName());
         ((OrderCardDetailViewHolder)viewHolder).cardName
@@ -80,7 +91,7 @@ public class OrderCardDetailDelegate extends SuperDelegate {
 
     public static class OrderCardDetailViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView classPic;
+        NetworkImageView classPic;
         TextView placeName, cardName, allowance;
 
         public OrderCardDetailViewHolder(View itemView) {

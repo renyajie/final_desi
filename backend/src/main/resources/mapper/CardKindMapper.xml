@@ -15,6 +15,7 @@
     <result column="card_k_name" property="cardKName" />
     <result column="capacity" property="capacity" />
     <result column="expend" property="expend" />
+    <result column="pic_url" property="picUrl" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -78,7 +79,7 @@
     id, p_id, card_k_name, capacity, expend
   </sql>
   <sql id="Base_Column_List_Result">
-    ck.id, ck.p_id, p.s_name, ck.card_k_name, ck.capacity, ck.expend
+    ck.id, ck.p_id, p.s_name, ck.card_k_name, ck.capacity, ck.expend, p.pic_url
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.CardKindExample" resultMap="BaseResultMap">
     select

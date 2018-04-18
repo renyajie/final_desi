@@ -8,19 +8,20 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.BaseAdapter;
-import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
 import java.util.List;
 
 import bean.ClassOrder;
 import bean.Score;
+import utils.AppConstant;
+import utils.MyApplication;
 import utils.UtilsMethod;
 
 /**
@@ -33,7 +34,7 @@ public class CommentOrderListAdapter extends BaseAdapter{
     private LayoutInflater layoutInflater;
     private List<ClassOrder> classOrderList;
     private List<Score> scoreList;
-    private ScoreButtonClick scoreButtonClick;
+    private ImageLoader imageLoader;
 
     //当前列表状态为已经评价还是没有评价
     private int isScore = 1;
@@ -42,18 +43,11 @@ public class CommentOrderListAdapter extends BaseAdapter{
     private static final int SCORE_LESSON = 1;
     private static final int UNSCORE_LESSON = 0;
 
-    interface ScoreButtonClick {
-        void scoreButtonClick(int orderId, int classId);
-    }
-
-    public void setScoreButtonClick(ScoreButtonClick scoreButtonClick) {
-        this.scoreButtonClick = scoreButtonClick;
-    }
-
     public CommentOrderListAdapter(Context context, List<Score> scoreList, List<ClassOrder> classOrderList) {
         this.scoreList = scoreList;
         this.classOrderList = classOrderList;
         this.layoutInflater = LayoutInflater.from(context);
+        imageLoader = MyApplication.getImageLoader();
     }
 
     public void setClassOrderList(List<ClassOrder> classOrderList) {
@@ -113,6 +107,7 @@ public class CommentOrderListAdapter extends BaseAdapter{
                     convertView = layoutInflater.inflate(
                             R.layout.activity_mine_comment_list_score_item, parent, false);
 
+                    scoreViewHolder.classPic = convertView.findViewById(R.id.class_pic);
                     scoreViewHolder.score = convertView.findViewById(R.id.score);
                     scoreViewHolder.scoreTime = convertView.findViewById(R.id.score_time);
                     scoreViewHolder.comment = convertView.findViewById(R.id.comment);
@@ -128,6 +123,7 @@ public class CommentOrderListAdapter extends BaseAdapter{
                     convertView = layoutInflater.inflate(
                             R.layout.activity_mine_comment_list_unscore_item, parent, false);
 
+                    unscoreViewHolder.classPic = convertView.findViewById(R.id.class_pic);
                     unscoreViewHolder.className = convertView.findViewById(R.id.class_name);
                     unscoreViewHolder.placeName = convertView.findViewById(R.id.place_name);
                     unscoreViewHolder.orderTime = convertView.findViewById(R.id.order_time);
@@ -155,6 +151,14 @@ public class CommentOrderListAdapter extends BaseAdapter{
         switch (isScore) {
             case SCORE_LESSON:
                 Score score = scoreList.get(position);
+
+                scoreViewHolder.classPic
+                        .setDefaultImageResId(R.mipmap.ic_launcher);
+                scoreViewHolder.classPic
+                        .setErrorImageResId(R.mipmap.ic_launcher);
+                scoreViewHolder.classPic
+                        .setImageUrl(AppConstant.URL + score.getPicUrl(), imageLoader);
+
                 scoreViewHolder.score.setRating(score.getScore());
                 scoreViewHolder.scoreTime.setText(
                         UtilsMethod.getStringFromDateForScore(score.getScoreTime()));
@@ -167,6 +171,14 @@ public class CommentOrderListAdapter extends BaseAdapter{
                 break;
             case UNSCORE_LESSON:
                 ClassOrder classOrder = classOrderList.get(position);
+
+                unscoreViewHolder.classPic
+                        .setDefaultImageResId(R.mipmap.ic_launcher);
+                unscoreViewHolder.classPic
+                        .setErrorImageResId(R.mipmap.ic_launcher);
+                unscoreViewHolder.classPic
+                        .setImageUrl(AppConstant.URL + classOrder.getPicUrl(), imageLoader);
+
                 unscoreViewHolder.placeName.setText(classOrder.getpName());
                 unscoreViewHolder.className.setText(classOrder.getClaKName());
                 unscoreViewHolder.orderTime.setText(
@@ -181,13 +193,13 @@ public class CommentOrderListAdapter extends BaseAdapter{
     }
 
     class UnscoreViewHolder {
-        public ImageView classPic;
+        public NetworkImageView classPic;
         public TextView className, orderTime, placeName, score;
     }
 
     class ScoreViewHolder {
         public RatingBar score;
         public TextView scoreTime, comment, className, orderTime, placeName;
-        public ImageView classPic;
+        public NetworkImageView classPic;
     }
 }

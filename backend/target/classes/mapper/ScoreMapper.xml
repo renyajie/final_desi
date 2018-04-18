@@ -30,6 +30,7 @@
     <result column="ord_time" property="orderTime" />
     <result column="age" property="age" />
     <result column="gender" property="gender" />
+    <result column="pic_url" property="picUrl" />
   </resultMap>
   
   <resultMap id="BaseResultMapForNew" type="com.ryj.yuyue.utils.ScoreToken">
@@ -100,7 +101,7 @@
   </sql>
   <sql id="Base_Column_List_Result">
     s.id, s.u_id, u.u_name, s.cla_id, s.cla_k_id, ck.cla_k_name, s.p_id, p.s_name, 
-	s.score, s.comment,  s.score_time, s.order_id, co.ord_time, s.gender, s.age
+	s.score, s.comment,  s.score_time, s.order_id, co.ord_time, s.gender, s.age, p.pic_url
   </sql>
   <select id="selectByExample" parameterType="com.ryj.yuyue.bean.ScoreExample" resultMap="BaseResultMap">
     select

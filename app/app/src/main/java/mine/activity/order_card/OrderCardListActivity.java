@@ -22,6 +22,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.google.gson.reflect.TypeToken;
 import com.renyajie.yuyue.R;
 
@@ -37,6 +39,7 @@ import okhttp3.Callback;
 import okhttp3.Response;
 import utils.AppConstant;
 import utils.Messenger;
+import utils.MyApplication;
 import utils.UtilsMethod;
 
 /**
@@ -151,12 +154,14 @@ public class OrderCardListActivity extends AppCompatActivity{
         private Context context;
         private LayoutInflater layoutInflater;
         private List<CardInfo> data;
+        private ImageLoader imageLoader;
 
         public CardInfoListAdapter(Context context,
                                      List<CardInfo> cardInfoList) {
             this.context = context;
             this.layoutInflater = LayoutInflater.from(context);
             this.data = cardInfoList;
+            imageLoader = MyApplication.getImageLoader();
         }
 
         public void setData(List<CardInfo> data) {
@@ -200,6 +205,13 @@ public class OrderCardListActivity extends AppCompatActivity{
                 viewHolder = (ViewHolder) convertView.getTag();
             }
 
+            viewHolder.classPic
+                    .setDefaultImageResId(R.mipmap.ic_launcher);
+            viewHolder.classPic
+                    .setErrorImageResId(R.mipmap.ic_launcher);
+            viewHolder.classPic
+                    .setImageUrl(AppConstant.URL + model.getPicUrl(), imageLoader);
+
             viewHolder.cardName.setText(model.getCardKName());
             viewHolder.allowance.setText(String.valueOf(model.getAllowance()));
             viewHolder.placeName.setText(model.getsName());
@@ -218,7 +230,7 @@ public class OrderCardListActivity extends AppCompatActivity{
         }
 
         class ViewHolder {
-            public ImageView classPic;
+            public NetworkImageView classPic;
             public TextView cardName, allowance, placeName;
         }
     }

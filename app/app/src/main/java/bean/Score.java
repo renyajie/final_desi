@@ -39,6 +39,16 @@ public class Score {
 
     private String gender;
 
+    private String picUrl;
+
+    public String getPicUrl() {
+        return picUrl;
+    }
+
+    public void setPicUrl(String picUrl) {
+        this.picUrl = picUrl;
+    }
+
     public String getuName() {
         return uName;
     }

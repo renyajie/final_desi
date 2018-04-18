@@ -10,10 +10,14 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.ImageLoader;
+import com.android.volley.toolbox.NetworkImageView;
 import com.renyajie.yuyue.R;
 
 import bean.CardInfo;
 import bean.CardKind;
+import utils.AppConstant;
+import utils.MyApplication;
 import utils.SuperDelegate;
 import utils.ViewHolderType;
 
@@ -28,10 +32,12 @@ public class PlaceCardDetailDelegate extends SuperDelegate {
     private Context context;
     private LayoutInflater layoutInflater;
     private CardKind cardKind;
+    private ImageLoader imageLoader;
 
     public PlaceCardDetailDelegate(Context context) {
         this.context = context;
         this.layoutInflater = LayoutInflater.from(context);
+        imageLoader = MyApplication.getImageLoader();
     }
 
     public void setCardKind(CardKind cardKind) {
@@ -66,6 +72,13 @@ public class PlaceCardDetailDelegate extends SuperDelegate {
         }
         uiFlag = false;
 
+        ((PlaceCardDetailViewHolder)viewHolder).classPic
+                .setDefaultImageResId(R.mipmap.ic_launcher);
+        ((PlaceCardDetailViewHolder)viewHolder).classPic
+                .setErrorImageResId(R.mipmap.ic_launcher);
+        ((PlaceCardDetailViewHolder)viewHolder).classPic
+                .setImageUrl(AppConstant.URL + cardKind.getPicUrl(), imageLoader);
+
         //开始刷新UI
         ((PlaceCardDetailViewHolder)viewHolder).placeName
                 .setText(cardKind.getpName());
@@ -79,7 +92,7 @@ public class PlaceCardDetailDelegate extends SuperDelegate {
 
     public static class PlaceCardDetailViewHolder extends RecyclerView.ViewHolder {
 
-        ImageView classPic;
+        NetworkImageView classPic;
         TextView placeName, cardName, expend, capacity;
 
         public PlaceCardDetailViewHolder(View itemView) {

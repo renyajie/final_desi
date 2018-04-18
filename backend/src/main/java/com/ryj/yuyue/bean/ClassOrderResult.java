@@ -35,6 +35,16 @@ public class ClassOrderResult {
     private String property;
     
     private Integer isScore;
+    
+    private String picUrl;
+    
+	public String getPicUrl() {
+		return picUrl;
+	}
+
+	public void setPicUrl(String picUrl) {
+		this.picUrl = picUrl;
+	}
 
 	public ClassOrderResult() {
 		super();
