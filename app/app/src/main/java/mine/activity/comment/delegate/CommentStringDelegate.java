@@ -84,12 +84,21 @@ public class CommentStringDelegate extends SuperDelegate{
 
         //开始刷新UI
         commentStringViewHolder = ((CommentStringViewHolder)viewHolder);
-        commentStringViewHolder.commentString.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+        commentStringViewHolder.commentString.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 changeCommentString.changeCommentString(
-                        commentStringViewHolder.commentString.getText().toString());
-                return false;
+                        s.toString());
             }
         });
         commentStringViewHolder.submitButton.setOnClickListener(new View.OnClickListener() {

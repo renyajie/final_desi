@@ -34,7 +34,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
     // 获取场馆基本信息，用于下拉列表
     let places = [];
-    this.placeService.getAllPlace()
+    this.placeService.getAllPlace(0)
     .subscribe(
       data => {
         //若服务器成功返回数据

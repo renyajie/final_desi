@@ -32,6 +32,16 @@ public interface ScoreMapper {
     int updateByPrimaryKey(Score record);
     
     /**
+     * 查看某个用户某种性质的课程的评论数量
+     * @param userId 用户编号
+     * @param property 课程属性
+     * @return
+     */
+    int getScoreNumber(
+    		@Param("userId") Integer userId, 
+    		@Param("property") String property);
+    
+    /**
      * 获取某种课程的评分
      * @param classKId 课程种类编号
      * @param userId 用户编号

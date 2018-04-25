@@ -3,8 +3,10 @@ package data;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -93,7 +95,7 @@ public class CreateClassOrder {
 	}
 	
 	/**
-	 * 返回某门课程的预约时间为上课时间的前一天，小时，分钟和秒使用随机数生成
+	 * 返回某门课程的预约时间为上课时间的前一天，小时[7-17]，分钟和秒使用随机数生成
 	 * @param classId 课程编号
 	 * @return
 	 */
@@ -111,7 +113,7 @@ public class CreateClassOrder {
 	}
 	
 	/**
-	 * 每个用户从800次团课选择10-15次上，从800次私教课中选择10-15次上
+	 * 每个用户从1200次团课选择10-15次上，从1200次私教课中选择10-15次上
 	 * 若用户没有该瑜伽馆的会员卡，用户开卡，若瑜伽馆没有会员卡，瑜伽馆开卡后，用户再购买卡，然后下单
 	 */
 	@Test
@@ -125,46 +127,64 @@ public class CreateClassOrder {
 		//下单时间
 		Date orderTime = null;
 		
+		//每个用户的上课场馆，每个用户选择2-3个场馆上课
+		Set<Integer> placeSets = new HashSet<Integer>();
 		
 		for(int i = 0; i < 1000; i++) {
 			
-			time = rand.nextInt(6) + 10;
-			
-			int j = 0;
-			while(j < time) {
-				
-				placeId = rand.nextInt(20) + 1;
-				classId = rand.nextInt(800) + 1 + 800;
-				
-				//若用户预约课程已经没有余量则重新选择课程，若还有余额则更新课程安排
-				classInfo = classInfoMapper.selectByPrimaryKey(classId);
-				if(classInfo.getAllowance() == 0) {
-					continue;
-				}
-				classInfo.setAllowance(classInfo.getAllowance() - 1);
-				classInfo.setOrderNum(classInfo.getOrderNum() + 1);
-				classInfoMapper.updateByPrimaryKeySelective(classInfo);
-				
-				orderTime = getOrderTime(classId);
-				/**
-				 * 获取瑜伽馆会员卡种类编号， 查看用户有无该种会员卡
-				 *    1. 有，获取会员卡编号，下订单
-				 *    2. 无，买会员卡，获取会员卡编号，下订单
-				 */
-				cardId = getCardInfoId(i + 1, placeId, orderTime);
-				
-				classOrder = new ClassOrder();
-				classOrder.setIsScore(0);
-				classOrder.setuId(i + 1);
-				classOrder.setOrdTime(orderTime);
-				classOrder.setNum(1);
-				classOrder.setExpend(1);
-				classOrder.setClaId(classId);
-				classOrder.setCardId(cardId);
-				classOrderMapper.insertSelective(classOrder);
-				
-				j++;
+			//生成用户上课场馆，每个用户选择[2,3]个瑜伽馆上课
+			placeSets.clear();
+			int number = rand.nextInt(2) + 2;
+			while(placeSets.size() < number) {
+				placeSets.add(rand.nextInt(20) + 1);
 			}
+			Integer[] placeList = new Integer[number];
+			placeList = placeSets.toArray(placeList);
+			
+			//循环两次，团课一次，私教一次
+			for(int m = 0; m < 2; m++) {
+				
+				int j = 0;
+				
+				//用户上课次数[10,15]
+				time = rand.nextInt(6) + 10;
+				
+				while(j < time) {
+					
+					placeId = placeList[rand.nextInt(number)];
+					classId = (placeId - 1) * 60 + rand.nextInt(60) + 1 + m * 1200;
+					
+					//若用户预约课程已经没有余量则重新选择课程，若还有余额则更新课程安排
+					classInfo = classInfoMapper.selectByPrimaryKey(classId);
+					if(classInfo.getAllowance() == 0) {
+						continue;
+					}
+					classInfo.setAllowance(classInfo.getAllowance() - 1);
+					classInfo.setOrderNum(classInfo.getOrderNum() + 1);
+					classInfoMapper.updateByPrimaryKeySelective(classInfo);
+					
+					orderTime = getOrderTime(classId);
+					/**
+					 * 获取瑜伽馆会员卡种类编号， 查看用户有无该种会员卡
+					 *    1. 有，获取会员卡编号，下订单
+					 *    2. 无，买会员卡，获取会员卡编号，下订单
+					 */
+					cardId = getCardInfoId(i + 1, placeId, orderTime);
+					
+					classOrder = new ClassOrder();
+					classOrder.setIsScore(0);
+					classOrder.setuId(i + 1);
+					classOrder.setOrdTime(orderTime);
+					classOrder.setNum(1);
+					classOrder.setExpend(1);
+					classOrder.setClaId(classId);
+					classOrder.setCardId(cardId);
+					classOrderMapper.insertSelective(classOrder);
+					
+					j++;
+				}
+			}
+			
 		}
 	}
 }

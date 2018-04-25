@@ -321,6 +321,7 @@ public class CommentOrderActivity extends AppCompatActivity
     @Override
     public void changeCommentString(String comment) {
         this.commentString = comment;
+        Log.d("get", "comment is " + comment);
     }
 
     @Override

@@ -88,6 +88,14 @@ public class NewsService {
 	@SuppressWarnings("deprecation")
 	public NewsResult getNewsById(Integer id) {
 		NewsResult result = newsMapper.getNewsById(id);
+		
+		//更新浏览次数
+		News news = newsMapper.selectByPrimaryKey(id);
+		news.setBrowTime(news.getBrowTime() + 1);
+		newsMapper.updateByPrimaryKeySelective(news);
+		
+		result.setBrowTime(news.getBrowTime());
+		
 		Date d = result.getPubTime();
 		d.setHours(d.getHours() + 8);
 		result.setPubTime(d);

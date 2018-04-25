@@ -82,7 +82,7 @@ public class GlideImageDelegate extends SuperDelegate {
         }
 
         ((GlideImageViewHolder)viewHolder).banner.setBannerTitles(titles);
-        ((GlideImageViewHolder)viewHolder).banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR_TITLE);
+        ((GlideImageViewHolder)viewHolder).banner.setBannerStyle(BannerConfig.CIRCLE_INDICATOR);
         ((GlideImageViewHolder)viewHolder).banner.setImageLoader(new GlideImageLoader());
         ((GlideImageViewHolder)viewHolder).banner.setImages(picResourceId);
         ((GlideImageViewHolder)viewHolder).banner.setBannerAnimation(Transformer.Default);

@@ -16,4 +16,11 @@ where s.p_id = p.id and s.cla_k_id = ck.id and s.order_id = co.id and s.u_id = u
 and u.id = 1
 order by co.ord_time desc;
 
+-- 目的：查看某个用户评价某种属性的订单数量accessible
+select count(*)
+from score s, class_kind ck
+where s.cla_k_id = ck.id
+and ck.property = 'g'
+and s.u_id = 1;
+
 

@@ -1,10 +1,12 @@
 package utils;
 
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 
+import java.io.File;
 import java.io.IOException;
 import java.lang.reflect.Type;
 import java.net.URLEncoder;
@@ -225,13 +227,14 @@ public class UtilsMethod {
 
     /**
      * 将json转化为指定类型的Messenger
-     * @param response
-     * @param token
-     * @param <T>
-     * @return
+     * @param response okhttp返回响应
+     * @param token Gson的转化目标类型
+     * @param <T> messegener携带的对象的原型
+     * @return 指定类型的messenger
      * @throws IOException
      */
-    public static <T> Messenger<T> getFromJson(int gsonType, Response response, TypeToken<Messenger<T>> token) throws IOException {
+    public static <T> Messenger<T> getFromJson(
+            int gsonType, Response response, TypeToken<Messenger<T>> token) throws IOException {
         Type type = token.getType();
         return MyApplication.getGson(gsonType).fromJson(response.body().string(), type);
     }
@@ -242,7 +245,7 @@ public class UtilsMethod {
      */
     public static void saveUserInfo(User user) {
         SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
+                MyApplication.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
         editor.putInt("userId", user.getId());
         editor.putString("phone", user.getPhone());
@@ -255,14 +258,14 @@ public class UtilsMethod {
     }
 
     /**
-     * 设置用户登录状态为未登录
+     * 设置用户登录状态为未登录，直接删除sharedpreference文件夹
      */
     public static void setUserLogOut() {
-        SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
-        SharedPreferences.Editor editor = sharedPreferences.edit();
-        editor.putBoolean("login", false);
-        editor.commit();
+        File file = new File("/data/data/" + MyApplication.getContext().getPackageName().toString() + "/shared_prefs");
+
+        if(file.exists()){
+            file.delete();
+        }
     }
 
     /**
@@ -271,7 +274,7 @@ public class UtilsMethod {
      */
     public static boolean getLogInStatus() {
         SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
+                MyApplication.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         return sharedPreferences.getBoolean("login", false);
     }
 
@@ -282,7 +285,7 @@ public class UtilsMethod {
 
     public static int getUserId() {
         SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
+                MyApplication.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         return sharedPreferences.getInt("userId", 1);
     }
 
@@ -292,7 +295,7 @@ public class UtilsMethod {
      */
     public static String getUsername() {
         SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
+                MyApplication.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         return sharedPreferences.getString("uName", "任亚捷");
     }
 
@@ -302,7 +305,7 @@ public class UtilsMethod {
      */
     public static String getUserPhone() {
         SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
+                MyApplication.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         return sharedPreferences.getString("phone", "17826856214");
     }
 
@@ -312,7 +315,7 @@ public class UtilsMethod {
      */
     public static String getUserGender() {
         SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
+                MyApplication.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         return sharedPreferences.getString("gender", "男");
     }
 
@@ -322,7 +325,7 @@ public class UtilsMethod {
      */
     public static Integer getUserAge() {
         SharedPreferences sharedPreferences =
-                MyApplication.getSharedPreferences();
+                MyApplication.getContext().getSharedPreferences("user", Context.MODE_PRIVATE);
         return sharedPreferences.getInt("age", 24);
     }
 }

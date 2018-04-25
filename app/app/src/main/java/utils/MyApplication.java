@@ -1,6 +1,7 @@
 package utils;
 
 import android.app.Application;
+import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.android.volley.RequestQueue;
@@ -25,6 +26,7 @@ public class MyApplication extends Application {
     public static OkHttpClient okHttpClient;
     public static Gson gson, gsonForHour, gsonForAll;
     public static SharedPreferences sharedPreferences;
+    public static Context context;
 
     @Override
     public void onCreate() {
@@ -37,6 +39,7 @@ public class MyApplication extends Application {
         gsonForAll = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         gson = new Gson();
         sharedPreferences = getSharedPreferences("User", MODE_PRIVATE);
+        context = getApplicationContext();
     }
 
     public static RequestQueue getHttpQueue() {
@@ -67,5 +70,9 @@ public class MyApplication extends Application {
 
     public static SharedPreferences getSharedPreferences() {
         return sharedPreferences;
+    }
+
+    public static Context getContext() {
+        return context;
     }
 }

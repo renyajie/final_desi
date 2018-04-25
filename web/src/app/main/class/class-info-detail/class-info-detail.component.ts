@@ -29,19 +29,19 @@ export class ClassInfoDetailComponent implements OnInit {
   my_endTime: string;
 
   courseTimes:SimpleToken[] = [
-    new SimpleToken('07:00:00', '07:00:00'),
-    new SimpleToken('08:00:00', '08:00:00'),
-    new SimpleToken('09:00:00', '09:00:00'),
-    new SimpleToken('10:00:00', '10:00:00'),
-    new SimpleToken('11:00:00', '11:00:00'),
-    new SimpleToken('12:00:00', '12:00:00'),
-    new SimpleToken('13:00:00', '13:00:00'),
-    new SimpleToken('14:00:00', '14:00:00'),
-    new SimpleToken('15:00:00', '15:00:00'),
-    new SimpleToken('16:00:00', '16:00:00'),
-    new SimpleToken('17:00:00', '17:00:00'),
-    new SimpleToken('18:00:00', '18:00:00'),
-    new SimpleToken('19:00:00', '19:00:00')
+    new SimpleToken('07:00:00', '07:00:01'),
+    new SimpleToken('08:00:00', '08:00:01'),
+    new SimpleToken('09:00:00', '09:00:01'),
+    new SimpleToken('10:00:00', '10:00:01'),
+    new SimpleToken('11:00:00', '11:00:01'),
+    new SimpleToken('12:00:00', '12:00:01'),
+    new SimpleToken('13:00:00', '13:00:01'),
+    new SimpleToken('14:00:00', '14:00:01'),
+    new SimpleToken('15:00:00', '15:00:01'),
+    new SimpleToken('16:00:00', '16:00:01'),
+    new SimpleToken('17:00:00', '17:00:01'),
+    new SimpleToken('18:00:00', '18:00:01'),
+    new SimpleToken('19:00:00', '19:00:01')
   ];
 
   //初始日期

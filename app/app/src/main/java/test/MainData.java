@@ -20,9 +20,9 @@ public class MainData {
 
     //轮播图数据
     public static List<GlideImageModel> imageModelList = Arrays.asList(
-            new GlideImageModel(R.mipmap.ic_launcher, "第一张图"),
-            new GlideImageModel(R.mipmap.ic_launcher, "第二张图"),
-            new GlideImageModel(R.mipmap.ic_launcher, "第三张图")
+            new GlideImageModel(R.mipmap.lun_a, "第一张图"),
+            new GlideImageModel(R.mipmap.lun_b, "第二张图"),
+            new GlideImageModel(R.mipmap.lun_c, "第三张图")
     );
 
     //网格按钮数据

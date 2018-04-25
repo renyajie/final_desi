@@ -143,7 +143,9 @@
       #{scoreTime,jdbcType=DATE}, #{orderId,jdbcType=INTEGER}, #{age,jdbcType=INTEGER}, 
       #{gender,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.ryj.yuyue.bean.Score">
+  <insert id="insertSelective" 
+  keyProperty="id" useGeneratedKeys="true" keyColumn="id"
+  parameterType="com.ryj.yuyue.bean.Score">
     insert into score
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -221,6 +223,22 @@
     <if test="_parameter != null">
       <include refid="Example_Where_Clause" />
     </if>
+  </select>
+  <!-- int getScoreNumber(
+    		@Param("userId") Integer userId, 
+    		@Param("property") String property); -->
+  <select id="getScoreNumber" resultType="java.lang.Integer">
+    select count(*)
+    from score s, class_kind ck
+    <trim prefix="where" prefixOverrides="and">
+      s.cla_k_id = ck.id
+      <if test="userId != null">
+        and s.u_id = #{userId}
+      </if>
+      <if test="property != null and property.length != 0">
+        and ck.property = #{property}
+      </if>
+    </trim>
   </select>
   <!-- List<ScoreResult> getScore(
     		@Param("classKId") Integer classKId,

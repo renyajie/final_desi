@@ -264,14 +264,18 @@ public class SettingController {
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 
 		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
-		PageHelper.startPage(pn, 10);
-		List<ClassKindResult> result = classService.getClassKind(
-				placeId, classKId, managerId, classKName, property, difficulty);
+		
+		List<ClassKindResult> result = null;
 		//判断是否需要分页
 		if(isPage == 1) {
+			PageHelper.startPage(pn, 10);
+			result = classService.getClassKind(
+					placeId, classKId, managerId, classKName, property, difficulty);
 			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
+		result = classService.getClassKind(
+				placeId, classKId, managerId, classKName, property, difficulty);
 		return Messenger.success().add("info", result);
 	}
 	
@@ -392,14 +396,18 @@ public class SettingController {
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
 		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
-		PageHelper.startPage(pn, 10);
-		List<CardKindResult> result = cardService.getCardKind(
-				cardKId, managerId, placeId, cardKName, capacity, expend);
+		
+		List<CardKindResult> result = null;
 		//判断是否需要分页
 		if(isPage == 1) {
+			PageHelper.startPage(pn, 10);
+			result = cardService.getCardKind(
+					cardKId, managerId, placeId, cardKName, capacity, expend);
 			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
+		result = cardService.getCardKind(
+				cardKId, managerId, placeId, cardKName, capacity, expend);
 		return Messenger.success().add("info", result);
 	}
 	

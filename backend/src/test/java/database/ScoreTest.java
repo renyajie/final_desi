@@ -51,4 +51,9 @@ public class ScoreTest {
 		idSet.add(2);
 		System.out.println(idSet);
 	}
+	
+	@Test
+	public void getScoreNumber() {
+		System.out.println(scoreMapper.getScoreNumber(1, "g"));
+	}
 }

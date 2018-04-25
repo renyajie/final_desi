@@ -33,10 +33,10 @@ public class ScoreService {
 	private ClassInfoMapper classInfoMapper;
 
 	public static final int PEOPLE = 1;
-	public static final int INDIVIDUAL = 1;
+	public static final int INDIVIDUAL = 0;
 
 	/**
-	 * 插入评分数据
+	 * 向文件中插入评分数据
 	 * 
 	 * @param score
 	 */
@@ -53,6 +53,9 @@ public class ScoreService {
 
 		scoreMapper.insertSelective(score);
 
+		if(score.getId() == null) {
+			System.out.println("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+		}
 		addScoreToFile(scoreMapper.getScoreResultById(score.getId()),
 				classInfo.getProperty().equals("s") ? INDIVIDUAL : PEOPLE);
 	}

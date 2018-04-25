@@ -33,6 +33,7 @@ public class CreateClassInfo {
 	Random rand = new Random();
 	
 	/**
+	 * 最后修改日期：2018-4-24，生成4-16至5-15的日期
 	 * 获取上课日期
 	 * @return
 	 */
@@ -40,7 +41,7 @@ public class CreateClassInfo {
 	@SuppressWarnings("static-access")
 	public Date getCDay() {
 		calendar.setTime(date);
-	    calendar.add(calendar.DATE, rand.nextInt(17) + 1);
+	    calendar.add(calendar.DATE, rand.nextInt(30) - 8);
 	    return calendar.getTime();
 	}
 	
@@ -52,7 +53,7 @@ public class CreateClassInfo {
 	@SuppressWarnings("deprecation")
 	public Date getStartTime(Date cDay) {
 		Date date = new Date();
-		date = cDay;
+		date.setDate(cDay.getDate());;
 		date.setHours(rand.nextInt(10) + 7);
 		date.setMinutes(0);
 		date.setSeconds(0);
@@ -65,16 +66,19 @@ public class CreateClassInfo {
 	 * @return
 	 */
 	@SuppressWarnings("deprecation")
-	public Date getEndTime(Date startTime) {
+	public Date getEndTime(Date cDay, int hour) {
 		Date date = new Date();
-		date.setHours(startTime.getHours() + 1);
+		date.setDate(cDay.getDate());
+		date.setHours(hour + 1);
 		date.setMinutes(0);
 		date.setSeconds(0);
 		return date;
 	}
 	
 	/**
-	 * 生成课程信息: 每个场馆40个团课安排，40个私教安排
+	 * 生成课程信息: 每个场馆60个团课安排，60个私教安排
+	 * 
+	 * 1-1200团课   1201-2400私教
 	 * 
 	 * 1-20 场馆
 	 * 1-300 老师
@@ -88,35 +92,43 @@ public class CreateClassInfo {
 	 * @return
 	 */
 	//@Test
+	@SuppressWarnings("deprecation")
 	public List<ClassInfo> getClassInfo() {
 		
 		List<ClassInfo> result = new ArrayList<ClassInfo>();
 		ClassInfo classInfo = null;
-		Date cDay = null, startTime = null, endTime;
+		Date cDay = null, startTime = null, endTime = null;
 		Random rand = new Random();
 		
-		for(int i = 0; i < 20; i++) {
+		//循环两次，第一次生成团课安排，第二次生成私教安排
+		for(int m = 0; m < 2; m++) {
 			
-			for(int j = 0; j < 40; j++) {
-				cDay = getCDay();
-				startTime = getStartTime(cDay);
-				endTime = getEndTime(startTime);
+			for(int i = 0; i < 20; i++) {
 				
-				classInfo = new ClassInfo();
-				classInfo.setAllowance(20);
-				classInfo.setcDay(cDay);
-				classInfo.setStaTime(startTime);
-				classInfo.setEndTime(endTime);
-				classInfo.setClaKId(rand.nextInt(20) + 1 + i * 20 + 400);
-				classInfo.setExpend(1);
-				classInfo.setLength(60);
-				classInfo.setOrderNum(0);
-				classInfo.setpId(i + 1);
-				classInfo.setTeaId(rand.nextInt(15) + 1 + i * 15);
-				//System.out.println(classInfo);
-				result.add(classInfo);
+				for(int j = 0; j < 60; j++) {
+					
+					cDay = getCDay();
+					startTime = getStartTime(cDay);
+					endTime = getEndTime(cDay, startTime.getHours());
+					
+					classInfo = new ClassInfo();
+					classInfo.setAllowance(20);
+					classInfo.setcDay(cDay);
+					classInfo.setStaTime(startTime);
+					classInfo.setEndTime(endTime);
+					classInfo.setClaKId(rand.nextInt(20) + 1 + i * 20 + m * 400);
+					classInfo.setExpend(1);
+					classInfo.setLength(60);
+					classInfo.setOrderNum(0);
+					classInfo.setpId(i + 1);
+					classInfo.setTeaId(rand.nextInt(15) + 1 + i * 15);
+					//System.out.println(classInfo);
+					result.add(classInfo);
+				}
 			}
 		}
+		
+		
 		
 		return result;
 	}
