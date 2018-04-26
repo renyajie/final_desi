@@ -36,12 +36,14 @@ public interface CardInfoMapper {
 	 * @param cardKId 卡种编号
 	 * @param uId 用户编号
 	 * @param id 会员卡编号
+	 * @param placeId 场馆编号
 	 * @return
 	 */
 	List<CardInfoResult> getCardInfo(
 			@Param("managerId") Integer managerId,
 			@Param("cardKId") Integer cardKId, 
-			@Param("uId") Integer uId);
+			@Param("uId") Integer uId,
+			@Param("placeId") Integer placeId);
 	
 	/**
 	 * 获取一个会员卡信息

@@ -489,12 +489,13 @@ public class SettingController {
 			@RequestParam(value = "managerId", required = false ) Integer managerId,
 			@RequestParam(value = "cardKId", required = false) Integer cardKId, 
 			@RequestParam(value = "userId", required = false) Integer userId,
+			@RequestParam(value = "placeId", required = false) Integer placeId,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
 		//PageHelper只会对其后紧跟的查询起作用，所以要放在查询语句的上方
 		PageHelper.startPage(pn, 10);
 		List<CardInfoResult> result = this.cardService.getCardInfo(
-				managerId, cardKId, userId);
+				managerId, cardKId, userId, placeId);
 		//判断是否需要分页
 		if(isPage == 1) {
 			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);

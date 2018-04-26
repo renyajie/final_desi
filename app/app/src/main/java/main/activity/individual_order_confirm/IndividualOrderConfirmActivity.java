@@ -3,6 +3,7 @@ package main.activity.individual_order_confirm;
 import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -36,6 +37,7 @@ import main.activity.people_order_confirm.delegate.PeopleOrderPayDelegate;
 import main.activity.people_order_confirm.model.PeopleOrderDetailModel;
 import main.activity.people_order_confirm.model.PeopleOrderPayModel;
 import main.helper.SpaceItemDecoration;
+import mine.activity.order_card.PlaceCardListActivity;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -251,6 +253,7 @@ public class IndividualOrderConfirmActivity extends AppCompatActivity {
         String tmp = AppConstant.URL + "api/setting/getCardInfo";
         Map<String, String> params = new HashMap<>();
         params.put("userId", UtilsMethod.getUserId() + "");
+        params.put("placeId", this.placeId + "");
         params.put("isPage", 0 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);
@@ -292,8 +295,12 @@ public class IndividualOrderConfirmActivity extends AppCompatActivity {
                 new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        Toast.makeText(IndividualOrderConfirmActivity.this,
-                                "跳转会员卡购买界面", Toast.LENGTH_SHORT).show();
+                        Intent intent = new Intent(context, PlaceCardListActivity.class);
+                        Bundle bundle = new Bundle();
+                        bundle.putInt("placeId", mClassInfo.getpId());
+                        bundle.putString("placeName", mClassInfo.getpName());
+                        intent.putExtras(bundle);
+                        context.startActivity(intent);
                     }
                 });
         normalDialog.setNegativeButton("关闭",

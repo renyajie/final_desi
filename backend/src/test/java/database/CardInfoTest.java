@@ -31,6 +31,7 @@ public class CardInfoTest {
 				cardInfoMapper.getCardInfo(
 						1,
 						1,
+						null,
 						null));
 	}
 	

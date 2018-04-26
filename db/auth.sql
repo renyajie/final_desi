@@ -3,7 +3,7 @@ use yuyue;
 
 select * from sys_manager;
 select * from manager;
-select * from user;
+select * from user where id > 1000;
 
 
 select * from place;
@@ -12,8 +12,8 @@ select * from class_info;
 select * from class_order where u_id > 1000;
 select * from score where u_id > 1000;
 select * from card_kind;
-select * from card_info;
-select * from card_order;
+select * from card_info where u_id > 1000;
+select * from card_order where u_id > 1000;
 select * from teacher;
 select * from user where id > 1000;
 select * from class_tag;

@@ -62,8 +62,9 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
 
     //标题栏名称
     private static final String PageName = "课程预约";
-    //课程编号
+    //课程编号和场馆编号
     private Integer classId;
+    private Integer placeId;
 
     private Toolbar toolbar;
     private List<SuperDelegate> delegates = new ArrayList<>();
@@ -202,7 +203,9 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
     private void receiveIntentData() {
         Bundle bundle = getIntent().getExtras();
         this.classId = bundle.getInt("classId", 0);
+        this.placeId = bundle.getInt("placeId", 0);
         Log.d("msg", "课程编号是" + classId);
+        Log.d("msg", "场馆编号是" + placeId);
     }
 
     // 获取指定类型View在列表中的位置
@@ -252,8 +255,8 @@ public class PeopleOrderConfirmActivity extends AppCompatActivity {
         //构造请求地址
         String tmp = AppConstant.URL + "api/setting/getCardInfo";
         Map<String, String> params = new HashMap<>();
-        params.put("userId", UtilsMethod.getUserId() + ""
-        );
+        params.put("userId", UtilsMethod.getUserId() + "");
+        params.put("placeId", this.placeId + "");
         params.put("isPage", 0 + "");
         String url = UtilsMethod.makeGetParams(tmp, params);
         Log.d("get", url);

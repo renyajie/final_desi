@@ -116,11 +116,12 @@ public class CardService {
 	 * @param managerId 管理员编号
 	 * @param cardKId 卡种编号
 	 * @param uId 用户编号
+	 * @param placeId 场馆编号
 	 * @return
 	 */
 	public List<CardInfoResult> getCardInfo(
-			Integer managerId, Integer cardKId, Integer uId) {
-		return cardInfoMapper.getCardInfo(managerId, cardKId, uId);
+			Integer managerId, Integer cardKId, Integer uId, Integer placeId) {
+		return cardInfoMapper.getCardInfo(managerId, cardKId, uId, placeId);
 	}
 	
 	/**

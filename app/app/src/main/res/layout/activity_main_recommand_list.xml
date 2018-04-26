@@ -15,7 +15,7 @@
         android:paddingStart="40dp"
         android:paddingEnd="40dp"
         tool:text="-团课推荐-"
-        android:textSize="@dimen/item_text_size_small"
+        android:textSize="@dimen/item_text_size_normal"
         android:textColor="@color/white"
         android:gravity="center"
         android:textStyle="bold"
