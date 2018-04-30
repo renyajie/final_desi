@@ -45,12 +45,14 @@
 
 ### Android移动端
 #### 登录
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/1.png" width="450" height="800"/>
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/2.png" width="450" height="800"/>
+<div>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/1.png" width="360" height="480"/>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/2.png" width="360" height="480"/>
+</div>
 
 #### 注册和收集健康体征信息
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/3.png" width="450" height="800"/>
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/4.png" width="450" height="800"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/3.png" width="360" height="480"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/4.png" width="360" height="480"/>
 
 #### 课程推荐
 #### 课程预约
