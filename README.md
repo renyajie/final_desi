@@ -125,11 +125,40 @@
 
 ### Angular后台管理系统--系统管理员篇
 #### 登录
+<div>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/32.png" width="270" height="480"/>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/33.png" width="270" height="480"/>
+</div>
+
 #### 用户管理
+<div>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/34.png" width="270" height="480"/>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/35.png" width="270" height="480"/>
+</div>
+
 #### 场馆管理
+<div>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/36.png" width="270" height="480"/>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/37.png" width="270" height="480"/>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/38.png" width="270" height="480"/>
+</div>
+
 #### 管理员管理
+<div>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/39.png" width="270" height="480"/>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/40.png" width="270" height="480"/>
+</div>
+
 #### 通知管理
+<div>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/41.png" width="270" height="480"/>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/42.png" width="270" height="480"/>
+</div>
+
 #### 个人中心
+<div>
+  <img src="https://github.com/renyajie/final_desi/blob/master/raw/43.png" width="270" height="480"/>
+</div>
 
 ### Angular后台管理系统--场馆管理员篇
 #### 登录注册
