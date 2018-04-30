@@ -45,7 +45,7 @@
 
 ### Android移动端
 #### 登录
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/1.png" width="540" height="960"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/1.png" width="450" height="800"/>
 
 #### 注册和收集健康体征信息
 #### 课程推荐
