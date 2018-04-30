@@ -45,8 +45,8 @@
 
 ### Android移动端
 #### 登录
-![启动页面](https://github.com/renyajie/final_desi/blob/master/raw/1.png)
-![登录](https://github.com/renyajie/final_desi/blob/master/raw/2.png)
+![](https://github.com/renyajie/final_desi/blob/master/raw/1.png)
+![](https://github.com/renyajie/final_desi/blob/master/raw/2.png)
 #### 注册和收集健康体征信息
 #### 课程推荐
 #### 课程预约
