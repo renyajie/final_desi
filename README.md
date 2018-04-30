@@ -14,6 +14,7 @@
 - ./db : 数据库文件，整合Mybatis时编写SQL脚本
 - ./py : 推荐算法文件夹，核心文件是recommand.py，推荐算法的需求数据存储在./py/data中
 - ./web : 基于Angular编写的后台管理系统(无UI)
+- ./raw : 系统运行截屏
 - ./README.md : 介绍文件
 
 ## 推荐算法
@@ -44,6 +45,7 @@
 
 ### Android移动端
 #### 登录
+![image](https://github.com/renyajie/final_desi/blob/master/raw/1.png)
 #### 注册和收集健康体征信息
 #### 课程推荐
 #### 课程预约
