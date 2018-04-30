@@ -125,8 +125,8 @@
 
 ### Angular后台管理系统--系统管理员篇
 #### 登录
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/32.png" width="480" height="270"/>
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/33.png" width="480" height="270"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/32.PNG" width="480" height="270"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/33.PNG" width="480" height="270"/>
 
 #### 用户管理
 
