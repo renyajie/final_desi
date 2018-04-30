@@ -45,17 +45,21 @@
 ## Nginx
 Nginx在项目中的作用是将基于Angular开发的后台管理系统和Java Web服务器代理到统一端口上，解决跨域请求问题。<br>
 项目中没有Nginx的配置部分，这里补充上:
-'''
+
+'''Bash
+
   #use websocket
   map $http_upgrade $connection_upgrade {
+  
     default upgrade;
     '' close;
+    
   }
 
   server {
-      listen       8000;
-
-      #angular frontend configuration
+  
+      listen  8000;
+      #angular frontend configuration
       location / {
           proxy_pass http://127.0.0.1:4200;
           proxy_http_version 1.1;
@@ -68,6 +72,7 @@ Nginx在项目中的作用是将基于Angular开发的后台管理系统和Java 
           proxy_pass http://127.0.0.1:8080/yuyue/api;
       }
   }
+  
 '''
 
 ## 具体展示
