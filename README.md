@@ -1,4 +1,5 @@
 # 基于推荐算法的多应用场景预约系统
+目前所有会的技术(多图预警)
 
 ## 项目概述
 基于推荐算法的多应用场景预约系统，以瑜伽馆预约为实际应用场景
@@ -40,6 +41,34 @@
 
 ### 标签匹配法
 新用户的健康体征来匹配课程属性，得到课程种类编号列表。每个用户都有健康体征数据，每个课程也都有标签。通过匹配的方式找到新用户适合的课程。
+
+## Nginx
+Nginx在项目中的作用是将基于Angular开发的后台管理系统和Java Web服务器代理到统一端口上，解决跨域请求问题。<br>
+项目中没有Nginx的配置部分，这里补充上:
+'''
+  #use websocket
+  map $http_upgrade $connection_upgrade {
+    default upgrade;
+    '' close;
+  }
+
+  server {
+      listen       8000;
+
+      #angular frontend configuration
+      location / {
+          proxy_pass http://127.0.0.1:4200;
+          proxy_http_version 1.1;
+          proxy_set_header Upgrade $http_upgrade;
+          proxy_set_header Connection $connection_upgrade;
+      }
+
+      #ssm backend configuration
+      location /api {
+          proxy_pass http://127.0.0.1:8080/yuyue/api;
+      }
+  }
+'''
 
 ## 具体展示
 
@@ -125,26 +154,64 @@
 
 ### Angular后台管理系统--系统管理员篇
 #### 登录
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/32.PNG" width="480" height="270"/>
-<img src="https://github.com/renyajie/final_desi/blob/master/raw/33.PNG" width="480" height="270"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/32.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/33.PNG" width="640" height="360"/>
 
 #### 用户管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/34.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/35.PNG" width="640" height="360"/>
 
 #### 场馆管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/36.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/37.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/38.PNG" width="640" height="360"/>
 
 #### 管理员管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/39.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/40.PNG" width="640" height="360"/>
 
 #### 通知管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/41.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/42.PNG" width="640" height="360"/>
 
 #### 个人中心
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/43.PNG" width="640" height="360"/>
 
 ### Angular后台管理系统--场馆管理员篇
 #### 登录注册
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/44.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/45.PNG" width="640" height="360"/>
+
 #### 订单管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/46.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/47.PNG" width="640" height="360"/>
+
 #### 会员卡管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/48.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/49.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/50.PNG" width="640" height="360"/>
+
 #### 课程管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/51.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/52.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/53.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/54.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/55.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/56.PNG" width="640" height="360"/>
+
 #### 评论管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/57.PNG" width="640" height="360"/>
+
 #### 标签管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/58.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/59.PNG" width="640" height="360"/>
+
 #### 通知管理
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/60.PNG" width="640" height="360"/>
+
 #### 数据分析
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/61.PNG" width="640" height="360"/>
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/62.PNG" width="640" height="360"/>
+
 #### 个人中心
+<img src="https://github.com/renyajie/final_desi/blob/master/raw/63.PNG" width="640" height="360"/>
