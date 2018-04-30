@@ -62,7 +62,7 @@ export class NewsService {
         .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
         .set('title', title ? title : '')
-        .set('managerId', this.personInfoService.isSysManager ? null : this.personInfoService.id + '')
+        .set('placeId', this.personInfoService.isSysManager ? '' : this.personInfoService.manager.pId + '')
         .set('before', before)
         .set('after', after);
     }
@@ -70,7 +70,7 @@ export class NewsService {
       params = new HttpParams()
         .set('isPage', 1 + '')
         .set('pn', pn ? pn : '')
-        .set('managerId', this.personInfoService.isSysManager ? '' : this.personInfoService.id + '')
+        .set('placeId', this.personInfoService.isSysManager ? '' : this.personInfoService.manager.pId + '')
         .set('title', title ? title : '');
     }
       if (before === null && after != null) {
@@ -78,7 +78,7 @@ export class NewsService {
           .set('isPage', 1 + '')
           .set('pn', pn ? pn : '')
           .set('title', title ? title : '')
-          .set('managerId', this.personInfoService.isSysManager ? '' : this.personInfoService.id + '')
+          .set('placeId', this.personInfoService.isSysManager ? '' : this.personInfoService.manager.pId + '')
           .set('after', after);
       }
       if (before != null && after === null) {
@@ -86,7 +86,7 @@ export class NewsService {
           .set('isPage', 1 + '')
           .set('pn', pn ? pn : '')
           .set('title', title ? title : '')
-          .set('managerId', this.personInfoService.isSysManager ? '' : this.personInfoService.id + '')
+          .set('placeId', this.personInfoService.isSysManager ? '' : this.personInfoService.manager.pId + '')
           .set('before', before);
       }
       const url = this.url + 'getNews';

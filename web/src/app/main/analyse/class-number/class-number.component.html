@@ -11,16 +11,16 @@
 
 <div class="graph-margin" *ngIf="show == true">
     <fusioncharts class = "go-center" *ngIf="showColumn == true"
-        width="1000"
-        height="400" 
+        width="1200"
+        height="500" 
         type="column2d"
         dataFormat="json" 
         [dataSource]=dataSourceForColumn>
     </fusioncharts>
 
     <fusioncharts class = "go-center" *ngIf="showColumn == false"
-        width="600" 
-        height="400"
+        width="800" 
+        height="500"
         type="pie3d"
         [dataSource]=dataSourceForPie>
     </fusioncharts>

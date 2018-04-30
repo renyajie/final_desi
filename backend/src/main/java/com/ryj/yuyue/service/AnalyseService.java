@@ -132,43 +132,34 @@ public class AnalyseService {
 		List<ClassKindResult> classKinds = 
 				classKindMapper.getClassKind(placeId, null, null, null, null, null); 
 		
+		//确认开始时间
 		Date before = new Date();
-		Date after = new Date();
-		
 		Calendar calendar = Calendar.getInstance();
+		calendar.add(Calendar.DAY_OF_MONTH, -1 * timeLength);
+		before = calendar.getTime();
+		before.setHours(0);
+		before.setMinutes(0);
+		before.setSeconds(0);
+		
+		//确认结束时间
+		Date after = new Date();
+		after.setHours(23);
+		after.setMinutes(59);
+		after.setSeconds(59);
 		
 		int classOrderNumber = 0;
 		
 		//得到某个场馆的n门课，循环n次
 		for(ClassKindResult classKind: classKinds) {
 			
-			classOrderNumber = 0;
-			
-			//根据得到的课，去查找每天的预约量，循环timeLength次
-			for(int i = 0; i < timeLength; i++) {
-				//历遍每一天的预约数量
-				if(i != 0) {
-					calendar.add(Calendar.DAY_OF_MONTH, -1);
-				}
-				before = calendar.getTime();
-				after = calendar.getTime();
-				
-				before.setHours(0);
-				before.setMinutes(0);
-				before.setSeconds(0);
-				
-				after.setHours(23);
-				after.setMinutes(59);
-				after.setSeconds(59);
-				
-				classOrderNumber = classOrderNumber + 
-						classOrderMapper.getOrderNumberByClass(
-								classKind.getId(), before, after);
-			}
+			classOrderNumber = classOrderMapper.getOrderNumberByClass(
+							classKind.getId(), before, after);
 			
 			result.add(new SimpleToken(
 							classKind.getClaKName(), classOrderNumber + ""));
 		}
+		
+		logger.info("timelength is " + timeLength);
 		
 		return result;
 	}
