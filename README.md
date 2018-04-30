@@ -48,7 +48,6 @@
 <div>
   <img src="https://github.com/renyajie/final_desi/blob/master/raw/1.png" width="270" height="480"/>
   <img src="https://github.com/renyajie/final_desi/blob/master/raw/2.png" width="270" height="480"/>
-  <img src="https://github.com/renyajie/final_desi/blob/master/raw/3.png" width="270" height="480"/>
 </div>
 
 #### 注册和收集健康体征信息
