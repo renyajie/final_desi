@@ -149,7 +149,8 @@ class recommender:
             return 0
         
         # 皮尔逊相关系数计算公式 
-        denominator = sqrt(sum_x2 - pow(sum_x, 2) / n)  * sqrt(sum_y2 - pow(sum_y, 2) / n)
+        denominator = sqrt(sum_x2 - pow(sum_x, 2) / n) \
+            * sqrt(sum_y2 - pow(sum_y, 2) / n)
         if denominator == 0:
             return 0
         else:
@@ -196,7 +197,8 @@ class recommender:
         if totalDistance == 0.0:
             totalDistance = 1.0
             
-        #将与user最相近的k个人中user没有上过的课推荐给user，并且这里又做了一个分数的计算排名
+        #将与user最相近的k个人中user没有上过的课推荐给user，
+        #并且这里又做了一个分数的计算排名
         for i in range(self.k):
             
             #第i个人的与user的相似度，转换到[0, 1]之间，表示权重
@@ -204,7 +206,6 @@ class recommender:
             
             #第i个邻居用户
             userI = nearest[i][0]
-
             #第i个用户上的课和评分
             neighborRatings = self.data[userI]
 
@@ -213,9 +214,11 @@ class recommender:
                 if not classKind in userRatings:
                     # 如果当前课程不在推荐列表中加入，有则累加
                     if classKind not in recommendations:
-                        recommendations[classKind] = neighborRatings[classKind][2] * weight
+                        recommendations[classKind] = \
+                        neighborRatings[classKind][2] * weight
                     else:
-                        recommendations[classKind] = recommendations[classKind] + neighborRatings[classKind][2] * weight
+                        recommendations[classKind] = recommendations[classKind] \ 
+                        + neighborRatings[classKind][2] * weight
         
         # 把map中的数据对转化为list，将(课程种类编号, 分数)转化为(课程名, 分数)数据对
         recommendations = list(recommendations.items())

@@ -1,5 +1,6 @@
 package com.ryj.yuyue.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -93,14 +94,20 @@ public class RecommandController {
 			@RequestParam(value = "placeId", required = false) Integer placeId,
 			@RequestParam(value = "isPage", required = true) Integer isPage) {
 		
-		PageHelper.startPage(pn, 5);
-		List<ScoreResult> result = scoreService.getScore(classKId, userId, placeId);
+		
+		List<ScoreResult> result = new ArrayList<ScoreResult>();
 		
 		//判断是否需要分页
 		if(isPage == 1) {
+			PageHelper.startPage(pn, 5);
+			result = scoreService.getScore(classKId, userId, placeId);
 			PageInfo page = new PageInfo(result, ConstantLiteral.PAGE_SIZE);
 			return Messenger.success().add("pageInfo", page);
 		}
+		else {
+			result = scoreService.getScore(classKId, userId, placeId);
+		}
+		
 		return Messenger.success().add("info", result);
 	}
 	

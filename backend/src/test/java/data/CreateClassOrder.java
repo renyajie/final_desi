@@ -50,6 +50,8 @@ public class CreateClassOrder {
 	Calendar calendar = new GregorianCalendar();
 	Random rand = new Random();
 	
+	int[] timeDistance = {-1, -2, -3};
+	
 	/**
 	 * 判断某用户是否拥有，某种会员卡，有则返回对应的会员卡编号，没有则购买该种会员卡，并返回编号
 	 * @param userId 用户编号
@@ -95,7 +97,7 @@ public class CreateClassOrder {
 	}
 	
 	/**
-	 * 返回某门课程的预约时间为上课时间的前一天，小时[7-17]，分钟和秒使用随机数生成
+	 * 返回某门课程的预约时间为上课时间的前[1-3]天，小时[7-17]，分钟和秒使用随机数生成
 	 * @param classId 课程编号
 	 * @return
 	 */
@@ -104,7 +106,7 @@ public class CreateClassOrder {
 		ClassInfo classInfo = classInfoMapper.selectByPrimaryKey(classId);
 		Date cDay = classInfo.getcDay();
 		calendar.setTime(cDay);
-	    calendar.add(calendar.DATE, -1);
+	    calendar.add(calendar.DATE, timeDistance[rand.nextInt(3)]);
 	    Date date = calendar.getTime();
 	    date.setHours(rand.nextInt(11) + 7);
 	    date.setMinutes(rand.nextInt(60));
@@ -172,7 +174,7 @@ public class CreateClassOrder {
 					cardId = getCardInfoId(i + 1, placeId, orderTime);
 					
 					classOrder = new ClassOrder();
-					classOrder.setIsScore(0);
+					classOrder.setIsScore(1);
 					classOrder.setuId(i + 1);
 					classOrder.setOrdTime(orderTime);
 					classOrder.setNum(1);

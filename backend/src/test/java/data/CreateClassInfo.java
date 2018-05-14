@@ -33,7 +33,7 @@ public class CreateClassInfo {
 	Random rand = new Random();
 	
 	/**
-	 * 最后修改日期：2018-4-24，生成4-16至5-15的日期
+	 * 最后修改日期：2018-5-9，生成4-21至5-21的日期
 	 * 获取上课日期
 	 * @return
 	 */
@@ -41,12 +41,12 @@ public class CreateClassInfo {
 	@SuppressWarnings("static-access")
 	public Date getCDay() {
 		calendar.setTime(date);
-	    calendar.add(calendar.DATE, rand.nextInt(30) - 8);
+	    calendar.add(calendar.DATE, rand.nextInt(31) - 19);
 	    return calendar.getTime();
 	}
 	
 	/**
-	 * 获取上课开始时间
+	 * 获取上课开始时间 7-16
 	 * @param cDay
 	 * @return
 	 */
@@ -54,6 +54,8 @@ public class CreateClassInfo {
 	public Date getStartTime(Date cDay) {
 		Date date = new Date();
 		date.setDate(cDay.getDate());;
+		date.setMonth(cDay.getMonth());
+		date.setYear(cDay.getYear());
 		date.setHours(rand.nextInt(10) + 7);
 		date.setMinutes(0);
 		date.setSeconds(0);
@@ -61,7 +63,7 @@ public class CreateClassInfo {
 	}
 	
 	/**
-	 * 获取上课结束时间
+	 * 获取上课结束时间，上课时间开始+1
 	 * @param startTime
 	 * @return
 	 */
@@ -69,6 +71,8 @@ public class CreateClassInfo {
 	public Date getEndTime(Date cDay, int hour) {
 		Date date = new Date();
 		date.setDate(cDay.getDate());
+		date.setMonth(cDay.getMonth());
+		date.setYear(cDay.getYear());
 		date.setHours(hour + 1);
 		date.setMinutes(0);
 		date.setSeconds(0);
@@ -83,7 +87,7 @@ public class CreateClassInfo {
 	 * 1-20 场馆
 	 * 1-300 老师
 	 * 1-400 团课 401-800 私教
-	 * 上课时间 4月15-5月1
+	 * 上课时间 4月21-5月21日
 	 * 开始时间 7：00-16：00
 	 * 结束时间：开始时间+1
 	 * 课程容量：20

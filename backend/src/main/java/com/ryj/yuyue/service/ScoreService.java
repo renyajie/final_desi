@@ -15,6 +15,7 @@ import com.ryj.yuyue.bean.ScoreResult;
 import com.ryj.yuyue.dao.ClassInfoMapper;
 import com.ryj.yuyue.dao.ScoreMapper;
 import com.ryj.yuyue.utils.ConstantLiteral;
+import com.ryj.yuyue.utils.DateMethod;
 
 /**
  * 和用户评分相关的功能
@@ -71,7 +72,8 @@ public class ScoreService {
 	 */
 	public List<ScoreResult> getScore(
 			Integer classKId, Integer userId, Integer placeId) {
-		return scoreMapper.getScore(classKId, userId, placeId);
+		return DateMethod.fixScoreResultTime(
+				scoreMapper.getScore(classKId, userId, placeId));
 	}
 
 	/**

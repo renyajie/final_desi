@@ -46,6 +46,10 @@ public class AnalyseService {
 		//查询出11个小时段之间人数总和
 		int[] hourNumbers = new int[11];
 		
+		for(int i = 0; i < 11; i++) {
+			hourNumbers[i] = 0;
+		}
+		
 		Date before = new Date();
 		Date after = new Date();
 		
@@ -76,6 +80,11 @@ public class AnalyseService {
 				"11:00-12:00","12:00-13:00","13:00-14:00","14:00-15:00",
 				"15:00-16:00","16:00-17:00","17:00-18:00"
 		};
+		
+		for(int i = 0; i < 11; i++) {
+			logger.info("hourNumbers " + i + " is " + hourNumbers[i]);
+		}
+		
 		
 		List<SimpleToken> result = new ArrayList<SimpleToken>();
 		for(int i = 0; i < 11; i++) {

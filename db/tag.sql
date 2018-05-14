@@ -2,6 +2,7 @@
 use yuyue;
 
 select * from class_tag;
+select * from user_feature;
 -- 获取某些课程标签
 -- getClassTag(placeId, classKId)
 -- 入参: p_id, class_k_id

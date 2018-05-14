@@ -92,7 +92,7 @@ public class RecommandService {
 			if(userSize == 0) {
 				idList = getStaticRecommand(
 						userId, isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
-				logger.info(isPeople + ":   用户没有评论，而是第一个用户，使用专业知识进行推荐");
+				logger.info(isPeople == 1 ? "团课推荐":"私教推荐" + ":   用户没有评论，而是第一个用户，使用专业知识进行推荐");
 			}
 			//若不是第一个用户，则统计和用户人口特征相似的用户热门课程推荐
 			else {
@@ -105,7 +105,7 @@ public class RecommandService {
 				for(int i = 0; i < RECOMMEND_SIZE; i++) {
 					idList.add(hotList.get(i).getClassKindId());
 				}
-				logger.info(isPeople + ":   用户没有评论，而不是第一个用户，使用统计相似用户热门课程推荐");
+				logger.info(isPeople == 1 ? "团课推荐":"私教推荐" + ":   用户没有评论，而不是第一个用户，使用统计相似用户热门课程推荐");
 			}
 			
 		}
@@ -116,14 +116,14 @@ public class RecommandService {
 			if(userSize == 0) {
 				idList = getStaticRecommand(
 						userId, isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
-				logger.info(isPeople + ":   用户有评论，是第一个用户，专业知识推荐");
+				logger.info(isPeople == 1 ? "团课推荐":"私教推荐" + ":   用户有评论，是第一个用户，专业知识推荐");
 			}
 			else {
 				//若其他用户没有评论信息，根据专业知识进行静态推荐
 				if(otherScoreSize == 0) {
 					idList = getStaticRecommand(
 						userId, isPeople, RECOMMEND_SIZE, new ArrayList<Integer>());
-					logger.info(isPeople + ":   用户有评论，其他用户没评论，专业知识推荐");
+					logger.info(isPeople == 1 ? "团课推荐":"私教推荐" + ":   用户有评论，其他用户没评论，专业知识推荐");
 				}
 				//若其他用户有评论
 				else {
@@ -144,7 +144,7 @@ public class RecommandService {
 					else {
 						idList = temp;
 					}
-					logger.info(isPeople + ":   用户有评论，其他用户有评论，使用python推荐算法进行推荐");
+					logger.info(isPeople == 1 ? "团课推荐":"私教推荐" + ":   用户有评论，其他用户有评论，使用python推荐算法进行推荐");
 				}
 			}
 			

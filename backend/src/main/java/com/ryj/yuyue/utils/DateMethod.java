@@ -7,6 +7,7 @@ import java.util.Date;
 import java.util.List;
 
 import com.ryj.yuyue.bean.ClassInfoResult;
+import com.ryj.yuyue.bean.ScoreResult;
 
 /**
  * 有关日期的快捷方法
@@ -45,5 +46,29 @@ public class DateMethod {
 		}
 		
 		return classInfoList;
+	}
+	
+	/**
+	 * 修正评论和下单时间，加上8小时
+	 * @param classInfoList
+	 * @return
+	 */
+	@SuppressWarnings("deprecation")
+	public static List<ScoreResult> fixScoreResultTime(
+			List<ScoreResult> scoreList) {
+		
+		Date scoreTime, orderTime;
+		for(ScoreResult scoreResult: scoreList) {
+			scoreTime = scoreResult.getScoreTime();
+			orderTime = scoreResult.getOrderTime();
+			
+			scoreTime.setHours(scoreTime.getHours() + 8);
+			orderTime.setHours(orderTime.getHours() + 8);
+			
+			scoreResult.setScoreTime(scoreTime);
+			scoreResult.setOrderTime(orderTime);
+		}
+		
+		return scoreList;
 	}
 }

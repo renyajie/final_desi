@@ -36,7 +36,7 @@
       <tr *ngFor="let manager of managers$ | async">
           <td class="idColumn">{{manager.id}}</td>
           <td class="nameColumn">{{manager.mName}}</td>
-          <td class="genderColumn">{{manager.gender == 'f' ? '女' : '男'}}</td>
+          <td class="genderColumn">{{manager.gender == '女' ? '女' : '男'}}</td>
           <td class="phoneColumn">{{manager.phone}}</td>
           <td class="phoneColumn">{{manager.account}}</td>
           <td class="passwdColumn">{{manager.passwd}}</td>
